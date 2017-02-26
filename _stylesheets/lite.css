@@ -1,0 +1,84 @@
+BODY {
+  font-size: 11pt;
+  color: white;
+  background-color: #4A525A;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;}
+
+a:link {color: #CCC;}
+a:visited {color: #00bbbb;}
+a:active {color: lime;}
+
+a:link.external {color: #77216F; text-decoration: none;}
+a:visited.external {color: #5E2750; text-decoration: none;}
+a:active.external {color: lime; text-decoration: none;}
+
+H1 {color: #dd4814;}
+H2 {color: #dd4814;}
+H3 {color: #dd4814;}
+
+P {max-width: 100ex;}
+
+div {
+	font-size: 11px;
+	line-height: 1.8em;
+}
+
+LI {margin: 16px 0px 16px 0px; max-width: 90ex;}
+
+PRE {color: #202080;}
+
+EM {color: #602020;}
+STRONG {color: #602020;}
+DFN {color: #602020;}
+VAR {color: #602020;}
+
+SAMP {color: #202080}
+TT {color: #202080;}
+CODE {font-size: 14px; color: #AAA; white-space: pre;}
+
+rw {font-style: italic; color: #602020;}
+eqn {font-style: italic; color: 202080;}
+
+DIV.equation {font-style: italic; color: #202080; margin: 16px 0px 16px 0px;}
+DIV.equation EM {color: red;}
+
+SPAN.equation {font-style: italic; color: #202080;}
+SPAN.equation EM {color: red;}
+
+SPAN.program {font-family: monospace;}
+SPAN.rw {font-family: monospace; font-style: italic;}
+
+lambda {
+    font-family: "Courier New";
+    color: #dd4814;
+    font-weight:bold;
+}
+
+biglambda {
+    font-family: "Courier New";
+    font-size:80px;
+    color: #dd4814;
+    font-weight:bold;
+}
+
+footer {
+	font-size:8px;
+	font-style:italic;
+	color:#CCC;
+}
+
+sidebar {
+	font-family: "Gill Sans MT","Gill Sans","Gill Sans Std",Verdana,"Bitstream Vera Sans",sans-serif;
+	letter-spacing: 2px;
+	font-size:11px;
+}
+
+HTML {
+	font-family: Verdana, "Bitstream Vera Sans", sans-serif;
+}
+
+#pdfdisplay {
+	height: 70vh;
+}
