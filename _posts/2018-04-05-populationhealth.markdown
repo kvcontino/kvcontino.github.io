@@ -1,5 +1,5 @@
 ---
-title:  "What Populatoin Health Is"
+title:  "What Population Health Is"
 date:   2018-04-05 14:50:00 -0500
 layout: default
 categories: health
