@@ -13,12 +13,12 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: λ Lovers
-email: ncontino [at] u.rochester.edu
+title: Topogenesis
+email: kvcontino [at] gmail
 description: > # greater_than means to ignore newlines until "baseurl:"
-  Nathan Contino's personal website and collection of embarassing andecdotes.
+  Kevin Contino's personal webzone. No trolls allowed!
 baseurl: /
-url: "http://nathan-contino.github.io"
+url: "http://kvcontino.github.io"
 
 # timezone shenanigans
 future: true
