@@ -7,16 +7,16 @@ BODY {
   padding-bottom: 2%;}
 
 a:link {color: #CCC;}
-a:visited {color: #f37320;}
-a:active {color: #f37320;}
+a:visited {color: #cd9575;}
+a:active {color: #cd9575;}
 
 a:link.external {color: #77216F; text-decoration: none;}
-a:visited.external {color: #f37320; text-decoration: none;}
-a:active.external {color: #f37320; text-decoration: none;}
+a:visited.external {color: #cd9575; text-decoration: none;}
+a:active.external {color: #cd9575; text-decoration: none;}
 
-H1 {color: #e30022;}
-H2 {color: #e30022;}
-H3 {color: #e30022;}
+H1 {color: #cd9575;}
+H2 {color: #cd9575;}
+H3 {color: #cd9575;}
 
 P {max-width: 100ex;}
 
@@ -52,13 +52,13 @@ SPAN.rw {font-family: monospace; font-style: italic;}
 
 lambda {
     font-family: "FreeMono", "Courier New", monospace;
-    color: #d24d15;
+    color: #cd9575;
 }
 
 biglambda {
     font-family: "FreeMono", "Courier New", monospace;
     font-size:80px;
-    color: #d24d15;
+    color: #cd9575;
 }
 
 hr {
@@ -69,7 +69,7 @@ hr {
 
 h1 {
     font-family: "FreeMono", "Courier New", monospace;
-    color: #d24d15
+    color: #cd9575
 }
 
 footer {
