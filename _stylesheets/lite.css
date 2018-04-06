@@ -1,10 +1,10 @@
 BODY {
   font-size: 11pt;
   color: white;
-  background-color: #4A525A;
+  background-color: #1e4d2b;
   padding-left: 5%;
   padding-right: 5%;
-  padding-bottom: 5%;}
+  padding-bottom: 2%;}
 
 a:link {color: #CCC;}
 a:visited {color: #f37320;}
@@ -21,8 +21,8 @@ H3 {color: #e30022;}
 P {max-width: 100ex;}
 
 div {
-	font-size: 11px;
-	line-height: 1.8em;
+	font-size: 10px;
+	line-height: 1.4em;
 }
 
 LI {margin: 16px 0px 16px 0px; max-width: 90ex;}
