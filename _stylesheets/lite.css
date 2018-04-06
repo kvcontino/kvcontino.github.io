@@ -57,7 +57,7 @@ lambda {
 
 biglambda {
     font-family: "Times New Roman", Times, serif;
-    font-size:80px;
+    font-size:36px;
     color: #cd9575;
 }
 
@@ -73,7 +73,7 @@ h1 {
 }
 
 footer {
-	font-size:8px;
+	font-size:12px;
 	font-style:italic;
 	color:#CCC;
 }
@@ -81,7 +81,7 @@ footer {
 sidebar {
 	font-family: "Times New Roman", Times, serif;
 	letter-spacing: 2px;
-	font-size:11px;
+	font-size:20px;
 }
 
 HTML {
