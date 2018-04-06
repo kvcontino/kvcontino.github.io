@@ -23,12 +23,11 @@ Medical care was far from irrelevant, but much of its importance as a driver of 
 
 Nutrition is only one of the non-medical influences on health. Others include the physical environment, social connectedness, and cultural practices. These factors shape human health through the foods that we choose to eat (and how we choose to eat them), the kinds of physical activity that are in our routine, the risky activities in which we indulge, and the relationships on which we build our lives.
 
-<br><br><hr><br><br>
+***
 
 If you live in a rich, industrialized country and want to be a healthy person, here a few guidelines:
 
-<i><br>
-<br><tab>1. Eat less food than most of the people around you do.
+<i><br><tab>1. Eat less food than most of the people around you do.
 <br><tab>2. Don't smoke. Don't drink alcohol heavily or in binges.
 <br><tab>3. Have active but low-risk hobbies.
 <br><tab>4. Avoid drugs, including the legal ones.
@@ -36,12 +35,11 @@ If you live in a rich, industrialized country and want to be a healthy person, h
 <br><tab>6. Have a clear sense of purpose.
 <br><tab>7. Have a place in some kind of community.
 <br><tab>8. Build close, supportive relationships.
-<br><tab>9. Watch as little television as possible. (Apply this rule to all passive forms of electronic media.)
-</i><br><br>
+<br><tab>9. Watch as little television as possible. (Apply this rule to all passive forms of electronic media.)</i>
 
 Most of us cannot make these adjustments easily. The conditions and behaviors that enable good health are cumulative and interrelated. They assume a great deal about a person’s resources and capabilities. How many of us choose the community into which we are born? How much do we deliberate over our habits and the values?
 
-<br><br><hr><br><br>
+***
 
 Non-medical influences on health are least effective at improving health outcomes when addressed piecemeal. Interventions need to be complete to have sustained and positive effects. For example, cheap and healthful foods are unlikely to help someone who does not know how to prepare them or who lacks access to a kitchen, to say nothing of someone who does not really believe that improving their eating habits is worthwhile in the first place.
 
@@ -53,7 +51,7 @@ One source of encouragement: These values and practices have been with us for a 
 
 But, to varying degrees, we have lost our grip on these traditions, or we fail to take them seriously, or we fail to understand them. Many are de-contextualized from our day-to-day existence that they might seem irrelevant or impractical in guiding us toward a better life in our urbanized, industrialized, and commodified society where mass media are the dominant authority and consumerism is the leading source of shared values.
 
-<br><br><hr><br><br>
+***
 
 Another lesson is the limits of clinical medicine. All of us are better off with access to health care, but we should understand the limits of what it can achieve and what we ought to ask of it.
 
