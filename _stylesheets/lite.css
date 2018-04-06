@@ -23,6 +23,7 @@ P {max-width: 85ex;}
 div {
 	font-size: 18px;
 	line-height: 1.4em;
+	text-align: justify;
 }
 
 LI {margin: 16px 0px 16px 0px; max-width: 85ex;}
