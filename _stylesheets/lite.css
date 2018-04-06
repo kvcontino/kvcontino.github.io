@@ -51,12 +51,12 @@ SPAN.program {font-family: monospace;}
 SPAN.rw {font-family: monospace; font-style: italic;}
 
 lambda {
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
     color: #cd9575;
 }
 
 biglambda {
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size:36px;
     color: #cd9575;
 }
@@ -68,7 +68,7 @@ hr {
 }
 
 h1 {
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
     color: #cd9575
 }
 
@@ -79,13 +79,13 @@ footer {
 }
 
 sidebar {
-	font-family: "Times New Roman", Times, serif;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	letter-spacing: 2px;
 	font-size:20px;
 }
 
 HTML {
-	font-family: "Times New Roman", Times, serif;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 #pdfdisplay {
