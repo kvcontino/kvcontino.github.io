@@ -1,5 +1,5 @@
 BODY {
-  font-size: 60pt;
+  font-size: 16pt;
   color: white;
   background-color: black;
   padding-left: 5%;
@@ -21,7 +21,7 @@ H3 {color: #cd9575;}
 P {max-width: 100ex;}
 
 div {
-	font-size: 10px;
+	font-size: 24px;
 	line-height: 1.4em;
 }
 
