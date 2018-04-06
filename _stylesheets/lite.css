@@ -61,6 +61,12 @@ biglambda {
     color: #d24d15;
 }
 
+hr {
+  border: 0;
+  border-top: 1px solid #8c8c8c;
+  border-bottom: 1px solid #fff;
+}
+
 h1 {
     font-family: "FreeMono", "Courier New", monospace;
     color: #d24d15
