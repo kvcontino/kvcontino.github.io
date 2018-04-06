@@ -18,14 +18,14 @@ H1 {color: #cd9575;}
 H2 {color: #cd9575;}
 H3 {color: #cd9575;}
 
-P {max-width: 100ex;}
+P {max-width: 85ex;}
 
 div {
 	font-size: 18px;
 	line-height: 1.4em;
 }
 
-LI {margin: 16px 0px 16px 0px; max-width: 90ex;}
+LI {margin: 16px 0px 16px 0px; max-width: 85ex;}
 
 PRE {color: #202080;}
 
