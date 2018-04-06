@@ -1,5 +1,5 @@
 BODY {
-  font-size: 11pt;
+  font-size: 12pt;
   color: white;
   background-color: #1e4d2b;
   padding-left: 5%;
@@ -51,12 +51,12 @@ SPAN.program {font-family: monospace;}
 SPAN.rw {font-family: monospace; font-style: italic;}
 
 lambda {
-    font-family: "FreeMono", "Courier New", monospace;
+    font-family: "Times New Roman", Times, serif;
     color: #cd9575;
 }
 
 biglambda {
-    font-family: "FreeMono", "Courier New", monospace;
+    font-family: "Times New Roman", Times, serif;
     font-size:80px;
     color: #cd9575;
 }
@@ -68,7 +68,7 @@ hr {
 }
 
 h1 {
-    font-family: "FreeMono", "Courier New", monospace;
+    font-family: "Times New Roman", Times, serif;
     color: #cd9575
 }
 
@@ -79,13 +79,13 @@ footer {
 }
 
 sidebar {
-	font-family: "Gill Sans MT","Gill Sans","Gill Sans Std",Verdana,"Bitstream Vera Sans",sans-serif;
+	font-family: "Times New Roman", Times, serif;
 	letter-spacing: 2px;
 	font-size:11px;
 }
 
 HTML {
-	font-family: Verdana, "Bitstream Vera Sans", sans-serif;
+	font-family: "Times New Roman", Times, serif;
 }
 
 #pdfdisplay {
