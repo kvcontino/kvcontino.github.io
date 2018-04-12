@@ -9,7 +9,7 @@ This post describes the early nineteenth century settlement of Northern New York
 
 ...
 
- <img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/frenchsettlementnny.jpg" />
+ <img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/frenchsettlementnny.png" />
 
 <b>Setting the Stage: Macomb's Purchase</b>
 
@@ -148,19 +148,21 @@ For much of the early nineteenth century, Northern New York remained an isolated
 ...
 
 <b>Further Reading</b>
--Beers, S.N & D.G. (1864). New topographical atlas of Jefferson Co., New York. Philadelphia, PA: C.K. Stone.
--Burr, D.H. (1829). A map of the County of Jefferson. Ithaca, NY: Office of the Surveyor General.
--Child, H. (1890). Geographical gazetteer of Jefferson County, New York. Syracuse, NY: The Syracuse Journal Company. Retrieved from http://freepages.genealogy.rootsweb.ancestry.com/~twigs2000/indexchilds.html
--Clarke, T.W. (1941). Emigrés in the Wilderness.Clarke, New York, NY: The Macmillan Company.
--DeWitt, S. (1802). A map of the state of New York. Retrieved from http://www.stonybrook.edu/libmap/img0017b.jpg
--Ellis, D.M., Frost, J.A., Syrett, H.C. & Carman, H.J. (1957). A short history of New York State. Ithaca, NY: Cornell University Press.
--Emerson, E.C. (1898). Our county and its people: A descriptive work on Jefferson County, New York. Boston, MA: The Boston History Company. 
--Gavit, J. (1850). A map of  a tract of land in the State of New York called Macomb’s Purchase. Albany, NY: Weed, Parsons and Company.
--Hawkins, G. (1968). The historical Le Ray mansion. Author.
--Hough, F.B. (1854). A history of Jefferson County in the State of New York from the earliest period to the present time. Watertown, NY: Sterling & Riddell.
--Landon, H.F. (1932). The North Country: A history, embracing Jefferson, St. Lawrence, Oswego, Lewis, and Franklin counties, New York. Indianapolis, IN: Historical Publishing Company.
--New York State Association of Counties. (1982). New York State Counties: Their Beginnings. Author.
--Schaeper, T.J. (1995). France and America in the revolutionary era: The life of Jacques-Donatien Leray de Chaumont. Providence, RI: Bergahn Books.
--Wagner, H. (2003). The LeRay mansion: Home of James LeRay de Chaumont, the ‘father of the North Country.’ Retrieved from http://www.drummwr.com/Information/Fort_Drum_LeRay_Mansion.pdf
--Wyckoff, W. (1988). The developer’s frontier: The making of the Western New York landscape. New Haven, CT: Yale University Press.
--Le Ray de Chaumont, V. (1825). Plan of the Village of Cornelia at the mouth of French Creek in the County of Jefferson, State of New York [map]. (ca. 1:3200). Print.
+<ol>
+<li>-Beers, S.N & D.G. (1864). New topographical atlas of Jefferson Co., New York. Philadelphia, PA: C.K. Stone.
+</li><li>-Burr, D.H. (1829). A map of the County of Jefferson. Ithaca, NY: Office of the Surveyor General.
+</li><li>-Child, H. (1890). Geographical gazetteer of Jefferson County, New York. Syracuse, NY: The Syracuse Journal Company. Retrieved from http://freepages.genealogy.rootsweb.ancestry.com/~twigs2000/indexchilds.html
+</li><li>-Clarke, T.W. (1941). Emigrés in the Wilderness.Clarke, New York, NY: The Macmillan Company.
+</li><li>-DeWitt, S. (1802). A map of the state of New York. Retrieved from http://www.stonybrook.edu/libmap/img0017b.jpg
+</li><li>-Ellis, D.M., Frost, J.A., Syrett, H.C. & Carman, H.J. (1957). A short history of New York State. Ithaca, NY: Cornell University Press.
+</li><li>-Emerson, E.C. (1898). Our county and its people: A descriptive work on Jefferson County, New York. Boston, MA: The Boston History Company. 
+</li><li>-Gavit, J. (1850). A map of  a tract of land in the State of New York called Macomb’s Purchase. Albany, NY: Weed, Parsons and Company.
+</li><li>-Hawkins, G. (1968). The historical Le Ray mansion. Author.
+</li><li>-Hough, F.B. (1854). A history of Jefferson County in the State of New York from the earliest period to the present time. Watertown, NY: Sterling & Riddell.
+</li><li>-Landon, H.F. (1932). The North Country: A history, embracing Jefferson, St. Lawrence, Oswego, Lewis, and Franklin counties, New York. Indianapolis, IN: Historical Publishing Company.
+</li><li>-New York State Association of Counties. (1982). New York State Counties: Their Beginnings. Author.
+</li><li>-Schaeper, T.J. (1995). France and America in the revolutionary era: The life of Jacques-Donatien Leray de Chaumont. Providence, RI: Bergahn Books.
+</li><li>-Wagner, H. (2003). The LeRay mansion: Home of James LeRay de Chaumont, the ‘father of the North Country.’ Retrieved from http://www.drummwr.com/Information/Fort_Drum_LeRay_Mansion.pdf
+</li><li>-Wyckoff, W. (1988). The developer’s frontier: The making of the Western New York landscape. New Haven, CT: Yale University Press.
+</li><li>-Le Ray de Chaumont, V. (1825). Plan of the Village of Cornelia at the mouth of French Creek in the County of Jefferson, State of New York [map]. (ca. 1:3200). Print.
+</li> </ol>
