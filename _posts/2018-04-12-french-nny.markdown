@@ -9,7 +9,7 @@ This post describes the early nineteenth century settlement of Northern New York
 
 ...
 
- <img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/frenchsettlementnny.png" />
+<img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/macombspurchase.jpg" />
 
 <b>Setting the Stage: Macomb's Purchase</b>
 
@@ -49,7 +49,7 @@ Years later, when Constable was trying to find something to do with a few hundre
 
 ...
 
- <img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/macombspurchase.jpg" />
+<img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/frenchsettlementnny.png" />
 
 <b>Early Settlement: 1794 - 1805</b>
 
