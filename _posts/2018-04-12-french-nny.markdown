@@ -5,9 +5,11 @@ layout: default
 categories: cultural landscapes, demographics
 ---
 
-<i>This post describes the early-nineteenth century settlement of Northern New York by French immigrants. The region's history shows that French developers, particularly the Le Ray family, were highly important during its earliest Euro-American settlement. However, only a small proportion of those who actually settled the region were French. Early French settlers were quickly and heavily outnumbered by New Englanders. Consequently, the French legacy in Northern New York is limited and difficult to trace.</i>
+This post describes the early nineteenth century settlement of Northern New York by French immigrants. The region's history shows that French developers, particularly the Le Ray family, were important during its early Euro-American settlement. However, only a small proportion of those who actually settled the region were French, and those early French settlers were quickly and heavily outnumbered by New Englanders. Even so, the French legacy in Northern New York remains significant.
 
 ...
+
+ <img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/frenchsettlementnny.jpg" />
 
 <b>Setting the Stage: Macomb's Purchase</b>
 
@@ -46,6 +48,8 @@ During his time in the United States, James Le Ray became an American citizen an
 Years later, when Constable was trying to find something to do with a few hundred thousand acres of unsettled frontier wilderness in Upstate New York, he remembered James Le Ray’s aristocratic connections, financial desperation, and family ties to the United States. This was an obvious opportunity to make his lands profitable. The proposition caught Le Ray’s interest immediately.
 
 ...
+
+ <img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/macombspurchase.jpg" />
 
 <b>Early Settlement: 1794 - 1805</b>
 
