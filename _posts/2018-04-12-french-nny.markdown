@@ -17,11 +17,7 @@ A few ruined forts along the Saint Lawrence River were the only real trace of ea
 
 Almost a decade later, in 1791, the New York State Board of Land Commissioners auctioned off most of the region - 3.7 million acres - in six “Great Tracts." A New York City-based syndicate purchased all six of the Great Tracts at eight cents per acre. The leader of that syndicate was an Irish-born fur trader named Alexander Macomb.
 
-<img>http://www.ncnyhealthcompass.org/content/sites/fortdrum/Gallery_Images/2Windfarm_AVPhotography.jpg</img>
-
 Macomb’s Purchase included almost all of four present-day counties: Jefferson, Lewis, Saint Lawrence, and Franklin. The largest piece of land in the area excluded from the purchase, the Saint Lawrence Ten Towns, had been purchased by Macomb several years earlier.
-
-<img>http://www.ncnyhealthcompass.org/content/sites/fortdrum/Gallery_Images/2Windfarm_AVPhotography.jpg</img>
  
 Macomb may have made one of the largest private land purchases in the young history of the country, but he was not a developer: Instead, he hoped to make a fortune in land speculation. Macomb planned to divide his purchase into much smaller plots to be sold at a significant markup. 
 
@@ -87,6 +83,8 @@ Although the Erie Canal eventually funneled more settlers past the region, Le Ra
 
 In 1815, James Le Ray’s financial problems recurred, and he returned to France. He deeded his lands in Northern New York to his son, Vincent, who had just finished building a stone house in present-day Cape Vincent. Vincent's wife, Cornelia Juhel, was the daughter of an affluent New York City family. Her wealth protected Vincent from his family’s financial troubles, which left him free to continue investing in the development of his father’s former lands.
 
+...
+
 <b>A Second Wave of French Settlement (1820 - 1836)</b>
 
 James Le Ray's return to France helped to bring about a second round of French immigration after 1815, as Le Ray promoted his sons lands to prospective settlers.
@@ -146,3 +144,19 @@ For much of the early nineteenth century, Northern New York remained an isolated
 ...
 
 <b>Further Reading</b>
+-Beers, S.N & D.G. (1864). New topographical atlas of Jefferson Co., New York. Philadelphia, PA: C.K. Stone.
+-Burr, D.H. (1829). A map of the County of Jefferson. Ithaca, NY: Office of the Surveyor General.
+-Child, H. (1890). Geographical gazetteer of Jefferson County, New York. Syracuse, NY: The Syracuse Journal Company. Retrieved from http://freepages.genealogy.rootsweb.ancestry.com/~twigs2000/indexchilds.html
+-Clarke, T.W. (1941). Emigrés in the Wilderness.Clarke, New York, NY: The Macmillan Company.
+-DeWitt, S. (1802). A map of the state of New York. Retrieved from http://www.stonybrook.edu/libmap/img0017b.jpg
+-Ellis, D.M., Frost, J.A., Syrett, H.C. & Carman, H.J. (1957). A short history of New York State. Ithaca, NY: Cornell University Press.
+-Emerson, E.C. (1898). Our county and its people: A descriptive work on Jefferson County, New York. Boston, MA: The Boston History Company. 
+-Gavit, J. (1850). A map of  a tract of land in the State of New York called Macomb’s Purchase. Albany, NY: Weed, Parsons and Company.
+-Hawkins, G. (1968). The historical Le Ray mansion. Author.
+-Hough, F.B. (1854). A history of Jefferson County in the State of New York from the earliest period to the present time. Watertown, NY: Sterling & Riddell.
+-Landon, H.F. (1932). The North Country: A history, embracing Jefferson, St. Lawrence, Oswego, Lewis, and Franklin counties, New York. Indianapolis, IN: Historical Publishing Company.
+-New York State Association of Counties. (1982). New York State Counties: Their Beginnings. Author.
+-Schaeper, T.J. (1995). France and America in the revolutionary era: The life of Jacques-Donatien Leray de Chaumont. Providence, RI: Bergahn Books.
+-Wagner, H. (2003). The LeRay mansion: Home of James LeRay de Chaumont, the ‘father of the North Country.’ Retrieved from http://www.drummwr.com/Information/Fort_Drum_LeRay_Mansion.pdf
+-Wyckoff, W. (1988). The developer’s frontier: The making of the Western New York landscape. New Haven, CT: Yale University Press.
+-Le Ray de Chaumont, V. (1825). Plan of the Village of Cornelia at the mouth of French Creek in the County of Jefferson, State of New York [map]. (ca. 1:3200). Print.
