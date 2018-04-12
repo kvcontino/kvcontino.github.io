@@ -2,7 +2,7 @@
 title:  "French Settlement in Northern New York"
 date:   2018-04-12
 layout: default
-categories: cultural landscapes, demographics
+categories: cultural-landscapes
 ---
 
 This post describes the early nineteenth century settlement of Northern New York by French immigrants. The region's history shows that French developers, particularly the Le Ray family, were important during its early Euro-American settlement. However, only a small proportion of those who actually settled the region were French, and those early French settlers were quickly and heavily outnumbered by New Englanders. Even so, the French legacy in Northern New York remains significant.
