@@ -27,15 +27,15 @@ Nutrition is only one of the non-medical influences on health. Others include th
 
 If you live in a rich, industrialized country and want to be a healthy person, here a few guidelines:
 
-<i><br><tab>1. Eat less food than most of the people around you do.
-<br><tab>2. Don't smoke. Don't drink alcohol heavily or in binges.
-<br><tab>3. Have active but low-risk hobbies.
-<br><tab>4. Avoid drugs, including the legal ones.
-<br><tab>5. Walk frequently. Ideally as a matter of routine.
-<br><tab>6. Have a clear sense of purpose.
-<br><tab>7. Have a place in some kind of community.
-<br><tab>8. Build close, supportive relationships.
-<br><tab>9. Watch as little television as possible. (Apply this rule to all passive forms of electronic media.)</i>
+1. *Eat less food than most of the people around you do.*
+2. *Don't smoke. Don't drink alcohol heavily or in binges.*
+3. *Have active but low-risk hobbies.*
+4. *Avoid drugs, including the legal ones.*
+5. *Walk frequently. Ideally as a matter of routine.*
+6. *Have a clear sense of purpose.*
+7. *Have a place in some kind of community.*
+8. *Build close, supportive relationships.*
+9. *Watch as little television as possible. (Apply this rule to all passive forms of electronic media.)*
 
 Most of us cannot make these adjustments easily. The conditions and behaviors that enable good health are cumulative and interrelated. They assume a great deal about a person’s resources and capabilities. How many of us choose the community into which we are born? How much do we deliberate over our habits and the values?
 
