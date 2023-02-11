@@ -80,7 +80,6 @@
       <outline text="Hacker News Daily" title="Hacker News Daily" type="rss" xmlUrl="http://www.daemonology.net/hn-daily/index.rss" htmlUrl="http://www.daemonology.net/hn-daily/"/>
       <outline text="Isegoria" title="Isegoria" type="rss" xmlUrl="http://www.isegoria.net/feed/" htmlUrl="http://www.isegoria.net/"/>
       <outline text="Marginal REVOLUTION" title="Marginal REVOLUTION" type="rss" xmlUrl="http://www.marginalrevolution.com/marginalrevolution/index.rdf" htmlUrl="http://marginalrevolution.com/"/>
-      <outline text="New Right Poast" title="New Right Poast" type="rss" xmlUrl="https://newrightpoast.substack.com/feed" htmlUrl="https://newrightpoast.substack.com/"/>
       <outline text="Nonzero Newsletter" title="Nonzero Newsletter" type="rss" xmlUrl="https://nonzero.substack.com/feed" htmlUrl="https://nonzero.substack.com/"/>
       <outline text="ParentData" title="ParentData" type="rss" xmlUrl="http://www.parentdata.org/feed" htmlUrl="https://www.parentdata.org/"/>
       <outline text="The Antiplanner" title="The Antiplanner" type="rss" xmlUrl="http://ti.org/antiplanner/?feed=rss2" htmlUrl="http://ti.org/antiplanner"/>
@@ -149,7 +148,6 @@
       <outline text="The ACO Show" type="rss" xmlUrl="https://aledade.podbean.com/feed.xml" htmlUrl="https://aledade.podbean.com" imageUrl="https://deow9bq0xqvbj.cloudfront.net/image-logo/3569323/podcastlogo.jpg" />
       <outline text="The DMZ" type="rss" xmlUrl="https://feeds.buzzsprout.com/1984146.rss" htmlUrl="https://www.buzzsprout.com/1984146" imageUrl="https://storage.buzzsprout.com/variants/yypqioaghs6jz414n3kq5stdzt4u/6861a7550229613e3387373f20ad829ba4bc5767dd8eb92e70a0abe304d4e657.jpeg" />
       <outline text="The External Medicine Podcast" type="rss" xmlUrl="https://feeds.buzzsprout.com/1695103.rss" htmlUrl="https://www.externalmedicinepodcast.com" imageUrl="https://storage.buzzsprout.com/variants/zt267qqryol5rkd9jnkajxqvpfp7/5cfec01b44f3e29fae1fb88ade93fc4aecd05b192fbfbc2c2f1daa412b7c1921.jpg" />
-      <outline text="The Good Ol Boyz Podcast" type="rss" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:669965801/sounds.rss" htmlUrl="https://soundcloud.com/good_ol_boyz" imageUrl="https://i1.sndcdn.com/avatars-000660787892-rpn92k-original.jpg" />
       <outline text="The Lobby Shop" type="rss" xmlUrl="https://bracewell.libsyn.com/rss" htmlUrl="http://bracewell.libsyn.com/podcast" imageUrl="https://ssl-static.libsyn.com/p/assets/5/6/f/d/56fd428188c903e427a2322813b393ee/The_Lobby_Shop_Libsyn_Graphic.png" />
       <outline text="Urban Warfare Project" type="rss" xmlUrl="https://feeds.castos.com/w470" htmlUrl="https://mwi.usma.edu" imageUrl="https://episodes.castos.com/5de8282033baf4-72953531/images/UWP-podcast-logo.png" />
       <outline text="Very Bad Wizards" type="rss" xmlUrl="https://www.verybadwizards.com/episodes?format=rss" htmlUrl="https://www.verybadwizards.com" imageUrl="https://assets.fireside.fm/file/fireside-images/podcasts/images/1/14eb939b-3c20-478e-b284-c7e3e642f7b3/cover.jpg" />
