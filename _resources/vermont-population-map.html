@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vermont Town Population Change</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1916;
+    --paper: #f5f2ec;
+    --rule: #c8c4ba;
+    --muted: #7a7670;
+    --blue-dark: #0d3d7a;
+    --blue-mid: #3a7dc4;
+    --blue-light: #a8c8e8;
+    --neutral: #e8e4de;
+    --orange-light: #f0c090;
+    --orange-mid: #d47020;
+    --orange-dark: #7a2800;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+  }
+
+  header {
+    border-top: 2px solid var(--ink);
+    padding-top: 18px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .byline {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.8;
+    text-align: right;
+  }
+
+  #status {
+    text-align: center;
+    padding: 80px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  #status.error {
+    color: var(--orange-dark);
+  }
+
+  .maps-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  @media (max-width: 720px) {
+    .maps-row { grid-template-columns: 1fr; }
+    .byline { text-align: left; }
+  }
+
+  .map-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .panel-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .panel-title {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .panel-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .map-wrap {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+
+  .map-wrap svg {
+    display: block;
+    width: 100%;
+  }
+
+  /* legend */
+  .legend {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 6px;
+  }
+
+  .legend-bar {
+    height: 8px;
+    border-radius: 2px;
+  }
+
+  .legend-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* tooltip */
+  #tt {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    display: none;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 9px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    line-height: 1.9;
+    border-radius: 2px;
+    max-width: 200px;
+  }
+
+  .tt-name {
+    font-weight: 500;
+    font-size: 12px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 4px;
+  }
+
+  .tt-pct {
+    font-weight: 500;
+    font-size: 13px;
+    margin-top: 3px;
+  }
+
+  .tt-pos { color: var(--blue-light); }
+  .tt-neg { color: var(--orange-light); }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 32px;
+  }
+
+  .note {
+    background: rgba(0,0,0,0.04);
+    border-left: 3px solid var(--rule);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Vermont town<br>population change</h1>
+    <div class="byline">
+      U.S. Census Bureau<br>
+      Decennial Census &amp; ACS 5-Year Estimates<br>
+      Hover over any town for detail
+    </div>
+  </header>
+
+  <div id="status">Loading Census data&hellip;</div>
+
+  <div id="maps" style="display:none">
+    <div class="maps-row">
+      <div class="map-panel" id="panel-a">
+        <div class="panel-label">Map 1 of 2</div>
+        <div class="panel-title">1990 &rarr; 2020</div>
+        <div class="panel-sub">Decennial Census · 30-year change</div>
+        <div class="map-wrap" id="wrap-a"></div>
+        <div class="legend" id="leg-a"></div>
+        <div class="note" id="note-a"></div>
+      </div>
+      <div class="map-panel" id="panel-b">
+        <div class="panel-label">Map 2 of 2</div>
+        <div class="panel-title">2020 &rarr; 2024 ACS</div>
+        <div class="panel-sub">ACS 5-Year Estimates (2020–2024) · Recent change</div>
+        <div class="map-wrap" id="wrap-b"></div>
+        <div class="legend" id="leg-b"></div>
+        <div class="note" id="note-b"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Sources: U.S. Census Bureau SF1 (1990), PL 94-171 (2020), ACS 5-Year (2020–2024)</span>
+    <span>Boundaries: Census Bureau TIGER/Line county subdivisions, Vermont (FIPS 50)</span>
+    <span>Gray = insufficient data or name mismatch</span>
+  </footer>
+
+</div>
+
+<div id="tt"></div>
+
+<script>
+(function () {
+
+  /* ── endpoints ── */
+  const BOUNDS = 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Census2020/MapServer/36/query?where=STATE%3D%2750%27&outFields=BASENAME,GEOID&returnGeometry=true&geometryPrecision=4&outSR=4326&f=geojson';
+  const P90  = 'https://api.census.gov/data/1990/dec/sf1?get=P0010001,NAME&for=county+subdivision:*&in=state:50';
+  const P20  = 'https://api.census.gov/data/2020/dec/pl?get=P1_001N,NAME&for=county+subdivision:*&in=state:50';
+  const PACS = 'https://api.census.gov/data/2024/acs/acs5?get=B01003_001E,NAME&for=county+subdivision:*&in=state:50';
+
+  /* ── colour scale (blue-orange diverging, continuous) ── */
+  function makeColor(ext) {
+    return d3.scaleDiverging(t =>
+      t < 0.5
+        ? d3.interpolateRgb('#7a2800', '#f5f2ec')(t * 2)
+        : d3.interpolateRgb('#f5f2ec', '#0d3d7a')((t - 0.5) * 2)
+    ).domain([-ext, 0, ext]);
+  }
+
+  /* ── normalise Census NAME to plain town name ── */
+  function norm(s) {
+    return s.toLowerCase()
+      .replace(/,.*/,'')
+      .replace(/\s+(city|town|village|grant|gore|location|unorganized\s+territory)\s*$/,'')
+      .replace(/'/g,'')
+      .replace(/[^a-z\s\-]/g,'')
+      .replace(/\s+/g,' ')
+      .trim();
+  }
+
+  /* ── parse Census API array response to name→pop map ── */
+  function parseData(rows, popField) {
+    const h = rows[0];
+    const pi = h.indexOf(popField), ni = h.indexOf('NAME');
+    const m = new Map();
+    for (let i = 1; i < rows.length; i++) {
+      const pop = +rows[i][pi];
+      const key = norm(rows[i][ni]);
+      if (!isNaN(pop) && pop >= 0) m.set(key, (m.get(key) || 0) + pop);
+    }
+    return m;
+  }
+
+  const status = document.getElementById('status');
+  const tt     = document.getElementById('tt');
+
+  Promise.all([
+    fetch(BOUNDS).then(r => { if (!r.ok) throw new Error('Boundary data failed ('+r.status+')'); return r.json(); }),
+    fetch(P90).then(r => r.json()),
+    fetch(P20).then(r => r.json()),
+    fetch(PACS).then(r => r.json()),
+  ]).then(([geo, r90, r20, rACS]) => {
+
+    const m90  = parseData(r90,  'P0010001');
+    const m20  = parseData(r20,  'P1_001N');
+    const mACS = parseData(rACS, 'B01003_001E');
+
+    /* attach pop data to each feature */
+    geo.features.forEach(f => {
+      const p   = f.properties;
+      const raw = p.BASENAME || p.NAME || '';
+      p._name   = raw;
+      p._key    = norm(raw);
+      p._p90    = m90.get(p._key)  || 0;
+      p._p20    = m20.get(p._key)  || 0;
+      p._pACS   = mACS.get(p._key) || 0;
+      p._chgA   = (p._p90 > 0 && p._p20 > 0)  ? (p._p20  - p._p90)  / p._p90  * 100 : null;
+      p._chgB   = (p._p20 > 0 && p._pACS > 0) ? (p._pACS - p._p20)  / p._p20  * 100 : null;
+    });
+
+    const vA = geo.features.map(f => f.properties._chgA).filter(v => v != null);
+    const vB = geo.features.map(f => f.properties._chgB).filter(v => v != null);
+    const extA = Math.ceil(Math.max(Math.abs(d3.min(vA)), Math.abs(d3.max(vA))));
+    const extB = Math.ceil(Math.max(Math.abs(d3.min(vB)), Math.abs(d3.max(vB))));
+
+    /* top/bottom 5 for notes */
+    function topBottom(feats, key, n=3) {
+      const s = feats.filter(f => f.properties[key] != null)
+        .sort((a,b) => b.properties[key] - a.properties[key]);
+      const top = s.slice(0,n).map(f => f.properties._name + ' (+' + f.properties[key].toFixed(1) + '%)');
+      const bot = s.slice(-n).reverse().map(f => f.properties._name + ' (' + f.properties[key].toFixed(1) + '%)');
+      return { top, bot };
+    }
+
+    const nA = topBottom(geo.features, '_chgA');
+    const nB = topBottom(geo.features, '_chgB');
+
+    status.style.display = 'none';
+    document.getElementById('maps').style.display = '';
+
+    drawMap(geo, '_chgA', '_p90', '_p20',  extA, 'wrap-a', 'leg-a', '1990','2020', nA, 'note-a');
+    drawMap(geo, '_chgB', '_p20', '_pACS', extB, 'wrap-b', 'leg-b', '2020','2024 ACS', nB, 'note-b');
+
+  }).catch(err => {
+    status.className = 'error';
+    status.textContent = 'Error: ' + err.message + '. Check the browser console for details.';
+    console.error(err);
+  });
+
+  /* ── render one choropleth ── */
+  function drawMap(geo, chgKey, p1key, p2key, ext, wrapId, legId, yr1, yr2, notes, noteId) {
+    const color = makeColor(ext);
+    const W = 460, H = 600;
+    const proj = d3.geoMercator().fitExtent([[8,8],[W-8,H-8]], { type: 'FeatureCollection', features: geo.features });
+    const path = d3.geoPath().projection(proj);
+
+    const svg = d3.select('#'+wrapId).append('svg')
+      .attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('width', '100%');
+
+    svg.selectAll('path')
+      .data(geo.features)
+      .join('path')
+        .attr('d', path)
+        .attr('fill', d => {
+          const v = d.properties[chgKey];
+          return v == null ? '#ccc' : color(v);
+        })
+        .attr('stroke', '#f5f2ec')
+        .attr('stroke-width', 0.4)
+        .style('cursor', 'pointer')
+        .on('mouseover', function(event, d) {
+          d3.select(this).attr('stroke','#1a1916').attr('stroke-width', 1.2).raise();
+          const v   = d.properties[chgKey];
+          const p1  = d.properties[p1key];
+          const p2  = d.properties[p2key];
+          const pct = v == null ? 'N/A' : (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+          const cls = v == null ? '' : v >= 0 ? 'tt-pos' : 'tt-neg';
+          tt.innerHTML =
+            `<div class="tt-name">${d.properties._name || '—'}</div>` +
+            `${yr1}: ${p1 ? p1.toLocaleString() : '—'}<br>` +
+            `${yr2}: ${p2 ? p2.toLocaleString() : '—'}` +
+            `<div class="tt-pct ${cls}">${pct}</div>`;
+          tt.style.display = 'block';
+        })
+        .on('mousemove', function(event) {
+          let x = event.clientX + 14, y = event.clientY - 10;
+          if (x + 210 > window.innerWidth) x = event.clientX - 220;
+          tt.style.left = x + 'px';
+          tt.style.top  = y + 'px';
+        })
+        .on('mouseout', function() {
+          d3.select(this).attr('stroke','#f5f2ec').attr('stroke-width', 0.4);
+          tt.style.display = 'none';
+        });
+
+    /* gradient legend */
+    const legEl = document.getElementById(legId);
+    const steps = 200;
+    const canvas = document.createElement('canvas');
+    canvas.width = steps; canvas.height = 1;
+    const ctx = canvas.getContext('2d');
+    for (let i = 0; i < steps; i++) {
+      ctx.fillStyle = color(-ext + (i / (steps-1)) * 2 * ext);
+      ctx.fillRect(i, 0, 1, 1);
+    }
+    const bar = document.createElement('div');
+    bar.className = 'legend-bar';
+    bar.style.background = `url(${canvas.toDataURL()})`;
+    bar.style.backgroundSize = '100% 100%';
+    const labels = document.createElement('div');
+    labels.className = 'legend-labels';
+    labels.innerHTML = `<span>−${Math.round(ext)}%</span><span>0%</span><span>+${Math.round(ext)}%</span>`;
+    legEl.appendChild(bar);
+    legEl.appendChild(labels);
+
+    /* summary note */
+    const noteEl = document.getElementById(noteId);
+    noteEl.innerHTML =
+      `<strong>Fastest growing:</strong> ${notes.top.join(' · ')}<br>` +
+      `<strong>Largest decline:</strong> ${notes.bot.join(' · ')}`;
+  }
+
+})();
+</script>
+</body>
+</html>
