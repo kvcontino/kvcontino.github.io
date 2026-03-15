@@ -276,8 +276,8 @@
   function makeColor(ext) {
     return d3.scaleDiverging(
       t => t < 0.5
-        ? d3.interpolateRgb('#7a2800', '#f0ece4')(t * 2)
-        : d3.interpolateRgb('#f0ece4', '#0d3d7a')((t - 0.5) * 2)
+        ? d3.interpolateRgb('#ff7d00', '#f0ece4')(t * 2)
+        : d3.interpolateRgb('#f0ece4', '#0083ff')((t - 0.5) * 2)
     ).domain([-ext, 0, ext]);
   }
 
@@ -341,8 +341,8 @@
         return;
       }
 
-      const extA = Math.ceil(Math.max(Math.abs(d3.min(vA)), Math.abs(d3.max(vA))));
-      const extB = Math.ceil(Math.max(Math.abs(d3.min(vB)), Math.abs(d3.max(vB))));
+      const extA = 30;
+      const extB = 30;
 
       addStatus('s-ok', '✓\u00a0Matched ' + matched + ' of ' + geo.features.length + ' town polygons to Census data');
       document.getElementById('maps').style.display = '';
@@ -388,7 +388,7 @@
         .attr('d', path)
         .attr('fill', function(d) {
           var v = d.properties[chgKey];
-          return v == null ? '#ccc' : color(v);
+          return v == null ? '#ccc' : color(Math.max(-ext, Math.min(ext, v)));
         })
         .attr('stroke', '#f5f2ec')
         .attr('stroke-width', 0.45)
