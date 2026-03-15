@@ -1,11 +1,11 @@
 /* Base */
 html {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Spectral', serif;
 }
 
 body {
   margin: 0;
-  font-size: 12pt;
+  font-size: 18px;
   color: white;
   background-color: black;
   padding-left: 10%;
@@ -25,9 +25,9 @@ body {
   text-align: right;
   padding-right: 3%;
   padding-top: 4%;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   letter-spacing: 2px;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .site-name {
@@ -44,9 +44,9 @@ body {
 .content {
   width: 80%;
   padding-top: 4%;
-  font-size: 18px;
-  line-height: 1.4em;
+  line-height: 1.7em;
   text-align: justify;
+  hyphens: auto;
 }
 
 /* Links */
@@ -59,9 +59,15 @@ a:active.external { color: #cd9575; text-decoration: none; }
 
 /* Headings */
 h1, h2, h3 {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
   color: #cd9575;
+  line-height: 1.2em;
 }
+
+h1 { font-size: 2.6em; }
+h2 { font-size: 2.0em; }
+h3 { font-size: 1.5em; }
 
 /* Text */
 p { max-width: 85ex; }
@@ -82,13 +88,13 @@ rw { font-style: italic; color: #602020; }
 eqn { font-style: italic; color: #202080; }
 
 lambda {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   color: #cd9575;
 }
 
 biglambda {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
-  font-size: 36px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
   color: #cd9575;
 }
 
@@ -108,7 +114,7 @@ hr {
 }
 
 footer {
-  font-size: 12px;
+  font-size: 14px;
   font-style: italic;
   color: #CCC;
 }
@@ -117,6 +123,7 @@ footer {
   height: 70vh;
 }
 
+/* Mobile */
 @media (max-width: 600px) {
   body {
     padding-left: 5%;
@@ -146,4 +153,8 @@ footer {
     width: 100%;
     padding-top: 4%;
   }
+
+  h1 { font-size: 2.0em; }
+  h2 { font-size: 1.6em; }
+  h3 { font-size: 1.3em; }
 }
