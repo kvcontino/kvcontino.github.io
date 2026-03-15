@@ -252,37 +252,56 @@
     return null;
   }
 
-  function normStr(s) {
-    return s.toLowerCase()
-      .replace(/\bst\.?\s+/g, 'saint ')   // St. Johnsbury → saint johnsbury
-      .replace(/burgh\b/g, 'burg')         // Edinburg(h) → edinburg
-      .replace(/[^a-z\s\-]/g, '')
-      .replace(/\s+/g, ' ').trim();
+  // Build 10-digit GEOID from Census API row: state(2) + county(3) + cousub(5)
+  function rowToGEOID(row, h) {
+    return row[h.indexOf('state')].padStart(2, '0')
+         + row[h.indexOf('county')].padStart(3, '0')
+         + row[h.indexOf('county subdivision')].padStart(5, '0');
   }
 
-  function normVCGI(s) {
-    // VCGI names are plain ("Barre", "Barre City") — preserve "city" for disambiguation
-    return normStr(s || '');
+  // Detect which property field holds the 10-digit GEOID in a VCGI feature
+  function detectGEOIDField(props) {
+    for (const f of ['TOWNGEOID', 'GEOID20', 'GEOID10', 'GEOID', 'geoid20', 'geoid10', 'geoid']) {
+      if (props[f] != null && /^\d{5,10}$/.test(String(props[f]).trim())) return f;
+    }
+    return null;
   }
 
-  function normCensus(s) {
-    return normStr(
-      s.toLowerCase()
-        .replace(/,.*/, '')               // strip ", County, Vermont"
-        // Preserve "city" suffix so "Barre city" ≠ "Barre town".
-        // Strip town/village/etc since VCGI names don't carry those.
-        .replace(/\s+(town|village|grant|gore|location|unorganized\s+territory)\s*$/, '')
-    );
+  // Detect name field for display only (not matching)
+  function detectNameField(props) {
+    for (const f of ['TOWNNAME', 'TOWNNAMEMC', 'TOWN_NAME', 'TNAME', 'NAME', 'name']) {
+      if (props[f] && typeof props[f] === 'string' && props[f].trim().length > 1) return f;
+    }
+    for (const [k, v] of Object.entries(props)) {
+      if (typeof v === 'string' && /^[A-Za-z\s\-\'\.]{{2,30}}$/.test(v.trim())) return k;
+    }
+    return null;
   }
 
+  // Normalize a name for fallback matching (2000 FIPS changes only)
+  function normFallback(s) {
+    return (s || '').toLowerCase()
+      .replace(/\bst\.?\s+/g, 'saint ')
+      .replace(/burgh\b/g, 'burg')
+      .replace(/,.*/, '')
+      .replace(/\s+(city|town|village|grant|gore|location|unorganized\s+territory)\s*$/, '')
+      .replace(/[^a-z\s\-]/g, '').replace(/\s+/g, ' ').trim();
+  }
+
+  // Key Census rows by GEOID; store display name alongside for tooltip use
   function parseRows(rows, popField) {
     const h = rows[0], pi = h.indexOf(popField), ni = h.indexOf('NAME');
-    const m = new Map();
+    const popMap  = new Map();  // geoid → population
+    const nameMap = new Map();  // geoid → display name
     for (let i = 1; i < rows.length; i++) {
-      const pop = +rows[i][pi], key = normCensus(rows[i][ni]);
-      if (!isNaN(pop) && pop >= 0) m.set(key, (m.get(key) || 0) + pop);
+      const pop   = +rows[i][pi];
+      const geoid = rowToGEOID(rows[i], h);
+      if (!isNaN(pop) && pop >= 0) {
+        popMap.set(geoid, (popMap.get(geoid) || 0) + pop);
+        if (!nameMap.has(geoid)) nameMap.set(geoid, rows[i][ni].replace(/,.*/, '').trim());
+      }
     }
-    return m;
+    return { popMap, nameMap };
   }
 
   function makeColor(ext) {
@@ -301,66 +320,77 @@
   ])
   .then(([geo, r00, r20, rACS]) => {
     try {
-      const m00  = parseRows(r00,  'P001001');
-      const m20  = parseRows(r20,  'P1_001N');
-      const mACS = parseRows(rACS, 'B01003_001E');
+      const { popMap: m00,  nameMap: n00  } = parseRows(r00,  'P001001');
+      const { popMap: m20,  nameMap: n20  } = parseRows(r20,  'P1_001N');
+      const { popMap: mACS, nameMap: nACS } = parseRows(rACS, 'B01003_001E');
 
-      // Essex Junction incorporated as a separate town between 2000 and 2020.
-      // For the 2000→2020 map, merge Essex Junction's 2020 pop back into Essex
-      // so both years reflect the same geographic unit.
-      // The 2020→2024 map is unaffected — both years treat them as separate towns.
-      const ejKey = 'essex junction';
-      const essexKey = 'essex';
-      if (m20.has(ejKey) && m20.has(essexKey)) {
-        m20.set(essexKey, m20.get(essexKey) + m20.get(ejKey));
-        m20.delete(ejKey);  // remove so Essex Junction shows gray on map 1 only
+      // Build a name-keyed fallback for 2000 data only.
+      // Some towns (Alburgh, Ferrisburgh, Enosburgh) were officially renamed burg→burgh
+      // in the early 2000s and received new Census FIPS codes at that time.
+      // Their current GEOIDs don't exist in the 2000 SF1, so we fall back to name matching
+      // using the same normalization (burgh→burg) to find their pre-rename entries.
+      const fallback00 = new Map(); // normalizedName → pop
+      for (const [geoid, pop] of m00) {
+        const name = n00.get(geoid) || '';
+        fallback00.set(normFallback(name), pop);
       }
 
-      // Detect name field from first feature, log all property keys for debugging
-      const firstProps = geo.features[0] && geo.features[0].properties;
-      const nameField  = firstProps ? detectNameField(firstProps) : null;
-      console.log('VCGI feature count:', geo.features.length);
+      // Essex Junction (GEOID 5000722675) separated from Essex (5000722600) between
+      // 2000 and 2020. For the 2000→2020 map only, fold EJ's 2020 population back
+      // into Essex so both years represent the same geography.
+      // Map 2 (2020→2024) is unaffected — both towns exist in both datasets.
+      const EJ_GEOID    = '5000722675';
+      const ESSEX_GEOID = '5000722600';
+      if (m20.has(EJ_GEOID) && m20.has(ESSEX_GEOID)) {
+        m20.set(ESSEX_GEOID, m20.get(ESSEX_GEOID) + m20.get(EJ_GEOID));
+        m20.delete(EJ_GEOID);   // gray on map 1; appears normally on map 2
+      }
+
+      // Detect GEOID and name fields in boundary layer
+      const firstProps  = geo.features[0] && geo.features[0].properties;
+      const geoidField  = firstProps ? detectGEOIDField(firstProps) : null;
+      const nameField   = firstProps ? detectNameField(firstProps)  : null;
       console.log('VCGI property keys:', firstProps ? Object.keys(firstProps) : 'none');
-      console.log('Detected name field:', nameField);
-      if (nameField) {
-        console.log('Sample names:', geo.features.slice(0, 5).map(f => f.properties[nameField]));
+      console.log('Detected GEOID field:', geoidField, '  name field:', nameField);
+      if (geoidField) {
+        console.log('Sample GEOIDs:', geo.features.slice(0,3).map(f => f.properties[geoidField]));
       }
 
-      if (!nameField) {
-        addStatus('s-fail', '✗\u00a0Could not detect town name field in boundary layer. See browser console for available fields.');
+      if (!geoidField) {
+        addStatus('s-fail', '\u2717\u00a0No GEOID field found in boundary layer — see console for available fields.');
         return;
       }
 
       geo.features.forEach(f => {
-        const p   = f.properties;
-        const raw = p[nameField] || '';
-        p._name   = raw;
-        p._key    = normVCGI(raw);
-        p._p00    = m00.get(p._key)  || 0;
-        p._p20    = m20.get(p._key)  || 0;
-        p._pACS   = mACS.get(p._key) || 0;
-        p._chgA   = (p._p00 > 0 && p._p20 > 0)  ? (p._p20  - p._p00)  / p._p00  * 100 : null;
-        p._chgB   = (p._p20 > 0 && p._pACS > 0) ? (p._pACS - p._p20)  / p._p20  * 100 : null;
+        const p     = f.properties;
+        const geoid = String(p[geoidField]).trim().padStart(10, '0');
+        p._name  = nameField ? (p[nameField] || geoid) : geoid;
+        p._geoid = geoid;
+        // Primary: GEOID match. Fallback for 2000 only: name match (handles burg→burgh renames).
+        const p00geoid = m00.get(geoid);
+        p._p00   = p00geoid != null ? p00geoid : (fallback00.get(normFallback(p._name)) || 0);
+        p._p20   = m20.get(geoid)  || 0;
+        p._pACS  = mACS.get(geoid) || 0;
+        p._chgA  = (p._p00 > 0 && p._p20 > 0)  ? (p._p20  - p._p00)  / p._p00  * 100 : null;
+        p._chgB  = (p._p20 > 0 && p._pACS > 0) ? (p._pACS - p._p20)  / p._p20  * 100 : null;
       });
 
       const vA = geo.features.map(f => f.properties._chgA).filter(v => v != null);
       const vB = geo.features.map(f => f.properties._chgB).filter(v => v != null);
-
       const matched = vA.length;
+
       console.log('Matched towns (chgA):', matched, 'of', geo.features.length);
-      if (matched > 0) {
-        console.log('Sample matches:', geo.features.filter(f => f.properties._chgA != null).slice(0,5).map(f => f.properties._name + ' → ' + f.properties._chgA.toFixed(1) + '%'));
-      }
       if (matched === 0) {
-        // Show a census sample to compare with VCGI names
-        console.log('Census 2000 sample keys:', [...m00.keys()].slice(0, 10));
-        console.log('VCGI sample keys:', geo.features.slice(0, 10).map(f => f.properties._key));
-        addStatus('s-fail', '✗\u00a0Boundary names did not match Census names (0 matches). Check browser console for name samples.');
+        const sampleGEO = geo.features.slice(0,5).map(f => f.properties._geoid);
+        const sample00  = [...m00.keys()].slice(0, 5);
+        console.log('VCGI GEOIDs sample:', sampleGEO);
+        console.log('Census GEOIDs sample:', sample00);
+        addStatus('s-fail', '\u2717\u00a0GEOID matching produced 0 matches — check console for GEOID format comparison.');
         return;
       }
 
-      if (vA.length === 0 || vB.length === 0) {
-        addStatus('s-fail', '✗\u00a0No matched towns — name normalization may need adjustment. Check console.');
+      if (vB.length === 0) {
+        addStatus('s-fail', '\u2717\u00a0No ACS matches — check console.');
         return;
       }
 
