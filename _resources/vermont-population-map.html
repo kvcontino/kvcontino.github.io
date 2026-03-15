@@ -65,6 +65,7 @@
   .s-head { font-weight: 500; font-size: 13px; margin-bottom: 6px; color: var(--ink); }
   .s-ok   { color: #2a6e2a; }
   .s-fail { color: #8a2000; font-weight: 500; }
+  .s-warn { color: #7a4000; }
   .s-wait { color: var(--muted); }
 
   .maps-row {
@@ -118,7 +119,7 @@
     font-size: 11px;
     line-height: 1.9;
     border-radius: 2px;
-    max-width: 200px;
+    max-width: 210px;
   }
   .tt-name { font-weight: 500; font-size: 12px; margin-bottom: 3px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.2); }
   .tt-pct  { font-weight: 500; font-size: 13px; margin-top: 3px; }
@@ -191,7 +192,7 @@
 
   <footer>
     <span>Population: U.S. Census Bureau SF1 (2000), PL 94-171 (2020), ACS 5-Year (2020&ndash;2024)</span>
-    <span>Boundaries: VCGI / Vermont Open Geodata Portal (BNDHASH town polygons)</span>
+    <span>Boundaries: VCGI / Vermont Open Geodata Portal (town polygons)</span>
     <span>Gray = no data match &middot; ACS estimates carry sampling error for small towns</span>
   </footer>
 </div>
@@ -204,11 +205,10 @@
   const BOUNDS_URL =
     'https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/' +
     'FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_towns_SP_v1/FeatureServer/0/query' +
-    '?where=1%3D1&outFields=TOWNNAME%2CTOWNNAMEID&returnGeometry=true' +
+    '?where=1%3D1&outFields=*&returnGeometry=true' +
     '&geometryPrecision=4&outSR=4326&f=geojson';
 
   const CENSUS = {
-    // 2000 SF1: P001001 is total population; county subdivision requires state+county hierarchy
     p00: 'https://api.census.gov/data/2000/dec/sf1?get=P001001,NAME&for=county+subdivision:*&in=state:50%20county:*',
     p20: 'https://api.census.gov/data/2020/dec/pl?get=P1_001N,NAME&for=county+subdivision:*&in=state:50',
     acs: 'https://api.census.gov/data/2024/acs/acs5?get=B01003_001E,NAME&for=county+subdivision:*&in=state:50',
@@ -221,6 +221,13 @@
     el.textContent = (ok ? '✓' : '✗') + '\u00a0' + base + (note ? ' — ' + note : '');
   }
 
+  function addStatus(cls, text) {
+    const el = document.createElement('div');
+    el.className = cls;
+    el.textContent = text;
+    document.getElementById('s-final').appendChild(el);
+  }
+
   function fetchJSON(id, url) {
     return fetch(url)
       .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
@@ -229,6 +236,20 @@
         catch { throw new Error('Not JSON — got: ' + txt.slice(0, 120).replace(/\n/g, ' ')); }
       })
       .catch(err => { mark(id, false, err.message); throw err; });
+  }
+
+  // Detect which field contains the town name from the first feature's properties.
+  // VCGI layers variously use TOWNNAME, TOWNNAMEMC, TOWN_NAME, TNAME, NAME.
+  function detectNameField(props) {
+    const candidates = ['TOWNNAME', 'TOWNNAMEMC', 'TOWN_NAME', 'TNAME', 'NAME', 'name'];
+    for (const f of candidates) {
+      if (props[f] && typeof props[f] === 'string' && props[f].trim().length > 1) return f;
+    }
+    // Last resort: find any string-valued field that looks like a town name (2–30 chars, no numbers)
+    for (const [k, v] of Object.entries(props)) {
+      if (typeof v === 'string' && /^[A-Za-z\s\-'\.]{2,30}$/.test(v.trim())) return k;
+    }
+    return null;
   }
 
   function normVCGI(s) {
@@ -267,72 +288,106 @@
     fetchJSON('s-acs',    CENSUS.acs),
   ])
   .then(([geo, r00, r20, rACS]) => {
+    try {
+      const m00  = parseRows(r00,  'P001001');
+      const m20  = parseRows(r20,  'P1_001N');
+      const mACS = parseRows(rACS, 'B01003_001E');
 
-    const m00  = parseRows(r00,  'P001001');
-    const m20  = parseRows(r20,  'P1_001N');
-    const mACS = parseRows(rACS, 'B01003_001E');
+      // Detect name field from first feature, log all property keys for debugging
+      const firstProps = geo.features[0] && geo.features[0].properties;
+      const nameField  = firstProps ? detectNameField(firstProps) : null;
+      console.log('VCGI feature count:', geo.features.length);
+      console.log('VCGI property keys:', firstProps ? Object.keys(firstProps) : 'none');
+      console.log('Detected name field:', nameField);
+      if (nameField) {
+        console.log('Sample names:', geo.features.slice(0, 5).map(f => f.properties[nameField]));
+      }
 
-    geo.features.forEach(f => {
-      const p   = f.properties;
-      const raw = p.TOWNNAME || '';
-      p._name   = raw;
-      p._key    = normVCGI(raw);
-      p._p00    = m00.get(p._key)  || 0;
-      p._p20    = m20.get(p._key)  || 0;
-      p._pACS   = mACS.get(p._key) || 0;
-      p._chgA   = (p._p00 > 0 && p._p20 > 0)  ? (p._p20  - p._p00)  / p._p00  * 100 : null;
-      p._chgB   = (p._p20 > 0 && p._pACS > 0) ? (p._pACS - p._p20)  / p._p20  * 100 : null;
-    });
+      if (!nameField) {
+        addStatus('s-fail', '✗\u00a0Could not detect town name field in boundary layer. See browser console for available fields.');
+        return;
+      }
 
-    const vA = geo.features.map(f => f.properties._chgA).filter(v => v != null);
-    const vB = geo.features.map(f => f.properties._chgB).filter(v => v != null);
-    const extA = Math.ceil(Math.max(Math.abs(d3.min(vA)), d3.max(vA)));
-    const extB = Math.ceil(Math.max(Math.abs(d3.min(vB)), d3.max(vB)));
+      geo.features.forEach(f => {
+        const p   = f.properties;
+        const raw = p[nameField] || '';
+        p._name   = raw;
+        p._key    = normVCGI(raw);
+        p._p00    = m00.get(p._key)  || 0;
+        p._p20    = m20.get(p._key)  || 0;
+        p._pACS   = mACS.get(p._key) || 0;
+        p._chgA   = (p._p00 > 0 && p._p20 > 0)  ? (p._p20  - p._p00)  / p._p00  * 100 : null;
+        p._chgB   = (p._p20 > 0 && p._pACS > 0) ? (p._pACS - p._p20)  / p._p20  * 100 : null;
+      });
 
-    const matched = geo.features.filter(f => f.properties._chgA != null).length;
-    const fin = document.getElementById('s-final');
-    fin.className = matched > 100 ? 's-ok' : 's-fail';
-    fin.textContent = (matched > 100 ? '✓' : '⚠') + '\u00a0Matched '
-      + matched + ' of ' + geo.features.length + ' town polygons to Census data';
+      const vA = geo.features.map(f => f.properties._chgA).filter(v => v != null);
+      const vB = geo.features.map(f => f.properties._chgB).filter(v => v != null);
 
-    document.getElementById('maps').style.display = '';
+      const matched = vA.length;
+      console.log('Matched towns (chgA):', matched, 'of', geo.features.length);
+      if (matched > 0) {
+        console.log('Sample matches:', geo.features.filter(f => f.properties._chgA != null).slice(0,5).map(f => f.properties._name + ' → ' + f.properties._chgA.toFixed(1) + '%'));
+      }
+      if (matched === 0) {
+        // Show a census sample to compare with VCGI names
+        console.log('Census 2000 sample keys:', [...m00.keys()].slice(0, 10));
+        console.log('VCGI sample keys:', geo.features.slice(0, 10).map(f => f.properties._key));
+        addStatus('s-fail', '✗\u00a0Boundary names did not match Census names (0 matches). Check browser console for name samples.');
+        return;
+      }
 
-    function topBottom(key, n = 3) {
-      const s = geo.features
-        .filter(f => f.properties[key] != null)
-        .sort((a, b) => b.properties[key] - a.properties[key]);
-      return {
-        top: s.slice(0, n).map(f => f.properties._name + ' (+' + f.properties[key].toFixed(1) + '%)'),
-        bot: s.slice(-n).reverse().map(f => f.properties._name + ' (' + f.properties[key].toFixed(1) + '%)'),
-      };
+      if (vA.length === 0 || vB.length === 0) {
+        addStatus('s-fail', '✗\u00a0No matched towns — name normalization may need adjustment. Check console.');
+        return;
+      }
+
+      const extA = Math.ceil(Math.max(Math.abs(d3.min(vA)), Math.abs(d3.max(vA))));
+      const extB = Math.ceil(Math.max(Math.abs(d3.min(vB)), Math.abs(d3.max(vB))));
+
+      addStatus('s-ok', '✓\u00a0Matched ' + matched + ' of ' + geo.features.length + ' town polygons to Census data');
+      document.getElementById('maps').style.display = '';
+
+      function topBottom(key, n) {
+        n = n || 3;
+        const s = geo.features
+          .filter(f => f.properties[key] != null)
+          .sort(function(a, b) { return b.properties[key] - a.properties[key]; });
+        return {
+          top: s.slice(0, n).map(function(f) { return f.properties._name + ' (+' + f.properties[key].toFixed(1) + '%)'; }),
+          bot: s.slice(-n).reverse().map(function(f) { return f.properties._name + ' (' + f.properties[key].toFixed(1) + '%)'; }),
+        };
+      }
+
+      drawMap(geo, '_chgA', '_p00', '_p20',  extA, 'wrap-a', 'leg-a', '2000', '2020',     topBottom('_chgA'), 'note-a');
+      drawMap(geo, '_chgB', '_p20', '_pACS', extB, 'wrap-b', 'leg-b', '2020', '2024 ACS', topBottom('_chgB'), 'note-b');
+
+    } catch(err) {
+      console.error('Processing error:', err);
+      addStatus('s-fail', '✗\u00a0Processing error: ' + err.message + ' (see console for stack trace)');
     }
-
-    drawMap(geo, '_chgA', '_p00', '_p20',  extA, 'wrap-a', 'leg-a', '2000', '2020',     topBottom('_chgA'), 'note-a');
-    drawMap(geo, '_chgB', '_p20', '_pACS', extB, 'wrap-b', 'leg-b', '2020', '2024 ACS', topBottom('_chgB'), 'note-b');
   })
-  .catch(() => {
-    const el = document.getElementById('s-final');
-    el.className = 's-fail';
-    el.textContent = '✗\u00a0One or more sources failed — see ✗ lines above';
+  .catch(err => {
+    console.error('Fetch error:', err);
+    // Individual fetch errors are already marked on their own lines
   });
 
-  const tt = document.getElementById('tt');
+  var tt = document.getElementById('tt');
 
   function drawMap(geo, chgKey, p1k, p2k, ext, wrapId, legId, yr1, yr2, notes, noteId) {
-    const color = makeColor(ext);
-    const W = 460, H = 620;
-    const proj = d3.geoMercator()
+    var color = makeColor(ext);
+    var W = 460, H = 620;
+    var proj = d3.geoMercator()
       .fitExtent([[10, 10], [W - 10, H - 10]], { type: 'FeatureCollection', features: geo.features });
-    const path = d3.geoPath().projection(proj);
+    var path = d3.geoPath().projection(proj);
 
-    const svg = d3.select('#' + wrapId).append('svg').attr('viewBox', `0 0 ${W} ${H}`);
+    var svg = d3.select('#' + wrapId).append('svg').attr('viewBox', '0 0 ' + W + ' ' + H);
 
     svg.selectAll('path')
       .data(geo.features)
       .join('path')
         .attr('d', path)
-        .attr('fill', d => {
-          const v = d.properties[chgKey];
+        .attr('fill', function(d) {
+          var v = d.properties[chgKey];
           return v == null ? '#ccc' : color(v);
         })
         .attr('stroke', '#f5f2ec')
@@ -340,20 +395,20 @@
         .style('cursor', 'pointer')
         .on('mouseover', function(event, d) {
           d3.select(this).attr('stroke', '#1a1916').attr('stroke-width', 1.5).raise();
-          const v   = d.properties[chgKey];
-          const p1  = d.properties[p1k];
-          const p2  = d.properties[p2k];
-          const pct = v == null ? 'N/A' : (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
-          const cls = v == null ? '' : v >= 0 ? 'tt-pos' : 'tt-neg';
+          var v   = d.properties[chgKey];
+          var p1  = d.properties[p1k];
+          var p2  = d.properties[p2k];
+          var pct = v == null ? 'N/A' : (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+          var cls = v == null ? '' : v >= 0 ? 'tt-pos' : 'tt-neg';
           tt.innerHTML =
-            `<div class="tt-name">${d.properties._name || '—'}</div>` +
-            `${yr1}: ${p1 ? p1.toLocaleString() : '—'}<br>` +
-            `${yr2}: ${p2 ? p2.toLocaleString() : '—'}` +
-            `<div class="tt-pct ${cls}">${pct}</div>`;
+            '<div class="tt-name">' + (d.properties._name || '—') + '</div>' +
+            yr1 + ': ' + (p1 ? p1.toLocaleString() : '—') + '<br>' +
+            yr2 + ': ' + (p2 ? p2.toLocaleString() : '—') +
+            '<div class="tt-pct ' + cls + '">' + pct + '</div>';
           tt.style.display = 'block';
         })
         .on('mousemove', function(event) {
-          let x = event.clientX + 14, y = event.clientY - 10;
+          var x = event.clientX + 14, y = event.clientY - 10;
           if (x + 215 > window.innerWidth) x = event.clientX - 220;
           if (y < 4) y = 4;
           tt.style.left = x + 'px';
@@ -364,25 +419,25 @@
           tt.style.display = 'none';
         });
 
-    const steps = 200;
-    const canvas = document.createElement('canvas');
+    var steps = 200;
+    var canvas = document.createElement('canvas');
     canvas.width = steps; canvas.height = 1;
-    const ctx = canvas.getContext('2d');
-    for (let i = 0; i < steps; i++) {
+    var ctx = canvas.getContext('2d');
+    for (var i = 0; i < steps; i++) {
       ctx.fillStyle = color(-ext + (i / (steps - 1)) * 2 * ext);
       ctx.fillRect(i, 0, 1, 1);
     }
-    const bar = document.createElement('div');
+    var bar = document.createElement('div');
     bar.className = 'legend-bar';
-    bar.style.background = `url(${canvas.toDataURL()}) center/100% 100%`;
-    const labels = document.createElement('div');
+    bar.style.background = 'url(' + canvas.toDataURL() + ') center/100% 100%';
+    var labels = document.createElement('div');
     labels.className = 'legend-labels';
-    labels.innerHTML = `<span>&minus;${Math.round(ext)}%</span><span>0%</span><span>+${Math.round(ext)}%</span>`;
+    labels.innerHTML = '<span>&minus;' + Math.round(ext) + '%</span><span>0%</span><span>+' + Math.round(ext) + '%</span>';
     document.getElementById(legId).append(bar, labels);
 
     document.getElementById(noteId).innerHTML =
-      `<strong>Fastest growing:</strong> ${notes.top.join(' &middot; ')}<br>` +
-      `<strong>Largest decline:</strong> ${notes.bot.join(' &middot; ')}`;
+      '<strong>Fastest growing:</strong> ' + notes.top.join(' &middot; ') + '<br>' +
+      '<strong>Largest decline:</strong> '  + notes.bot.join(' &middot; ');
   }
 
 })();
