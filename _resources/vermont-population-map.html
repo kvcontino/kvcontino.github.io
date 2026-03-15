@@ -252,15 +252,27 @@
     return null;
   }
 
+  function normStr(s) {
+    return s.toLowerCase()
+      .replace(/\bst\.?\s+/g, 'saint ')   // St. Johnsbury → saint johnsbury
+      .replace(/burgh\b/g, 'burg')         // Edinburg(h) → edinburg
+      .replace(/[^a-z\s\-]/g, '')
+      .replace(/\s+/g, ' ').trim();
+  }
+
   function normVCGI(s) {
-    return (s || '').toLowerCase().replace(/[^a-z\s\-]/g, '').replace(/\s+/g, ' ').trim();
+    // VCGI names are plain ("Barre", "Barre City") — preserve "city" for disambiguation
+    return normStr(s || '');
   }
 
   function normCensus(s) {
-    return s.toLowerCase()
-      .replace(/,.*/,'')
-      .replace(/\s+(city|town|village|grant|gore|location|unorganized\s+territory)\s*$/,'')
-      .replace(/[^a-z\s\-]/g,'').replace(/\s+/g,' ').trim();
+    return normStr(
+      s.toLowerCase()
+        .replace(/,.*/, '')               // strip ", County, Vermont"
+        // Preserve "city" suffix so "Barre city" ≠ "Barre town".
+        // Strip town/village/etc since VCGI names don't carry those.
+        .replace(/\s+(town|village|grant|gore|location|unorganized\s+territory)\s*$/, '')
+    );
   }
 
   function parseRows(rows, popField) {
@@ -292,6 +304,17 @@
       const m00  = parseRows(r00,  'P001001');
       const m20  = parseRows(r20,  'P1_001N');
       const mACS = parseRows(rACS, 'B01003_001E');
+
+      // Essex Junction incorporated as a separate town between 2000 and 2020.
+      // For the 2000→2020 map, merge Essex Junction's 2020 pop back into Essex
+      // so both years reflect the same geographic unit.
+      // The 2020→2024 map is unaffected — both years treat them as separate towns.
+      const ejKey = 'essex junction';
+      const essexKey = 'essex';
+      if (m20.has(ejKey) && m20.has(essexKey)) {
+        m20.set(essexKey, m20.get(essexKey) + m20.get(ejKey));
+        m20.delete(ejKey);  // remove so Essex Junction shows gray on map 1 only
+      }
 
       // Detect name field from first feature, log all property keys for debugging
       const firstProps = geo.features[0] && geo.features[0].properties;
