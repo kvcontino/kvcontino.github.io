@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>North Country & Adirondack Population Change v2</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1916;
+    --paper: #f5f2ec;
+    --rule: #c8c4ba;
+    --muted: #7a7670;
+  }
+
+  html, body {
+    min-height: 100%;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .page { max-width: 1120px; margin: 0 auto; padding: 48px 32px 64px; }
+
+  header {
+    border-top: 2px solid var(--ink);
+    padding-top: 18px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .byline {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.8;
+    text-align: right;
+  }
+
+  #status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 40px 0 24px;
+    line-height: 2;
+  }
+
+  .s-head { font-weight: 500; font-size: 13px; margin-bottom: 6px; color: var(--ink); }
+  .s-ok   { color: #2a6e2a; }
+  .s-fail { color: #8a2000; font-weight: 500; }
+  .s-wait { color: var(--muted); }
+
+  .maps-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .maps-row { grid-template-columns: 1fr; }
+    .byline { text-align: left; }
+  }
+
+  .map-panel { display: flex; flex-direction: column; gap: 10px; }
+
+  .panel-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .panel-title { font-size: 17px; font-weight: 500; line-height: 1.2; }
+  .panel-sub   { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .map-wrap    { border: 1px solid var(--rule); }
+  .map-wrap svg { display: block; width: 100%; }
+
+  .legend { display: flex; flex-direction: column; gap: 5px; margin-top: 6px; }
+  .legend-bar { height: 8px; border-radius: 2px; }
+  .legend-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  #tt {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    display: none;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 9px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    line-height: 1.9;
+    border-radius: 2px;
+    max-width: 210px;
+  }
+  .tt-name { font-weight: 500; font-size: 12px; margin-bottom: 3px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+  .tt-county { font-size: 10px; color: rgba(245,242,236,0.6); margin-top: -2px; margin-bottom: 3px; }
+  .tt-pct  { font-weight: 500; font-size: 13px; margin-top: 3px; }
+  .tt-pos  { color: #a8c8e8; }
+  .tt-neg  { color: #f0c090; }
+
+  .note {
+    background: rgba(0,0,0,0.04);
+    border-left: 3px solid var(--rule);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 32px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>North Country &amp; Adirondack<br>town population change</h1>
+    <div class="byline">
+      U.S. Census Bureau<br>
+      Decennial Census &amp; ACS 5-Year Estimates<br>
+      Hover over any town for detail
+    </div>
+  </header>
+
+  <div id="status">
+    <div class="s-head">Loading data sources&hellip;</div>
+    <div id="s-bounds" class="s-wait">&#x22ef;&nbsp; Town &amp; city boundaries (NYS ITS Civil Boundaries)</div>
+    <div id="s-p00"    class="s-wait">&#x22ef;&nbsp; 2000 Decennial Census SF1</div>
+    <div id="s-p20"    class="s-wait">&#x22ef;&nbsp; 2020 Decennial Census PL 94-171</div>
+    <div id="s-acs"    class="s-wait">&#x22ef;&nbsp; ACS 5-Year Estimates 2020&ndash;2024</div>
+    <div id="s-final"></div>
+  </div>
+
+  <div id="maps" style="display:none">
+    <div class="maps-row">
+      <div class="map-panel">
+        <div class="panel-label">Map 1 of 2</div>
+        <div class="panel-title">2000 &rarr; 2020</div>
+        <div class="panel-sub">Decennial Census &middot; 20-year change</div>
+        <div class="map-wrap" id="wrap-a"></div>
+        <div class="legend"   id="leg-a"></div>
+        <div class="note"     id="note-a"></div>
+      </div>
+      <div class="map-panel">
+        <div class="panel-label">Map 2 of 2</div>
+        <div class="panel-title">2020 &rarr; 2024 ACS</div>
+        <div class="panel-sub">ACS 5-Year Estimates (2020&ndash;2024) &middot; Recent change</div>
+        <div class="map-wrap" id="wrap-b"></div>
+        <div class="legend"   id="leg-b"></div>
+        <div class="note"     id="note-b"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Population: U.S. Census Bureau SF1 (2000), PL 94-171 (2020), ACS 5-Year (2020&ndash;2024)</span>
+    <span>Boundaries: NYS ITS GIS Program Office, Civil Boundaries (Jan 2026)</span>
+    <span>Counties: Clinton, Essex, Franklin, Fulton, Hamilton, Herkimer, Jefferson, Lewis, Madison, Oneida, Oswego, St. Lawrence, Saratoga, Warren, Washington</span>
+    <span>Gray = no data match &middot; ACS estimates carry sampling error for small towns</span>
+  </footer>
+</div>
+
+<div id="tt"></div>
+
+<script>
+(function () {
+
+  // 15 NY counties — 3-digit county FIPS codes (state prefix 36 omitted).
+  // Clinton:019, Essex:031, Franklin:033, Fulton:035, Hamilton:041,
+  // Herkimer:043, Jefferson:045, Lewis:049, Madison:053, Oneida:065,
+  // Oswego:075, St.Lawrence:089, Saratoga:091, Warren:113, Washington:115
+  var COUNTY_FIPS = new Set(['019','031','033','035','041','043','045','049','053','065','075','089','091','113','115']);
+
+  // Filter server-side by FIPS_CODE prefix (state 36 + 3-digit county FIPS).
+  // NY has ~1050 county subdivisions total — over the service MaxRecordCount of 1000 —
+  // so fetching all would silently truncate. Filtering to our 15 counties (~400 towns)
+  // keeps the response well under the cap and avoids pagination.
+  var COUNTY_PREFIXES = ['36019','36031','36033','36035','36041','36043','36045',
+                         '36049','36053','36065','36075','36089','36091','36113','36115'];
+  var whereClause = COUNTY_PREFIXES
+    .map(function(p){ return "FIPS_CODE LIKE '" + p + "%'"; })
+    .join(' OR ');
+  var BOUNDS_URL =
+    'https://gisservices.its.ny.gov/arcgis/rest/services/NYS_Civil_Boundaries/FeatureServer/6/query' +
+    '?where=' + encodeURIComponent(whereClause) +
+    '&outFields=NAME,FIPS_CODE,COUNTY,MUNI_TYPE' +
+    '&returnGeometry=true&geometryPrecision=4&outSR=4326&resultRecordCount=1000&f=geojson';
+
+  // Census API — all NY county subdivisions; GEOID matching filters to our counties client-side.
+  // 2000 SF1 requires state+county wildcard in the 'in' parameter.
+  var CENSUS = {
+    p00: 'https://api.census.gov/data/2000/dec/sf1?get=P001001,NAME&for=county+subdivision:*&in=state:36%20county:*',
+    p20: 'https://api.census.gov/data/2020/dec/pl?get=P1_001N,NAME&for=county+subdivision:*&in=state:36',
+    acs: 'https://api.census.gov/data/2024/acs/acs5?get=B01003_001E,NAME&for=county+subdivision:*&in=state:36',
+  };
+
+  function mark(id, ok, note) {
+    var el = document.getElementById(id);
+    var base = el.textContent.replace(/^.\u00a0/, '');
+    el.className = ok ? 's-ok' : 's-fail';
+    el.textContent = (ok ? '\u2713' : '\u2717') + '\u00a0' + base + (note ? ' \u2014 ' + note : '');
+  }
+
+  function addStatus(cls, text) {
+    var el = document.createElement('div');
+    el.className = cls;
+    el.textContent = text;
+    document.getElementById('s-final').appendChild(el);
+  }
+
+  function fetchJSON(id, url) {
+    return fetch(url)
+      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+      .then(function(txt) {
+        try   { var d = JSON.parse(txt); mark(id, true); return d; }
+        catch(e) { throw new Error('Not JSON \u2014 got: ' + txt.slice(0, 120).replace(/\n/g, ' ')); }
+      })
+      .catch(function(err) { mark(id, false, err.message); throw err; });
+  }
+
+  // Build 10-digit GEOID from Census API row
+  function rowToGEOID(row, h) {
+    return row[h.indexOf('state')].padStart(2, '0')
+         + row[h.indexOf('county')].padStart(3, '0')
+         + row[h.indexOf('county subdivision')].padStart(5, '0');
+  }
+
+  // Detect GEOID field — FIPS_CODE is the NYS layer's 10-digit identifier
+  function detectGEOIDField(props) {
+    var candidates = ['FIPS_CODE', 'TOWNGEOID', 'GEOID20', 'GEOID10', 'GEOID', 'fips_code', 'geoid'];
+    for (var i = 0; i < candidates.length; i++) {
+      var f = candidates[i];
+      if (props[f] != null && /^\d{5,10}$/.test(String(props[f]).trim())) return f;
+    }
+    return null;
+  }
+
+  function detectNameField(props) {
+    var candidates = ['NAME', 'TOWNNAME', 'TOWN_NAME', 'name'];
+    for (var i = 0; i < candidates.length; i++) {
+      if (props[candidates[i]] && typeof props[candidates[i]] === 'string') return candidates[i];
+    }
+    return null;
+  }
+
+  function parseRows(rows, popField) {
+    var h = rows[0], pi = h.indexOf(popField), ni = h.indexOf('NAME');
+    var popMap = new Map(), nameMap = new Map();
+    for (var i = 1; i < rows.length; i++) {
+      var pop = +rows[i][pi];
+      var geoid = rowToGEOID(rows[i], h);
+      if (!isNaN(pop) && pop >= 0) {
+        popMap.set(geoid, (popMap.get(geoid) || 0) + pop);
+        if (!nameMap.has(geoid)) nameMap.set(geoid, rows[i][ni].replace(/,.*/, '').trim());
+      }
+    }
+    return { popMap: popMap, nameMap: nameMap };
+  }
+
+  function makeColor(ext) {
+    return d3.scaleDiverging(
+      function(t) {
+        return t < 0.5
+          ? d3.interpolateRgb('#ff7d00', '#f0ece4')(t * 2)
+          : d3.interpolateRgb('#f0ece4', '#0083ff')((t - 0.5) * 2);
+      }
+    ).domain([-ext, 0, ext]);
+  }
+
+  Promise.all([
+    fetchJSON('s-bounds', BOUNDS_URL),
+    fetchJSON('s-p00',    CENSUS.p00),
+    fetchJSON('s-p20',    CENSUS.p20),
+    fetchJSON('s-acs',    CENSUS.acs),
+  ])
+  .then(function(results) {
+    var geo = results[0], r00 = results[1], r20 = results[2], rACS = results[3];
+    try {
+      var res00  = parseRows(r00,  'P001001');
+      var res20  = parseRows(r20,  'P1_001N');
+      var resACS = parseRows(rACS, 'B01003_001E');
+      var m00 = res00.popMap, n00 = res00.nameMap;
+      var m20 = res20.popMap;
+      var mACS = resACS.popMap;
+
+      // Tupper Lake (GEOID 3603375676) was formed ~2015 from the consolidation of
+      // the village of Tupper Lake, the town of Altamont, and part of Piercefield.
+      // For the 2000→2020 map, fold the predecessor towns' 2000 populations into
+      // Tupper Lake's current GEOID so both years represent the same geography.
+      // Altamont (3603302olean): 3603302022, Piercefield: 3603357400
+      // Confirm these GEOIDs from Census returns — constructed from FIPS conventions.
+      var TUPPER_GEOID    = '3603375676';
+      var ALTAMONT_GEOID  = '3603302022';
+      var PIERCEFD_GEOID  = '3603357400';
+      var tl00 = (m00.get(ALTAMONT_GEOID) || 0) + (m00.get(PIERCEFD_GEOID) || 0);
+      console.log('Tupper Lake predecessor 2000 pops — Altamont:', m00.get(ALTAMONT_GEOID),
+                  'Piercefield:', m00.get(PIERCEFD_GEOID), 'combined:', tl00);
+      if (tl00 > 0) {
+        m00.set(TUPPER_GEOID, tl00);
+      }
+
+      // Sherrill (GEOID 3606566993) is a city in Oneida County. It does not appear
+      // as a standalone county subdivision record in the Census API and will remain
+      // gray on both maps. Population is small (~3,000) and won't affect the pattern.
+
+      var firstProps = geo.features[0] && geo.features[0].properties;
+      var geoidField = firstProps ? detectGEOIDField(firstProps) : null;
+      var nameField  = firstProps ? detectNameField(firstProps)  : null;
+      console.log('NYS layer property keys:', firstProps ? Object.keys(firstProps) : 'none');
+      console.log('Detected GEOID field:', geoidField, '  name field:', nameField);
+      console.log('Feature count:', geo.features.length);
+      if (geoidField) {
+        console.log('Sample GEOIDs:', geo.features.slice(0,3).map(function(f){ return f.properties[geoidField]; }));
+      }
+
+      if (!geoidField) {
+        addStatus('s-fail', '\u2717\u00a0No GEOID field found \u2014 see console for available fields.');
+        return;
+      }
+
+      // Filter to our 15 counties by the county FIPS embedded in the GEOID (chars 2–4).
+      geo.features = geo.features.filter(function(f) {
+        var geoid = String(f.properties[geoidField]).trim().padStart(10, '0');
+        return COUNTY_FIPS.has(geoid.slice(2, 5));
+      });
+      console.log('Features after county filter:', geo.features.length);
+
+      geo.features.forEach(function(f) {
+        var p     = f.properties;
+        var geoid = String(p[geoidField]).trim().padStart(10, '0');
+        p._name   = nameField ? (p[nameField] || geoid) : geoid;
+        p._county = p.COUNTY || '';
+        p._type   = p.MUNI_TYPE || '';
+        p._geoid  = geoid;
+        p._p00    = m00.get(geoid)  || 0;
+        p._p20    = m20.get(geoid)  || 0;
+        p._pACS   = mACS.get(geoid) || 0;
+        p._chgA   = (p._p00 > 0 && p._p20 > 0)  ? (p._p20  - p._p00)  / p._p00  * 100 : null;
+        p._chgB   = (p._p20 > 0 && p._pACS > 0) ? (p._pACS - p._p20)  / p._p20  * 100 : null;
+      });
+
+      var vA = geo.features.map(function(f){ return f.properties._chgA; }).filter(function(v){ return v != null; });
+      var vB = geo.features.map(function(f){ return f.properties._chgB; }).filter(function(v){ return v != null; });
+      var matched = vA.length;
+      console.log('Matched (chgA):', matched, 'of', geo.features.length);
+      var unmatched = geo.features.filter(function(f){ return f.properties._chgA == null; });
+      console.log('Unmatched towns:', unmatched.map(function(f){
+        return f.properties._name + ' (' + f.properties._county + ') GEOID:' + f.properties._geoid;
+      }));
+
+      if (matched === 0) {
+        console.log('GEOID sample (boundary):', geo.features.slice(0,5).map(function(f){ return f.properties._geoid; }));
+        console.log('GEOID sample (Census 2000):', Array.from(m00.keys()).slice(0,5));
+        addStatus('s-fail', '\u2717\u00a0GEOID matching produced 0 matches \u2014 check console.');
+        return;
+      }
+      if (vB.length === 0) {
+        addStatus('s-fail', '\u2717\u00a0No ACS matches \u2014 check console.');
+        return;
+      }
+
+      addStatus('s-ok', '\u2713\u00a0Matched ' + matched + ' of ' + geo.features.length + ' town/city polygons');
+      document.getElementById('maps').style.display = '';
+
+      var EXT = 30;
+
+      function topBottom(key, n) {
+        n = n || 3;
+        var s = geo.features
+          .filter(function(f){ return f.properties[key] != null; })
+          .sort(function(a,b){ return b.properties[key] - a.properties[key]; });
+        return {
+          top: s.slice(0, n).map(function(f){ return f.properties._name + ' (+' + f.properties[key].toFixed(1) + '%)'; }),
+          bot: s.slice(-n).reverse().map(function(f){ return f.properties._name + ' (' + f.properties[key].toFixed(1) + '%)'; }),
+        };
+      }
+
+      drawMap(geo, '_chgA', '_p00', '_p20',  EXT, 'wrap-a', 'leg-a', '2000', '2020',     topBottom('_chgA'), 'note-a');
+      drawMap(geo, '_chgB', '_p20', '_pACS', EXT, 'wrap-b', 'leg-b', '2020', '2024 ACS', topBottom('_chgB'), 'note-b');
+
+    } catch(err) {
+      console.error('Processing error:', err);
+      addStatus('s-fail', '\u2717\u00a0Processing error: ' + err.message);
+    }
+  })
+  .catch(function(err) {
+    console.error('Fetch error:', err);
+  });
+
+  var tt = document.getElementById('tt');
+
+  function drawMap(geo, chgKey, p1k, p2k, ext, wrapId, legId, yr1, yr2, notes, noteId) {
+    var color = makeColor(ext);
+    var W = 500, H = 600, PAD = 16;
+
+    // Explicit Mercator projection computed from known region bounds.
+    // Avoids D3 fitExtent/center which produce incorrect results for this dataset.
+    var LON_MIN = -76.65, LON_MAX = -73.22;
+    var LAT_MIN = 42.82,  LAT_MAX = 45.02;
+
+    function mercY(lat) {
+      var phi = lat * Math.PI / 180;
+      return Math.log(Math.tan(Math.PI / 4 + phi / 2));
+    }
+
+    var xMin = LON_MIN * Math.PI / 180;
+    var xMax = LON_MAX * Math.PI / 180;
+    var yMin = mercY(LAT_MIN);  // south → smaller value
+    var yMax = mercY(LAT_MAX);  // north → larger value
+
+    var scaleX = (W - 2 * PAD) / (xMax - xMin);
+    var scaleY = (H - 2 * PAD) / (yMax - yMin);
+    var sc = Math.min(scaleX, scaleY);
+
+    // Center whichever axis has slack
+    var drawW = sc * (xMax - xMin);
+    var drawH = sc * (yMax - yMin);
+    var offX = PAD + (W - 2 * PAD - drawW) / 2;
+    var offY = PAD + (H - 2 * PAD - drawH) / 2;
+
+    var tx = offX - sc * xMin;
+    var ty = offY + sc * yMax;  // y is inverted (north = small SVG y)
+
+    console.log('Explicit scale:', sc.toFixed(1),
+                'Worth [-75.77,43.73] ->',
+                (sc * (-75.77 * Math.PI/180) + tx).toFixed(1),
+                (-sc * mercY(43.73) + ty).toFixed(1));
+
+    var proj = d3.geoTransform({
+      point: function(lon, lat) {
+        var x = sc * (lon * Math.PI / 180) + tx;
+        var y = -sc * mercY(lat) + ty;
+        this.stream.point(x, y);
+      }
+    });
+
+    var path = d3.geoPath().projection(proj);
+
+    var svg = d3.select('#' + wrapId).append('svg')
+      .attr('viewBox', '0 0 ' + W + ' ' + H)
+      .style('display', 'block').style('width', '100%');
+
+    var clipId = 'clip-' + wrapId;
+    svg.append('defs').append('clipPath').attr('id', clipId)
+      .append('rect').attr('x', 0).attr('y', 0).attr('width', W).attr('height', H);
+
+    var g = svg.append('g').attr('clip-path', 'url(#' + clipId + ')');
+
+    g.selectAll('path')
+      .data(geo.features)
+      .join('path')
+        .attr('d', function(d) { return path(d) || ''; })
+        .attr('fill', function(d) {
+          var v = d.properties[chgKey];
+          return v == null ? '#ccc' : color(Math.max(-ext, Math.min(ext, v)));
+        })
+        .attr('stroke', '#f5f2ec')
+        .attr('stroke-width', 0.45)
+        .style('cursor', 'pointer')
+        .on('mouseover', function(event, d) {
+          d3.select(this).attr('stroke', '#1a1916').attr('stroke-width', 1.5).raise();
+          var v   = d.properties[chgKey];
+          var p1  = d.properties[p1k];
+          var p2  = d.properties[p2k];
+          var pct = v == null ? 'N/A' : (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+          var cls = v == null ? '' : v >= 0 ? 'tt-pos' : 'tt-neg';
+          tt.innerHTML =
+            '<div class="tt-name">' + (d.properties._name || '—') + '</div>' +
+            '<div class="tt-county">' + d.properties._county +
+              (d.properties._type ? ' · ' + d.properties._type : '') + '</div>' +
+            yr1 + ': ' + (p1 ? p1.toLocaleString() : '—') + '<br>' +
+            yr2 + ': ' + (p2 ? p2.toLocaleString() : '—') +
+            '<div class="tt-pct ' + cls + '">' + pct + '</div>';
+          tt.style.display = 'block';
+        })
+        .on('mousemove', function(event) {
+          var x = event.clientX + 14, y = event.clientY - 10;
+          if (x + 215 > window.innerWidth) x = event.clientX - 220;
+          if (y < 4) y = 4;
+          tt.style.left = x + 'px';
+          tt.style.top  = y + 'px';
+        })
+        .on('mouseout', function() {
+          d3.select(this).attr('stroke', '#f5f2ec').attr('stroke-width', 0.45);
+          tt.style.display = 'none';
+        });
+
+    var steps = 200;
+    var canvas = document.createElement('canvas');
+    canvas.width = steps; canvas.height = 1;
+    var ctx = canvas.getContext('2d');
+    for (var i = 0; i < steps; i++) {
+      ctx.fillStyle = color(-ext + (i / (steps - 1)) * 2 * ext);
+      ctx.fillRect(i, 0, 1, 1);
+    }
+    var bar = document.createElement('div');
+    bar.className = 'legend-bar';
+    bar.style.background = 'url(' + canvas.toDataURL() + ') center/100% 100%';
+    var labels = document.createElement('div');
+    labels.className = 'legend-labels';
+    labels.innerHTML = '<span>&minus;' + ext + '%</span><span>0%</span><span>+' + ext + '%</span>';
+    document.getElementById(legId).append(bar, labels);
+
+    document.getElementById(noteId).innerHTML =
+      '<strong>Fastest growing:</strong> ' + notes.top.join(' &middot; ') + '<br>' +
+      '<strong>Largest decline:</strong> '  + notes.bot.join(' &middot; ');
+  }
+
+})();
+</script>
+</body>
+</html>
