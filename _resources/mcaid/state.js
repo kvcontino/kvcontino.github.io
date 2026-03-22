@@ -9,41 +9,25 @@ export const bus = {
 };
 
 export const state = {
-  // Active metric tab
-  metric: 'enrollment',           // 'enrollment' | 'managed_care' | 'pmpm'
-
-  // Enrollment sub-filters
+  metric: 'enrollment',
   enrollmentField: 'total_medicaid_and_chip_enrollment',
   pmpmCategory:    'total',
-
-  // Geo selection
   geo: { type: 'all', label: 'All States', states: null },
-  // type: 'all' | 'region' | 'division' | 'state'
-  // states: null (all) or Set of state abbrs
-
-  // Per-capita toggle
   perCapita: false,
-
-  // Choropleth controls
-  snapshotPeriod:   null,   // YYYYMM string
+  fromYear: null,
+  snapshotPeriod:    null,
   changeStartPeriod: null,
   changeEndPeriod:   null,
-
-  // Processed data
-  enrollmentByState:  null,   // Map<abbr, [{period, values}]>
-  enrollmentByPeriod: null,   // Map<period, Map<abbr, values>>
-  managedCareData:    null,   // Map<year, Map<abbr, {total, inMC, pct, inComprehensive, pctComp}>>
+  enrollmentByState:  null,
+  enrollmentByPeriod: null,
+  managedCareData:    null,
   pmpmData:           null,
-
-  // Meta
-  availablePeriods: [],         // sorted YYYYMM strings
+  availablePeriods: [],
   latestPeriod:     null,
   earliestPeriod:   null,
-  columnMap:        null,       // discovered column name mapping
-
-  // Status
+  columnMap:        null,
   status: {
-    enrollment:   'pending',   // 'pending'|'loading'|'loaded'|'error'
+    enrollment:   'pending',
     managedCare:  'pending',
     pmpm:         'pending'
   },
