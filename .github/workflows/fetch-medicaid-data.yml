@@ -11,14 +11,12 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-
       - name: Fetch managed care data
         run: |
-          curl -s "https://healthdata.gov/resource/m563-snjf.json?\$limit=5000&\$order=year+DESC" \
+          curl -s "https://healthdata.gov/resource/m563-snjf.json?\$limit=5000" \
             -H "Accept: application/json" \
             > _resources/mcaid/managed-care.json
-          echo "Managed care rows: $(python3 -c "import json,sys; print(len(json.load(open('_resources/mcaid/managed-care.json'))))")"
-
+          echo "Managed care rows: $(python3 -c "import json,sys; d=json.load(open('_resources/mcaid/managed-care.json')); print(len(d) if isinstance(d,list) else d)")"
       - name: Fetch MBES expenditure catalog
         run: |
           curl -s "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?limit=50&sort=modified&sort-order=desc" \
