@@ -134,17 +134,35 @@ function getChangeValues(metric, field, startPeriod, endPeriod) {
   if (metric === 'managed_care') {
     const mc = state.managedCareData;
     if (!mc) return null;
-    // Use first and last year for change
-    const years = mc.sortedYears;
+  const years = mc.sortedYears;
     if (years.length < 2) return null;
     const [y0, y1] = [years[0], years[years.length - 1]];
     const valueMap = new Map();
     mc.byState.forEach((recs, abbr) => {
       const r0 = recs.find(r => r.year === y0), r1 = recs.find(r => r.year === y1);
       if (r0?.pct == null || r1?.pct == null) return;
-      valueMap.set(abbr, r1.pct - r0.pct);   // percentage point change
+      valueMap.set(abbr, r1.pct - r0.pct);
     });
     return { valueMap, format: v => (v >= 0 ? '+' : '') + v.toFixed(1) + 'pp', title: `Managed Care % Change (${y0}→${y1})` };
+  }
+
+  if (metric === 'pmpm') {
+    const pmpm = state.pmpmData;
+    if (!pmpm) return null;
+    const cat = state.pmpmCategory;
+    const startData = pmpm.byPeriod.get(startPeriod);
+    const endData   = pmpm.byPeriod.get(endPeriod);
+    if (!startData || !endData) return null;
+    const valueMap = new Map();
+    endData.forEach((vals, abbr) => {
+      const startVals = startData.get(abbr);
+      if (!startVals) return;
+      const sv = startVals[cat], ev = vals[cat];
+      if (sv === null || ev === null || sv === 0) return;
+      valueMap.set(abbr, ((ev - sv) / sv) * 100);
+    });
+    const catLabels = { total: 'Total Computable', federal: 'Federal Share', fedPct: 'Federal Share %', viii: 'Group VIII (ACA)', viiiNewElig: 'Group VIII Newly Eligible' };
+    return { valueMap, format: v => (v >= 0 ? '+' : '') + v.toFixed(1) + '%', title: `CMS-64 % Change — ${catLabels[cat] || cat}` };
   }
 
   return null;

@@ -94,7 +94,14 @@ function buildMultiSelect({ triggerId, panelId, onSelect, allLabel }) {
     document.querySelectorAll('.ms-panel').forEach(p => {
       if (p.id !== panelId) p.classList.add('hidden');
     });
+      const wasHidden = panel.classList.contains('hidden');
     panel.classList.toggle('hidden');
+    if (wasHidden) {
+      // Position panel below trigger using fixed coords
+      const rect = trigger.getBoundingClientRect();
+      panel.style.top  = (rect.bottom + 6) + 'px';
+      panel.style.left = rect.left + 'px';
+    }
   });
 
   document.addEventListener('click', e => {
