@@ -122,31 +122,24 @@ function buildEnrollmentSeries(geoData, populations, enrollmentField, geo, perCa
 
 function buildRegionLines(byState, sortedPeriods, field, perCapita, geoData, populations) {
   const regionTotals = {};
-  const regionPops = {};
-  for (const [region, states] of Object.entries(geoData.regions)) {
-    regionTotals[region] = {};
-    regionPops[region] = states.reduce((sum, abbr) => sum + (populations[abbr] || 0), 0);
-  }
+  for (const [region] of Object.entries(geoData.regions)) regionTotals[region] = {};
   let nationalTotal = {};
-  const nationalPop = Object.values(populations).reduce((a, b) => a + b, 0);
 
   byState.forEach((records, abbr) => {
     const region = geoData.stateToRegion[abbr];
     if (!region) return;
+    const pop = populations[abbr] || 0;
     records.forEach(rec => {
       const v = rec[field];
       if (v === null) return;
-      regionTotals[region][rec.period] = (regionTotals[region][rec.period] || 0) + v;
+      const rSeries = regionTotals[region];
+      rSeries[rec.period] = (rSeries[rec.period] || 0) + v;
       nationalTotal[rec.period] = (nationalTotal[rec.period] || 0) + v;
     });
   });
 
   const datasets = Object.entries(geoData.regions).map(([region]) => {
-    const pop = regionPops[region] || 1;
-    const data = sortedPeriods.map(p => {
-      const v = regionTotals[region][p] ?? null;
-      return v === null ? null : (perCapita ? v / pop * 1000 : v);
-    });
+    const data = sortedPeriods.map(p => regionTotals[region][p] ?? null);
     return {
       label: region,
       data,
@@ -160,12 +153,10 @@ function buildRegionLines(byState, sortedPeriods, field, perCapita, geoData, pop
     };
   });
 
+  // National total (dashed)
   datasets.push({
     label: 'National Total',
-    data: sortedPeriods.map(p => {
-      const v = nationalTotal[p] ?? null;
-      return v === null ? null : (perCapita ? v / nationalPop * 1000 : v);
-    }),
+    data: sortedPeriods.map(p => nationalTotal[p] ?? null),
     borderColor: REGION_COLORS.National,
     backgroundColor: 'transparent',
     borderWidth: 2,
@@ -203,8 +194,9 @@ function buildManagedCareSeries(geoData, geo) {
         data,
         borderColor: REGION_COLORS[region],
         borderWidth: 2,
-        pointRadius: 4,
-        tension: 0.3
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        tension: 0
       };
     });
   } else {
@@ -217,8 +209,9 @@ function buildManagedCareSeries(geoData, geo) {
         data,
         borderColor: colorVariant('#a371f7', i, stateList.length),
         borderWidth: 1.5,
-        pointRadius: 3,
-        tension: 0.3
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        tension: 0
       };
     });
   }
@@ -229,27 +222,64 @@ function buildManagedCareSeries(geoData, geo) {
 // ── PMPM series ───────────────────────────────────────────────────────────────
 function buildPMPMSeries(geoData, geo) {
   const pmpmData = state.pmpmData;
-  if (!pmpmData) return { labels: [], datasets: [], title: 'PMPM Expenditures', yAxisLabel: '' };
+  if (!pmpmData) return { labels: [], datasets: [], title: 'CMS-64 Expenditures', yAxisLabel: '' };
 
   const { byState, sortedPeriods } = pmpmData;
   const category = state.pmpmCategory;
-  const labels = sortedPeriods.map(formatPeriod);
-  const stateList = geo.states ? [...geo.states] : Object.keys(geoData.regions).flatMap(r => geoData.regions[r]).slice(0, 10);
 
-  const datasets = stateList.slice(0, 15).map((abbr, i) => {
-    const recs = byState.get(abbr) || [];
-    const data = sortedPeriods.map(p => recs.find(r => r.period === p)?.[category] ?? null);
-    return {
-      label: abbr,
-      data,
-      borderColor: colorVariant('#f78166', i, stateList.length),
-      borderWidth: 1.5,
-      pointRadius: 0,
-      tension: 0.3
-    };
-  });
+  // Apply fromYear filter
+  const periods = state.fromYear
+    ? sortedPeriods.filter(p => p.slice(0, 4) >= state.fromYear)
+    : sortedPeriods;
+  const labels = periods.map(formatPeriod);
 
   const catLabels = { total: 'Total Computable', federal: 'Federal Share', fedPct: 'Federal Share %', viii: 'Group VIII (ACA)', viiiNewElig: 'Group VIII Newly Eligible' };
+  let datasets = [];
+
+  if (!geo.states) {
+    // Regional totals by default
+    datasets = Object.entries(geoData.regions).map(([region, states]) => {
+      const data = periods.map(p => {
+        let sum = 0, count = 0;
+        states.forEach(abbr => {
+          const recs = byState.get(abbr) || [];
+          const rec = recs.find(r => r.period === p);
+          if (rec?.[category] !== null && rec?.[category] !== undefined) {
+            sum += rec[category];
+            count++;
+          }
+        });
+        return count > 0 ? sum : null;
+      });
+      return {
+        label: region,
+        data,
+        borderColor: REGION_COLORS[region],
+        backgroundColor: `${REGION_COLORS[region]}18`,
+        borderWidth: 2,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        tension: 0,
+        fill: false
+      };
+    });
+  } else {
+    const stateList = [...geo.states];
+    datasets = stateList.slice(0, 15).map((abbr, i) => {
+      const recs = byState.get(abbr) || [];
+      const data = periods.map(p => recs.find(r => r.period === p)?.[category] ?? null);
+      return {
+        label: abbr,
+        data,
+        borderColor: colorVariant('#f78166', i, stateList.length),
+        borderWidth: 1.5,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        tension: 0
+      };
+    });
+  }
+
   return { labels, datasets, title: `CMS-64 Expenditures — ${catLabels[category] || category}`, yAxisLabel: category === 'fedPct' ? 'Federal Share (%)' : 'Expenditures ($)' };
 }
 

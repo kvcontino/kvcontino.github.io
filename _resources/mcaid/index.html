@@ -69,24 +69,44 @@ layout: null
 
       <div class="filter-divider"></div>
 
-      <!-- Region filter -->
+      <!-- Region multi-select -->
       <div class="filter-group">
-        <label for="region-select">Region</label>
-        <select id="region-select" aria-label="Census region">
-          <option value="all">All Regions</option>
-          <option value="Northeast">Northeast</option>
-          <option value="Midwest">Midwest</option>
-          <option value="South">South</option>
-          <option value="West">West</option>
-        </select>
+        <label>Region</label>
+        <div class="ms-container">
+          <button class="ms-trigger" id="region-trigger" type="button">
+            <span class="ms-label">All Regions</span>
+            <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </button>
+          <div class="ms-panel hidden" id="region-panel">
+            <div class="ms-option ms-all" data-value="all">
+              <input type="checkbox" checked> All Regions
+            </div>
+            <div class="ms-option" data-value="Northeast" style="--accent:#58a6ff">
+              <input type="checkbox"><span class="ms-dot" style="background:#58a6ff"></span> Northeast
+            </div>
+            <div class="ms-option" data-value="Midwest" style="--accent:#3fb950">
+              <input type="checkbox"><span class="ms-dot" style="background:#3fb950"></span> Midwest
+            </div>
+            <div class="ms-option" data-value="South" style="--accent:#f78166">
+              <input type="checkbox"><span class="ms-dot" style="background:#f78166"></span> South
+            </div>
+            <div class="ms-option" data-value="West" style="--accent:#e3b341">
+              <input type="checkbox"><span class="ms-dot" style="background:#e3b341"></span> West
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- State filter -->
+      <!-- State multi-select -->
       <div class="filter-group">
-        <label for="state-select">State</label>
-        <select id="state-select" aria-label="State">
-          <option value="all">All States</option>
-        </select>
+        <label>State</label>
+        <div class="ms-container">
+          <button class="ms-trigger" id="state-trigger" type="button">
+            <span class="ms-label">All States</span>
+            <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </button>
+          <div class="ms-panel hidden" id="state-panel"></div>
+        </div>
       </div>
 
       <div class="filter-divider"></div>
@@ -187,7 +207,7 @@ layout: null
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 
   <!-- ── App (ES module) ────────────────────────────────────────────────────── -->
-  <script type="module" src="main.js"></script>
+  <script type="module" src="/main.js"></script>
 
 </body>
 </html>

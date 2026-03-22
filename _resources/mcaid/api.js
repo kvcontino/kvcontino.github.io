@@ -342,7 +342,7 @@ function processPMPM(rows) {
 
   // Quarter end date "2014-03-31" → "201403" for period key
   const periodKey = d => d ? d.slice(0, 7).replace('-', '') : null;
-  const periodLabel = d => d ? d.slice(0, 7) : null;
+  const periodLabel = d => d ? d.slice(0, 7).replace('-', '') : null;
 
   for (const row of rows) {
     const abbr = STATE_NAME_TO_ABBR[row.state?.trim()];
