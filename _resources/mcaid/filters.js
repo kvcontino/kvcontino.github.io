@@ -2,11 +2,10 @@
 
 import { state, setState, bus } from './state.js';
 
-let regions, stateNames;
+let _geoData = null;
 
 export function initFilters(geoData, pops) {
-  regions    = geoData;
-  stateNames = geoData.stateNames;
+  _geoData = geoData;
 
   // ── Metric tabs ───────────────────────────────────────────────────────────
   document.querySelectorAll('.metric-tab').forEach(btn => {
@@ -25,13 +24,44 @@ export function initFilters(geoData, pops) {
     setState({ enrollmentField: enrollType.value }, 'filterChanged');
   });
 
-  // ── Geo filter — custom multi-select ──────────────────────────────────────
-  buildGeoDropdown(geoData);
-
   // ── PMPM category ─────────────────────────────────────────────────────────
   const pmpmCat = document.getElementById('pmpm-category');
   pmpmCat.addEventListener('change', () => {
     setState({ pmpmCategory: pmpmCat.value }, 'filterChanged');
+  });
+
+  // ── Region select ─────────────────────────────────────────────────────────
+  const regionSel = document.getElementById('region-select');
+  regionSel.addEventListener('change', () => {
+    const region = regionSel.value;
+    populateStateSelect(region);
+    const states = region === 'all' ? null : new Set(geoData.regions[region]);
+    setState({
+      geo: { type: region === 'all' ? 'all' : 'region', label: region === 'all' ? 'All States' : region, states }
+    }, 'filterChanged');
+  });
+
+  // ── State select ──────────────────────────────────────────────────────────
+  const stateSel = document.getElementById('state-select');
+  stateSel.addEventListener('change', () => {
+    const abbr = stateSel.value;
+    if (abbr === 'all') {
+      const region = regionSel.value;
+      const states = region === 'all' ? null : new Set(geoData.regions[region]);
+      setState({
+        geo: { type: region === 'all' ? 'all' : 'region', label: region === 'all' ? 'All States' : region, states }
+      }, 'filterChanged');
+    } else {
+      setState({
+        geo: { type: 'state', label: `${abbr} — ${geoData.stateNames[abbr] || abbr}`, states: new Set([abbr]) }
+      }, 'filterChanged');
+    }
+  });
+
+  // ── From year ─────────────────────────────────────────────────────────────
+  const fromYear = document.getElementById('from-year');
+  fromYear.addEventListener('change', () => {
+    setState({ fromYear: fromYear.value === 'all' ? null : fromYear.value }, 'filterChanged');
   });
 
   // ── Per-capita toggle ─────────────────────────────────────────────────────
@@ -57,32 +87,52 @@ export function initFilters(geoData, pops) {
   document.getElementById('change-end-date').addEventListener('change', e => {
     setState({ changeEndPeriod: e.target.value }, 'filterChanged');
   });
+
+  // Build initial state dropdown
+  populateStateSelect('all');
 }
 
+// ── Populate state dropdown based on selected region ──────────────────────────
+function populateStateSelect(region) {
+  const stateSel = document.getElementById('state-select');
+  const states = region === 'all'
+    ? Object.values(_geoData.regions).flat().sort((a, b) =>
+        (_geoData.stateNames[a] || a).localeCompare(_geoData.stateNames[b] || b))
+    : (_geoData.regions[region] || []).slice().sort((a, b) =>
+        (_geoData.stateNames[a] || a).localeCompare(_geoData.stateNames[b] || b));
+
+  stateSel.innerHTML = `<option value="all">All States</option>` +
+    states.map(abbr =>
+      `<option value="${abbr}">${_geoData.stateNames[abbr] || abbr} (${abbr})</option>`
+    ).join('');
+}
+
+// ── Populate period selectors ─────────────────────────────────────────────────
 export function populatePeriodSelectors(periods) {
   const fmt = p => {
     const y = p.slice(0, 4), m = p.slice(4, 6);
     return new Date(+y, +m - 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
   };
 
-  const snapSel    = document.getElementById('snapshot-date');
-  const startSel   = document.getElementById('change-start-date');
-  const endSel     = document.getElementById('change-end-date');
+  const snapSel  = document.getElementById('snapshot-date');
+  const startSel = document.getElementById('change-start-date');
+  const endSel   = document.getElementById('change-end-date');
+  const fromYear = document.getElementById('from-year');
 
-  // Most recent first for snapshot
   const reversed = [...periods].reverse();
-  snapSel.innerHTML = reversed.map(p => `<option value="${p}">${fmt(p)}</option>`).join('');
-
-  // Chronological for start/end
+  snapSel.innerHTML  = reversed.map(p => `<option value="${p}">${fmt(p)}</option>`).join('');
   startSel.innerHTML = periods.map(p => `<option value="${p}">${fmt(p)}</option>`).join('');
   endSel.innerHTML   = reversed.map(p => `<option value="${p}">${fmt(p)}</option>`).join('');
 
-  // Defaults: snapshot = latest; change = 24 months ago → latest
-  snapSel.value  = periods[periods.length - 1];
-  endSel.value   = periods[periods.length - 1];
-
+  snapSel.value = periods[periods.length - 1];
+  endSel.value  = periods[periods.length - 1];
   const defaultStartIdx = Math.max(0, periods.length - 25);
   startSel.value = periods[defaultStartIdx];
+
+  // From-year selector — unique years from periods
+  const years = [...new Set(periods.map(p => p.slice(0, 4)))].sort();
+  fromYear.innerHTML = `<option value="all">All Years</option>` +
+    years.map(y => `<option value="${y}">${y}</option>`).join('');
 
   setState({
     snapshotPeriod:    periods[periods.length - 1],
@@ -98,157 +148,26 @@ export function populatePMPMCategories(categories) {
   ).join('');
 }
 
+// ── Filter visibility ─────────────────────────────────────────────────────────
 function updateFilterVisibility(metric) {
-  const enrollGroup  = document.getElementById('enrollment-type-group');
-  const pmpmGroup    = document.getElementById('pmpm-category-group');
-  const normToggle   = document.getElementById('trend-normalize-toggle');
-  const snapCapBtn   = document.getElementById('snap-cap-btn');
-  const snapAbsBtn   = document.getElementById('snap-abs-btn');
+  const enrollGroup = document.getElementById('enrollment-type-group');
+  const pmpmGroup   = document.getElementById('pmpm-category-group');
+  const normToggle  = document.getElementById('trend-normalize-toggle');
+  const snapCapBtn  = document.getElementById('snap-cap-btn');
 
-  enrollGroup.style.display  = metric === 'pmpm' ? 'none' : '';
-  pmpmGroup.style.display    = metric === 'pmpm' ? '' : 'none';
-  normToggle.style.display   = metric === 'enrollment' ? '' : 'none';
+  enrollGroup.style.display = metric === 'enrollment' ? '' : 'none';
+  pmpmGroup.style.display   = metric === 'pmpm' ? '' : 'none';
+  normToggle.style.display  = metric === 'enrollment' ? '' : 'none';
 
-  // Per-capita only meaningful for enrollment and managed care count
   if (snapCapBtn) {
     snapCapBtn.style.display = metric === 'enrollment' ? '' : 'none';
-    snapAbsBtn?.click(); // reset to absolute
-  }
-}
-
-// ── Geo dropdown (custom) ─────────────────────────────────────────────────────
-function buildGeoDropdown(geoData) {
-  const container = document.getElementById('geo-filter-container');
-  if (!container) return;
-
-  container.innerHTML = `
-    <div class="geo-dropdown" id="geo-dropdown">
-      <button class="geo-trigger" id="geo-trigger" type="button">
-        <span id="geo-label">All States</span>
-        <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-      </button>
-      <div class="geo-panel hidden" id="geo-panel">
-        <div class="geo-search-wrap">
-          <input type="text" id="geo-search" placeholder="Search states…" autocomplete="off">
-        </div>
-        <div class="geo-options" id="geo-options"></div>
-      </div>
-    </div>`;
-
-  buildGeoOptions(geoData);
-
-  const trigger = document.getElementById('geo-trigger');
-  const panel   = document.getElementById('geo-panel');
-  const search  = document.getElementById('geo-search');
-
-  trigger.addEventListener('click', () => {
-    panel.classList.toggle('hidden');
-    if (!panel.classList.contains('hidden')) search.focus();
-  });
-
-  // Close on outside click
-  document.addEventListener('click', e => {
-    if (!container.contains(e.target)) panel.classList.add('hidden');
-  });
-
-  search.addEventListener('input', () => filterGeoOptions(search.value));
-}
-
-function buildGeoOptions(geoData) {
-  const el = document.getElementById('geo-options');
-  if (!el) return;
-
-  const REGION_COLORS = { Northeast: '#58a6ff', Midwest: '#3fb950', South: '#f78166', West: '#e3b341' };
-  let html = `<div class="geo-option geo-option-all selected" data-type="all">
-    <span class="geo-check">✓</span> <span>All States</span>
-  </div>`;
-
-  html += `<div class="geo-section-label">Census Regions</div>`;
-  for (const [region, states] of Object.entries(geoData.regions)) {
-    const color = REGION_COLORS[region] || '#888';
-    html += `<div class="geo-option geo-region" data-type="region" data-value="${region}" style="--accent:${color}">
-      <span class="geo-check"></span>
-      <span class="geo-dot" style="background:${color}"></span>
-      <span>${region}</span>
-      <span class="geo-count">${states.length}</span>
-    </div>`;
   }
 
-  html += `<div class="geo-section-label">Census Divisions</div>`;
-  for (const [div, states] of Object.entries(geoData.divisions)) {
-    const region = geoData.divisionToRegion[div];
-    const color  = REGION_COLORS[region] || '#888';
-    html += `<div class="geo-option geo-division" data-type="division" data-value="${div}" style="--accent:${color}">
-      <span class="geo-check"></span>
-      <span class="geo-dot" style="background:${color};opacity:0.5"></span>
-      <span>${div}</span>
-      <span class="geo-count">${states.length}</span>
-    </div>`;
+  // Reset per-capita directly without firing a button click
+  if (metric !== 'enrollment' && state.perCapita) {
+    setState({ perCapita: false });
+    document.querySelectorAll('.toggle-btn[data-value]').forEach(b => {
+      b.classList.toggle('active', b.dataset.value === 'absolute');
+    });
   }
-
-  // Build flat state list (all states from all regions combined, sorted by name)
-  const allStates = Object.values(geoData.regions).flat();
-  allStates.sort((a, b) => (geoData.stateNames[a] || a).localeCompare(geoData.stateNames[b] || b));
-
-  html += `<div class="geo-section-label">Individual States</div>`;
-  for (const abbr of allStates) {
-    const region = geoData.stateToRegion[abbr];
-    const color  = REGION_COLORS[region] || '#888';
-    html += `<div class="geo-option geo-state" data-type="state" data-value="${abbr}" style="--accent:${color}" data-search="${(geoData.stateNames[abbr] || abbr).toLowerCase()}">
-      <span class="geo-check"></span>
-      <span class="geo-abbr">${abbr}</span>
-      <span>${geoData.stateNames[abbr] || abbr}</span>
-    </div>`;
-  }
-
-  el.innerHTML = html;
-
-  el.addEventListener('click', e => {
-    const opt = e.target.closest('.geo-option');
-    if (!opt) return;
-    selectGeoOption(opt, geoData);
-  });
-}
-
-function selectGeoOption(opt, geoData) {
-  const REGION_COLORS = { Northeast: '#58a6ff', Midwest: '#3fb950', South: '#f78166', West: '#e3b341' };
-  const type  = opt.dataset.type;
-  const value = opt.dataset.value;
-
-  // Clear all
-  document.querySelectorAll('.geo-option').forEach(o => {
-    o.classList.remove('selected');
-    o.querySelector('.geo-check').textContent = '';
-  });
-
-  opt.classList.add('selected');
-  opt.querySelector('.geo-check').textContent = '✓';
-
-  let label, states;
-  if (type === 'all') {
-    label = 'All States'; states = null;
-  } else if (type === 'region') {
-    label = value; states = new Set(geoData.regions[value]);
-  } else if (type === 'division') {
-    label = value; states = new Set(geoData.divisions[value]);
-  } else {
-    label = `${value} — ${geoData.stateNames[value] || value}`;
-    states = new Set([value]);
-  }
-
-  document.getElementById('geo-label').textContent = label;
-  setState({ geo: { type, label, states } }, 'filterChanged');
-  document.getElementById('geo-panel').classList.add('hidden');
-}
-
-function filterGeoOptions(query) {
-  const q = query.toLowerCase();
-  document.querySelectorAll('.geo-option').forEach(opt => {
-    if (q === '') { opt.style.display = ''; return; }
-    const text = (opt.dataset.search || opt.textContent || '').toLowerCase();
-    opt.style.display = text.includes(q) ? '' : 'none';
-  });
-  document.querySelectorAll('.geo-section-label').forEach(lbl => {
-    lbl.style.display = q === '' ? '' : 'none';
-  });
 }

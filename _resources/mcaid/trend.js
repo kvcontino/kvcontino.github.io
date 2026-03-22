@@ -54,11 +54,16 @@ function buildChartData(geoData, populations, metric, enrollmentField, geo, perC
 
 // ── Enrollment series ────────────────────────────────────────────────────────
 function buildEnrollmentSeries(geoData, populations, enrollmentField, geo, perCapita) {
-  const { byState, sortedPeriods } = state.enrollmentByState ? { byState: state.enrollmentByState, sortedPeriods: state.availablePeriods } : { byState: null, sortedPeriods: [] };
+  const byState = state.enrollmentByState;
   if (!byState) return { labels: [], datasets: [], title: 'Enrollment Trend', yAxisLabel: '' };
 
   const field = ENROLLMENT_FIELD_TO_KEY[enrollmentField] || 'total';
   const fieldLabel = FIELD_LABELS[field] || field;
+
+  // Apply fromYear filter to x-axis
+  const sortedPeriods = state.fromYear
+    ? state.availablePeriods.filter(p => p.slice(0, 4) >= state.fromYear)
+    : state.availablePeriods;
 
   const labels = sortedPeriods.map(formatPeriod);
   let datasets = [];
@@ -117,31 +122,24 @@ function buildEnrollmentSeries(geoData, populations, enrollmentField, geo, perCa
 
 function buildRegionLines(byState, sortedPeriods, field, perCapita, geoData, populations) {
   const regionTotals = {};
-  const regionPops = {};
-  for (const [region, states] of Object.entries(geoData.regions)) {
-    regionTotals[region] = {};
-    regionPops[region] = states.reduce((sum, abbr) => sum + (populations[abbr] || 0), 0);
-  }
+  for (const [region] of Object.entries(geoData.regions)) regionTotals[region] = {};
   let nationalTotal = {};
-  const nationalPop = Object.values(populations).reduce((a, b) => a + b, 0);
 
   byState.forEach((records, abbr) => {
     const region = geoData.stateToRegion[abbr];
     if (!region) return;
+    const pop = populations[abbr] || 0;
     records.forEach(rec => {
       const v = rec[field];
       if (v === null) return;
-      regionTotals[region][rec.period] = (regionTotals[region][rec.period] || 0) + v;
+      const rSeries = regionTotals[region];
+      rSeries[rec.period] = (rSeries[rec.period] || 0) + v;
       nationalTotal[rec.period] = (nationalTotal[rec.period] || 0) + v;
     });
   });
 
   const datasets = Object.entries(geoData.regions).map(([region]) => {
-    const pop = regionPops[region] || 1;
-    const data = sortedPeriods.map(p => {
-      const v = regionTotals[region][p] ?? null;
-      return v === null ? null : (perCapita ? v / pop * 1000 : v);
-    });
+    const data = sortedPeriods.map(p => regionTotals[region][p] ?? null);
     return {
       label: region,
       data,
@@ -158,10 +156,7 @@ function buildRegionLines(byState, sortedPeriods, field, perCapita, geoData, pop
   // National total (dashed)
   datasets.push({
     label: 'National Total',
-    data: sortedPeriods.map(p => {
-      const v = nationalTotal[p] ?? null;
-      return v === null ? null : (perCapita ? v / nationalPop * 1000 : v);
-    }),
+    data: sortedPeriods.map(p => nationalTotal[p] ?? null),
     borderColor: REGION_COLORS.National,
     backgroundColor: 'transparent',
     borderWidth: 2,
