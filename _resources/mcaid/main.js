@@ -12,8 +12,8 @@ let geoData, populations, topoJSON;
 async function init() {
   // Load static reference data
   [geoData, populations, topoJSON] = await Promise.all([
-    fetch('/_resources/mcaid/data/census-regions.json').then(r => r.json()),
-    fetch('/_resources/mcaid/data/state-populations.json').then(r => r.json()),
+    fetch('/_resources/mcaid/census-regions.json').then(r => r.json()),
+    fetch('/_resources/mcaid/state-populations.json').then(r => r.json()),
     loadTopoJSON()
   ]);
 

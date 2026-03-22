@@ -169,8 +169,23 @@ export async function fetchManagedCare(onProgress) {
 
   onProgress?.('Fetching managed care data…', 10);
 
+  // Try pre-fetched static file first (committed by GitHub Actions)
+  try {
+    const res = await fetch('/_resources/mcaid/managed-care.json');
+    if (res.ok) {
+      const rows = await res.json();
+      if (Array.isArray(rows) && rows.length > 0) {
+        onProgress?.('Processing managed care data…', 80);
+        const processed = processManagedCare(rows);
+        cacheSet('managed_care', processed);
+        onProgress?.('Ready', 100);
+        return processed;
+      }
+    }
+  } catch { /* fall through to live API */ }
+
   // Try healthdata.gov Socrata endpoint (annual data)
-    try {
+  try {
     const url = `${MC_SOCRATA}?$limit=5000&$order=year DESC`;
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10_000);
@@ -182,6 +197,7 @@ export async function fetchManagedCare(onProgress) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const rows = await res.json();
     if (!Array.isArray(rows) || rows.length === 0) throw new Error('Empty response');
+
     onProgress?.('Processing managed care data…', 80);
     const processed = processManagedCare(rows);
     cacheSet('managed_care', processed);
@@ -276,12 +292,31 @@ function parseCSV(text, year) {
 }
 
 // ── PMPM fetch (catalog discovery attempt) ────────────────────────────────────
-export async function fetchPMPM(_onProgress) {
-  // Known candidate DKAN UUIDs for MBES expenditure data
-  // These will be verified at runtime; if none respond correctly, we degrade gracefully.
+export async function fetchPMPM(onProgress) {
+  const cached = cacheGet('pmpm');
+  if (cached) return cached;
+
+  // Check for pre-fetched catalog to find correct UUID (committed by GitHub Actions)
+  try {
+    const res = await fetch('/_resources/mcaid/mbes-catalog.json');
+    if (res.ok) {
+      const catalog = await res.json();
+      const items = Array.isArray(catalog) ? catalog : (catalog.data || []);
+      const mbes = items.find(d =>
+        /expend|mbes|pmpm/i.test(d.title || '') ||
+        /expend|mbes|pmpm/i.test(d.description || '')
+      );
+      if (mbes?.identifier) {
+        onProgress?.('Found expenditure dataset, fetching…', 20);
+        return await fetchPMPMFromUUID(mbes.identifier, onProgress);
+      }
+    }
+  } catch { /* fall through */ }
+
+  // Fall back to hardcoded UUID candidates
   const candidates = [
-    '6c114b2c-cb59-5e07-9e42-92f71ecc22a5',  // MBES T-19 (expenditures by service)
-    'dea65a5f-8ee3-5b8d-b1df-5fd33e7f8cfd',  // Medicaid expenditure data
+    '6c114b2c-cb59-5e07-9e42-92f71ecc22a5',
+    'dea65a5f-8ee3-5b8d-b1df-5fd33e7f8cfd',
   ];
 
   for (const uuid of candidates) {
@@ -290,19 +325,16 @@ export async function fetchPMPM(_onProgress) {
       const probe = await dkanGet(url);
       const row = (probe.results || probe.data || [])[0];
       if (!row) continue;
-      // Verify it looks like expenditure data
       const keys = Object.keys(row);
-      const hasExpenditure = keys.some(k => /expend|pmpm|per_member/i.test(k));
-      if (!hasExpenditure) continue;
-      // Full fetch
-      return await fetchPMPMFromUUID(uuid);
+      if (!keys.some(k => /expend|pmpm|per_member/i.test(k))) continue;
+      return await fetchPMPMFromUUID(uuid, onProgress);
     } catch { continue; }
   }
 
-  throw new Error('PMPM/expenditure data not found via auto-discovery. The CMS MBES dataset may require a different access path. Consider pre-fetching via GitHub Actions.');
+  throw new Error('PMPM/expenditure data not found. Run the GitHub Actions workflow to pre-fetch the catalog, then retry.');
 }
 
-async function fetchPMPMFromUUID(uuid) {
+async function fetchPMPMFromUUID(uuid, onProgress) {
   let offset = 0, allRows = [];
   while (true) {
     const url = buildUrl(uuid, { limit: PAGE_LIMIT, offset });
@@ -311,6 +343,7 @@ async function fetchPMPMFromUUID(uuid) {
     allRows.push(...batch);
     if (batch.length < PAGE_LIMIT) break;
     offset += PAGE_LIMIT;
+    onProgress?.(`Loading expenditures… ${allRows.length.toLocaleString()} rows`, 50);
   }
   const processed = processPMPM(allRows);
   cacheSet('pmpm', processed);
