@@ -165,7 +165,7 @@ function processEnrollment(rows, cols) {
 // ── Managed care fetch ────────────────────────────────────────────────────────
 export async function fetchManagedCare(onProgress) {
   const cached = cacheGet('managed_care');
-  if (cached) return cached;
+  if (cached) return processManagedCare(cached);
 
   onProgress?.('Fetching managed care data…', 10);
 
@@ -177,7 +177,7 @@ export async function fetchManagedCare(onProgress) {
       if (Array.isArray(rows) && rows.length > 0) {
         onProgress?.('Processing managed care data…', 80);
         const processed = processManagedCare(rows);
-        cacheSet('managed_care', processed);
+        cacheSet('managed_care', rows);
         onProgress?.('Ready', 100);
         return processed;
       }
@@ -200,7 +200,7 @@ export async function fetchManagedCare(onProgress) {
 
     onProgress?.('Processing managed care data…', 80);
     const processed = processManagedCare(rows);
-    cacheSet('managed_care', processed);
+    cacheSet('managed_care', rows);
     onProgress?.('Ready', 100);
     return processed;
   } catch (err) {
@@ -230,7 +230,7 @@ async function tryManagedCareCSVs(onProgress) {
   }
 
   const processed = processManagedCare(allRows);
-  cacheSet('managed_care', processed);
+  cacheSet('managed_care', rows);
   return processed;
 }
 
