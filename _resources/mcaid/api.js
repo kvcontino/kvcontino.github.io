@@ -235,38 +235,34 @@ async function tryManagedCareCSVs(onProgress) {
 }
 
 function processManagedCare(rows) {
-  // Normalize regardless of Socrata vs CSV source
   const byYear  = new Map();
   const byState = new Map();
 
-  const findField = (row, patterns) => {
-    const keys = Object.keys(row);
-    for (const p of patterns) {
-      const k = keys.find(k => p.test(k));
-      if (k !== undefined) return row[k];
-    }
-    return null;
-  };
-  const parseNum = v => {
-    if (!v || v === 'n/a' || v === 'N/A' || v === 'NA') return null;
-    const n = Number(String(v).replace(/[,%]/g, ''));
+  const toNum = v => {
+    if (v === null || v === undefined || v === '') return null;
+    const n = Number(String(v).replace(/[,%]/g, '').trim());
     return isNaN(n) ? null : n;
   };
 
   for (const row of rows) {
-    const abbr  = findField(row, [/^state_abbreviation/i, /^abbreviation/i, /^state_abbr/i]);
-    const year  = String(findField(row, [/^year/i, /^fy/i, /^fiscal_year/i]) || '');
-    const total = parseNum(findField(row, [/total_medicaid_enroll/i, /^total_enrollees/i]));
-    const inMC  = parseNum(findField(row, [/total.*managed_care/i, /any.*managed/i, /in_any/i]));
-    const pct   = parseNum(findField(row, [/percent.*managed/i, /pct.*managed/i, /share.*managed/i, /%.*managed/i]));
-    const inComp = parseNum(findField(row, [/comprehensive.*managed/i, /comprehensive_mc/i]));
-    const pctComp = parseNum(findField(row, [/percent.*comprehensive/i, /pct.*comprehensive/i]));
-
+    // Support both normalized keys (from convert_mc.py) and raw Socrata keys
+    const abbr = row.state_abbreviation || row.state_abbr || row.abbreviation;
+    const year = String(row.year || row.Year || row.fiscal_year || '').trim();
     if (!abbr || !year) continue;
 
-    const entry = { abbr, year, total, inMC, pct: pct ?? (total && inMC ? inMC / total * 100 : null), inComp, pctComp };
+    const total  = toNum(row.total_medicaid_enrollees ?? row['Total Medicaid Enrollees']);
+    const inMC   = toNum(row.enrolled_any ?? row['Individuals Enrolled (Any)']);
+    const inComp = toNum(row.enrolled_comprehensive ?? row['Individuals Enrolled (Comprehensive)']);
+    const rawPct = toNum(row.pct_any ?? row['Percent of all Medicaid enrollees (Any)']);
+    const rawPctComp = toNum(row.pct_comprehensive ?? row['Percent of all Medicaid enrollees (Comprehensive)']);
 
-    if (!byYear.has(year))  byYear.set(year, new Map());
+    // Percentages in CSV are whole numbers (e.g. "81.00%") already parsed to 81
+    const pct     = rawPct ?? (total && inMC ? inMC / total * 100 : null);
+    const pctComp = rawPctComp ?? (total && inComp ? inComp / total * 100 : null);
+
+    const entry = { abbr, year, total, inMC, pct, inComp, pctComp };
+
+    if (!byYear.has(year)) byYear.set(year, new Map());
     byYear.get(year).set(abbr, entry);
 
     if (!byState.has(abbr)) byState.set(abbr, []);
