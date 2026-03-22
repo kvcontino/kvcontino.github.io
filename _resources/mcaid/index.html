@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/_resources/mcaid/">   
+  <title>Medicaid & CHIP Program Monitor</title>
+  <meta name="description" content="State-level Medicaid enrollment, managed care penetration, and expenditure trends. Data from data.medicaid.gov.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <span class="brand-mark">CMS</span>
+        <h1>Medicaid &amp; CHIP Program Monitor</h1>
+      </div>
+      <div class="header-meta">
+        <span id="data-currency">Loading…</span>
+        <a href="https://data.medicaid.gov" target="_blank" rel="noopener" class="data-source-tag">data.medicaid.gov</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Filter bar ─────────────────────────────────────────────────────────── -->
+  <nav class="filter-bar" aria-label="Dashboard filters">
+    <div class="filter-inner">
+
+      <!-- Metric -->
+      <div class="filter-group">
+        <label>Metric</label>
+        <div class="metric-tabs" id="metric-tabs" role="tablist">
+          <button class="metric-tab active" data-metric="enrollment" role="tab" aria-selected="true">Enrollment</button>
+          <button class="metric-tab" data-metric="managed_care" role="tab" aria-selected="false">Managed Care %</button>
+          <button class="metric-tab" data-metric="pmpm" role="tab" aria-selected="false">PMPM Expenditures</button>
+        </div>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <!-- Enrollment type (hidden for PMPM) -->
+      <div class="filter-group" id="enrollment-type-group">
+        <label for="enrollment-type">Type</label>
+        <select id="enrollment-type" aria-label="Enrollment type">
+          <option value="total_medicaid_and_chip_enrollment">Total Medicaid &amp; CHIP</option>
+          <option value="total_medicaid_enrollment">Medicaid Only</option>
+          <option value="total_chip_enrollment">CHIP Only</option>
+          <option value="medicaid_and_chip_child_enrollment">Children</option>
+          <option value="total_adult_medicaid_enrollment">Adults</option>
+        </select>
+      </div>
+
+      <!-- PMPM category (shown only for PMPM) -->
+      <div class="filter-group" id="pmpm-category-group" style="display:none">
+        <label for="pmpm-category">Category</label>
+        <select id="pmpm-category" aria-label="Expenditure category">
+          <option value="total">Total</option>
+        </select>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <!-- Geo filter -->
+      <div class="filter-group">
+        <label>Geography</label>
+        <div id="geo-filter-container"></div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ── Loading overlay ────────────────────────────────────────────────────── -->
+  <div id="loading-overlay" class="loading-overlay" role="status" aria-live="polite">
+    <div class="loading-inner">
+      <div class="loading-spinner" aria-hidden="true"></div>
+      <p id="loading-message">Connecting to data.medicaid.gov…</p>
+      <p class="loading-sub" id="loading-sub"></p>
+      <div class="loading-progress">
+        <div id="loading-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Error banner ───────────────────────────────────────────────────────── -->
+  <div id="error-banner" class="error-banner hidden" role="alert">
+    <span id="error-message"></span>
+    <button id="error-dismiss" aria-label="Dismiss error">×</button>
+  </div>
+
+  <!-- ── Dashboard ──────────────────────────────────────────────────────────── -->
+  <main class="dashboard-main">
+
+    <!-- Row 1: Trend chart (full width) -->
+    <section class="panel panel-wide" id="trend-panel" aria-label="Trend chart">
+      <div class="panel-header">
+        <h2 id="trend-title">Enrollment Trend</h2>
+        <div class="panel-actions">
+          <div class="toggle-group" id="trend-normalize-toggle">
+            <button class="toggle-btn active" data-value="absolute">Count</button>
+            <button class="toggle-btn" data-value="per_capita">Per 1K Pop.</button>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="trend-chart" aria-label="Trend chart"></canvas>
+      </div>
+    </section>
+
+    <!-- Row 2: Two choropleths -->
+    <div class="panel-row">
+
+      <!-- Choropleth 1: Point-in-time snapshot -->
+      <section class="panel panel-half" id="map-snapshot-panel" aria-label="Enrollment map snapshot">
+        <div class="panel-header">
+          <h2 id="map-snapshot-title">State Snapshot</h2>
+          <div class="panel-actions">
+            <select id="snapshot-date" class="select-sm" aria-label="Snapshot period"></select>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-value="absolute" id="snap-abs-btn">Count</button>
+              <button class="toggle-btn" data-value="per_capita" id="snap-cap-btn">Per 1K</button>
+            </div>
+          </div>
+        </div>
+        <div id="map-snapshot" class="map-container" aria-label="Choropleth map"></div>
+        <div id="map-snapshot-legend" class="map-legend" aria-label="Map legend"></div>
+      </section>
+
+      <!-- Choropleth 2: Percent change -->
+      <section class="panel panel-half" id="map-change-panel" aria-label="Enrollment change map">
+        <div class="panel-header">
+          <h2 id="map-change-title">% Change</h2>
+          <div class="panel-actions">
+            <div class="date-range-inputs">
+              <select id="change-start-date" class="select-sm" aria-label="Change start period"></select>
+              <span class="date-arrow" aria-hidden="true">→</span>
+              <select id="change-end-date" class="select-sm" aria-label="Change end period"></select>
+            </div>
+          </div>
+        </div>
+        <div id="map-change" class="map-container" aria-label="Percent change choropleth map"></div>
+        <div id="map-change-legend" class="map-legend" aria-label="Change map legend"></div>
+      </section>
+
+    </div><!-- .panel-row -->
+
+  </main>
+
+  <!-- ── Tooltip ────────────────────────────────────────────────────────────── -->
+  <div id="tooltip" class="tooltip hidden" role="tooltip" aria-live="polite"></div>
+
+  <!-- ── Dependency scripts ─────────────────────────────────────────────────── -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson@3/dist/topojson.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+
+  <!-- ── App (ES module) ────────────────────────────────────────────────────── -->
+  <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
