@@ -1,8 +1,8 @@
 name: Refresh Medicaid Data
 on:
   schedule:
-    - cron: '0 8 1 * *'   # First of each month at 8am UTC
-  workflow_dispatch:        # Allow manual runs from the Actions tab
+    - cron: '0 8 1 * *'
+  workflow_dispatch:
 
 jobs:
   fetch:
@@ -11,17 +11,27 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+
       - name: Fetch managed care data
         run: |
-          curl -s "https://healthdata.gov/resource/m563-snjf.json?\$limit=5000" \
-            -H "Accept: application/json" \
-            > _resources/mcaid/managed-care.json
-          echo "Managed care rows: $(python3 -c "import json,sys; d=json.load(open('_resources/mcaid/managed-care.json')); print(len(d) if isinstance(d,list) else d)")"
+          curl -s "https://download.medicaid.gov/data/share-of-medicaid-enrollees-in-managed-care.2024-table5.csv" \
+            > /tmp/managed-care.csv
+          python3 -c "
+import csv, json
+rows = []
+with open('/tmp/managed-care.csv') as f:
+    for row in csv.DictReader(f):
+        row['year'] = '2024'
+        rows.append(row)
+print(json.dumps(rows))
+" > _resources/mcaid/managed-care.json
+          echo "Rows: $(python3 -c "import json; print(len(json.load(open('_resources/mcaid/managed-care.json'))))")"
+
       - name: Fetch MBES expenditure catalog
         run: |
           curl -s "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?limit=50&sort=modified" \
             > _resources/mcaid/mbes-catalog.json
-          echo "Catalog items: $(python3 -c "import json,sys; d=json.load(open('_resources/mcaid/mbes-catalog.json')); print(len(d) if isinstance(d,list) else len(d.get('data',[])))")"
+          echo "Catalog items: $(python3 -c "import json; d=json.load(open('_resources/mcaid/mbes-catalog.json')); print(len(d) if isinstance(d,list) else len(d.get('data',[])))")"
 
       - name: Commit updated data
         run: |
@@ -29,4 +39,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add _resources/mcaid/managed-care.json _resources/mcaid/mbes-catalog.json
           git diff --staged --quiet || git commit -m "chore: refresh Medicaid data $(date +%Y-%m)"
+          git pull --rebase
           git push
