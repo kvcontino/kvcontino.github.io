@@ -240,7 +240,8 @@ function buildPMPMSeries(geoData, geo) {
     };
   });
 
-  return { labels, datasets, title: `PMPM Expenditures — ${category}`, yAxisLabel: 'Per Member Per Month ($)' };
+  const catLabels = { total: 'Total Computable', federal: 'Federal Share', fedPct: 'Federal Share %', viii: 'Group VIII (ACA)', viiiNewElig: 'Group VIII Newly Eligible' };
+  return { labels, datasets, title: `CMS-64 Expenditures — ${catLabels[category] || category}`, yAxisLabel: category === 'fedPct' ? 'Federal Share (%)' : 'Expenditures ($)' };
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -317,7 +318,10 @@ function chartOptions(title, yLabel, metric, perCapita) {
             if (metric === 'managed_care' || (metric === 'enrollment' && perCapita)) {
               formatted = v.toFixed(1) + (metric === 'managed_care' ? '%' : '');
             } else if (metric === 'pmpm') {
-              formatted = '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+              const cat = ctx.chart?.config?.data?.datasets?.[0]?._category || '';
+              formatted = state.pmpmCategory === 'fedPct'
+                ? v.toFixed(1) + '%'
+                : '$' + v.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
             } else {
               formatted = formatLargeNum(v);
             }
@@ -344,7 +348,7 @@ function chartOptions(title, yLabel, metric, perCapita) {
           font: { family: "'IBM Plex Mono', monospace", size: 10 },
           callback: v => {
             if (metric === 'managed_care') return v.toFixed(0) + '%';
-            if (metric === 'pmpm') return '$' + formatLargeNum(v);
+            if (metric === 'pmpm') return state.pmpmCategory === 'fedPct' ? v.toFixed(1) + '%' : '$' + formatLargeNum(v);
             if (perCapita) return v.toFixed(1);
             return formatLargeNum(v);
           }

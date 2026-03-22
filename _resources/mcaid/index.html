@@ -9,7 +9,7 @@ layout: null
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Medicaid & CHIP Program Monitor</title>
   <meta name="description" content="State-level Medicaid enrollment, managed care penetration, and expenditure trends. Data from data.medicaid.gov.">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -37,7 +37,7 @@ layout: null
         <div class="metric-tabs" id="metric-tabs" role="tablist">
           <button class="metric-tab active" data-metric="enrollment" role="tab" aria-selected="true">Enrollment</button>
           <button class="metric-tab" data-metric="managed_care" role="tab" aria-selected="false">Managed Care %</button>
-          <button class="metric-tab" data-metric="pmpm" role="tab" aria-selected="false">PMPM Expenditures</button>
+          <button class="metric-tab" data-metric="pmpm" role="tab" aria-selected="false">CMS-64 Expenditures</button>
         </div>
       </div>
 
@@ -55,11 +55,15 @@ layout: null
         </select>
       </div>
 
-      <!-- PMPM category (shown only for PMPM) -->
+      <!-- Expenditure category (shown only for CMS-64) -->
       <div class="filter-group" id="pmpm-category-group" style="display:none">
         <label for="pmpm-category">Category</label>
         <select id="pmpm-category" aria-label="Expenditure category">
-          <option value="total">Total</option>
+          <option value="total">Total Computable</option>
+          <option value="federal">Federal Share</option>
+          <option value="fedPct">Federal Share %</option>
+          <option value="viii">Group VIII (ACA)</option>
+          <option value="viiiNewElig">Group VIII Newly Eligible</option>
         </select>
       </div>
 
@@ -183,7 +187,7 @@ layout: null
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 
   <!-- ── App (ES module) ────────────────────────────────────────────────────── -->
-  <script type="module" src="main.js"></script>
+  <script type="module" src="js/main.js"></script>
 
 </body>
 </html>

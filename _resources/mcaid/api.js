@@ -288,46 +288,31 @@ function parseCSV(text, year) {
 }
 
 // ── PMPM fetch (catalog discovery attempt) ────────────────────────────────────
+// ── CMS-64 State name → abbreviation ─────────────────────────────────────────
+const STATE_NAME_TO_ABBR = {
+  'Alabama':'AL','Alaska':'AK','Arizona':'AZ','Arkansas':'AR','California':'CA',
+  'Colorado':'CO','Connecticut':'CT','Delaware':'DE','District of Columbia':'DC',
+  'Florida':'FL','Georgia':'GA','Hawaii':'HI','Idaho':'ID','Illinois':'IL',
+  'Indiana':'IN','Iowa':'IA','Kansas':'KS','Kentucky':'KY','Louisiana':'LA',
+  'Maine':'ME','Maryland':'MD','Massachusetts':'MA','Michigan':'MI','Minnesota':'MN',
+  'Mississippi':'MS','Missouri':'MO','Montana':'MT','Nebraska':'NE','Nevada':'NV',
+  'New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM','New York':'NY',
+  'North Carolina':'NC','North Dakota':'ND','Ohio':'OH','Oklahoma':'OK','Oregon':'OR',
+  'Pennsylvania':'PA','Rhode Island':'RI','South Carolina':'SC','South Dakota':'SD',
+  'Tennessee':'TN','Texas':'TX','Utah':'UT','Vermont':'VT','Virginia':'VA',
+  'Washington':'WA','West Virginia':'WV','Wisconsin':'WI','Wyoming':'WY',
+  'Puerto Rico':'PR','Guam':'GU','Virgin Islands':'VI',
+  'Northern Mariana Islands':'MP','American Samoa':'AS'
+};
+
 export async function fetchPMPM(onProgress) {
   const cached = cacheGet('pmpm');
-  if (cached) return cached;
+  if (cached) return processPMPM(cached);
 
-  // Check for pre-fetched catalog to find correct UUID (committed by GitHub Actions)
-  try {
-    const res = await fetch('/_resources/mcaid/mbes-catalog.json');
-    if (res.ok) {
-      const catalog = await res.json();
-      const items = Array.isArray(catalog) ? catalog : (catalog.data || []);
-      const mbes = items.find(d =>
-        /expend|mbes|pmpm/i.test(d.title || '') ||
-        /expend|mbes|pmpm/i.test(d.description || '')
-      );
-      if (mbes?.identifier) {
-        onProgress?.('Found expenditure dataset, fetching…', 20);
-        return await fetchPMPMFromUUID(mbes.identifier, onProgress);
-      }
-    }
-  } catch { /* fall through */ }
-
-  // Fall back to hardcoded UUID candidates
-  const candidates = [
-    '6c114b2c-cb59-5e07-9e42-92f71ecc22a5',
-    'dea65a5f-8ee3-5b8d-b1df-5fd33e7f8cfd',
-  ];
-
-  for (const uuid of candidates) {
-    try {
-      const url = buildUrl(uuid, { limit: 1, offset: 0 });
-      const probe = await dkanGet(url);
-      const row = (probe.results || probe.data || [])[0];
-      if (!row) continue;
-      const keys = Object.keys(row);
-      if (!keys.some(k => /expend|pmpm|per_member/i.test(k))) continue;
-      return await fetchPMPMFromUUID(uuid, onProgress);
-    } catch { continue; }
-  }
-
-  throw new Error('PMPM/expenditure data not found. Run the GitHub Actions workflow to pre-fetch the catalog, then retry.');
+  // CMS-64 New Adult Group Expenditures — confirmed UUID
+  const CMS64_UUID = '00505e90-f8ac-5921-b12f-5e23ba7ffcf3';
+  onProgress?.('Fetching CMS-64 expenditure data…', 10);
+  return await fetchPMPMFromUUID(CMS64_UUID, onProgress);
 }
 
 async function fetchPMPMFromUUID(uuid, onProgress) {
@@ -341,40 +326,49 @@ async function fetchPMPMFromUUID(uuid, onProgress) {
     offset += PAGE_LIMIT;
     onProgress?.(`Loading expenditures… ${allRows.length.toLocaleString()} rows`, 50);
   }
-  const processed = processPMPM(allRows);
-  cacheSet('pmpm', processed);
-  return processed;
+  cacheSet('pmpm', allRows);
+  return processPMPM(allRows);
 }
 
 function processPMPM(rows) {
-  // Generic processor; adapts to whatever schema is discovered
   const byState  = new Map();
   const byPeriod = new Map();
-  const categories = new Set(['total']);
 
-  const parseNum = v => { const n = Number(String(v || '').replace(/[,$]/g, '')); return isNaN(n) ? null : n; };
+  const parseNum = v => {
+    if (!v || v === 'N/A' || v === '') return null;
+    const n = Number(String(v).replace(/[,$]/g, ''));
+    return isNaN(n) ? null : n;
+  };
+
+  // Quarter end date "2014-03-31" → "201403" for period key
+  const periodKey = d => d ? d.slice(0, 7).replace('-', '') : null;
+  const periodLabel = d => d ? d.slice(0, 7) : null;
 
   for (const row of rows) {
-    const keys   = Object.keys(row);
-    const abbr   = row[keys.find(k => /state_abbr/i.test(k))] || row[keys.find(k => /^state$/i.test(k))];
-    const period = row[keys.find(k => /period|year|quarter/i.test(k))];
-    if (!abbr || !period) continue;
+    const abbr = STATE_NAME_TO_ABBR[row.state?.trim()];
+    if (!abbr) continue;
+    const period = periodLabel(row.quarter_end_date);
+    if (!period) continue;
 
-    const pmpm = {};
-    keys.filter(k => /expend|pmpm|per_member/i.test(k)).forEach(k => {
-      const cat = k.replace(/pmpm_|expenditure_|per_member_/gi, '').replace(/_/g, ' ').trim() || 'total';
-      categories.add(cat);
-      pmpm[cat] = parseNum(row[k]);
-    });
+    const total        = parseNum(row.total_computable_all_medical_assistance_expenditures);
+    const federal      = parseNum(row.total_federal_share_all_medical_assistance_expenditures);
+    const viii         = parseNum(row.total_computable_viii_group_expenditures);
+    const viiiNewElig  = parseNum(row.total_computable_viii_group_newly_eligible_expenditures);
+    const fedPct       = (total && federal) ? (federal / total * 100) : null;
 
-    if (!byState.has(abbr))  byState.set(abbr, []);
-    byState.get(abbr).push({ period, ...pmpm });
+    const entry = { total, federal, viii, viiiNewElig, fedPct };
+
+    if (!byState.has(abbr)) byState.set(abbr, []);
+    byState.get(abbr).push({ period, ...entry });
     if (!byPeriod.has(period)) byPeriod.set(period, new Map());
-    byPeriod.get(period).set(abbr, pmpm);
+    byPeriod.get(period).set(abbr, entry);
   }
 
   byState.forEach(recs => recs.sort((a, b) => a.period.localeCompare(b.period)));
   const sortedPeriods = [...byPeriod.keys()].sort();
 
-  return { byState, byPeriod, sortedPeriods, categories: [...categories] };
+  return {
+    byState, byPeriod, sortedPeriods,
+    categories: ['total', 'federal', 'viii', 'viiiNewElig', 'fedPct']
+  };
 }
