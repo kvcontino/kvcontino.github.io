@@ -1,0 +1,32 @@
+name: Refresh Medicaid Data
+on:
+  schedule:
+    - cron: '0 8 1 * *'   # First of each month at 8am UTC
+  workflow_dispatch:        # Allow manual runs from the Actions tab
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch managed care data
+        run: |
+          curl -s "https://healthdata.gov/resource/m563-snjf.json?\$limit=5000&\$order=year+DESC" \
+            -H "Accept: application/json" \
+            > _resources/mcaid/managed-care.json
+          echo "Managed care rows: $(python3 -c "import json,sys; print(len(json.load(open('_resources/mcaid/managed-care.json'))))")"
+
+      - name: Fetch MBES expenditure catalog
+        run: |
+          curl -s "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?limit=50&sort=modified&sort-order=desc" \
+            > _resources/mcaid/mbes-catalog.json
+          echo "Catalog items: $(python3 -c "import json,sys; d=json.load(open('_resources/mcaid/mbes-catalog.json')); print(len(d) if isinstance(d,list) else len(d.get('data',[])))")"
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _resources/mcaid/managed-care.json _resources/mcaid/mbes-catalog.json
+          git diff --staged --quiet || git commit -m "chore: refresh Medicaid data $(date +%Y-%m)"
+          git push

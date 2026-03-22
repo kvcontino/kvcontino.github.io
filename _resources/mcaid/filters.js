@@ -37,11 +37,12 @@ export function initFilters(geoData, pops) {
   // ── Per-capita toggle ─────────────────────────────────────────────────────
   document.querySelectorAll('.toggle-btn[data-value]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const group = btn.closest('.toggle-group');
-      group.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      if (btn.dataset.value === 'per_capita' || btn.dataset.value === 'absolute') {
-        setState({ perCapita: btn.dataset.value === 'per_capita' }, 'filterChanged');
+      const val = btn.dataset.value;
+      document.querySelectorAll('.toggle-btn[data-value]').forEach(b => {
+        b.classList.toggle('active', b.dataset.value === val);
+      });
+      if (val === 'per_capita' || val === 'absolute') {
+        setState({ perCapita: val === 'per_capita' }, 'filterChanged');
       }
     });
   });

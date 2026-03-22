@@ -228,8 +228,10 @@ function buildColorScale(scheme, values, isDivergent) {
 
   if (isDivergent) {
     const ext = Math.max(Math.abs(d3.min(values)), Math.abs(d3.max(values)));
-    return d3.scaleDiverging(t => d3.interpolateRgb('#f85149', '#30363d', '#3fb950')(t))
-             .domain([-ext, 0, ext]);
+    return d3.scaleDiverging(t => {
+      if (t < 0.5) return d3.interpolateRgb('#ff7d00', '#21262d')(t * 2);
+      return d3.interpolateRgb('#21262d', '#0083ff')((t - 0.5) * 2);
+    }).domain([-ext, 0, ext]);
   }
 
   // Quantile scale for better visual discrimination (handles skewed distributions)
