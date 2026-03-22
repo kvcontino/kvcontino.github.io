@@ -122,24 +122,31 @@ function buildEnrollmentSeries(geoData, populations, enrollmentField, geo, perCa
 
 function buildRegionLines(byState, sortedPeriods, field, perCapita, geoData, populations) {
   const regionTotals = {};
-  for (const [region] of Object.entries(geoData.regions)) regionTotals[region] = {};
+  const regionPops = {};
+  for (const [region, states] of Object.entries(geoData.regions)) {
+    regionTotals[region] = {};
+    regionPops[region] = states.reduce((sum, abbr) => sum + (populations[abbr] || 0), 0);
+  }
   let nationalTotal = {};
+  const nationalPop = Object.values(populations).reduce((a, b) => a + b, 0);
 
   byState.forEach((records, abbr) => {
     const region = geoData.stateToRegion[abbr];
     if (!region) return;
-    const pop = populations[abbr] || 0;
     records.forEach(rec => {
       const v = rec[field];
       if (v === null) return;
-      const rSeries = regionTotals[region];
-      rSeries[rec.period] = (rSeries[rec.period] || 0) + v;
+      regionTotals[region][rec.period] = (regionTotals[region][rec.period] || 0) + v;
       nationalTotal[rec.period] = (nationalTotal[rec.period] || 0) + v;
     });
   });
 
   const datasets = Object.entries(geoData.regions).map(([region]) => {
-    const data = sortedPeriods.map(p => regionTotals[region][p] ?? null);
+    const pop = regionPops[region] || 1;
+    const data = sortedPeriods.map(p => {
+      const v = regionTotals[region][p] ?? null;
+      return v === null ? null : (perCapita ? v / pop * 1000 : v);
+    });
     return {
       label: region,
       data,
@@ -153,10 +160,12 @@ function buildRegionLines(byState, sortedPeriods, field, perCapita, geoData, pop
     };
   });
 
-  // National total (dashed)
   datasets.push({
     label: 'National Total',
-    data: sortedPeriods.map(p => nationalTotal[p] ?? null),
+    data: sortedPeriods.map(p => {
+      const v = nationalTotal[p] ?? null;
+      return v === null ? null : (perCapita ? v / nationalPop * 1000 : v);
+    }),
     borderColor: REGION_COLORS.National,
     backgroundColor: 'transparent',
     borderWidth: 2,
