@@ -165,7 +165,7 @@ function processEnrollment(rows, cols) {
 // ── Managed care fetch ────────────────────────────────────────────────────────
 export async function fetchManagedCare(onProgress) {
   const cached = cacheGet('managed_care');
-  if (cached) return processManagedCare(cached);
+  if (cached && Array.isArray(cached)) return processManagedCare(cached);
 
   onProgress?.('Fetching managed care data…', 10);
 
@@ -307,7 +307,7 @@ const STATE_NAME_TO_ABBR = {
 
 export async function fetchPMPM(onProgress) {
   const cached = cacheGet('pmpm');
-  if (cached) return processPMPM(cached);
+  if (cached && Array.isArray(cached)) return processPMPM(cached);
 
   // CMS-64 New Adult Group Expenditures — confirmed UUID
   const CMS64_UUID = '00505e90-f8ac-5921-b12f-5e23ba7ffcf3';
