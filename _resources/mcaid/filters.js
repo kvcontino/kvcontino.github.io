@@ -91,7 +91,6 @@ function buildMultiSelect({ triggerId, panelId, onSelect, allLabel }) {
 
   trigger.addEventListener('click', e => {
     e.stopPropagation();
-    // Close other panels
     document.querySelectorAll('.ms-panel').forEach(p => {
       if (p.id !== panelId) p.classList.add('hidden');
     });
@@ -102,6 +101,17 @@ function buildMultiSelect({ triggerId, panelId, onSelect, allLabel }) {
     if (!panel.contains(e.target) && e.target !== trigger) {
       panel.classList.add('hidden');
     }
+  });
+
+  // Wire option clicks — works for both static HTML options (region)
+  // and dynamically rebuilt options (state, via event delegation)
+  panel.addEventListener('click', e => {
+    const opt = e.target.closest('.ms-option');
+    if (!opt) return;
+    const cb = opt.querySelector('input[type=checkbox]');
+    // Toggle unless click was directly on the checkbox (already toggled by browser)
+    if (e.target !== cb) cb.checked = !cb.checked;
+    onSelect(opt.dataset.value, cb.checked);
   });
 }
 
@@ -275,10 +285,38 @@ export function populatePeriodSelectors(periods) {
 }
 
 export function populatePMPMCategories(categories) {
+  const catLabels = { total: 'Total Computable', federal: 'Federal Share', fedPct: 'Federal Share %', viii: 'Group VIII (ACA)', viiiNewElig: 'Group VIII Newly Eligible' };
   const sel = document.getElementById('pmpm-category');
   sel.innerHTML = categories.map(c =>
-    `<option value="${c}">${c.charAt(0).toUpperCase() + c.slice(1)}</option>`
+    `<option value="${c}">${catLabels[c] || c.charAt(0).toUpperCase() + c.slice(1)}</option>`
   ).join('');
+}
+
+// ── Repopulate only the map date selectors (snapshot + change) ────────────────
+export function populateMapPeriodSelectors(periods, fmt) {
+  if (!periods?.length) return;
+  const snapSel  = document.getElementById('snapshot-date');
+  const startSel = document.getElementById('change-start-date');
+  const endSel   = document.getElementById('change-end-date');
+  if (!snapSel) return;
+
+  const reversed = [...periods].reverse();
+  const toOpt = (p, arr) => arr.map(v => `<option value="${v}">${fmt(v)}</option>`).join('');
+
+  snapSel.innerHTML  = toOpt(null, reversed);
+  startSel.innerHTML = toOpt(null, periods);
+  endSel.innerHTML   = toOpt(null, reversed);
+
+  // Default: snapshot = most recent; change = earliest available → most recent
+  snapSel.value  = periods[periods.length - 1];
+  endSel.value   = periods[periods.length - 1];
+  startSel.value = periods[0];
+
+  setState({
+    snapshotPeriod:    periods[periods.length - 1],
+    changeStartPeriod: periods[0],
+    changeEndPeriod:   periods[periods.length - 1]
+  });
 }
 
 // ── Filter visibility ─────────────────────────────────────────────────────────
