@@ -14,25 +14,14 @@ jobs:
 
       - name: Fetch managed care data
         run: |
-          curl -s "https://download.medicaid.gov/data/share-of-medicaid-enrollees-in-managed-care.2024-table5.csv" \
-            > /tmp/managed-care.csv
-          cat > /tmp/convert.py << 'EOF'
-import csv, json
-rows = []
-with open('/tmp/managed-care.csv') as f:
-    for row in csv.DictReader(f):
-        row['year'] = '2024'
-        rows.append(row)
-print(json.dumps(rows))
-EOF
-          python3 /tmp/convert.py > _resources/mcaid/managed-care.json
-          python3 -c "import json; d=json.load(open('_resources/mcaid/managed-care.json')); print('Rows:', len(d))"
+          curl -s "https://download.medicaid.gov/data/share-of-medicaid-enrollees-in-managed-care.2024-table5.csv" > /tmp/managed-care.csv
+          python3 _resources/mcaid/convert_mc.py
+          echo "Done"
 
       - name: Fetch MBES expenditure catalog
         run: |
-          curl -s "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?limit=50&sort=modified" \
-            > _resources/mcaid/mbes-catalog.json
-          python3 -c "import json; d=json.load(open('_resources/mcaid/mbes-catalog.json')); print('Items:', len(d) if isinstance(d,list) else len(d.get('data',[])))"
+          curl -s "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?limit=50&sort=modified" > _resources/mcaid/mbes-catalog.json
+          echo "Done"
 
       - name: Commit updated data
         run: |
