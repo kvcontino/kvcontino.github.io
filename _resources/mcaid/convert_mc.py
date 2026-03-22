@@ -19,7 +19,7 @@ STATE_ABBR = {
 }
 
 def parse_num(val):
-    if not val or val.strip() in ('', 'N/A', 'n/a', '*'):
+    if not val or val.strip() in ('', 'N/A', 'n/a', '*','--'):
         return None
     return float(val.replace(',', '').replace('%', '').strip())
 
