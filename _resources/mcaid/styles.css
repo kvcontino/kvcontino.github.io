@@ -526,7 +526,9 @@ select.select-sm { min-width: 110px; font-size: 11px; padding: 4px 24px 4px 8px;
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-2); }
 ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-4); }
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-4); }
+}
 
 /* ── Responsive ──────────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {

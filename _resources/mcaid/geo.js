@@ -102,7 +102,11 @@ function getSnapshotValues(metric, field, period, perCapita, populations) {
     if (!periodData) return null;
     const valueMap = new Map();
     periodData.forEach((vals, abbr) => { if (vals[cat] !== undefined) valueMap.set(abbr, vals[cat]); });
-    return { valueMap, format: v => '$' + v.toFixed(2), title: 'PMPM Expenditure', colorScheme: 'pmpm' };
+    const catLabels = { total: 'Total Computable', federal: 'Federal Share', fedPct: 'Federal Share %', viii: 'Group VIII (ACA)', viiiNewElig: 'Group VIII Newly Eligible' };
+    const fmt = state.pmpmCategory === 'fedPct'
+      ? v => v.toFixed(1) + '%'
+      : v => '$' + (v >= 1_000_000_000 ? (v/1_000_000_000).toFixed(2) + 'B' : v >= 1_000_000 ? (v/1_000_000).toFixed(1) + 'M' : v.toFixed(0));
+    return { valueMap, format: fmt, title: `CMS-64: ${catLabels[state.pmpmCategory] || state.pmpmCategory}`, colorScheme: 'pmpm' };
   }
 
   return null;
