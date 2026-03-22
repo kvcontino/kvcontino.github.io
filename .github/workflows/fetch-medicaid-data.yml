@@ -19,7 +19,7 @@ jobs:
           echo "Managed care rows: $(python3 -c "import json,sys; d=json.load(open('_resources/mcaid/managed-care.json')); print(len(d) if isinstance(d,list) else d)")"
       - name: Fetch MBES expenditure catalog
         run: |
-          curl -s "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?limit=50&sort=modified&sort-order=desc" \
+          curl -s "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?limit=50&sort=modified" \
             > _resources/mcaid/mbes-catalog.json
           echo "Catalog items: $(python3 -c "import json,sys; d=json.load(open('_resources/mcaid/mbes-catalog.json')); print(len(d) if isinstance(d,list) else len(d.get('data',[])))")"
 
