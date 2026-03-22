@@ -37,7 +37,6 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
-  - _resources/mcaid
 
 include:
 - _stylesheets
