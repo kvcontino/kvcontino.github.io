@@ -1,0 +1,154 @@
+#EXTM3U
+# ============================================================
+# Internet Radio — Kevin Contino
+# Last updated: 2026-03-04
+# All SomaFM links use permanent PLS format (server-agnostic)
+# ============================================================
+
+
+# ------------------------------------------------------------
+# DOWNTEMPO / TRIP-HOP / CHILLOUT
+# ------------------------------------------------------------
+
+#EXTINF:-1,Nordic Lodge Copenhagen (downtempo/trip-hop — start here)
+# NOTE: JS-rendered site; get direct stream URL at nordiclodgeradio.com > Direct Stream Link
+# Placeholder — replace with URL from site
+http://www.nordiclodgeradio.com
+
+#EXTINF:-1,SomaFM: Groove Salad (ambient/downtempo beats and grooves)
+https://somafm.com/groovesalad.pls
+
+#EXTINF:-1,SomaFM: Groove Salad Classic (early-2000s chillout era)
+https://somafm.com/groovesaladclassic.pls
+
+#EXTINF:-1,SomaFM: Beat Blender (late-night deep house and downtempo)
+https://somafm.com/beatblender.pls
+
+#EXTINF:-1,SomaFM: The Trip (psychedelic/progressive electronic)
+https://somafm.com/thetrip.pls
+
+#EXTINF:-1,plusfm (trip-hop/downtempo/indie — French, ad-free, 192k)
+https://radio5.pro-fhi.net:19041/listen.m3u?sid=1
+
+#EXTINF:-1,Bristol Sound Webradio (trip-hop/nu-jazz/post-rock — 90s Bristol scene)
+http://stream.laut.fm/thebristolsoundwebradio.pls
+
+#EXTINF:-1,Isla Negra Slowbeat (eclectic downtempo — Chilean, non-commercial)
+http://5.135.154.69:8000/slowbeat
+
+
+# ------------------------------------------------------------
+# AMBIENT / IDM / ELECTRONIC (Aphex Twin, Boards of Canada, Orbital end)
+# ------------------------------------------------------------
+
+#EXTINF:-1,SomaFM: Drone Zone (atmospheric textures, minimal beats — darker ambient)
+https://somafm.com/dronezone.pls
+
+#EXTINF:-1,SomaFM: Cliqhop IDM (blips and beeps — Intelligent Dance Music)
+https://somafm.com/cliqhop.pls
+
+#EXTINF:-1,SomaFM: Deep Space One (experimental ambient and space music)
+https://somafm.com/deepspaceone.pls
+
+#EXTINF:-1,SomaFM: Space Station Soma (electronic/ambient — NASA-themed)
+https://somafm.com/spacestation.pls
+
+#EXTINF:-1,SomaFM: Digitalis (digitally affected analog rock — calm the agitated heart)
+https://somafm.com/digitalis.pls
+
+#EXTINF:-1,SomaFM: Synphaera Radio (electronic ambient — independent label focus)
+https://somafm.com/synphaera.pls
+
+#EXTINF:-1,SomaFM: n5MD Radio (modern electronic ambient and space music)
+https://somafm.com/n5md.pls
+
+#EXTINF:-1,SomaFM: Fluid (post-rock/ambient — digitally affected rock)
+https://somafm.com/fluid.pls
+
+#EXTINF:-1,FIP Electro (French public radio electronic stream — Breakbot/indie electronic register)
+https://stream.radiofrance.fr/fipelectro/fipelectro.m3u8
+
+
+# ------------------------------------------------------------
+# INDIE ELECTRONIC / SYNTH / DANCE (Cut Copy, Hot Chip, LCD Soundsystem, CHVRCHES)
+# ------------------------------------------------------------
+
+#EXTINF:-1,SomaFM: Underground 80s (early 80s UK synthpop and new wave)
+https://somafm.com/u80s.pls
+
+#EXTINF:-1,SomaFM: Indie Pop Rocks! (new and classic indie pop)
+https://somafm.com/indiepop.pls
+
+#EXTINF:-1,SomaFM: Lush (lush female alternative — dream pop/indie)
+https://somafm.com/lush.pls
+
+#EXTINF:-1,SomaFM: PopTron (electropop and indie dance rock)
+https://somafm.com/poptron.pls
+
+#EXTINF:-1,SomaFM: Mission Control (NASA/space — electronic/ambient crossover)
+https://somafm.com/missioncontrol.pls
+
+
+# ------------------------------------------------------------
+# FOLK / AMERICANA (Stan Rogers, Gordon Lightfoot, Townes Van Zandt, John Prine)
+# ------------------------------------------------------------
+
+#EXTINF:-1,Folk Alley Main Stream (folk/Americana/roots — NPR service)
+http://www.folkalley.com/folkalley.pls
+
+#EXTINF:-1,Folk Alley: Fresh Cuts (new folk and Americana releases)
+http://www.folkalley.com/freshcuts.pls
+
+#EXTINF:-1,SomaFM: Folk Forward (indie folk and alt-folk)
+https://somafm.com/folkfwd.pls
+
+#EXTINF:-1,SomaFM: Boot Liquor (Americana roots — cowhands, cowpokes, cowtippers)
+https://somafm.com/bootliquor.pls
+
+#EXTINF:-1,SomaFM: ThistleRadio (Celtic and Scottish folk)
+https://somafm.com/thistle.pls
+
+
+# ------------------------------------------------------------
+# DEEP HOUSE / AFRO ELECTRONIC (Innervisions, Moderat, EPHIMERA)
+# ------------------------------------------------------------
+
+#EXTINF:-1,SomaFM: Suburbs of Goa (Desi-influenced world beats — Asian electronic crossover)
+https://somafm.com/suburbsofgoa.pls
+
+#EXTINF:-1,SomaFM: DEF CON Radio (electronic/hacking music — dark electronic)
+https://somafm.com/defcon.pls
+
+
+# ------------------------------------------------------------
+# JAZZ / NOIR / LOUNGE (Sonic Universe, Secret Agent)
+# ------------------------------------------------------------
+
+#EXTINF:-1,SomaFM: Sonic Universe (avant-garde and eclectic jazz)
+https://somafm.com/sonicuniverse.pls
+
+#EXTINF:-1,SomaFM: Secret Agent (spy jazz/lounge — stylish and dangerous)
+https://somafm.com/secretagent.pls
+
+#EXTINF:-1,SomaFM: Illinois Street Lounge (classic bachelor pad exotica and vintage lounge)
+https://somafm.com/illstreet.pls
+
+
+# ------------------------------------------------------------
+# MISCELLANEOUS / CURIO
+# ------------------------------------------------------------
+
+#EXTINF:-1,SomaFM: Vaporwaves (all vaporwave, all the time)
+https://somafm.com/vaporwaves.pls
+
+#EXTINF:-1,SomaFM: Left Coast 70s (mellow album rock from the seventies)
+https://somafm.com/seventies.pls
+
+#EXTINF:-1,SomaFM: Metal Detector (black/doom/prog/sludge/post/industrial)
+https://somafm.com/metal.pls
+
+#EXTINF:-1,SomaFM: Covers (cover songs across genres)
+https://somafm.com/covers.pls
+
+#EXTINF:-1,SomaFM: Specials / Doomed (rotating special programming)
+https://somafm.com/specials.pls
