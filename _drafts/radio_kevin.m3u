@@ -1,8 +1,18 @@
 #EXTM3U
 # ============================================================
 # Internet Radio — Kevin Contino
-# Last updated: 2026-03-04
-# All SomaFM links use permanent PLS format (server-agnostic)
+# Last updated: 2026-03-30
+#
+# FORMATS
+#   SomaFM  — ICY direct stream via ice5.somafm.com (single entry in VLC)
+#              128k AAC; if a stream 404s try ice3.somafm.com instead
+#   FIP     — HLS AAC via stream.radiofrance.fr (.m3u8)
+#   RP      — FLAC+metadata via stream.radioparadise.com
+#   BBC     — HLS AAC via akamaized.net (.m3u8)
+#              NOTE: BBC streams may be geo-blocked outside UK
+#   MOROW   — HE-AAC via stream.morow.com
+#
+# NOTE markers = URL needs verification before use
 # ============================================================
 
 
@@ -12,85 +22,96 @@
 
 #EXTINF:-1,Nordic Lodge Copenhagen (downtempo/trip-hop — start here)
 # NOTE: JS-rendered site; get direct stream URL at nordiclodgeradio.com > Direct Stream Link
-# Placeholder — replace with URL from site
 http://www.nordiclodgeradio.com
 
 #EXTINF:-1,SomaFM: Groove Salad (ambient/downtempo beats and grooves)
-https://somafm.com/groovesalad.pls
+https://ice5.somafm.com/groovesalad-128-aac
 
 #EXTINF:-1,SomaFM: Groove Salad Classic (early-2000s chillout era)
-https://somafm.com/groovesaladclassic.pls
+https://ice5.somafm.com/gsclassic-128-aac
 
 #EXTINF:-1,SomaFM: Beat Blender (late-night deep house and downtempo)
-https://somafm.com/beatblender.pls
+https://ice5.somafm.com/beatblender-128-aac
 
 #EXTINF:-1,SomaFM: The Trip (psychedelic/progressive electronic)
-https://somafm.com/thetrip.pls
+https://ice5.somafm.com/thetrip-128-aac
 
-#EXTINF:-1,plusfm (trip-hop/downtempo/indie — French, ad-free, 192k)
+#EXTINF:-1,plusfm (trip-hop/downtempo/indie — French, ad-free)
+# NOTE: verify if still live
 https://radio5.pro-fhi.net:19041/listen.m3u?sid=1
 
 #EXTINF:-1,Bristol Sound Webradio (trip-hop/nu-jazz/post-rock — 90s Bristol scene)
-http://stream.laut.fm/thebristolsoundwebradio.pls
-
-#EXTINF:-1,Isla Negra Slowbeat (eclectic downtempo — Chilean, non-commercial)
-http://5.135.154.69:8000/slowbeat
+http://stream.laut.fm/thebristolsoundwebradio
 
 
 # ------------------------------------------------------------
-# AMBIENT / IDM / ELECTRONIC (Aphex Twin, Boards of Canada, Orbital end)
+# AMBIENT / IDM / ELECTRONIC (Eno, Aphex Twin, Boards of Canada)
 # ------------------------------------------------------------
 
 #EXTINF:-1,SomaFM: Drone Zone (atmospheric textures, minimal beats — darker ambient)
-https://somafm.com/dronezone.pls
+https://ice5.somafm.com/dronezone-128-aac
 
 #EXTINF:-1,SomaFM: Cliqhop IDM (blips and beeps — Intelligent Dance Music)
-https://somafm.com/cliqhop.pls
+https://ice5.somafm.com/cliqhop-128-aac
 
 #EXTINF:-1,SomaFM: Deep Space One (experimental ambient and space music)
-https://somafm.com/deepspaceone.pls
+https://ice5.somafm.com/deepspaceone-128-aac
 
 #EXTINF:-1,SomaFM: Space Station Soma (electronic/ambient — NASA-themed)
-https://somafm.com/spacestation.pls
+https://ice5.somafm.com/spacestation-128-aac
 
 #EXTINF:-1,SomaFM: Digitalis (digitally affected analog rock — calm the agitated heart)
-https://somafm.com/digitalis.pls
+https://ice5.somafm.com/digitalis-128-aac
 
 #EXTINF:-1,SomaFM: Synphaera Radio (electronic ambient — independent label focus)
-https://somafm.com/synphaera.pls
+https://ice5.somafm.com/synphaera-128-aac
 
 #EXTINF:-1,SomaFM: n5MD Radio (modern electronic ambient and space music)
-https://somafm.com/n5md.pls
+https://ice5.somafm.com/n5md-128-aac
 
 #EXTINF:-1,SomaFM: Fluid (post-rock/ambient — digitally affected rock)
-https://somafm.com/fluid.pls
+https://ice5.somafm.com/fluid-128-aac
 
-#EXTINF:-1,FIP Electro (French public radio electronic stream — Breakbot/indie electronic register)
+#EXTINF:-1,Radio Paradise: Mellow Mix (ambient/neo-classical/instrumental — Eno, Glass, Tycho register)
+http://stream.radioparadise.com/mellow-flacm
+
+#EXTINF:-1,FIP Electro (French public radio — Breakbot/indie electronic register)
 https://stream.radiofrance.fr/fipelectro/fipelectro.m3u8
 
 
 # ------------------------------------------------------------
-# INDIE ELECTRONIC / SYNTH / DANCE (Cut Copy, Hot Chip, LCD Soundsystem, CHVRCHES)
+# INDIE ELECTRONIC / SYNTH / NEW WAVE
+# (Cut Copy, Hot Chip, Talking Heads, Echo and the Bunnymen)
 # ------------------------------------------------------------
 
 #EXTINF:-1,SomaFM: Underground 80s (early 80s UK synthpop and new wave)
-https://somafm.com/u80s.pls
+https://ice5.somafm.com/u80s-128-aac
 
 #EXTINF:-1,SomaFM: Indie Pop Rocks! (new and classic indie pop)
-https://somafm.com/indiepop.pls
+https://ice5.somafm.com/indiepop-128-aac
 
 #EXTINF:-1,SomaFM: Lush (lush female alternative — dream pop/indie)
-https://somafm.com/lush.pls
+https://ice5.somafm.com/lush-128-aac
 
 #EXTINF:-1,SomaFM: PopTron (electropop and indie dance rock)
-https://somafm.com/poptron.pls
+https://ice5.somafm.com/poptron-128-aac
 
 #EXTINF:-1,SomaFM: Mission Control (NASA/space — electronic/ambient crossover)
-https://somafm.com/missioncontrol.pls
+https://ice5.somafm.com/missioncontrol-128-aac
+
+#EXTINF:-1,SomaFM: BAGeL Radio (indie/alternative — post-punk and college radio register)
+https://ice5.somafm.com/bagel-128-aac
+
+#EXTINF:-1,BBC Radio 6 Music (Bowie, Talking Heads, Kate Bush, post-punk, indie — curatorial)
+# NOTE: may be geo-blocked outside UK
+http://as-hls-ww-live.akamaized.net/pool_81827798/live/ww/bbc_6music/bbc_6music.isml/bbc_6music-audio=96000.m3u8
+
+#EXTINF:-1,FIP Rock (Bowie, Gang of Four, Talking Heads, art rock — French public radio)
+https://stream.radiofrance.fr/fiprock/fiprock.m3u8
 
 
 # ------------------------------------------------------------
-# FOLK / AMERICANA (Stan Rogers, Gordon Lightfoot, Townes Van Zandt, John Prine)
+# FOLK / AMERICANA (Gordon Lightfoot, Stan Rogers, Townes Van Zandt)
 # ------------------------------------------------------------
 
 #EXTINF:-1,Folk Alley Main Stream (folk/Americana/roots — NPR service)
@@ -100,38 +121,108 @@ http://www.folkalley.com/folkalley.pls
 http://www.folkalley.com/freshcuts.pls
 
 #EXTINF:-1,SomaFM: Folk Forward (indie folk and alt-folk)
-https://somafm.com/folkfwd.pls
+https://ice5.somafm.com/folkfwd-128-aac
 
 #EXTINF:-1,SomaFM: Boot Liquor (Americana roots — cowhands, cowpokes, cowtippers)
-https://somafm.com/bootliquor.pls
+https://ice5.somafm.com/bootliquor-128-aac
 
 #EXTINF:-1,SomaFM: ThistleRadio (Celtic and Scottish folk)
-https://somafm.com/thistle.pls
+https://ice5.somafm.com/thistle-128-aac
 
 
 # ------------------------------------------------------------
-# DEEP HOUSE / AFRO ELECTRONIC (Innervisions, Moderat, EPHIMERA)
+# DEEP HOUSE / WORLD ELECTRONIC
 # ------------------------------------------------------------
 
 #EXTINF:-1,SomaFM: Suburbs of Goa (Desi-influenced world beats — Asian electronic crossover)
-https://somafm.com/suburbsofgoa.pls
+https://ice5.somafm.com/suburbsofgoa-128-aac
 
-#EXTINF:-1,SomaFM: DEF CON Radio (electronic/hacking music — dark electronic)
-https://somafm.com/defcon.pls
+#EXTINF:-1,SomaFM: DEF CON Radio (electronic/hacking culture — dark electronic)
+https://ice5.somafm.com/defcon-128-aac
+
+#EXTINF:-1,FIP World (global sounds — North Africa, Latin, West Africa crossover)
+https://stream.radiofrance.fr/fipworld/fipworld.m3u8
 
 
 # ------------------------------------------------------------
-# JAZZ / NOIR / LOUNGE (Sonic Universe, Secret Agent)
+# JAZZ (Miles Davis, Brubeck, Marsalis, Sonic Universe)
 # ------------------------------------------------------------
 
 #EXTINF:-1,SomaFM: Sonic Universe (avant-garde and eclectic jazz)
-https://somafm.com/sonicuniverse.pls
+https://ice5.somafm.com/sonicuniverse-128-aac
 
 #EXTINF:-1,SomaFM: Secret Agent (spy jazz/lounge — stylish and dangerous)
-https://somafm.com/secretagent.pls
+https://ice5.somafm.com/secretagent-128-aac
 
 #EXTINF:-1,SomaFM: Illinois Street Lounge (classic bachelor pad exotica and vintage lounge)
-https://somafm.com/illstreet.pls
+https://ice5.somafm.com/illstreet-128-aac
+
+#EXTINF:-1,FIP Jazz (Miles Davis, Coltrane, Brubeck, contemporary jazz — French public radio)
+https://stream.radiofrance.fr/fipjazz/fipjazz.m3u8
+
+
+# ------------------------------------------------------------
+# BOSSA NOVA / LATIN (Jobim)
+# ------------------------------------------------------------
+
+#EXTINF:-1,SomaFM: Bossa Beyond (Brazilian jazz and Latin grooves — Jobim territory)
+https://ice5.somafm.com/bossa-128-aac
+
+#EXTINF:-1,FIP (main — eclectic flagship; widest range; carries bossa/Latin in rotation)
+https://stream.radiofrance.fr/fip/fip.m3u8
+
+
+# ------------------------------------------------------------
+# ECLECTIC / WIDE-RANGE
+# (Steely Dan, Bowie, Kate Bush, Fleetwood Mac, Donald Fagen register)
+# ------------------------------------------------------------
+
+#EXTINF:-1,Radio Paradise: Main Mix (eclectic — Steely Dan, Bowie, Kate Bush, Talking Heads register)
+http://stream.radioparadise.com/flacm
+
+#EXTINF:-1,Radio Paradise: Rock Mix (Fleetwood Mac, Phil Collins, classic/art rock end)
+http://stream.radioparadise.com/rock-flacm
+
+#EXTINF:-1,Radio Paradise: Global Mix (world/roots — connects library's non-Western end)
+http://stream.radioparadise.com/global-flacm
+
+#EXTINF:-1,FIP Groove (funk/soul/R&B — Steely Dan, Donald Fagen register)
+https://stream.radiofrance.fr/fipgroove/fipgroove.m3u8
+
+#EXTINF:-1,FIP Nouveautés (new releases — FIP editorial picks across all genres)
+https://stream.radiofrance.fr/fipnouveautes/fipnouveautes.m3u8
+
+#EXTINF:-1,FIP Pop (Kate Bush / Air / French pop register)
+https://stream.radiofrance.fr/fippop/fippop.m3u8
+
+#EXTINF:-1,SomaFM: Seven Inch Soul (vintage soul and funk — Steely Dan adjacency)
+https://ice5.somafm.com/7soul-128-aac
+
+
+# ------------------------------------------------------------
+# PROG / ART ROCK
+# (ELP, Genesis, King Crimson, Rush, Yes, Steven Wilson, Frost_)
+# ------------------------------------------------------------
+
+#EXTINF:-1,MOROW — The Progressive Rock Radio (Paris — no ads, no jingles, classic and modern prog)
+https://stream.morow.com/morow_hi.aacp
+
+#EXTINF:-1,Prog Radio (commercial-free 24/7 — wide prog coverage)
+# NOTE: visit progradio.com/listen to get current direct stream URL
+http://www.progradio.com/listen
+
+#EXTINF:-1,SomaFM: Metal Detector (black/doom/prog/sludge/post/industrial — heavier end)
+https://ice5.somafm.com/metal-128-aac
+
+
+# ------------------------------------------------------------
+# NEO-CLASSICAL / MINIMALIST / FILM SCORE
+# (Philip Glass, Terry Riley, Clint Mansell, Howard Shore, Mozart, Yo-Yo Ma)
+# ------------------------------------------------------------
+
+#EXTINF:-1,BBC Radio 3 (classical, contemporary, minimalist — Glass/Riley/Mozart in regular rotation)
+# NOTE: may be geo-blocked outside UK
+http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_three.m3u8
 
 
 # ------------------------------------------------------------
@@ -139,16 +230,13 @@ https://somafm.com/illstreet.pls
 # ------------------------------------------------------------
 
 #EXTINF:-1,SomaFM: Vaporwaves (all vaporwave, all the time)
-https://somafm.com/vaporwaves.pls
+https://ice5.somafm.com/vaporwaves-128-aac
 
 #EXTINF:-1,SomaFM: Left Coast 70s (mellow album rock from the seventies)
-https://somafm.com/seventies.pls
-
-#EXTINF:-1,SomaFM: Metal Detector (black/doom/prog/sludge/post/industrial)
-https://somafm.com/metal.pls
+https://ice5.somafm.com/seventies-128-aac
 
 #EXTINF:-1,SomaFM: Covers (cover songs across genres)
-https://somafm.com/covers.pls
+https://ice5.somafm.com/covers-128-aac
 
 #EXTINF:-1,SomaFM: Specials / Doomed (rotating special programming)
-https://somafm.com/specials.pls
+https://ice5.somafm.com/specials-128-aac
