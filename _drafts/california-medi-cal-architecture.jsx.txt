@@ -1,0 +1,419 @@
+import { useState } from "react";
+
+const layers = [
+  {
+    id: "provider",
+    label: "PROVIDER ENROLLMENT & ENCOUNTER",
+    color: "#0c1929",
+    accent: "#c4a35a",
+    items: [
+      {
+        title: "DHCS Provider Enrollment Division (PED)",
+        desc: "All Medi-Cal FFS providers must enroll through the PAVE Portal. PED maintains the Provider Master File (PMF) — the canonical database of provider names, NPIs, addresses, and enrollment status used in claims adjudication.",
+        standard: "NPI · PAVE Portal · PMF Database",
+        gap: "Managed care providers enroll separately with each MCP. A provider serving FFS and multiple MCPs may maintain 3–5 separate enrollment credentials. PED enrollment is prerequisite but not sufficient for MCP contracting."
+      },
+      {
+        title: "Clinical Encounter → Billing Code Translation",
+        desc: "Provider documents encounter in EHR, translates to ICD-10-CM (Dx), CPT/HCPCS (procedures). Medi-Cal uses California-specific modifiers and place-of-service codes. Treatment Authorization Requests (TARs/eTARs) required for many services before rendering.",
+        standard: "ICD-10-CM · CPT · HCPCS · CA Modifier Rules",
+        gap: "California TAR requirements add pre-service authorization burden not present in many other states. TAR processing is handled by Gainwell through CA-MMIS — a separate workflow from claims submission."
+      }
+    ]
+  },
+  {
+    id: "tracks",
+    label: "FOUR PARALLEL BILLING TRACKS",
+    color: "#111d2e",
+    accent: "#e94560",
+    intro: "Medi-Cal operates four structurally distinct billing tracks simultaneously. Which track a claim follows depends on service type, enrollment status, county of residence, and managed care model.",
+    items: [
+      {
+        title: "Track 1: FFS Medical Claims → CA-MMIS / Gainwell",
+        desc: "Fee-for-service claims submitted via X12 837P/837I to CA-MMIS, operated by Gainwell Technologies as DHCS's fiscal intermediary. Gainwell adjudicates, applies California-specific edits, prices claims per Medi-Cal fee schedule, and generates X12 835 remittance. TSC phone support: (800) 541-5555.",
+        standard: "X12 837 v5010 · CA-MMIS · Gainwell FI",
+        gap: "Only ~14% of Medi-Cal beneficiaries are in FFS — but CA-MMIS remains the backbone system. FFS claims data are the most complete and reliable. Timely filing limit: 180 days from date of service; 60 days from denial for correction."
+      },
+      {
+        title: "Track 2: Managed Care Claims → 25+ MCPs",
+        desc: "~86% of enrollees are in managed care. California operates 6 managed care models varying by county: Two-Plan, COHS, GMC, Regional, Imperial, San Benito. Claims go to the member's MCP (e.g., L.A. Care, Health Net, CalOptima, Partnership HealthPlan). Each MCP runs its own claims system, contracts, and provider network.",
+        standard: "X12 837 to MCP · MCP-specific Companion Guides",
+        gap: "THE fragmentation point. 25+ MCPs × 6 models × 58 counties = massive variation. Each MCP has its own prior auth rules, billing edits, denial codes, and provider contracts. MCPs submit encounter data back to DHCS — quality varies significantly by plan."
+      },
+      {
+        title: "Track 3: Pharmacy → Medi-Cal Rx (Magellan/DHCS)",
+        desc: "Since January 1, 2022, all outpatient pharmacy claims (FFS and managed care) are carved out to Medi-Cal Rx, operated by State Government Solutions (Prime contractor). Real-time POS adjudication via NCPDP D.0. Shifted from MCPs to a single state-run pharmacy benefit.",
+        standard: "NCPDP D.0 · Medi-Cal Rx · NDC codes",
+        gap: "Medi-Cal Rx was a major carve-out — removed pharmacy from MCP risk. Created data integration challenges: MCPs lose visibility into members' drug utilization; DHCS must reconcile Medi-Cal Rx claims data with MCP encounter data for total cost of care analysis."
+      },
+      {
+        title: "Track 4: Behavioral Health → 58 County BH Plans",
+        desc: "Specialty Mental Health (1915(b) waiver) and SUD (DMC-ODS, 1115 waiver) carved out to county behavioral health plans. Each county operates as a managed care plan for BH. Since July 2023 CalAIM BH Payment Reform: counties transitioned from cost-based reimbursement (CPE) to FFS rate-based billing using CPT codes.",
+        standard: "CPT codes (post-CalAIM) · Short-Doyle/Medi-Cal · BHIN 23-017/23-023",
+        gap: "Most complex track. Pre-CalAIM: cost reconciliation took 6+ years. Post-CalAIM: counties now bill DHCS at state-set rates via IGTs, but are still adjusting to CPT-based coding after decades of proprietary county billing codes. County cost reports eliminated for post-7/1/2023 services."
+      }
+    ]
+  },
+  {
+    id: "calaim_bh",
+    label: "BEHAVIORAL HEALTH DETAIL (CalAIM)",
+    color: "#0c1929",
+    accent: "#4fc3f7",
+    items: [
+      {
+        title: "Specialty Mental Health Plan (MHP) Billing",
+        desc: "58 county MHPs serve beneficiaries with serious mental illness (SMI) or serious emotional disturbance (SED). Pre-CalAIM: counties claimed certified public expenditures and received FMAP match. Post-CalAIM: DHCS sets statewide FFS rates by CPT code; counties draw down federal match via Intergovernmental Transfers (IGTs).",
+        standard: "1915(b) Waiver · CalAIM BH Payment Reform · CPT crosswalks",
+        gap: "CalMHSA surveyed all 58 counties to build CPT crosswalks from legacy coding. Many smaller counties lack EHR systems capable of generating CPT-coded 837 transactions natively. Some still rely on manual processes or legacy county billing systems."
+      },
+      {
+        title: "Drug Medi-Cal Organized Delivery System (DMC-ODS)",
+        desc: "SUD treatment services authorized under 1115 waiver. 41 counties participate in DMC-ODS (covering ~95% of Medi-Cal population). Services include outpatient, intensive outpatient, residential, withdrawal management, OTP, recovery services, and Contingency Management for stimulant use disorder (Recovery Incentives Program).",
+        standard: "DMC-ODS Billing Manual SFY 2025-26 · ASAM criteria",
+        gap: "DMC-ODS and MHP operated as two separate managed care structures with separate audits, separate cost reports, and separate quality reviews. CalAIM aims to consolidate but administrative unification is still incomplete. Co-occurring MH+SUD patients navigated two county systems."
+      },
+      {
+        title: "Mild-to-Moderate MH → Managed Care Plans",
+        desc: "Since ACA expansion (2014), MCPs cover outpatient mental health for 'mild-to-moderate' conditions — distinct from county MHP 'specialty' services. This created a split: MCPs handle lower-acuity MH, counties handle SMI/SED.",
+        standard: "MCP contract requirements · No medical necessity carve-out standard pre-CalAIM",
+        gap: "The mild-to-moderate vs. specialty split is California's most significant behavioral health billing boundary. Referral hand-offs between MCP and county MHP are a persistent access barrier. CalAIM standardized medical necessity criteria statewide to reduce variation."
+      }
+    ]
+  },
+  {
+    id: "calaim_new",
+    label: "CalAIM NEW BILLING CATEGORIES",
+    color: "#111d2e",
+    accent: "#53d769",
+    items: [
+      {
+        title: "Enhanced Care Management (ECM)",
+        desc: "Intensive care coordination for high-need populations: individuals experiencing homelessness, SMI/SED, SUD, nursing facility residents, children with complex needs, and others. MCPs contract with ECM providers; billing uses new HCPCS codes specific to ECM.",
+        standard: "DHCS ECM billing codes · MCP-administered",
+        gap: "ECM is a new service category — no historical billing baseline. MCPs must build new provider networks, contracting structures, and encounter reporting for services that didn't exist in Medi-Cal before CalAIM."
+      },
+      {
+        title: "Community Supports (formerly ILOS)",
+        desc: "14 pre-approved services addressing SDOH: housing transition/sustaining, meals/medically tailored meals, sobering centers, respite, personal care, environmental accessibility. MCPs offer voluntarily; members opt in.",
+        standard: "DHCS Community Supports codes · In-Lieu-of-Service authority",
+        gap: "These are non-medical services billed through a medical claims infrastructure. Encounter data standards for Community Supports are still maturing. Providers (many are CBOs, not traditional medical providers) may lack billing system capacity."
+      },
+      {
+        title: "Population Health Management (PHM)",
+        desc: "DHCS contracted Gainwell for a statewide PHM platform. MCPs required to implement risk stratification, predictive analytics, and population-level intervention tracking. Data feeds from CA-MMIS, Medi-Cal Rx, MCP encounters, and county BH must be integrated.",
+        standard: "Gainwell PHM contract · DHCS data integration requirements",
+        gap: "PHM requires integrating data from all four billing tracks into a single analytic view per beneficiary. This is the hardest data integration problem in California's Medicaid system — four claim types, 25+ MCPs, 58 counties, and Medi-Cal Rx, each with different data formats and submission timelines."
+      }
+    ]
+  },
+  {
+    id: "aggregation",
+    label: "STATE DATA AGGREGATION",
+    color: "#0c1929",
+    accent: "#c4a35a",
+    items: [
+      {
+        title: "Encounter Data Collection from MCPs",
+        desc: "MCPs submit encounter data to DHCS. DHCS processes encounters through CA-MMIS for validation. Encounter data includes service records for medical, behavioral health (mild-to-moderate), ECM, and Community Supports.",
+        standard: "DHCS Encounter Data requirements · X12 837 format",
+        gap: "Encounter data from MCPs historically had significant quality issues — missing fields, late submissions, inconsistent coding. DHCS has tightened validation but gaps persist, especially for newly created CalAIM service categories."
+      },
+      {
+        title: "MEDS (Medi-Cal Eligibility Data System)",
+        desc: "Statewide eligibility system maintained by DHCS. Real-time eligibility verification for all Medi-Cal programs. Feeds eligibility status to CA-MMIS, MCPs, Medi-Cal Rx, and county BH plans. Source of truth for beneficiary demographics and aid code assignments.",
+        standard: "MEDS · CalHEERS (exchange integration)",
+        gap: "MEDS is the oldest continuously operating system in California's Medi-Cal infrastructure. Eligibility aid codes drive which billing track a beneficiary falls into — errors in aid code assignment cascade through the entire claims system."
+      },
+      {
+        title: "T-MSIS Submission to CMS",
+        desc: "DHCS extracts and transforms data from CA-MMIS (FFS claims + MCP encounters), Medi-Cal Rx, and county BH plan reporting into T-MSIS format for monthly submission to CMS. California's T-MSIS data were last updated with December 2024 reporting period data.",
+        standard: "T-MSIS Data Guide · OBA assessment",
+        gap: "California's scale (15M enrollees, $184B budget) makes T-MSIS transformation uniquely complex. Integrating four billing tracks into a single federal reporting format requires extensive ETL logic. Data quality for managed care encounters and behavioral health services are the weakest domains."
+      }
+    ]
+  }
+];
+
+function FlowNode({ item, isActive, onClick, accentColor }) {
+  return (
+    <div
+      onClick={onClick}
+      className={`cursor-pointer transition-all duration-300 ${isActive ? "scale-[1.01]" : "hover:scale-[1.005]"}`}
+      style={{
+        background: isActive ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0.025)",
+        borderRadius: "8px",
+        padding: "14px 16px",
+        marginBottom: "6px",
+        borderLeft: `3px solid ${isActive ? accentColor : "rgba(255,255,255,0.08)"}`,
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace", fontSize: "12px", fontWeight: 700, color: "#fff", marginBottom: "5px", letterSpacing: "0.01em", lineHeight: 1.4 }}>
+            {item.title}
+          </div>
+          <div style={{ fontSize: "11.5px", color: "rgba(255,255,255,0.55)", lineHeight: "1.55" }}>
+            {item.desc}
+          </div>
+        </div>
+        <div style={{
+          fontSize: "9.5px",
+          fontFamily: "'JetBrains Mono', monospace",
+          color: accentColor,
+          background: `${accentColor}15`,
+          padding: "3px 7px",
+          borderRadius: "4px",
+          whiteSpace: "nowrap",
+          flexShrink: 0,
+          maxWidth: "170px",
+          textAlign: "right",
+          lineHeight: 1.45,
+        }}>
+          {item.standard}
+        </div>
+      </div>
+      {isActive && (
+        <div style={{
+          marginTop: "10px",
+          padding: "10px 12px",
+          background: "rgba(233,69,96,0.07)",
+          borderRadius: "6px",
+          fontSize: "11.5px",
+          color: "#e8a0a0",
+          lineHeight: "1.6",
+          borderLeft: "2px solid rgba(233,69,96,0.35)",
+        }}>
+          <span style={{ fontWeight: 700, fontSize: "9px", textTransform: "uppercase", letterSpacing: "0.12em", display: "block", marginBottom: "4px", color: "#e94560" }}>
+            Where It Breaks ↓
+          </span>
+          {item.gap}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Arrow() {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", padding: "6px 0" }}>
+      <svg width="16" height="20" viewBox="0 0 16 20">
+        <path d="M8 0 L8 14 M3 10 L8 16 L13 10" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" fill="none" />
+      </svg>
+    </div>
+  );
+}
+
+function ForkArrows({ count }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", padding: "8px 0", gap: "4px", alignItems: "center" }}>
+      <svg width="120" height="28" viewBox="0 0 120 28">
+        <path d="M60 0 L60 10" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" fill="none" />
+        <path d="M15 10 L105 10" stroke="rgba(255,255,255,0.1)" strokeWidth="1" fill="none" />
+        {[15, 40, 65, 90].slice(0, count).map((x, i) => (
+          <g key={i}>
+            <path d={`M${x} 10 L${x} 22`} stroke="rgba(233,69,96,0.4)" strokeWidth="1.5" fill="none" />
+            <path d={`M${x-4} 18 L${x} 24 L${x+4} 18`} stroke="rgba(233,69,96,0.4)" strokeWidth="1.5" fill="none" />
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+export default function CaliforniaMediCalArchitecture() {
+  const [activeItem, setActiveItem] = useState(null);
+
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: "linear-gradient(180deg, #070d17 0%, #0a1220 100%)",
+      color: "#fff",
+      fontFamily: "'Inter', -apple-system, sans-serif",
+      padding: "20px 14px",
+    }}>
+      <div style={{ maxWidth: "700px", margin: "0 auto" }}>
+        {/* Header */}
+        <div style={{ marginBottom: "28px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+            <div style={{
+              width: "32px", height: "32px", borderRadius: "6px",
+              background: "linear-gradient(135deg, #c4a35a, #1a3a5c)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: "14px", fontWeight: 900, color: "#fff",
+              fontFamily: "'JetBrains Mono', monospace",
+            }}>CA</div>
+            <div>
+              <h1 style={{
+                fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+                fontSize: "16px", fontWeight: 800, letterSpacing: "-0.02em",
+                color: "#c4a35a", margin: 0,
+              }}>
+                MEDI-CAL CLAIMS ARCHITECTURE
+              </h1>
+              <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.35)", fontFamily: "'JetBrains Mono', monospace", marginTop: "2px" }}>
+                ~15M enrollees · $184B budget · 4 billing tracks · 58 counties · 25+ MCPs
+              </div>
+            </div>
+          </div>
+          <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", lineHeight: 1.6, margin: 0 }}>
+            Tap any node to see structural gaps. Gold labels = governing standard or system. Red panels = where data quality, integration, or access breaks down.
+          </p>
+        </div>
+
+        {/* Layers */}
+        {layers.map((layer, li) => (
+          <div key={layer.id} style={{ marginBottom: "2px" }}>
+            <div style={{
+              display: "flex", alignItems: "center", gap: "10px",
+              marginBottom: layer.intro ? "6px" : "10px",
+              marginTop: li > 0 ? "16px" : 0,
+            }}>
+              <div style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "9px", fontWeight: 800, letterSpacing: "0.15em",
+                color: layer.accent, textTransform: "uppercase",
+              }}>
+                {layer.label}
+              </div>
+              <div style={{ flex: 1, height: "1px", background: `linear-gradient(to right, ${layer.accent}30, transparent)` }} />
+            </div>
+
+            {layer.intro && (
+              <div style={{
+                fontSize: "11px", color: "rgba(255,255,255,0.4)", lineHeight: 1.6,
+                marginBottom: "10px", paddingLeft: "12px",
+                borderLeft: `2px solid ${layer.accent}25`,
+              }}>
+                {layer.intro}
+              </div>
+            )}
+
+            {layer.id === "tracks" && <ForkArrows count={4} />}
+
+            {layer.items.map((item, ii) => {
+              const key = `${li}-${ii}`;
+              return (
+                <div key={key}>
+                  <FlowNode
+                    item={item}
+                    isActive={activeItem === key}
+                    onClick={() => setActiveItem(activeItem === key ? null : key)}
+                    accentColor={layer.accent}
+                  />
+                </div>
+              );
+            })}
+
+            {li < layers.length - 1 && layer.id !== "tracks" && <Arrow />}
+          </div>
+        ))}
+
+        {/* System Map */}
+        <div style={{
+          marginTop: "28px", padding: "14px",
+          background: "rgba(255,255,255,0.025)", borderRadius: "8px",
+          border: "1px solid rgba(255,255,255,0.05)",
+        }}>
+          <div style={{
+            fontFamily: "'JetBrains Mono', monospace", fontSize: "9px",
+            fontWeight: 800, letterSpacing: "0.15em",
+            color: "rgba(255,255,255,0.25)", marginBottom: "10px",
+            textTransform: "uppercase",
+          }}>
+            Key Systems & Vendors
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px", fontSize: "10px" }}>
+            {[
+              { label: "FFS Claims Engine", val: "CA-MMIS / Gainwell", role: "fiscal-agent" },
+              { label: "Pharmacy POS", val: "Medi-Cal Rx / SGS", role: "carveout" },
+              { label: "Eligibility SOT", val: "MEDS", role: "core" },
+              { label: "PHM Platform", val: "Gainwell (contracted)", role: "analytics" },
+              { label: "MHP BH Claims", val: "County systems → SD/MC", role: "county" },
+              { label: "DMC-ODS Claims", val: "County systems → SD/MC", role: "county" },
+              { label: "MCP Claims (example)", val: "L.A. Care, CalOptima, etc.", role: "mcp" },
+              { label: "Federal Reporting", val: "T-MSIS monthly to CMS", role: "federal" },
+              { label: "Provider Enrollment", val: "PAVE Portal / PED", role: "core" },
+              { label: "Exchange Integration", val: "CalHEERS / Covered CA", role: "core" },
+            ].map((s) => {
+              const colors = {
+                "fiscal-agent": "#c4a35a",
+                "carveout": "#e94560",
+                "core": "#8aa2c4",
+                "analytics": "#53d769",
+                "county": "#4fc3f7",
+                "mcp": "#b39ddb",
+                "federal": "#ff8a65",
+              };
+              return (
+                <div key={s.label} style={{
+                  padding: "7px 9px",
+                  background: "rgba(255,255,255,0.015)",
+                  borderRadius: "4px",
+                  borderLeft: `2px solid ${colors[s.role]}`,
+                }}>
+                  <div style={{ color: "rgba(255,255,255,0.35)", fontSize: "9px", marginBottom: "2px" }}>{s.label}</div>
+                  <div style={{ color: "rgba(255,255,255,0.75)", fontFamily: "'JetBrains Mono', monospace", fontSize: "9.5px" }}>{s.val}</div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{ marginTop: "8px", display: "flex", flexWrap: "wrap", gap: "10px", fontSize: "9px", color: "rgba(255,255,255,0.25)" }}>
+            <span><span style={{ color: "#c4a35a" }}>●</span> Fiscal Agent</span>
+            <span><span style={{ color: "#e94560" }}>●</span> Carve-out</span>
+            <span><span style={{ color: "#8aa2c4" }}>●</span> Core State</span>
+            <span><span style={{ color: "#53d769" }}>●</span> Analytics</span>
+            <span><span style={{ color: "#4fc3f7" }}>●</span> County</span>
+            <span><span style={{ color: "#b39ddb" }}>●</span> MCP</span>
+            <span><span style={{ color: "#ff8a65" }}>●</span> Federal</span>
+          </div>
+        </div>
+
+        {/* CalAIM Timeline */}
+        <div style={{
+          marginTop: "16px", padding: "14px",
+          background: "rgba(83,215,105,0.03)", borderRadius: "8px",
+          border: "1px solid rgba(83,215,105,0.08)",
+        }}>
+          <div style={{
+            fontFamily: "'JetBrains Mono', monospace", fontSize: "9px",
+            fontWeight: 800, letterSpacing: "0.15em",
+            color: "#53d769", marginBottom: "10px",
+            textTransform: "uppercase",
+          }}>
+            CalAIM Billing Reform Timeline
+          </div>
+          <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>
+            {[
+              { date: "Jan 2022", event: "Medi-Cal Rx goes live — pharmacy carved out of MCPs" },
+              { date: "Jan 2022", event: "ECM and Community Supports launch" },
+              { date: "Jul 2023", event: "BH Payment Reform: counties shift from CPE/cost-based to FFS rate-based billing" },
+              { date: "Jul 2023", event: "County cost reports eliminated for new services (BHIN 23-023)" },
+              { date: "Jul 2023", event: "IGT financing replaces certified public expenditures" },
+              { date: "2024–25", event: "CPT coding crosswalks deployed across 58 counties" },
+              { date: "Future", event: "Intended transition from FFS to value-based/capitated BH payment (timeline TBD)" },
+            ].map((t, i) => (
+              <div key={i} style={{ display: "flex", gap: "10px", marginBottom: "4px" }}>
+                <div style={{
+                  fontFamily: "'JetBrains Mono', monospace", fontSize: "9.5px",
+                  color: "#53d769", minWidth: "70px", flexShrink: 0,
+                  fontWeight: 600,
+                }}>
+                  {t.date}
+                </div>
+                <div style={{ color: "rgba(255,255,255,0.5)" }}>{t.event}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{
+          marginTop: "16px", padding: "12px 14px",
+          fontSize: "10px", color: "rgba(255,255,255,0.25)", lineHeight: 1.6,
+          borderTop: "1px solid rgba(255,255,255,0.04)",
+        }}>
+          Sources: DHCS provider manuals, CalAIM BH Payment Reform fact sheets, DMC-ODS Billing Manual SFY 2025-26, Medi-Cal Rx Provider Manual (March 2026), DHCS May 2025 Local Assistance Estimate, CHCF Medi-Cal Facts & Figures 2024, UC Berkeley Labor Center enrollment data.
+        </div>
+      </div>
+    </div>
+  );
+}

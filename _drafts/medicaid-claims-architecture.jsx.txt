@@ -1,0 +1,316 @@
+import { useState } from "react";
+
+const layers = [
+  {
+    id: "provider",
+    label: "PROVIDER LAYER",
+    color: "#1a1a2e",
+    accent: "#e94560",
+    items: [
+      {
+        title: "Clinical Encounter",
+        desc: "Provider delivers service to Medicaid beneficiary. Documents in EHR using SNOMED CT, LOINC, RxNorm clinical terminologies.",
+        standard: "HL7 CDA / C-CDA",
+        gap: "Clinical detail is richer than what billing captures. Diagnosis nuance, social context, and clinical reasoning are lost in translation to billing codes."
+      },
+      {
+        title: "Coding & Charge Capture",
+        desc: "Clinical documentation translated to billing codes: ICD-10-CM/PCS (diagnosis/procedure), CPT/HCPCS (professional services), NDC (drugs), Revenue Codes (facility).",
+        standard: "ICD-10 · CPT · HCPCS · NDC",
+        gap: "Coding is a lossy compression of clinical reality. Behavioral health is especially affected — recovery, functioning, and social needs don't map cleanly to procedure codes."
+      }
+    ]
+  },
+  {
+    id: "submission",
+    label: "CLAIM SUBMISSION",
+    color: "#16213e",
+    accent: "#0f3460",
+    items: [
+      {
+        title: "Electronic Claim Generation",
+        desc: "Provider/billing system generates HIPAA-mandated X12 837 transaction. Three variants: 837P (Professional — maps to CMS-1500), 837I (Institutional — maps to UB-04), 837D (Dental).",
+        standard: "ASC X12 Version 5010",
+        gap: "X12 5010 adopted 2012. Now 13+ years old. Pipe-delimited flat format with no native support for modern data types, APIs, or real-time exchange."
+      },
+      {
+        title: "Clearinghouse / EDI Gateway",
+        desc: "Most claims route through clearinghouses (Change Healthcare, Availity, Trizetto) that validate X12 syntax, scrub for errors, and route to correct payer. Some states accept direct submission.",
+        standard: "HIPAA Transaction & Code Sets Rule",
+        gap: "Clearinghouses add a private intermediary layer. Each applies its own validation rules. The 2024 Change Healthcare ransomware attack disrupted claims flow nationwide for weeks."
+      },
+      {
+        title: "Pharmacy Claims (Separate Track)",
+        desc: "Retail pharmacy claims bypass X12 entirely. Use NCPDP (National Council for Prescription Drug Programs) standards — currently Version D.0 for claims, F6 for rebates.",
+        standard: "NCPDP D.0 / F6",
+        gap: "Pharmacy billing is a parallel universe with its own standards body, formats, and processing logic. Integration with medical claims remains incomplete."
+      }
+    ]
+  },
+  {
+    id: "adjudication",
+    label: "ADJUDICATION LAYER",
+    color: "#1a1a2e",
+    accent: "#e94560",
+    items: [
+      {
+        title: "FFS Claims → State MMIS",
+        desc: "Fee-for-service claims adjudicated by state MMIS (often operated by fiscal agent like Gainwell). System checks eligibility, applies edits (NCCI, state-specific), prices claim, generates payment.",
+        standard: "42 CFR 433.111 (MMIS mandate)",
+        gap: "MMIS platforms built in 1980s–2000s. Monolithic architectures. Many states run systems 20+ years old. Federal incentive: 90% FFP for design, 75% for operations — but modernization is slow."
+      },
+      {
+        title: "Managed Care Claims → MCO",
+        desc: "For 78% of enrollees: claims go to MCO, not state. MCO adjudicates using its own claims system, pays provider. MCO later submits encounter data to state MMIS.",
+        standard: "Varies by MCO contract",
+        gap: "THE critical gap. Encounter data ≠ claims data. Often missing payment amounts, submitted late, inconsistent formatting. States get a shadow of the original transaction."
+      },
+      {
+        title: "Remittance & Payment",
+        desc: "Payer returns X12 835 (Electronic Remittance Advice) with payment/denial details. Mapped to CARC/RARC reason codes for denials and adjustments.",
+        standard: "X12 835 · CARC/RARC",
+        gap: "Denial reason codes are often vague. Providers may not know specifically why a claim was denied, leading to rework cycles averaging 25+ days for appeals."
+      }
+    ]
+  },
+  {
+    id: "aggregation",
+    label: "STATE REPORTING",
+    color: "#16213e",
+    accent: "#0f3460",
+    items: [
+      {
+        title: "State MMIS → T-MSIS Submission",
+        desc: "States extract data from MMIS monthly, transform to T-MSIS format (8 file types: Eligibility, Claims ×4, Managed Care, Provider, TPL), submit to CMS.",
+        standard: "T-MSIS Data Guide · OBA Assessment",
+        gap: "Each state's MMIS is different. Mapping to T-MSIS requires transformation logic that introduces errors. CMS runs 6,000+ DQ checks; as of 2026, states still fail critical and high-priority items."
+      },
+      {
+        title: "T-MSIS → TAF (Analytic Files)",
+        desc: "CMS processes raw T-MSIS into research-ready TAF files: Demographics, Inpatient, Other Services, Rx, Long-Term Care, Managed Care, Provider. Available via ResDAC with DUA.",
+        standard: "TAF RIF specifications",
+        gap: "TAF replaced MAX files in 2019. Significant quality improvement but still variable by state/year/data element. 2025 JAMA study called for standardized reporting guidelines. 30 states failed inpatient managed care encounter data quality as of GAO review."
+      }
+    ]
+  },
+  {
+    id: "future",
+    label: "EMERGING LAYER (2025–2027+)",
+    color: "#0a0a1a",
+    accent: "#53d769",
+    items: [
+      {
+        title: "FHIR APIs (CMS-0057-F)",
+        desc: "By Jan 1, 2027: Medicaid FFS, MCOs, and CHIP must implement Patient Access, Provider Access, Provider Directory, Payer-to-Payer, and Prior Auth APIs using HL7 FHIR R4.",
+        standard: "HL7 FHIR R4 · SMART on FHIR · USCDI v3",
+        gap: "FHIR is a data exchange standard, not a replacement for claims processing. Legacy MMIS and X12 systems will persist underneath. FHIR creates a modern access layer but doesn't fix the foundation."
+      },
+      {
+        title: "Modular MES Architecture",
+        desc: "CMS incentivizing states to decompose monolithic MMIS into modular Medicaid Enterprise Systems (MES). Separate modules for claims, eligibility, provider management, analytics.",
+        standard: "CMS MITA Framework · MES Guidelines",
+        gap: "Modularization creates integration complexity. Multiple vendors must interoperate. Early adopters (e.g., Colorado: 8 modules, 4 new vendors) report significant transition challenges."
+      },
+      {
+        title: "Claims Attachments Standard",
+        desc: "2026 CMS final rule adopts national standard for electronic clinical documentation supporting claims — projected to save $781M annually. Includes electronic signature standards.",
+        standard: "HL7 C-CDA R2.1 · X12 275",
+        gap: "Decades in the making. HIPAA mandated claims attachment standards in 1996. The final rule was published in 2025–2026 — a 30-year implementation lag."
+      }
+    ]
+  }
+];
+
+function FlowNode({ item, isActive, onClick }) {
+  return (
+    <div
+      onClick={onClick}
+      className={`cursor-pointer transition-all duration-300 ${isActive ? "ring-2 ring-white/40 scale-[1.01]" : "hover:scale-[1.005]"}`}
+      style={{
+        background: isActive ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
+        borderRadius: "8px",
+        padding: "16px",
+        marginBottom: "8px",
+        borderLeft: `3px solid ${isActive ? "#e94560" : "rgba(255,255,255,0.1)"}`,
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px" }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace", fontSize: "13px", fontWeight: 700, color: "#fff", marginBottom: "6px", letterSpacing: "0.02em" }}>
+            {item.title}
+          </div>
+          <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)", lineHeight: "1.5" }}>
+            {item.desc}
+          </div>
+        </div>
+        <div style={{
+          fontSize: "10px",
+          fontFamily: "'JetBrains Mono', monospace",
+          color: "#53d769",
+          background: "rgba(83,215,105,0.1)",
+          padding: "3px 8px",
+          borderRadius: "4px",
+          whiteSpace: "nowrap",
+          flexShrink: 0,
+          maxWidth: "160px",
+          textAlign: "right",
+          lineHeight: 1.4,
+        }}>
+          {item.standard}
+        </div>
+      </div>
+      {isActive && (
+        <div style={{
+          marginTop: "12px",
+          padding: "10px 12px",
+          background: "rgba(233,69,96,0.08)",
+          borderRadius: "6px",
+          fontSize: "12px",
+          color: "#e94560",
+          lineHeight: "1.6",
+          borderLeft: "2px solid rgba(233,69,96,0.4)",
+        }}>
+          <span style={{ fontWeight: 700, fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "4px", color: "#e94560" }}>
+            Where It Breaks ↓
+          </span>
+          {item.gap}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function MedicaidFlowChart() {
+  const [activeItem, setActiveItem] = useState(null);
+
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: "#0a0a1a",
+      color: "#fff",
+      fontFamily: "'Inter', -apple-system, sans-serif",
+      padding: "24px 16px",
+    }}>
+      <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+        <div style={{ marginBottom: "32px" }}>
+          <h1 style={{
+            fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+            fontSize: "18px",
+            fontWeight: 800,
+            letterSpacing: "-0.02em",
+            marginBottom: "8px",
+            background: "linear-gradient(135deg, #e94560, #0f3460)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}>
+            MEDICAID CLAIMS DATA ARCHITECTURE
+          </h1>
+          <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", lineHeight: 1.6, maxWidth: "560px" }}>
+            From clinical encounter to national dataset. Tap any node to see where standardization breaks down. 
+            Green labels = governing standard. Red panels = structural gaps.
+          </p>
+        </div>
+
+        {layers.map((layer, li) => (
+          <div key={layer.id} style={{ marginBottom: "4px" }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "12px",
+              marginTop: li > 0 ? "20px" : 0,
+            }}>
+              <div style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "10px",
+                fontWeight: 800,
+                letterSpacing: "0.15em",
+                color: layer.accent,
+                textTransform: "uppercase",
+              }}>
+                {layer.label}
+              </div>
+              <div style={{ flex: 1, height: "1px", background: `linear-gradient(to right, ${layer.accent}40, transparent)` }} />
+            </div>
+
+            {layer.items.map((item, ii) => {
+              const key = `${li}-${ii}`;
+              return (
+                <div key={key}>
+                  <FlowNode
+                    item={item}
+                    isActive={activeItem === key}
+                    onClick={() => setActiveItem(activeItem === key ? null : key)}
+                  />
+                  {ii < layer.items.length - 1 && (
+                    <div style={{ display: "flex", justifyContent: "center", padding: "2px 0" }}>
+                      <div style={{ width: "1px", height: "16px", background: "rgba(255,255,255,0.1)" }} />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {li < layers.length - 1 && (
+              <div style={{ display: "flex", justifyContent: "center", padding: "8px 0" }}>
+                <svg width="20" height="24" viewBox="0 0 20 24">
+                  <path d="M10 0 L10 18 M4 14 L10 20 L16 14" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" fill="none" />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+
+        <div style={{
+          marginTop: "32px",
+          padding: "16px",
+          background: "rgba(255,255,255,0.03)",
+          borderRadius: "8px",
+          border: "1px solid rgba(255,255,255,0.06)",
+        }}>
+          <div style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: "10px",
+            fontWeight: 800,
+            letterSpacing: "0.15em",
+            color: "rgba(255,255,255,0.3)",
+            marginBottom: "10px",
+            textTransform: "uppercase",
+          }}>
+            Standards Stack Summary
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", fontSize: "11px" }}>
+            {[
+              { label: "Claims Transport", val: "X12 837 (v5010) — 2012", status: "aging" },
+              { label: "Pharmacy Claims", val: "NCPDP D.0 — current", status: "ok" },
+              { label: "Diagnosis Codes", val: "ICD-10-CM/PCS — 2015", status: "ok" },
+              { label: "Procedure Codes", val: "CPT / HCPCS — annual", status: "ok" },
+              { label: "Remittance", val: "X12 835 (v5010) — 2012", status: "aging" },
+              { label: "Eligibility Check", val: "X12 270/271 — 2012", status: "aging" },
+              { label: "Prior Auth", val: "X12 278 → FHIR (2027)", status: "transition" },
+              { label: "API Exchange", val: "HL7 FHIR R4 (2027)", status: "emerging" },
+              { label: "Clinical Docs", val: "C-CDA R2.1 / X12 275", status: "emerging" },
+              { label: "State→CMS Data", val: "T-MSIS (ongoing DQ)", status: "improving" },
+            ].map((s) => (
+              <div key={s.label} style={{
+                padding: "8px 10px",
+                background: "rgba(255,255,255,0.02)",
+                borderRadius: "4px",
+                borderLeft: `2px solid ${s.status === "ok" ? "#53d769" : s.status === "aging" ? "#f5a623" : s.status === "transition" ? "#e94560" : s.status === "emerging" ? "#4fc3f7" : "#888"}`,
+              }}>
+                <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", marginBottom: "2px" }}>{s.label}</div>
+                <div style={{ color: "rgba(255,255,255,0.8)", fontFamily: "'JetBrains Mono', monospace", fontSize: "10px" }}>{s.val}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: "10px", display: "flex", gap: "12px", fontSize: "10px", color: "rgba(255,255,255,0.3)" }}>
+            <span><span style={{ color: "#53d769" }}>●</span> Current</span>
+            <span><span style={{ color: "#f5a623" }}>●</span> Aging</span>
+            <span><span style={{ color: "#e94560" }}>●</span> Transitioning</span>
+            <span><span style={{ color: "#4fc3f7" }}>●</span> Emerging</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
