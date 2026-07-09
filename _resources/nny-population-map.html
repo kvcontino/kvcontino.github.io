@@ -209,28 +209,14 @@
   // Oswego:075, St.Lawrence:089, Saratoga:091, Warren:113, Washington:115
   var COUNTY_FIPS = new Set(['019','031','033','035','041','043','045','049','053','065','075','089','091','113','115']);
 
-  // Filter server-side by FIPS_CODE prefix (state 36 + 3-digit county FIPS).
-  // NY has ~1050 county subdivisions total — over the service MaxRecordCount of 1000 —
-  // so fetching all would silently truncate. Filtering to our 15 counties (~400 towns)
-  // keeps the response well under the cap and avoids pagination.
-  var COUNTY_PREFIXES = ['36019','36031','36033','36035','36041','36043','36045',
-                         '36049','36053','36065','36075','36089','36091','36113','36115'];
-  var whereClause = COUNTY_PREFIXES
-    .map(function(p){ return "FIPS_CODE LIKE '" + p + "%'"; })
-    .join(' OR ');
-  var BOUNDS_URL =
-    'https://gisservices.its.ny.gov/arcgis/rest/services/NYS_Civil_Boundaries/FeatureServer/6/query' +
-    '?where=' + encodeURIComponent(whereClause) +
-    '&outFields=NAME,FIPS_CODE,COUNTY,MUNI_TYPE' +
-    '&returnGeometry=true&geometryPrecision=4&outSR=4326&resultRecordCount=1000&f=geojson';
-
-  // Census API — all NY county subdivisions; GEOID matching filters to our counties client-side.
-  // 2000 SF1 requires state+county wildcard in the 'in' parameter.
-  var CENSUS = {
-    p00: 'https://api.census.gov/data/2000/dec/sf1?get=P001001,NAME&for=county+subdivision:*&in=state:36%20county:*',
-    p20: 'https://api.census.gov/data/2020/dec/pl?get=P1_001N,NAME&for=county+subdivision:*&in=state:36',
-    acs: 'https://api.census.gov/data/2024/acs/acs5?get=B01003_001E,NAME&for=county+subdivision:*&in=state:36',
-  };
+  // Data is pre-baked into nny-population.json by build-nny-population.py.
+  // We no longer call the Census API or NYS boundary service live: Census now
+  // requires an API key (keyless requests 302-redirect to an HTML "Missing Key"
+  // page, which broke the old JSON.parse), and a public page can't safely embed a
+  // key. The bundle holds statewide Census rows (filtered to our 15 counties
+  // client-side below) and boundaries pre-filtered to those counties.
+  // Regenerate yearly when a new ACS 5-year vintage lands.
+  var DATA_URL = 'nny-population.json';
 
   function mark(id, ok, note) {
     var el = document.getElementById(id);
@@ -244,16 +230,6 @@
     el.className = cls;
     el.textContent = text;
     document.getElementById('s-final').appendChild(el);
-  }
-
-  function fetchJSON(id, url) {
-    return fetch(url)
-      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
-      .then(function(txt) {
-        try   { var d = JSON.parse(txt); mark(id, true); return d; }
-        catch(e) { throw new Error('Not JSON \u2014 got: ' + txt.slice(0, 120).replace(/\n/g, ' ')); }
-      })
-      .catch(function(err) { mark(id, false, err.message); throw err; });
   }
 
   // Build 10-digit GEOID from Census API row
@@ -305,14 +281,11 @@
     ).domain([-ext, 0, ext]);
   }
 
-  Promise.all([
-    fetchJSON('s-bounds', BOUNDS_URL),
-    fetchJSON('s-p00',    CENSUS.p00),
-    fetchJSON('s-p20',    CENSUS.p20),
-    fetchJSON('s-acs',    CENSUS.acs),
-  ])
-  .then(function(results) {
-    var geo = results[0], r00 = results[1], r20 = results[2], rACS = results[3];
+  fetch(DATA_URL)
+    .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(bundle) {
+    ['s-bounds','s-p00','s-p20','s-acs'].forEach(function(id){ mark(id, true); });
+    var geo = bundle.bounds, r00 = bundle.p00, r20 = bundle.p20, rACS = bundle.acs;
     try {
       var res00  = parseRows(r00,  'P001001');
       var res20  = parseRows(r20,  'P1_001N');
@@ -420,10 +393,11 @@
       console.error('Processing error:', err);
       addStatus('s-fail', '\u2717\u00a0Processing error: ' + err.message);
     }
-  })
-  .catch(function(err) {
-    console.error('Fetch error:', err);
-  });
+    })
+    .catch(function(err) {
+      ['s-bounds','s-p00','s-p20','s-acs'].forEach(function(id){ mark(id, false, err.message); });
+      console.error('Data load error:', err);
+    });
 
   var tt = document.getElementById('tt');
 
