@@ -106,11 +106,82 @@ span.equation em { color: red; }
 span.program { font-family: monospace; }
 span.rw { font-family: monospace; font-style: italic; }
 
+/* Essay / analysis components (long-form pieces with figures + data tables) */
+.dek {
+  font-size: 1.25em;
+  line-height: 1.5em;
+  color: #cdb8a8;
+  text-align: left;
+  hyphens: none;
+  max-width: 80ex;
+  margin: 0 0 1.2em 0;
+}
+.meta {
+  font-size: 0.8em;
+  color: #9a9a9a;
+  font-style: italic;
+  text-align: left;
+  margin-bottom: 2em;
+}
+.meta a, .dek a { color: #cd9575; }
+
+figure { margin: 2.4em 0; }
+figure img, figure svg { width: 100%; height: auto; display: block; }
+figcaption {
+  font-size: 0.82em;
+  line-height: 1.5em;
+  color: #9a9a9a;
+  text-align: left;
+  hyphens: none;
+  margin-top: 0.6em;
+  max-width: 90ex;
+}
+figcaption strong { color: #cdb8a8; }
+
+.tablewrap { overflow-x: auto; margin: 2em 0; -webkit-overflow-scrolling: touch; }
+table.data {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+  line-height: 1.4em;
+  text-align: left;
+  hyphens: none;
+}
+table.data caption {
+  text-align: left;
+  color: #9a9a9a;
+  font-size: 0.9em;
+  padding-bottom: 0.6em;
+}
+table.data th, table.data td { padding: 8px 14px; border-bottom: 1px solid #333; }
+table.data thead th { color: #cd9575; font-weight: 600; border-bottom: 1px solid #555; }
+table.data td.num, table.data th.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.data .hi { color: #cd9575; }
+table.data .neg { color: #c8735a; }
+table.data tbody tr:hover { background: #141414; }
+
+.note {
+  border-left: 2px solid #cd9575;
+  padding: 0.2em 0 0.2em 1.2em;
+  margin: 2em 0;
+  color: #d8d8d8;
+  hyphens: none;
+}
+.note strong { color: #cd9575; }
+
+.pagenav {
+  margin-top: 3em;
+  padding-top: 1.4em;
+  border-top: 1px solid #333;
+  font-size: 0.9em;
+}
+
 /* Misc */
 hr {
   border: 0;
   border-top: 1px solid #8c8c8c;
   border-bottom: 1px solid #fff;
+  margin: 2.4em 0;
 }
 
 footer {

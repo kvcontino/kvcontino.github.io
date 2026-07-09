@@ -1,0 +1,58 @@
+---
+layout: default
+title: "OneCare Vermont: Data &amp; Code"
+description: "The generated result files and public inputs behind the OneCare accounting, available for download."
+---
+
+<p class="dek">The generated result files and the public inputs behind
+<a href="/_resources/onecare/">the accounting</a>. Everything the figures consume is here; the heavy
+raw archives are reproducible from the source links.</p>
+
+<p class="meta">Plain CSV and JSON &middot; regenerate the figures with
+<a href="/_resources/onecare/build_figures.py"><code>build_figures.py</code></a> in the parent
+directory (Python, matplotlib, pandas).</p>
+
+<h2>Generated results</h2>
+<div class="tablewrap">
+<table class="data">
+  <thead><tr><th>File</th><th>Contents</th></tr></thead>
+  <tbody>
+    <tr><td><a href="/_resources/onecare/data/synth_results.json">synth_results.json</a></td>
+        <td>Synthetic-control output for all three outcomes: actual, synthetic, and gap series by year, donor weights, and placebo p-values.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/vermont_gap_spending.csv">vermont_gap_spending.csv</a></td>
+        <td>Vermont's Medicare spending gap (actual &minus; synthetic) per beneficiary-year.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/placebo_gaps_spending.csv">placebo_gaps_spending.csv</a></td>
+        <td>The same spending gap computed for all 49 placebo states — the permutation distribution behind p&nbsp;=&nbsp;0.64.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/hospital_margins.csv">hospital_margins.csv</a></td>
+        <td>Aggregate hospital total margins, Vermont / New Hampshire / US, from HCRIS.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/brfss_summary.csv">brfss_summary.csv</a></td>
+        <td>BRFSS chronic-disease and access gaps, Vermont vs. peer mean, pre/post the 2018 boundary.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Public inputs</h2>
+<div class="tablewrap">
+<table class="data">
+  <thead><tr><th>File</th><th>Contents &amp; source</th></tr></thead>
+  <tbody>
+    <tr><td><a href="/_resources/onecare/data/cbp_6211_states.csv">cbp_6211_states.csv</a></td>
+        <td>Physician-office (NAICS 6211) establishments and employment by state and year, 2014–2023. Census County Business Patterns.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/overdose_state_year.csv">overdose_state_year.csv</a></td>
+        <td>Overdose deaths by state and year, 2015–2025. CDC VSRR provisional counts.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/miov_suicide_od_state.csv">miov_suicide_od_state.csv</a></td>
+        <td>Suicide and overdose age-adjusted rates per 100k by state and year, 2019–2024. CDC MIOV.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/rand51_state_relative_prices.csv">rand51_state_relative_prices.csv</a></td>
+        <td>Commercial prices as a percent of Medicare by state, 2022. RAND Hospital Price Transparency 5.1.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Reproducing the heavy inputs.</strong> The synthetic control is fit on the CMS Medicare
+Geographic Variation PUF; the margins come from HCRIS; the consolidation series from the CBP archives.
+Those raw files are large and are not mirrored here — they are reproducible from the source links in
+the <a href="/_resources/onecare/methodology.html">methodology note</a>. The derived series above are
+what the figures actually read.</p>
+
+<p class="pagenav"><a href="/_resources/onecare/">&larr; Back to the accounting</a>
+&emsp; <a href="/_resources/onecare/methodology.html">Methodology &rarr;</a></p>
