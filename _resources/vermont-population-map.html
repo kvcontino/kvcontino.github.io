@@ -202,17 +202,12 @@
 <script>
 (function () {
 
-  const BOUNDS_URL =
-    'https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/' +
-    'FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_towns_SP_v1/FeatureServer/0/query' +
-    '?where=1%3D1&outFields=*&returnGeometry=true' +
-    '&geometryPrecision=4&outSR=4326&f=geojson';
-
-  const CENSUS = {
-    p00: 'https://api.census.gov/data/2000/dec/sf1?get=P001001,NAME&for=county+subdivision:*&in=state:50%20county:*',
-    p20: 'https://api.census.gov/data/2020/dec/pl?get=P1_001N,NAME&for=county+subdivision:*&in=state:50',
-    acs: 'https://api.census.gov/data/2024/acs/acs5?get=B01003_001E,NAME&for=county+subdivision:*&in=state:50',
-  };
+  // Data is pre-baked into vermont-population.json by build-vermont-population.py.
+  // We no longer call the Census API live: it now requires an API key (keyless
+  // requests 302-redirect to an HTML "Missing Key" page, which broke the old
+  // JSON.parse), and a public page can't safely embed a key. Regenerate the JSON
+  // yearly when a new ACS 5-year vintage lands.
+  const DATA_URL = 'vermont-population.json';
 
   function mark(id, ok, note) {
     const el = document.getElementById(id);
@@ -226,16 +221,6 @@
     el.className = cls;
     el.textContent = text;
     document.getElementById('s-final').appendChild(el);
-  }
-
-  function fetchJSON(id, url) {
-    return fetch(url)
-      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
-      .then(txt => {
-        try   { const d = JSON.parse(txt); mark(id, true); return d; }
-        catch { throw new Error('Not JSON — got: ' + txt.slice(0, 120).replace(/\n/g, ' ')); }
-      })
-      .catch(err => { mark(id, false, err.message); throw err; });
   }
 
   // Detect which field contains the town name from the first feature's properties.
@@ -312,13 +297,11 @@
     ).domain([-ext, 0, ext]);
   }
 
-  Promise.all([
-    fetchJSON('s-bounds', BOUNDS_URL),
-    fetchJSON('s-p00',    CENSUS.p00),
-    fetchJSON('s-p20',    CENSUS.p20),
-    fetchJSON('s-acs',    CENSUS.acs),
-  ])
-  .then(([geo, r00, r20, rACS]) => {
+  fetch(DATA_URL)
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(bundle => {
+    ['s-bounds', 's-p00', 's-p20', 's-acs'].forEach(id => mark(id, true));
+    const geo = bundle.bounds, r00 = bundle.p00, r20 = bundle.p20, rACS = bundle.acs;
     try {
       const { popMap: m00,  nameMap: n00  } = parseRows(r00,  'P001001');
       const { popMap: m20,  nameMap: n20  } = parseRows(r20,  'P1_001N');
@@ -418,11 +401,11 @@
       console.error('Processing error:', err);
       addStatus('s-fail', '✗\u00a0Processing error: ' + err.message + ' (see console for stack trace)');
     }
-  })
-  .catch(err => {
-    console.error('Fetch error:', err);
-    // Individual fetch errors are already marked on their own lines
-  });
+    })
+    .catch(err => {
+      ['s-bounds', 's-p00', 's-p20', 's-acs'].forEach(id => mark(id, false, err.message));
+      console.error('Data load error:', err);
+    });
 
   var tt = document.getElementById('tt');
 
