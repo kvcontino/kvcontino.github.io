@@ -118,6 +118,40 @@ def simplify_bounds(geojson):
     return out
 
 
+def _ring_is_cw(ring):
+    """Shoelace sign in lon/lat: >0 means clockwise (screen orientation)."""
+    s = 0.0
+    for i in range(len(ring) - 1):
+        (x1, y1), (x2, y2) = ring[i], ring[i + 1]
+        s += (x2 - x1) * (y2 + y1)
+    return s > 0
+
+
+def _orient(ring, want_cw):
+    return ring if _ring_is_cw(ring) == want_cw else ring[::-1]
+
+
+def enforce_winding(geojson):
+    """Force exterior rings clockwise, holes counterclockwise.
+
+    The Vermont map projects with d3.geoMercator, a *spherical* projection: it
+    reads ring winding to decide inside vs. outside, so a wrongly-wound exterior
+    ring renders as the whole sphere minus the polygon — filling the entire frame
+    gray. mapshaper emits RFC 7946 winding (exterior CCW), but this d3 code (and
+    the VCGI source it replaced) want the opposite, so normalize here. The NNY map
+    uses a planar geoTransform and is winding-insensitive, so it needs no such fix.
+    """
+    def fix(rings):
+        return [_orient(rings[0], True)] + [_orient(r, False) for r in rings[1:]]
+    for f in geojson["features"]:
+        g = f["geometry"]
+        if g["type"] == "Polygon":
+            g["coordinates"] = fix(g["coordinates"])
+        elif g["type"] == "MultiPolygon":
+            g["coordinates"] = [fix(p) for p in g["coordinates"]]
+    return geojson
+
+
 def main():
     if not KEY_PATH.exists():
         sys.exit(
@@ -131,6 +165,7 @@ def main():
 
     print(f"Simplifying boundaries with mapshaper (retain {SIMPLIFY_RETAIN})…")
     bounds = simplify_bounds(bounds)
+    bounds = enforce_winding(bounds)   # d3.geoMercator needs exterior rings clockwise
 
     print("Fetching 2000 Decennial Census SF1…")
     p00 = get_json(census_url("2000/dec/sf1", "P001001,NAME", key), "p00")
