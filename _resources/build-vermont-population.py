@@ -28,7 +28,9 @@ new ACS vintage, bump ACS_YEAR.
 """
 
 import json
+import subprocess
 import sys
+import tempfile
 import urllib.request
 import urllib.error
 from datetime import date
@@ -39,7 +41,16 @@ ACS_YEAR   = "2024"        # latest ACS 5-year vintage (2020–2024)
 OUT_PATH   = Path(__file__).with_name("vermont-population.json")
 KEY_PATH   = Path.home() / ".census_api_key"
 
-# VCGI town polygons (keyless; geometryPrecision=4 keeps the file ~1 MB)
+# Boundary simplification. The raw VCGI town polygons are ~1 MB; at this map's
+# render size (~460 px) that detail is invisible. mapshaper with Visvalingam
+# weighting + keep-shapes stops any town from collapsing; -clean repairs
+# self-intersections; shared borders simplify together (topology-aware) so no
+# slivers open between towns. Requires Node/npx (mapshaper fetched on first run).
+# Tune SIMPLIFY_RETAIN up for more fidelity, down for smaller files.
+SIMPLIFY_RETAIN = "6%"
+COORD_PRECISION = "0.0005"   # snap coords to ~50 m; trims decimal noise
+
+# VCGI town polygons (keyless)
 BOUNDS_URL = (
     "https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/"
     "FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_towns_SP_v1/FeatureServer/0/query"
@@ -78,6 +89,35 @@ def get_json(url, what):
         sys.exit(f"[{what}] response was not JSON (got: {body[:120]!r})")
 
 
+def simplify_bounds(geojson):
+    """Simplify the boundary GeoJSON with mapshaper, returning the reduced dict.
+
+    Round-trips through temp files: mapshaper reads/writes GeoJSON on disk.
+    """
+    with tempfile.TemporaryDirectory() as td:
+        src = Path(td) / "in.geojson"
+        dst = Path(td) / "out.geojson"
+        src.write_text(json.dumps(geojson))
+        cmd = [
+            "npx", "-y", "mapshaper", str(src),
+            "-simplify", SIMPLIFY_RETAIN, "keep-shapes",
+            "-clean",
+            "-o", f"precision={COORD_PRECISION}", str(dst),
+        ]
+        try:
+            subprocess.run(cmd, check=True, capture_output=True, text=True)
+        except FileNotFoundError:
+            sys.exit("npx/mapshaper not found — install Node.js to simplify boundaries")
+        except subprocess.CalledProcessError as e:
+            sys.exit(f"mapshaper failed:\n{e.stderr}")
+        out = json.loads(dst.read_text())
+    n_in = len(geojson.get("features", []))
+    n_out = len(out.get("features", []))
+    if n_out != n_in:
+        sys.exit(f"simplify dropped features ({n_in} -> {n_out}); SIMPLIFY_RETAIN too aggressive")
+    return out
+
+
 def main():
     if not KEY_PATH.exists():
         sys.exit(
@@ -88,6 +128,9 @@ def main():
 
     print("Fetching town boundaries (VCGI)…")
     bounds = get_json(BOUNDS_URL, "bounds")
+
+    print(f"Simplifying boundaries with mapshaper (retain {SIMPLIFY_RETAIN})…")
+    bounds = simplify_bounds(bounds)
 
     print("Fetching 2000 Decennial Census SF1…")
     p00 = get_json(census_url("2000/dec/sf1", "P001001,NAME", key), "p00")
@@ -102,7 +145,7 @@ def main():
         "generated": date.today().isoformat(),
         "note": "Regenerate with build-vermont-population.py. Do not hand-edit.",
         "sources": {
-            "bounds": "VCGI / Vermont Open Geodata Portal (town polygons)",
+            "bounds": f"VCGI / Vermont Open Geodata Portal (town polygons); simplified with mapshaper (retain {SIMPLIFY_RETAIN})",
             "p00": "2000 Decennial Census SF1 (P001001)",
             "p20": "2020 Decennial Census PL 94-171 (P1_001N)",
             "acs": f"ACS 5-Year Estimates {ACS_YEAR} (B01003_001E)",
