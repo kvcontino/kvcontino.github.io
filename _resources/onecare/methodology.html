@@ -136,11 +136,15 @@ context.</p>
 <p><strong>Caveats.</strong> Establishments are not practices (multi-site groups count once per
 site); hospital-acquired practices reclassify out of NAICS 6211, which is signal for consolidation
 but conflates the UVMHN roll-up with everything else; solo no-employee practices are out of scope
-(they live in the Nonemployer Statistics). <strong>County-level status:</strong> the natural next cut
-— Vermont and New Hampshire physician offices by county, to test whether Vermont's decline
-concentrates in the UVMHN hospitals' home counties — is currently gated. The Census CBP API now
-requires a key (it 302-redirects to a "missing key" page without one); with a key, per-year county
-pulls are light, and establishment counts are disclosed even for small counties.</p>
+(they live in the Nonemployer Statistics). <strong>County level (added July 2026):</strong> per-year
+county pulls from the (key-gated) CBP API test whether Vermont's decline concentrates in the UVMHN
+hospitals' home counties. It does not: Chittenden/Washington/Addison together fell 18% against 35%
+in the rest of the state, with the steepest losses in rural counties that host no network hospital
+(Orleans &minus;56%, Windsor &minus;55%, Rutland &minus;44%). Establishment counts are disclosed
+even for small counties, but they are small — single-county percentages are coarse and the grouped
+series are the reliable read; Grand Isle (≤2 offices, intermittently disclosed) is excluded. This
+weakens the acquisition-locus reading of the statewide decline without resolving entity-level
+attribution, which needs the NPPES pipeline.</p>
 
 <hr>
 

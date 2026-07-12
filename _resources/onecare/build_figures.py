@@ -114,11 +114,11 @@ end(ax, 2024, gap[2024], "VT", VT, dy=-4, bold=True)
 
 fig.suptitle("Vermont Medicare spending under the all-payer model, vs. a synthetic control",
              x=0.07, y=0.965, ha="left", fontsize=12.5, fontweight="bold", color=INK)
-fig.text(0.07, 0.88,
-         "Post-2018 mean gap −$759 per beneficiary-year; −$462 after netting the "
-         "pre-period gap. Placebo p = 0.64 — the direction the federal evaluation found, "
-         "not an individually significant estimate.",
-         fontsize=9, color=INK2, parse_math=False)
+fig.text(0.07, 0.885,
+         "Post-2018 mean gap −$759 per beneficiary-year; −$462 after netting the pre-period gap.\n"
+         "Placebo p = 0.64 — the direction the federal evaluation found, not an individually "
+         "significant estimate.",
+         fontsize=9, color=INK2, parse_math=False, va="center", linespacing=1.5)
 save(fig, "fig1_spending")
 
 # ================= Figure 2: % gap by outcome, shared scale =================
@@ -228,8 +228,131 @@ ax.set_xlim(2014, 2025.2); ax.set_xticks(range(2014, 2024, 2))
 ax.set_title("Employees per office (fewer offices, but larger)", loc="left", fontsize=10.5, color=INK)
 fig.suptitle("Vermont's physician offices thinned faster than its neighbors' — but so did Maine's",
              x=0.07, y=0.955, ha="left", fontsize=12, fontweight="bold", color=INK)
-fig.text(0.07, 0.855, "NH is the clean no-model comparator; ME shows a like-sized decline with "
+fig.text(0.07, 0.875, "NH is the clean no-model comparator; ME shows a like-sized decline with\n"
          "no all-payer model — the honesty guard on reading VT's drop as model-caused.",
-         fontsize=9, color=INK2)
+         fontsize=9, color=INK2, va="center", linespacing=1.5)
 save(fig, "fig4_consolidation")
+
+# ================= Figure 5: consolidation, county grain =================
+cty = pd.read_csv("data/cbp_6211_counties_vt_nh.csv")
+UVMHN = ["Chittenden", "Washington", "Addison"]   # UVMMC / CVMC / Porter home counties
+vt = cty[cty.state == "VT"].pivot(index="year", columns="county", values="estab")
+vt = vt.drop(columns=["Grand Isle"])              # ≤2 offices, intermittently disclosed
+nh_tot = cty[cty.state == "NH"].groupby("year")["estab"].sum()
+grp = pd.DataFrame({"uvmhn": vt[UVMHN].sum(axis=1),
+                    "rest": vt.drop(columns=UVMHN).sum(axis=1), "nh": nh_tot})
+gidx = grp / grp.loc[2014] * 100
+
+fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.6), width_ratios=[1, 1.15])
+fig.subplots_adjust(left=0.065, right=0.965, bottom=0.11, top=0.76, wspace=0.42)
+ax = axes[0]
+ax.axhline(100, color=BASE, lw=0.8, ls=DASH, zorder=0)
+ax.plot(gidx.index, gidx["nh"], color=INK2, lw=1.8, ls=DASH)
+ax.plot(gidx.index, gidx["uvmhn"], color=VT, lw=1.8, ls=DOT)
+ax.plot(gidx.index, gidx["rest"], color=VT, lw=2.8)
+end(ax, 2023, gidx["nh"][2023], "NH  −3%", INK2, dy=4)
+end(ax, 2023, gidx["uvmhn"][2023], "UVMHN counties  −18%", VT, dy=6)
+end(ax, 2023, gidx["rest"][2023], "rest of VT  −35%", VT, dy=-6, bold=True)
+style(ax); ax.set_xlim(2014, 2027.4); ax.set_xticks(range(2014, 2024, 2))
+ax.set_title("Physician-office establishments, indexed (2014 = 100)", loc="left",
+             fontsize=10.5, color=INK)
+
+ax = axes[1]
+chg = (vt.loc[2023] / vt.loc[2014] - 1) * 100
+chg = chg.sort_values(ascending=True)
+ypos = range(len(chg))
+ax.axvline(0, color=BASE, lw=1)
+ax.axvline(-26, color=VT, lw=0.8, ls=":", zorder=0)
+ax.set_ylim(-0.7, len(chg) + 0.5)
+ax.annotate("VT statewide −26%", (-26, len(chg) + 0.35), color=VT, fontsize=8,
+            ha="center", va="top", parse_math=False)
+for y, (county, v) in zip(ypos, chg.items()):
+    color = VT if county in UVMHN else MUTED
+    ax.plot([0, v], [y, y], color=color, lw=1.1, alpha=0.6)
+    ax.plot(v, y, "o", color=color, ms=6)
+    ax.annotate(f"{vt.loc[2014, county]:.0f}→{vt.loc[2023, county]:.0f}",
+                (v, y), xytext=(-6 if v < 0 else 6, 0), textcoords="offset points",
+                color=MUTED if county not in UVMHN else VT, fontsize=7.5,
+                ha="right" if v < 0 else "left", va="center", parse_math=False)
+ax.set_yticks(list(ypos))
+ax.set_yticklabels(chg.index, fontsize=9,
+                   color=INK2)
+for lbl in ax.get_yticklabels():
+    if lbl.get_text() in UVMHN:
+        lbl.set_color(VT); lbl.set_fontweight("bold")
+ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:+.0f}%"))
+ax.grid(axis="y", visible=False); ax.grid(axis="x", color=GRID, lw=0.6)
+ax.tick_params(length=0); ax.set_xlim(-62, 8)
+ax.set_title("Change 2014 → 2023, by Vermont county (counts at right)", loc="left",
+             fontsize=10.5, color=INK)
+
+fig.suptitle("The thinning was steepest away from the network, not at its center",
+             x=0.065, y=0.955, ha="left", fontsize=12, fontweight="bold", color=INK)
+fig.text(0.065, 0.855, "UVMHN home counties (Chittenden · Washington · Addison) lost 18% of "
+         "physician offices; the rest of Vermont lost 35%.\nCounty counts are small — grouped "
+         "series are the reliable read. Grand Isle (≤2 offices) excluded.",
+         fontsize=9, color=INK2, va="center", linespacing=1.5, parse_math=False)
+save(fig, "fig5_county")
+
+# ================= Figure 6: commercial prices =================
+rand = pd.read_csv("data/rand51_state_relative_prices.csv").set_index("State")
+NE = ["NY", "VT", "CT", "ME", "NH", "RI", "MA"]
+allsvc = (rand.loc[NE, "Relative price"] * 100)
+allsvc.loc["US"] = 254          # RAND 5.1 published national mean (all services)
+allsvc = allsvc.sort_values()
+
+fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.2), width_ratios=[1.35, 1])
+fig.subplots_adjust(left=0.095, right=0.93, bottom=0.12, top=0.76, wspace=0.35)
+ax = axes[0]
+for y, (st, v) in enumerate(allsvc.items()):
+    if st == "VT":
+        color, alpha = VT, 1.0
+    elif st == "US":
+        color, alpha = MUTED, 0.55
+    else:
+        color, alpha = BASE, 0.9
+    ax.barh(y, v, color=color, alpha=alpha, height=0.62)
+    ax.annotate(f"{v:.0f}%", (v, y), xytext=(5, 0), textcoords="offset points",
+                color=VT if st == "VT" else INK2, fontsize=9, va="center",
+                fontweight="bold" if st == "VT" else "normal", parse_math=False)
+ax.set_yticks(range(len(allsvc)))
+labels = {"US": "US average"}
+ax.set_yticklabels([labels.get(s, s) for s in allsvc.index], fontsize=9.5, color=INK2)
+for lbl in ax.get_yticklabels():
+    if lbl.get_text() == "VT":
+        lbl.set_color(VT); lbl.set_fontweight("bold")
+ax.grid(axis="y", visible=False); ax.grid(axis="x", color=GRID, lw=0.6)
+ax.tick_params(length=0); ax.set_xlim(0, 345)
+ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
+ax.set_title("Commercial price as % of Medicare, all services (2022)", loc="left",
+             fontsize=10.5, color=INK)
+
+# Hospital-system outpatient trajectories, RAND 5.1 annex (hospital_finance_findings.md)
+ax = axes[1]
+systems = {"UVM Health Network": (329, 357), "Rutland Regional": (332, 351),
+           "Southwestern VT": (321, 345)}
+for i, (name, (a, b)) in enumerate(systems.items()):
+    is_uvm = name.startswith("UVM")
+    color = VT if is_uvm else INK2
+    ax.plot([2020, 2022], [a, b], color=color, lw=2.6 if is_uvm else 1.6,
+            ls="-" if is_uvm else (DASH if i == 1 else DOT),
+            marker="o", ms=5 if is_uvm else 4)
+    end(ax, 2022, b, f"{name}  {b}%", color, dy=(0, 6, -6)[i], bold=is_uvm)
+    if is_uvm:  # start value only for the highlighted series; the others read off the axis
+        ax.annotate(f"{a}%", (2020, a), xytext=(-8, -4), textcoords="offset points",
+                    color=color, fontsize=8.5, ha="right", va="center", parse_math=False)
+ax.set_xlim(2019.6, 2024.6); ax.set_xticks([2020, 2022])
+ax.set_ylim(300, 375)
+ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
+style(ax, model_line=None)
+ax.set_title("Hospital-system outpatient price, % of Medicare", loc="left",
+             fontsize=10.5, color=INK)
+
+fig.suptitle("Commercial prices: highest in New England after New York — and still climbing",
+             x=0.055, y=0.955, ha="left", fontsize=12, fontweight="bold", color=INK)
+fig.text(0.055, 0.855, "Vermont's commercial prices ran 283% of Medicare in 2022, above the US "
+         "average. Every major Vermont hospital system's\noutpatient price rose through the "
+         "model's mature years. Source: RAND Hospital Price Transparency 5.1.",
+         fontsize=9, color=INK2, va="center", linespacing=1.5, parse_math=False)
+save(fig, "fig6_prices")
 print("all figures written")
