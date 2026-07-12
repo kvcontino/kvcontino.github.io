@@ -296,12 +296,12 @@ save(fig, "fig5_county")
 
 # ================= Figure 6: commercial prices =================
 rand = pd.read_csv("data/rand51_state_relative_prices.csv").set_index("State")
-NE = ["NY", "VT", "CT", "ME", "NH", "RI", "MA"]
-allsvc = (rand.loc[NE, "Relative price"] * 100)
+NORTHEAST = ["NY", "NJ", "PA", "VT", "CT", "ME", "NH", "RI", "MA"]
+allsvc = (rand.loc[NORTHEAST, "Relative price"] * 100)
 allsvc.loc["US"] = 254          # RAND 5.1 published national mean (all services)
 allsvc = allsvc.sort_values()
 
-fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.2), width_ratios=[1.35, 1])
+fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.5), width_ratios=[1.35, 1])
 fig.subplots_adjust(left=0.095, right=0.93, bottom=0.12, top=0.76, wspace=0.35)
 ax = axes[0]
 for y, (st, v) in enumerate(allsvc.items()):
@@ -348,7 +348,7 @@ style(ax, model_line=None)
 ax.set_title("Hospital-system outpatient price, % of Medicare", loc="left",
              fontsize=10.5, color=INK)
 
-fig.suptitle("Commercial prices: highest in New England after New York — and still climbing",
+fig.suptitle("Commercial prices: highest in the Northeast after New York — and still climbing",
              x=0.055, y=0.955, ha="left", fontsize=12, fontweight="bold", color=INK)
 fig.text(0.055, 0.855, "Vermont's commercial prices ran 283% of Medicare in 2022, above the US "
          "average. Every major Vermont hospital system's\noutpatient price rose through the "
