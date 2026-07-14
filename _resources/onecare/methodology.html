@@ -43,22 +43,75 @@ post-period 2018–2024.</p>
 </ul>
 
 <p><strong>Inference.</strong> In-space placebos: refit the whole procedure pretending each donor
-state was the treated unit, and rank Vermont's post-period effect within that placebo distribution.
-The reported p-value is Vermont's rank divided by (number of donors + 1). This is a permutation test,
-not a t-test; with ~49 placebos the finest achievable p is about 0.02, and the honest reading of a
-p&nbsp;=&nbsp;0.64 is "unremarkable against placebos," not "precisely zero."</p>
+state was the treated unit, and rank Vermont's effect within that placebo distribution. The reported
+p-value is Vermont's rank divided by (number of donors + 1). This is a permutation test, not a t-test;
+with ~49 placebos the finest achievable p is about 0.02, and the honest reading of a p&nbsp;=&nbsp;0.64
+is "unremarkable against placebos," not "precisely zero."</p>
 
-<p><strong>Results.</strong> Spending: post-2018 mean gap &minus;$759 per beneficiary-year raw,
-&minus;$462 after netting the pre-period gap; placebo p&nbsp;=&nbsp;0.64. Inpatient: no movement,
-p&nbsp;=&nbsp;1.00. ED visits: +18% versus synthetic by 2024, rising monotonically, p&nbsp;=&nbsp;0.18.</p>
+<p><strong>The ranking statistic (and why it matters).</strong> Placebos can be ranked two ways: on
+the raw post-period fit error, or — the Abadie standard — on the ratio of post-period to pre-period
+RMSPE, which discounts placebos that fit their own pre-period badly. This project uses the
+<strong>ratio ranking</strong>. The choice is not cosmetic: the raw ranking would report
+p&nbsp;=&nbsp;0.06 for spending and p&nbsp;=&nbsp;0.04 for ED, both far more "significant" than the
+ratio's 0.64 and 0.18. That apparent significance is an artifact — Vermont has the worst pre-period
+fit of any state on spending (it sits near the bottom of the national distribution, and no donor blend
+reaches it), so a large raw post-period error is expected and the ratio correctly discounts it. The
+honest numbers are the ratio-ranked ones; the raw alternative is named here only to show the better
+number was not cherry-picked.</p>
+
+<p><strong>Results and per-outcome diagnostics.</strong></p>
+<div class="tablewrap">
+<table class="data">
+  <caption>Synthetic-control diagnostics. Pre-RMSPE as a share of the pre-period mean is the fit-quality
+  read; the ratio-ranked p is the reported inference. Full detail in
+  <code>outputs/scm_diagnostics.json</code>.</caption>
+  <thead>
+    <tr><th>Outcome</th><th>Donor weights (&gt;0)</th><th class="num">Pre-fit</th><th class="num">2024 gap</th><th class="num">p (ratio)</th><th class="num">p (raw)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Spending / capita</td><td>IA .39, AK .37, ME .22, DC .01</td><td class="num">4.1% (weak)</td><td class="num">&minus;$801</td><td class="num">0.64</td><td class="num">0.06</td></tr>
+    <tr><td>Inpatient stays /1,000</td><td>AK .35, IA .34, ME .25, NH .05</td><td class="num">5.6% (weak)</td><td class="num">+1.5</td><td class="num">1.00</td><td class="num">0.96</td></tr>
+    <tr><td>ED visits /1,000</td><td>AK .36, NE .32, DC .20, MS .13</td><td class="num">1.0% (excellent)</td><td class="num">+101</td><td class="num">0.18</td><td class="num">0.04</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Spending: post-2018 mean gap &minus;$759 per beneficiary-year raw, &minus;$462 after netting the
+pre-period gap; placebo p&nbsp;=&nbsp;0.64. Inpatient: no movement, p&nbsp;=&nbsp;1.00. ED visits: +18%
+versus synthetic by 2024, rising monotonically, p&nbsp;=&nbsp;0.18 (rank ~9 of 50).</p>
+
+<p><strong>Leave-one-out sensitivity.</strong> Refitting without each contributing donor: the spending
+2024 gap swings from &minus;$567 to &minus;$1,111 depending on which of the two dominant donors (IA, AK)
+is dropped — a two-state tug-of-war, not a broad base, which is why the spending estimate is presented as
+fragile. The ED 2024 gap is stable across the same exercise (92 to 103), so the ED finding does not rest
+on any single donor.</p>
+
+<p><strong>Multiplicity.</strong> Three outcomes were tested with the identical procedure. Under the
+global null, the best of three p-values landing near 0.18 is unremarkable; the ED section reports the
+most extreme of the family and should be read with that in mind.</p>
 
 <p><strong>Caveats.</strong> Synthetic control on a single treated unit gives effect estimates with
-permutation-based inference only — no confidence intervals in the usual sense. The pre-period fit is
-good but not perfect; the spending gap is reported net of the residual pre-period gap for that
-reason. State-level Medicare data cannot see commercial or Medicaid populations, where much of the
-model's activity nominally sat. The ED result is the most robust in placebo rank but still short of
-conventional significance; it is reported as the strongest signal in the data, not as a proven
-effect.</p>
+permutation-based inference only — no confidence intervals in the usual sense. The pre-period is short:
+the Geographic Variation PUF begins in 2014, so the fit rests on four pre-treatment years (2014–2017)
+against four outcome-lag predictors plus four covariates, which risks tracking pre-trend noise; the
+spending gap is reported net of the residual pre-period gap for that reason. State-level Medicare data
+cannot see commercial or Medicaid populations, where much of the model's activity nominally sat, and it
+is fee-for-service only (see the Medicare Advantage robustness section below). The ED result is the most
+robust in placebo rank but still short of conventional significance; it is reported as the strongest
+signal in the data, not as a proven effect.</p>
+
+<p><strong>Medicare Advantage / denominator robustness.</strong> Because the PUF is fee-for-service only,
+differential MA growth is a live confound: Vermont's FFS denominator shrank 16.5% from its 2019 peak to
+2024, and its MA penetration crossed above its synthetic comparator's in 2022, the year UVM Health
+Advantage launched. Two robustness specifications — adding yearly MA penetration as a time-varying
+predictor, and restricting the donor pool to states within ±10 percentage points of Vermont's pre-period
+MA rate — moved the 2024 point estimates by less than 2%. This is genuinely informative but a structurally
+weak test of the actual worry: synthetic-control predictors are fixed at pre-treatment values, and the
+MA divergence opens up almost entirely after 2021, a window no pre-period-matching variant can reach by
+construction. The restricted pool also shrinks the placebo denominator to 11, whose finest achievable p is
+1/12&nbsp;=&nbsp;0.083; ED lands exactly on that floor, so the restricted-pool p should not be quoted beside
+the full-pool 0.18 as if on the same scale. The conclusion: FFS-denominator shrinkage is an unresolved rival
+explanation for the <em>late</em> portion of the ED and spending divergence, neither ruled in nor out by
+these checks, and it does not overturn the placebo inference.</p>
 
 <hr>
 
@@ -66,9 +119,14 @@ effect.</p>
 
 <p><strong>Overdose.</strong> <a class="external" href="https://data.cdc.gov/NCHS/VSRR-Provisional-Drug-Overdose-Death-Counts/xkb8-kh2a">CDC
 VSRR</a> provisional counts, twelve-month-ending-December (≈ calendar year), 2015–2025, indexed to
-2015. <strong>Suicide and rate-based overdose.</strong> <a class="external" href="https://data.cdc.gov/Injury-Violence/Mapping-Injury-Overdose-and-Violence-State/fpsi-y8tj">CDC
-MIOV</a> age-adjusted state rates per 100,000, 2019–2024. <strong>Chronic disease and access.</strong>
-<a class="external" href="https://data.cdc.gov/Behavioral-Risk-Factors/Behavioral-Risk-Factor-Surveillance-System-BRFSS-P/dttw-5yxu">BRFSS</a>
+2015. A 95% Poisson band is attached to the index panel via the delta approximation
+Var(log&nbsp;index) ≈ 1/count(year) + 1/count(2015); at 100–270 deaths a year, adjacent-year moves fall
+inside the band but the 2015–19 to 2021–23 climb does not (2021's lower bound sits above 2018's upper
+bound). <strong>Suicide.</strong> The published panel now splices two series: <a class="external" href="https://wonder.cdc.gov/">CDC
+WONDER</a> Underlying Cause of Death age-adjusted rates per 100,000, 1999–2020 (manual browser export —
+the WONDER API is Akamai-bot-blocked to scripts), with the provisional <a class="external" href="https://data.cdc.gov/Injury-Violence/Mapping-Injury-Overdose-and-Violence-State/fpsi-y8tj">CDC
+MIOV</a> age-adjusted rates (2019–2024) appended at a marked seam. Rate-based overdose is from MIOV.
+<strong>Chronic disease and access.</strong> <a class="external" href="https://data.cdc.gov/Behavioral-Risk-Factors/Behavioral-Risk-Factor-Surveillance-System-BRFSS-P/dttw-5yxu">BRFSS</a>
 crude prevalence, comparing Vermont's gap versus peers before (≤2017) and after (≥2018) the model
 boundary.</p>
 
@@ -77,21 +135,43 @@ used throughout. The overdose index uses the mean of each state's own 2015-index
 average state path), which differs by a few points from a population-pooled index but tells the same
 story.</p>
 
-<p><strong>Caveats.</strong> Provisional VSRR counts (re-pull for final 2025); counts not rates in
-the index panel (Vermont's flat population makes the rate comparison marginally worse for it, not
-better); survey redesign effects at BRFSS question transitions (PERSDOC2 was discontinued in 2020 and
-its successor PERSDOC3 is compared on gaps, not levels). "Targets met" in the official reporting
-refers to targets set against Vermont's own projected baseline, not against comparators — which is
-the entire point of measuring against peers here. No claim of causation runs from the model to any
-death; the "20,000 premature deaths" figure is addressed on arithmetic grounds in the essay.</p>
+<p><strong>Suicide: level, not trend.</strong> The WONDER extension is load-bearing for the essay's
+reframe. Age-adjusted, Vermont ran +5.2 above the peer-6 mean in the four years immediately before the
+model (2014–2017) and +5.5 in the model years WONDER covers (2018–2020) — statistically
+indistinguishable, against annual 95% CIs of roughly ±3 points. Vermont's rise began around 2010, eight
+years before the model. The gap is therefore a long-standing level difference (rural, older, higher
+firearm prevalence), which can neither indict the model nor, scored against Vermont's own baseline,
+credit it. Seam caveat: WONDER is final age-adjusted data, MIOV is provisional — confirm the rate basis
+before reading across the splice.</p>
+
+<p><strong>Caveats.</strong> Provisional VSRR/MIOV counts (re-pull for final years); survey redesign
+effects at BRFSS question transitions — the personal-doctor item was redesigned in the <strong>2021</strong>
+cycle (PERSDOC2 → PERSDOC3, broadening "personal doctor" to include a group of doctors and producing a
+documented break in series), so the favorable personal-doctor signal is compared on gaps, not levels.
+All rates used for comparison are age-adjusted (2000 standard population), which also disposes of the
+age-structure objection to the all-cause "6% above peers" figure: Vermont is the second-oldest state, so
+crude excess would be expected and meaningless, but the 6% is age-adjusted (VSRR, 2023). Mortality and
+chronic disease respond to delivery-system change on a 5-to-15-year lag, longer than any window the model
+offers. "Targets met" in the official reporting refers to targets set against Vermont's own projected
+baseline, not against comparators — the entire point of measuring against peers here. No claim of
+causation runs from the model to any death; the "20,000 premature deaths" figure is addressed on
+arithmetic grounds in the essay.</p>
 
 <hr>
 
 <h2>3. Hospital finance and commercial prices</h2>
 
 <p><strong>Margins.</strong> <a class="external" href="https://data.cms.gov/provider-compliance/cost-report/hospital-provider-cost-report">CMS
-Hospital Cost Reports (HCRIS)</a>, aggregate total margin across Vermont's 14 hospitals, 2014–2023,
-against New Hampshire and the US. <strong>Commercial prices.</strong> The
+Hospital Cost Reports (HCRIS)</a>, full annual series 2014–2023, for Vermont's 13–14 short-term and
+critical-access hospitals against New Hampshire, Maine, Massachusetts, and the US. <strong>Method:</strong>
+revenue-weighted (aggregate), i.e. Σ(net income) / Σ(revenue) across the hospitals in each state-year,
+not the unweighted mean of each hospital's own ratio — the essay's published figures already used this.
+A mean-of-ratios robustness file (<code>data/margins_extended_meanofratios.csv</code>) differs by 1–10
+points in places but flips no sign or ranking that matters; at the US level mean-of-ratios is unusable
+because a handful of PUF-extraction artifacts (hospitals reporting large negative net income with no
+matching net patient revenue) blow up when unweighted, which also argues for aggregate weighting on any
+large heterogeneous panel. Both total margin (net income / total revenue) and operating margin (income
+from patient services / net patient revenue) are computed. <strong>Commercial prices.</strong> The
 <a class="external" href="https://www.rand.org/pubs/research_reports/RRA1144-2-v2.html">RAND Hospital
 Price Transparency Study 5.1</a> state relative-price tables (commercial as a percent of Medicare),
 recovered via the Internet Archive after RAND's site and a squatted transparency domain blocked
@@ -100,9 +180,21 @@ employee-plan claims study (~3&times; Medicare, ~$400M foregone against a 200% c
 the RAND annex and GMCB documents respectively.</p>
 
 <p><strong>Caveats.</strong> Total margin is affected by investment returns and one-time items, not
-operations alone — 2022's &minus;6.6% partly reflects a bad market year, though the regional gap to
-New Hampshire is the load-bearing comparison, not the level. RAND 5.1 covers employer and private
-plans that opted in; it is the best available cross-state commercial-price benchmark but not a census.</p>
+operations alone — Vermont's &minus;6.6% in 2022 is largely a non-operating event (its operating margin
+barely moved from 2021 to 2022; the swing was COVID Provider Relief Fund inflation and a strong 2020–21
+investment market unwinding into a 2022 bear market), and Massachusetts went negative the same year, so
+2022 is a shared regional air-pocket, not a Vermont-specific operating collapse. The durable claim is on
+<em>operating</em> margin, where Vermont ranks worst of the four regional peers in five of the last six
+years. But HCRIS operating margin for Vermont is distorted by UVM Health Network inter-entity accounting
+(implausible levels around &minus;20 to &minus;38%); it is used here for within-state trajectory only, not
+interstate level comparison, pending GMCB audited financials. HCRIS years are fiscal-report years, not
+uniform calendar years, so single-year cliffs are approximate to the labeled year. RAND 5.1 covers employer
+and private plans that opted in; it is the best available cross-state commercial-price benchmark but not a
+census. A data-integrity note: reconstructing the prior published table surfaced two silently corrupted
+state-years (VT 2016, ME 2019) caused by a hospital reporting large negative net income against a blank
+revenue field, which NaN-skipping folded into the numerator only; those are excluded here, and the same
+defect at national scale means the corrected US benchmark is slightly friendlier — making Vermont's
+relative underperformance marginally starker, not weaker.</p>
 
 <hr>
 
@@ -115,11 +207,25 @@ FY24 budget order</a> (¶51) states Medicaid was the only payer offering unrecon
 payment; Medicare's version reconciled to fee-for-service; both commercial payers stayed
 fee-for-service all eight years. Hospital downside risk peaked at $36.4M on ~$1.4B managed (2.6%).</p>
 
+<p><strong>Three constructs, not one.</strong> The essay separates the payment mechanism (cash-flow
+timing, the ~4%), risk exposure (about a fifth of the system under two-sided total-cost-of-care risk, at
+~2.6% intensity, further blunted by 2% corridors briefly widened toward 3% in the final years — so
+Vermont's ~$20M 2022 Medicare shortfall fell outside the corridor and was not shared), and marginal
+incentive at the point of care (never transmitted to clinician compensation). The risk layer was
+also circular: under OneCare policy the first $1.50 PMPM of downside fell on attributing primary-care
+providers and the rest on the risk-bearing hospitals that received the spending, with no third-party
+stop-loss — an internal contingency reserve, not risk transfer (GMCB FY24 order ¶7, ¶13–15;
+settlement/risk record in the source note).</p>
+
 <p><strong>Caveats.</strong> "Fixed payment" is defined here as <em>unreconciled</em> prospective
 payment — money that stayed regardless of realized fee-for-service volume. Counting all
 prospectively-flowing dollars, including those reconciled back at settlement, produces a larger
 headline number that overstates how much provider behavior was actually decoupled from
-fee-for-service. The 4% figure is deliberately the strict definition.</p>
+fee-for-service. The 4% figure is deliberately the strict definition. Official reporting described the
+Medicare AIPBP as population-based payment; the essay does not assert a specific HCP-LAN category
+because no VTAPM or HCP-LAN document explicitly assigning one was located (the framework definitions
+place a prospective payment in lieu of fee-for-service at Category 4B analytically, but the documented
+label is unverified).</p>
 
 <hr>
 
@@ -151,19 +257,43 @@ attribution, which needs the NPPES pipeline.</p>
 <h2>6. Federal dollars and the ledger</h2>
 
 <p><strong>Extraction channels, 2013–2025.</strong> SIM grant ($45M) + APM side payments ($42M+) +
-Medicare shared savings (~$20–25M) + Advanced-APM 5% clinician bonuses (est. $17–29M, against a
-~$125M/yr Part&nbsp;B professional base) + federal Medicaid match on program costs (~$15–20M)
-&asymp; $140–160M over the decade. Against that, NORC's central estimate implies ~$186M in
-<em>reduced</em> federal claims into Vermont, if causal. <strong>Ledger components:</strong> Vermont
-taxpayer — Medicaid +$25.6M over fee-for-service (2017–20, Hoffer) plus GMCB oversight
-(~$1.4–1.8M/yr, late years); federal — &minus;$185.8M claims vs. ~$42M side payments; societal —
-savings minus ACO operations ($113M, 2018–25) minus state costs minus unquantified provider burden,
-&asymp; &minus;$32M with wide uncertainty.</p>
+<em>net</em> Medicare shared savings retained (~$20–25M) + Advanced-APM 5% clinician bonuses
+(est. $17–29M, against a ~$125M/yr Part&nbsp;B professional base) + federal Medicaid match on program
+costs (~$15–20M) &asymp; $140–160M over the decade (call this <em>E</em>). Against that, NORC's central
+estimate implies ~$186M in <em>reduced</em> federal claims into Vermont, if causal (<em>S</em>).</p>
 
-<p><strong>Caveats.</strong> The federal-dollars total mixes grants, bonuses, and match with
-different degrees of documentation; ranges are given where a point estimate would be false precision.
-The societal figure inherits all the fragility of the NORC savings estimate — its sign flips with the
-placebo test. This is why the essay states the result as a fork rather than a number.</p>
+<p><strong>Gross vs. net shared savings.</strong> OneCare's published Medicare settlements sum to about
+$97M gross (2018–2024), but the extraction ledger uses the ~$20–25M <em>net</em> figure, for two reasons:
+(1) a large share of the gross was advanced mid-year and steered into the pre-existing Blueprint and SASH
+programs, which double-counts the $42M side-payment channel; and (2) the gross is contaminated by quality
+withholds and COVID fixed-payment artifacts — 2022's $9.57M gross settlement netted to roughly $0.5M once
+the advance and quality adjustment were removed (GMCB FY24 order ¶19). Sources for the settlement and
+attribution record: OneCare's archived results pages (PY2018–2024 settlement tables, via the Internet
+Archive), the GMCB FY24 Budget Order, and NORC's Second and Fourth Evaluation Reports.</p>
+
+<p><strong>The break-even.</strong> Let <em>f</em> be the causal fraction of <em>S</em>. Vermont's net
+federal position is E&nbsp;&minus;&nbsp;f·S, and the break-even is f*&nbsp;=&nbsp;E/S&nbsp;≈&nbsp;0.75–0.85
+(≈0.5 if causal savings persisted past the 2022 measured window). Under a gross-settlement reading of
+<em>E</em>, f*&nbsp;exceeds 1 and the extraction reading dominates regardless of <em>f</em>. Nothing in the
+evidence licenses an <em>f</em> that high; the placebo test cannot certify even the sign of <em>S</em>.</p>
+
+<p><strong>Ledger.</strong> The essay presents the ledger as a scenario table by accounting stance
+(Medicare claims / Medicaid program / ACO operations / Vermont taxpayer / societal), each row with its
+window and with transfers separated from resource costs, and gives <em>no</em> net societal point estimate —
+the prior "≈ &minus;$32M" was pseudo-precision whose sign flips with the placebo test. Key components: NORC
+net Medicare claims &minus;$185.8M (if causal, 2018–22); Hoffer Medicaid +$25.6M (2017–20, disputed on
+framing/scope; a specific risk-adjustment/covered-services rebuttal is sometimes attributed to the agency
+but is unverified); ACO administration ~$113M (~$14M/yr, a ~1% load on ~$1.2–1.4B managed vs. 8–12%
+commercial norms — a resource cost); PHM and primary-care program PMPMs (transfers to providers, not
+deadweight — the substance of the operator's "$200M into primary care" claim); GMCB oversight ~$1.4–1.8M/yr;
+and an unquantified but strictly positive provider-compliance burden.</p>
+
+<p><strong>Caveats.</strong> The federal-dollars total mixes grants, bonuses, and match with different
+degrees of documentation; ranges are given where a point estimate would be false precision. The attribution
+and settlement figures come partly from image-exhibit and CloudFront-walled GMCB documents, so per-payer,
+per-year cells are incomplete (documented in the source note). The societal balance inherits all the
+fragility of the NORC savings estimate — its sign flips with the placebo test — which is why the essay
+states the result as a fork rather than a number.</p>
 
 <hr>
 
@@ -204,6 +334,17 @@ track its status).</p>
 
 <p><strong>Review dates.</strong> 2027-Q2: CBP 2026, NPPES, and QPP checks (H4, H6). 2028-Q2: the
 Geographic Variation PUF 2026 release drives H1, H2, H3, H5.</p>
+
+<p><strong>Post-registration amendment (2026-07-14).</strong> The frozen hypotheses above are unchanged.
+One branch is added to <strong>H3 (primary-care contact)</strong>: Vermont's Blueprint for Health has paid
+for primary-care medical homes for a decade, in parallel with and predating the model, so a third
+outcome is logged alongside the payment-driven and workforce/telehealth-driven branches — if the rising
+primary-care contact was Blueprint-driven, it persists after the model ends regardless of the ACO. This
+makes the favorable primary-care signal non-attributable to the model by default and is recorded as an
+amendment, not a change to the frozen prediction. (The diagnostics, leave-one-out, multiplicity, and
+Medicare-Advantage robustness material in Section 1, and the WONDER suicide extension in Section 2, were
+also added in this revision round; they harden the reported analysis without altering any frozen
+hypothesis.)</p>
 
 <hr>
 

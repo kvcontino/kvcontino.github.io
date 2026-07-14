@@ -1,0 +1,642 @@
+{
+  "diagnostics": {
+    "TOT_MDCR_STDZD_PYMT_PC": {
+      "label": "Total standardized payment per capita ($)",
+      "donor_weights_nonzero": {
+        "IA": 0.3942,
+        "AK": 0.3724,
+        "ME": 0.2182,
+        "DC": 0.013,
+        "NH": 0.0022
+      },
+      "pre_rmspe": 301.34,
+      "post_rmspe": 766.109,
+      "post_pre_ratio": 2.542,
+      "fit_table": {
+        "2014": {
+          "actual": 7050.65,
+          "synthetic": 7389.32,
+          "gap": -338.67
+        },
+        "2015": {
+          "actual": 7391.22,
+          "synthetic": 7682.85,
+          "gap": -291.63
+        },
+        "2016": {
+          "actual": 7540.94,
+          "synthetic": 7755.78,
+          "gap": -214.84
+        },
+        "2017": {
+          "actual": 7669.66,
+          "synthetic": 8012.18,
+          "gap": -342.52
+        },
+        "2018": {
+          "actual": 7716.87,
+          "synthetic": 8348.17,
+          "gap": -631.3
+        },
+        "2019": {
+          "actual": 7818.83,
+          "synthetic": 8585.75,
+          "gap": -766.92
+        },
+        "2020": {
+          "actual": 7273.65,
+          "synthetic": 8138.72,
+          "gap": -865.07
+        },
+        "2021": {
+          "actual": 8137.22,
+          "synthetic": 9037.73,
+          "gap": -900.51
+        },
+        "2022": {
+          "actual": 8567.43,
+          "synthetic": 9308.75,
+          "gap": -741.32
+        },
+        "2023": {
+          "actual": 9314.45,
+          "synthetic": 9923.59,
+          "gap": -609.14
+        },
+        "2024": {
+          "actual": 9544.33,
+          "synthetic": 10345.51,
+          "gap": -801.18
+        }
+      },
+      "placebo": {
+        "n_donors": 49,
+        "ratio_ranking": {
+          "rank": 32,
+          "p": 0.64,
+          "note": "Abadie post/pre RMSPE-ratio ranking (used in synth_medicare.py)"
+        },
+        "raw_post_rmspe_ranking": {
+          "rank": 3,
+          "p": 0.06,
+          "note": "naive ranking on post-period RMSPE alone, ignoring pre-fit quality"
+        }
+      }
+    },
+    "IP_CVRD_STAYS_PER_1000_BENES": {
+      "label": "Inpatient stays per 1,000",
+      "donor_weights_nonzero": {
+        "AK": 0.3546,
+        "IA": 0.3441,
+        "ME": 0.2496,
+        "NH": 0.0517
+      },
+      "pre_rmspe": 12.087,
+      "post_rmspe": 2.119,
+      "post_pre_ratio": 0.175,
+      "fit_table": {
+        "2014": {
+          "actual": 210.04,
+          "synthetic": 230.13,
+          "gap": -20.09
+        },
+        "2015": {
+          "actual": 219.62,
+          "synthetic": 229.7,
+          "gap": -10.08
+        },
+        "2016": {
+          "actual": 218.82,
+          "synthetic": 225.89,
+          "gap": -7.07
+        },
+        "2017": {
+          "actual": 220.57,
+          "synthetic": 225.96,
+          "gap": -5.39
+        },
+        "2018": {
+          "actual": 219.02,
+          "synthetic": 217.97,
+          "gap": 1.04
+        },
+        "2019": {
+          "actual": 213.84,
+          "synthetic": 211.81,
+          "gap": 2.03
+        },
+        "2020": {
+          "actual": 177.57,
+          "synthetic": 180.26,
+          "gap": -2.69
+        },
+        "2021": {
+          "actual": 176.96,
+          "synthetic": 175.68,
+          "gap": 1.28
+        },
+        "2022": {
+          "actual": 175.67,
+          "synthetic": 174.21,
+          "gap": 1.45
+        },
+        "2023": {
+          "actual": 180.59,
+          "synthetic": 177.91,
+          "gap": 2.68
+        },
+        "2024": {
+          "actual": 177.91,
+          "synthetic": 180.74,
+          "gap": -2.83
+        }
+      },
+      "placebo": {
+        "n_donors": 49,
+        "ratio_ranking": {
+          "rank": 50,
+          "p": 1.0,
+          "note": "Abadie post/pre RMSPE-ratio ranking (used in synth_medicare.py)"
+        },
+        "raw_post_rmspe_ranking": {
+          "rank": 48,
+          "p": 0.96,
+          "note": "naive ranking on post-period RMSPE alone, ignoring pre-fit quality"
+        }
+      }
+    },
+    "ER_VISITS_PER_1000_BENES": {
+      "label": "ED visits per 1,000",
+      "donor_weights_nonzero": {
+        "AK": 0.3629,
+        "NE": 0.3165,
+        "DC": 0.1954,
+        "MS": 0.1251
+      },
+      "pre_rmspe": 6.45,
+      "post_rmspe": 64.44,
+      "post_pre_ratio": 9.99,
+      "fit_table": {
+        "2014": {
+          "actual": 651.6,
+          "synthetic": 653.18,
+          "gap": -1.58
+        },
+        "2015": {
+          "actual": 675.48,
+          "synthetic": 671.77,
+          "gap": 3.71
+        },
+        "2016": {
+          "actual": 662.27,
+          "synthetic": 669.79,
+          "gap": -7.52
+        },
+        "2017": {
+          "actual": 661.76,
+          "synthetic": 671.44,
+          "gap": -9.68
+        },
+        "2018": {
+          "actual": 670.58,
+          "synthetic": 653.7,
+          "gap": 16.88
+        },
+        "2019": {
+          "actual": 669.9,
+          "synthetic": 629.54,
+          "gap": 40.36
+        },
+        "2020": {
+          "actual": 541.77,
+          "synthetic": 509.12,
+          "gap": 32.66
+        },
+        "2021": {
+          "actual": 585.45,
+          "synthetic": 533.77,
+          "gap": 51.68
+        },
+        "2022": {
+          "actual": 626.76,
+          "synthetic": 556.42,
+          "gap": 70.34
+        },
+        "2023": {
+          "actual": 657.2,
+          "synthetic": 566.6,
+          "gap": 90.6
+        },
+        "2024": {
+          "actual": 671.55,
+          "synthetic": 570.25,
+          "gap": 101.29
+        }
+      },
+      "placebo": {
+        "n_donors": 49,
+        "ratio_ranking": {
+          "rank": 9,
+          "p": 0.18,
+          "note": "Abadie post/pre RMSPE-ratio ranking (used in synth_medicare.py)"
+        },
+        "raw_post_rmspe_ranking": {
+          "rank": 2,
+          "p": 0.04,
+          "note": "naive ranking on post-period RMSPE alone, ignoring pre-fit quality"
+        }
+      }
+    }
+  },
+  "leave_one_out": {
+    "TOT_MDCR_STDZD_PYMT_PC": {
+      "baseline_gap_2024": -801.18,
+      "baseline_cum_post_gap": -5315.44,
+      "donors_refit_without": {
+        "AK": {
+          "baseline_weight": 0.3724,
+          "gap_2024": -1110.83,
+          "cum_post_gap": -5823.42
+        },
+        "DC": {
+          "baseline_weight": 0.013,
+          "gap_2024": -803.88,
+          "cum_post_gap": -5307.57
+        },
+        "IA": {
+          "baseline_weight": 0.3942,
+          "gap_2024": -566.68,
+          "cum_post_gap": -4398.84
+        },
+        "ME": {
+          "baseline_weight": 0.2182,
+          "gap_2024": -793.64,
+          "cum_post_gap": -5608.45
+        }
+      },
+      "range_gap_2024": [
+        -1110.83,
+        -566.68
+      ],
+      "range_cum_post_gap": [
+        -5823.42,
+        -4398.84
+      ]
+    },
+    "ER_VISITS_PER_1000_BENES": {
+      "baseline_gap_2024": 101.29,
+      "baseline_cum_post_gap": 403.81,
+      "donors_refit_without": {
+        "AK": {
+          "baseline_weight": 0.3629,
+          "gap_2024": 99.16,
+          "cum_post_gap": 310.4
+        },
+        "DC": {
+          "baseline_weight": 0.1954,
+          "gap_2024": 92.2,
+          "cum_post_gap": 352.29
+        },
+        "MS": {
+          "baseline_weight": 0.1251,
+          "gap_2024": 100.14,
+          "cum_post_gap": 406.33
+        },
+        "NE": {
+          "baseline_weight": 0.3165,
+          "gap_2024": 103.01,
+          "cum_post_gap": 411.57
+        }
+      },
+      "range_gap_2024": [
+        92.2,
+        103.01
+      ],
+      "range_cum_post_gap": [
+        310.4,
+        411.57
+      ]
+    }
+  },
+  "time_split": {
+    "TOT_MDCR_STDZD_PYMT_PC": {
+      "gap_2018": -631.3,
+      "gap_2019": -766.92,
+      "mean_gap_2018_2019": -699.11,
+      "mean_gap_2020_2024": -783.44,
+      "cum_gap_2018_2019": -1398.22,
+      "cum_gap_2020_2024": -3917.22,
+      "cum_gap_all_post": -5315.44,
+      "share_of_cum_gap_after_2020_pct": 73.7
+    },
+    "ER_VISITS_PER_1000_BENES": {
+      "gap_2018": 16.88,
+      "gap_2019": 40.36,
+      "mean_gap_2018_2019": 28.62,
+      "mean_gap_2020_2024": 69.31,
+      "cum_gap_2018_2019": 57.24,
+      "cum_gap_2020_2024": 346.57,
+      "cum_gap_all_post": 403.81,
+      "share_of_cum_gap_after_2020_pct": 85.8
+    }
+  },
+  "ma_confound": {
+    "penetration_by_year": {
+      "2014": {
+        "vt": 0.0758,
+        "synthetic_spending_weighted": 0.1099,
+        "donor_mean": 0.2679,
+        "vt_minus_synthetic": -0.0341
+      },
+      "2015": {
+        "vt": 0.0778,
+        "synthetic_spending_weighted": 0.118,
+        "donor_mean": 0.2819,
+        "vt_minus_synthetic": -0.0402
+      },
+      "2016": {
+        "vt": 0.081,
+        "synthetic_spending_weighted": 0.135,
+        "donor_mean": 0.2924,
+        "vt_minus_synthetic": -0.054
+      },
+      "2017": {
+        "vt": 0.097,
+        "synthetic_spending_weighted": 0.1486,
+        "donor_mean": 0.3104,
+        "vt_minus_synthetic": -0.0516
+      },
+      "2018": {
+        "vt": 0.109,
+        "synthetic_spending_weighted": 0.1639,
+        "donor_mean": 0.3276,
+        "vt_minus_synthetic": -0.0549
+      },
+      "2019": {
+        "vt": 0.1277,
+        "synthetic_spending_weighted": 0.1864,
+        "donor_mean": 0.3476,
+        "vt_minus_synthetic": -0.0587
+      },
+      "2020": {
+        "vt": 0.1519,
+        "synthetic_spending_weighted": 0.2115,
+        "donor_mean": 0.3773,
+        "vt_minus_synthetic": -0.0596
+      },
+      "2021": {
+        "vt": 0.2081,
+        "synthetic_spending_weighted": 0.2387,
+        "donor_mean": 0.4142,
+        "vt_minus_synthetic": -0.0306
+      },
+      "2022": {
+        "vt": 0.2882,
+        "synthetic_spending_weighted": 0.2651,
+        "donor_mean": 0.4485,
+        "vt_minus_synthetic": 0.0231
+      },
+      "2023": {
+        "vt": 0.3272,
+        "synthetic_spending_weighted": 0.2896,
+        "donor_mean": 0.4805,
+        "vt_minus_synthetic": 0.0376
+      },
+      "2024": {
+        "vt": 0.3471,
+        "synthetic_spending_weighted": 0.305,
+        "donor_mean": 0.5024,
+        "vt_minus_synthetic": 0.0421
+      }
+    },
+    "vt_ffs_benes_by_year": {
+      "2014": {
+        "benes_om_cnt": 111302.0,
+        "benes_ma_cnt": 9134.0,
+        "benes_total_cnt": 134317.0,
+        "ma_prtcptn_rate": 0.0758
+      },
+      "2015": {
+        "benes_om_cnt": 113908.0,
+        "benes_ma_cnt": 9614.0,
+        "benes_total_cnt": 137870.0,
+        "ma_prtcptn_rate": 0.0778
+      },
+      "2016": {
+        "benes_om_cnt": 116615.0,
+        "benes_ma_cnt": 10281.0,
+        "benes_total_cnt": 141832.0,
+        "ma_prtcptn_rate": 0.081
+      },
+      "2017": {
+        "benes_om_cnt": 117186.0,
+        "benes_ma_cnt": 12592.0,
+        "benes_total_cnt": 145641.0,
+        "ma_prtcptn_rate": 0.097
+      },
+      "2018": {
+        "benes_om_cnt": 118996.0,
+        "benes_ma_cnt": 14560.0,
+        "benes_total_cnt": 150295.0,
+        "ma_prtcptn_rate": 0.109
+      },
+      "2019": {
+        "benes_om_cnt": 119320.0,
+        "benes_ma_cnt": 17467.0,
+        "benes_total_cnt": 154044.0,
+        "ma_prtcptn_rate": 0.1277
+      },
+      "2020": {
+        "benes_om_cnt": 118987.0,
+        "benes_ma_cnt": 21313.0,
+        "benes_total_cnt": 158120.0,
+        "ma_prtcptn_rate": 0.1519
+      },
+      "2021": {
+        "benes_om_cnt": 113405.0,
+        "benes_ma_cnt": 29795.0,
+        "benes_total_cnt": 161905.0,
+        "ma_prtcptn_rate": 0.2081
+      },
+      "2022": {
+        "benes_om_cnt": 104653.0,
+        "benes_ma_cnt": 42367.0,
+        "benes_total_cnt": 165721.0,
+        "ma_prtcptn_rate": 0.2882
+      },
+      "2023": {
+        "benes_om_cnt": 100944.0,
+        "benes_ma_cnt": 49092.0,
+        "benes_total_cnt": 169047.0,
+        "ma_prtcptn_rate": 0.3272
+      },
+      "2024": {
+        "benes_om_cnt": 99597.0,
+        "benes_ma_cnt": 52943.0,
+        "benes_total_cnt": 172215.0,
+        "ma_prtcptn_rate": 0.3471
+      }
+    },
+    "vt_ffs_change_2014_2024_pct": -10.52,
+    "robustness_yearly_ma_predictors": {
+      "TOT_MDCR_STDZD_PYMT_PC": {
+        "weights_nonzero": {
+          "AK": 0.4663,
+          "IA": 0.3448,
+          "DC": 0.116,
+          "ME": 0.0491,
+          "NH": 0.0238
+        },
+        "pre_rmspe": 339.766,
+        "gap_2024": -806.52,
+        "placebo_p_ratio": 0.64,
+        "baseline_gap_2024": -801.18,
+        "baseline_placebo_p_ratio": 0.64,
+        "gap_2024_delta": -5.35
+      },
+      "ER_VISITS_PER_1000_BENES": {
+        "weights_nonzero": {
+          "AK": 0.38,
+          "NE": 0.2795,
+          "DC": 0.2396,
+          "NH": 0.061,
+          "MS": 0.04
+        },
+        "pre_rmspe": 6.522,
+        "gap_2024": 100.31,
+        "placebo_p_ratio": 0.16,
+        "baseline_gap_2024": 101.29,
+        "baseline_placebo_p_ratio": 0.18,
+        "gap_2024_delta": -0.99
+      }
+    },
+    "robustness_restricted_donor_pool": {
+      "vt_pre_period_mean_ma": 0.0829,
+      "restrict_pp": 0.1,
+      "donor_pool": [
+        "AK",
+        "DC",
+        "DE",
+        "IA",
+        "KS",
+        "MS",
+        "ND",
+        "NE",
+        "NH",
+        "OK",
+        "WY"
+      ],
+      "n_donors": 11,
+      "n_donors_baseline": 49,
+      "results": {
+        "TOT_MDCR_STDZD_PYMT_PC": {
+          "weights_nonzero": {
+            "AK": 0.5023,
+            "IA": 0.3777,
+            "DC": 0.12
+          },
+          "pre_rmspe": 295.993,
+          "gap_2024": -789.09,
+          "placebo_p_ratio": 0.333,
+          "baseline_gap_2024": -801.18,
+          "baseline_placebo_p_ratio": 0.64,
+          "gap_2024_delta": 12.08
+        },
+        "ER_VISITS_PER_1000_BENES": {
+          "weights_nonzero": {
+            "AK": 0.3812,
+            "NE": 0.2525,
+            "DC": 0.2474,
+            "NH": 0.1047,
+            "MS": 0.0141
+          },
+          "pre_rmspe": 7.093,
+          "gap_2024": 99.07,
+          "placebo_p_ratio": 0.083,
+          "baseline_gap_2024": 101.29,
+          "baseline_placebo_p_ratio": 0.18,
+          "gap_2024_delta": -2.22
+        }
+      }
+    }
+  },
+  "overdose_index_ci": [
+    {
+      "year": 2015,
+      "deaths": 99,
+      "index": 100.0,
+      "lo": 75.7,
+      "hi": 132.1
+    },
+    {
+      "year": 2016,
+      "deaths": 136,
+      "index": 137.4,
+      "lo": 106.0,
+      "hi": 178.0
+    },
+    {
+      "year": 2017,
+      "deaths": 128,
+      "index": 129.3,
+      "lo": 99.5,
+      "hi": 168.1
+    },
+    {
+      "year": 2018,
+      "deaths": 144,
+      "index": 145.5,
+      "lo": 112.6,
+      "hi": 187.9
+    },
+    {
+      "year": 2019,
+      "deaths": 118,
+      "index": 119.2,
+      "lo": 91.2,
+      "hi": 155.7
+    },
+    {
+      "year": 2020,
+      "deaths": 186,
+      "index": 187.9,
+      "lo": 147.2,
+      "hi": 239.8
+    },
+    {
+      "year": 2021,
+      "deaths": 251,
+      "index": 253.5,
+      "lo": 200.9,
+      "hi": 319.9
+    },
+    {
+      "year": 2022,
+      "deaths": 266,
+      "index": 268.7,
+      "lo": 213.3,
+      "hi": 338.4
+    },
+    {
+      "year": 2023,
+      "deaths": 246,
+      "index": 248.5,
+      "lo": 196.8,
+      "hi": 313.8
+    },
+    {
+      "year": 2024,
+      "deaths": 205,
+      "index": 207.1,
+      "lo": 162.9,
+      "hi": 263.2
+    },
+    {
+      "year": 2025,
+      "deaths": 150,
+      "index": 151.5,
+      "lo": 117.6,
+      "hi": 195.3
+    }
+  ]
+}

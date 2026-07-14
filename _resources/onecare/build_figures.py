@@ -46,6 +46,14 @@ def style(ax, model_line=2017.5):
         ax.axvline(model_line, color=BASE, lw=0.8, ls=":", zorder=0)
 
 
+def covid_line(ax, label=False):
+    """2020 reference line — same visual language as the model-start line."""
+    ax.axvline(2020, color=BASE, lw=0.8, ls=":", zorder=0)
+    if label:
+        ax.annotate("COVID onset", (2020, ax.get_ylim()[1]), xytext=(3, -10),
+                    textcoords="offset points", color=MUTED, fontsize=8)
+
+
 def dollars(ax):
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"${v:,.0f}"))
     for lbl in ax.get_yticklabels():
@@ -90,6 +98,7 @@ end(ax, 2024, synth[2024], "synthetic VT", INK2, dy=6)
 dollars(ax); style(ax)
 ax.set_xlim(2014, 2026.6)
 ax.set_title("Standardized Medicare payment per capita", loc="left", fontsize=10.5, color=INK)
+covid_line(ax, label=True)
 
 ax = axes[1]
 ax.axhline(0, color=BASE, lw=1)
@@ -101,6 +110,7 @@ ax.plot(YEARS, gap.values, color=VT, lw=2.6)
 dollars(ax); style(ax)
 ax.set_xlim(2014, 2024.3)
 ax.set_title("Gap: Vermont − synthetic", loc="left", fontsize=10.5, color=INK)
+covid_line(ax)
 
 ax = axes[2]
 for c in placebos.columns:
@@ -111,6 +121,7 @@ dollars(ax); style(ax)
 ax.set_xlim(2014, 2024.6)
 ax.set_title("Vermont gap vs. 49 in-space placebos", loc="left", fontsize=10.5, color=INK)
 end(ax, 2024, gap[2024], "VT", VT, dy=-4, bold=True)
+covid_line(ax)
 
 fig.suptitle("Vermont Medicare spending under the all-payer model, vs. a synthetic control",
              x=0.07, y=0.965, ha="left", fontsize=12.5, fontweight="bold", color=INK)
@@ -127,7 +138,7 @@ titles = ["Spending per capita", "Inpatient stays", "ED visits"]
 
 fig, axes = plt.subplots(1, 3, figsize=(12.5, 3.8), sharey=True)
 fig.subplots_adjust(left=0.06, right=0.985, bottom=0.13, top=0.78, wspace=0.12)
-for ax, key, title in zip(axes, order, titles):
+for i, (ax, key, title) in enumerate(zip(axes, order, titles)):
     rr = res[key]
     g = pd.Series({int(k): v for k, v in rr["gap"].items()})
     s = pd.Series({int(k): v for k, v in rr["synthetic"].items()})
@@ -139,6 +150,7 @@ for ax, key, title in zip(axes, order, titles):
                  fontsize=10.5, color=INK)
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:+.0f}%"))
     ax.set_xlim(2014, 2024.3)
+    covid_line(ax, label=(i == 0))
 fig.suptitle("Vermont vs. synthetic control — the gap as a share of the counterfactual",
              x=0.06, y=0.95, ha="left", fontsize=12.5, fontweight="bold", color=INK)
 fig.text(0.06, 0.85,
@@ -152,6 +164,7 @@ PN = {"New Hampshire": "NH", "Maine": "ME", "Massachusetts": "MA", "New York": "
       "Connecticut": "CT", "Rhode Island": "RI", "Vermont": "VT"}
 
 od = pd.read_csv("data/overdose_state_year.csv").pivot(index="year", columns="state", values="deaths")
+od_ci = pd.read_csv("data/overdose_vt_index_ci.csv").set_index("year")   # Poisson 95% CI, VT index
 YA = list(range(2015, 2026))
 vt_idx = od["VT"] / od["VT"].loc[2015] * 100
 us_idx = od["US"] / od["US"].loc[2015] * 100
@@ -167,10 +180,21 @@ YB = list(range(2019, 2025))
 sui_vt, sui_peer = rate("All_Suicide", "VT"), peer_rate("All_Suicide")
 odr_vt, odr_peer = rate("Drug_OD", "VT"), peer_rate("Drug_OD")
 
+# Pre-2018 suicide baseline — CDC WONDER age-adjusted rates, 2005-2020 (data/suicide_vt_peer_gap.csv,
+# computed by the onecare_retrospective analysis project; same peer set as the MIOV panel). Spliced
+# with the MIOV series (2019-24, above): the VT overlap years disagree by 1.6/100k in 2019 (>1pt
+# threshold), so the two sources are plotted as visually distinct segments (style + seam annotation),
+# not blended into one continuous line.
+wonder = pd.read_csv("data/suicide_vt_peer_gap.csv").set_index("year")
+YW = [y for y in wonder.index if 2005 <= y <= 2020]
+sui_wonder_vt = wonder.loc[YW, "vt_aa_rate"]
+sui_wonder_peer = wonder.loc[YW, "peer6_mean_aa_rate"]
+
 fig, axes = plt.subplots(1, 3, figsize=(12.5, 4.0))
-fig.subplots_adjust(left=0.06, right=0.94, bottom=0.13, top=0.80, wspace=0.32)
+fig.subplots_adjust(left=0.06, right=0.94, bottom=0.13, top=0.75, wspace=0.32)
 ax = axes[0]
 ax.axhline(100, color=BASE, lw=0.8, ls=DASH, zorder=0)
+ax.fill_between(YA, od_ci["lo"].reindex(YA), od_ci["hi"].reindex(YA), color=VT, alpha=0.15, lw=0, zorder=0)
 ax.plot(YA, us_idx.reindex(YA), color=MUTED, lw=1.5)
 ax.plot(YA, peer_idx.reindex(YA), color=INK2, lw=1.8, ls=DASH)
 ax.plot(YA, vt_idx.reindex(YA), color=VT, lw=2.6)
@@ -178,20 +202,39 @@ end(ax, 2025, vt_idx[2025], "Vermont", VT, bold=True)
 end(ax, 2025, us_idx[2025], "US", MUTED, dy=7)
 end(ax, 2025, peer_idx[2025], "6 NE peers", INK2, dy=-7)
 style(ax); ax.set_xlim(2015, 2027.6); ax.set_xticks(range(2015, 2026, 2))
-ax.set_title("Overdose deaths, indexed (2015 = 100)", loc="left", fontsize=10.5, color=INK)
-ymax = max(odr_vt.max(), odr_peer.max()) * 1.10
-for ax, (v, p, t) in zip(axes[1:], [(sui_vt, sui_peer, "Suicide, deaths per 100k"),
-                                    (odr_vt, odr_peer, "Overdose, deaths per 100k")]):
-    ax.plot(YB, p.reindex(YB), color=INK2, lw=1.8, ls=DASH)
-    ax.plot(YB, v.reindex(YB), color=VT, lw=2.6)
-    end(ax, 2024, v[2024], "VT", VT, bold=True)
-    end(ax, 2024, p[2024], "6 NE peers", INK2)
-    style(ax); ax.set_ylim(0, ymax); ax.set_xlim(2019, 2025.6); ax.set_xticks(range(2019, 2025))
-    ax.set_title(t, loc="left", fontsize=10.5, color=INK)
-fig.suptitle("On both flagship model targets, Vermont deteriorated faster than its peers",
-             x=0.06, y=0.965, ha="left", fontsize=12.5, fontweight="bold", color=INK)
-fig.text(0.06, 0.87, "Overdose rates crossed from below the peer mean (2019) to above it "
-         "(2022–24). Suicide, overdose rates share one scale.", fontsize=9, color=INK2)
+ax.set_title("Overdose deaths, indexed (2015 = 100), with 95% CI", loc="left", fontsize=10.5, color=INK)
+
+# Suicide panel (axes[1]): WONDER 2005-2020 (final, age-adjusted) spliced with MIOV 2019-24
+# (provisional) at a visibly marked seam.
+ax = axes[1]
+sui_all_max = max(sui_wonder_vt.max(), sui_wonder_peer.max(), sui_vt.max(), sui_peer.max())
+ymax = max(sui_all_max, odr_vt.max(), odr_peer.max()) * 1.10
+ax.plot(YW, sui_wonder_peer.values, color=INK2, lw=1.8, ls=DASH)
+ax.plot(YW, sui_wonder_vt.values, color=VT, lw=2.6)
+ax.plot(YB, sui_peer.reindex(YB), color=INK2, lw=1.5, ls=DOT, marker="o", ms=3)
+ax.plot(YB, sui_vt.reindex(YB), color=VT, lw=1.5, ls=DOT, marker="o", ms=3.5)
+ax.axvline(2019, color=MUTED, lw=0.6, ls="-", alpha=0.4, zorder=0)
+ax.annotate("WONDER (final) →\nMIOV (provisional)", (2019, ymax * 0.82), xytext=(4, 0),
+            textcoords="offset points", color=MUTED, fontsize=7.3, va="top", linespacing=1.3)
+end(ax, 2024, sui_vt[2024], "VT", VT, bold=True)
+end(ax, 2024, sui_peer[2024], "6 NE peers", INK2)
+style(ax); ax.set_ylim(0, ymax); ax.set_xlim(2004, 2027.6); ax.set_xticks([2005, 2010, 2015, 2020, 2024])
+ax.set_title("Suicide, deaths per 100k, 2005–2024", loc="left", fontsize=10.5, color=INK)
+
+ax = axes[2]
+ax.plot(YB, odr_peer.reindex(YB), color=INK2, lw=1.8, ls=DASH)
+ax.plot(YB, odr_vt.reindex(YB), color=VT, lw=2.6)
+end(ax, 2024, odr_vt[2024], "VT", VT, bold=True)
+end(ax, 2024, odr_peer[2024], "6 NE peers", INK2)
+style(ax); ax.set_ylim(0, ymax); ax.set_xlim(2019, 2025.6); ax.set_xticks(range(2019, 2025))
+ax.set_title("Overdose, deaths per 100k", loc="left", fontsize=10.5, color=INK)
+
+fig.suptitle("The overdose climb is real; the suicide gap is a level, not a model-era trend",
+             x=0.06, y=0.955, ha="left", fontsize=12.5, fontweight="bold", color=INK)
+fig.text(0.06, 0.855, "Overdose index carries a Poisson 95% band (small annual counts). Suicide is "
+         "extended to 2005 (WONDER, age-adjusted); the pre-model\ngap (+5.2, 2014–17) and model-era "
+         "gap (+5.5, 2018–20) are statistically indistinguishable — this predates the model.",
+         fontsize=9, color=INK2, va="center", linespacing=1.5)
 save(fig, "fig3_pophealth")
 
 # ================= Figure 4: consolidation =================
