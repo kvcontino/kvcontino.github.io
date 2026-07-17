@@ -544,7 +544,10 @@ const NORAIL = (()=>{ const o={}; for(const k in DATA.metros){
   o[k]= t.length>0 && Math.max(...t)<35; } return o; })();
 function descOf(r, metroKey){
   const skip = NORAIL[metroKey||r.metro] ? "transit" : null;
-  const scored=AXES.filter(a=>a.k!==skip).map(a=>({k:a.k,v:r[a.k]})).sort((a,b)=>b.v-a.v);
+  // Only axes with STRONG/WEAK text can speak. Governance has none on purpose:
+  // a bond rating is a jurisdiction constant (it describes the issuer, not the
+  // block), so as a metro's extreme it'd be the same dead text on every polygon.
+  const scored=AXES.filter(a=>a.k!==skip && STRONG[a.k]).map(a=>({k:a.k,v:r[a.k]})).sort((a,b)=>b.v-a.v);
   const s1=scored[0], s2=scored[1], wk=scored[scored.length-1];
   let out=`Stands out for ${STRONG[s1.k]}`;
   if(s2.v>=60) out+=` and ${STRONG[s2.k]}`;
@@ -734,7 +737,10 @@ function recompute(){
   renderScatter(surv); renderLeaderboard(surv); renderExplorer(surv); renderMap();
 }
 let MAPS=null, selMap=ORDER[0];
-const RAMP=["#3c2f27","#63493a","#8a644c","#b1805f","#d89d78"];
+// Sequential ramp for the polygon fills. The dark anchor must stay clearly
+// above the panel background (#151515) — with the old #3c2f27 anchor the
+// bottom quintile read as background holes, not as survivors.
+const RAMP=["#54402e","#7b5a3f","#a17550","#c79162","#edad74"];
 function renderUS(){
   const el=$("#usSvg"); if(!MAPS){ el.innerHTML=""; return; }
   const u=MAPS.us;
