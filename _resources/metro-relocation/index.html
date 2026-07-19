@@ -280,7 +280,7 @@
       </div>
       <div class="rentctl">
         <div class="nm">Maximum all-in rent</div>
-        <input type="range" id="rentSlider" min="1300" max="4400" step="50" value="3000">
+        <input type="range" id="rentSlider" min="1300" max="4400" step="50" value="3000" autocomplete="off">
         <div class="rval" id="rentVal">no cap</div>
       </div>
       <div class="rentctl incomectl">
@@ -614,6 +614,10 @@ function buildControls(){
     const a=AXES.find(x=>x.k===e.target.dataset.k);
     state.th[a.k]=thVal(a,+e.target.value); recompute();
   }));
+  // Reload glitch fix (v3.4.1): browsers restore range-input positions across
+  // reload, but state.maxRent re-initializes to 3000 — slider said max, label
+  // said "$3,000 · budget". Force the DOM to state on init.
+  $("#rentSlider").value = state.maxRent;
   $("#rentSlider").addEventListener("input",e=>{ state.maxRent=+e.target.value; recompute(); });
   $("#incomeSlider").addEventListener("input",e=>{ state.income=+e.target.value; recompute(); });
   $("#filingTog").querySelectorAll(".ftog").forEach(b=>b.addEventListener("click",e=>{
