@@ -96,11 +96,15 @@ of ACO Assigned Beneficiaries by County</a> PUF to state of residence and divide
 (&lt;11) are bounded: counted as 0 for the lower figure, 10 for the upper; the lower is quoted
 throughout. Result: Vermont ran <strong>45.5% (2016) and 51.6% (2017)</strong> of its fee-for-service
 population inside an ACO — second nationally in both years, behind Delaware — against
-<strong>24.6% and 24.1%</strong> for the weighted synthetic. Vermont had no Next Generation or
+<strong>24.8%</strong> for the weighted synthetic in 2017. Vermont had no Next Generation or
 Pioneer ACO (checked against the NGACO PY1/PY2 PUFs), so its figure is complete Medicare ACO
-exposure while donor figures are lower bounds; adding the donors' Next Generation populations
-(Iowa +17.4 pp, Maine +5.5 pp) lifts synthetic Vermont to about 32%, leaving a gap of roughly
-<strong>19 percentage points</strong> on the conservative measure. The estimand is therefore the
+exposure while donor figures are lower bounds. Of the current donors only Maine ran a Next
+Generation ACO (Beacon Health, +5.5&nbsp;pp, weight .283); Wyoming, Delaware and DC ran neither a
+Next Generation nor a Pioneer, so no adjustment attaches to them. Adding Maine's back lifts
+synthetic Vermont to <strong>26.4%</strong>, leaving a gap of roughly <strong>25 percentage
+points</strong> on the conservative measure. These figures are keyed to the donor weights, so they
+are recomputed whenever the fit is — <code>aco_penetration.py</code> and then
+<code>aco_penetration_backcast.py</code>, in that order, after any refit. The estimand is therefore the
 increment of the all-payer wrapper over an already-ACO baseline, and a null against an attenuated
 contrast is weaker evidence of no effect than a null against an untreated one. It also makes the
 pre-period gap adjustment ambiguous in the other direction: if part of Vermont's pre-period shortfall
@@ -121,10 +125,10 @@ state mix, learned from the 2016 county file and joined on ACO ID. It is validat
 shares learned from 2016 alone, used to predict 2017, scored against the 2017 county truth the
 fitting never saw: <strong>mean absolute error 1.8 points across 50 states, and 0.5 points for
 Vermont</strong>. On that basis Vermont ran <strong>60.7% (2014)</strong> and <strong>54.0%
-(2015)</strong> against a synthetic control near 18% and 19% — so its penetration never fell below
-45% in any year the control was fitted on. Two limits travel with those two years: the 2014 synthetic
-includes the Pioneer ACO Model (Beacon Health in Maine, +8.9 pp; Trinity in Iowa, +2.0 pp — Vermont
-again had none), and 38–41% of Iowa's 2014–15 estimate comes from ACOs that had dissolved before
+(2015)</strong> against a synthetic control near <strong>15%</strong> in both years — so its
+penetration never fell below 45% in any year the control was fitted on. Two limits travel with those
+two years: the 2014 synthetic includes the Pioneer ACO Model (Beacon Health in Maine, +8.9&nbsp;pp —
+Vermont again had none), and some of the 2014–15 estimate comes from ACOs that had dissolved before
 2016 and therefore fall back to the rejected rule. Vermont's own fallback share is 14.4% and 3.8%.
 The 2014–15 gap is accordingly quoted as "roughly three times," not to a decimal; the 2016–17
 county-grain figures remain the primary numbers.</p>
@@ -440,6 +444,24 @@ figure as a discovery. The ledger's method has a precedent too: VTDigger's
 2020 fact-check</a> of a claimed $7.7M in OneCare savings set the touted figure against the
 administrative cost borne the same year and against the share of Medicaid patients it actually
 covered — the same netting move this essay's ledger section makes on a longer window.</p>
+
+<p><strong>The rest of the hearing record.</strong> The essay quotes the two exchanges that bear on
+its argument. Three others are worth preserving because they characterise what the board was and was
+not able to obtain. The chair opened by telling OneCare that its previous year's presentation "was
+long on process and light on demonstrable results," asked for "quantifiable metrics and analysis
+that tie back to OneCare's work," and reminded the witnesses they were under oath. Later a board
+member read the fixed-payment share off page 22 of OneCare's own submission — of $306 million in
+Medicaid total cost of care, "only 171 million's unreconciled" — and nobody in the room disputed it.
+And on the question of timeframe, OneCare's answer was that it had to reconcile "one-year
+payer-contract cycles and performance expectations with mid- and long-term outcomes that our
+clinicians remind us all the time it's going to take years, decades, generations to address."</p>
+
+<p>That last answer is a defense with no expiry, and it sits oddly beside the three capabilities
+OneCare named for itself in the same hearing — contracting, data and analytics, payment-reform
+mechanisms. None of those is a generational project and all three can be reported year over year.
+The point is not bad faith: delivery-system change genuinely is slow, and the essay concedes as much
+on the mortality measures where it applies. The point is that the framing made not evaluating the
+program comfortable.</p>
 
 <p><strong>Hearing testimony.</strong> Quotations from the OneCare FY2023 budget hearing are taken
 from the official
