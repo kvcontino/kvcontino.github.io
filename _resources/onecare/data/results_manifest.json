@@ -1,6 +1,14 @@
 {
-  "schema_version": 1,
-  "generated": "2026-08-01",
+  "schema_version": 2,
+  "generated": "2026-08-02",
+  "family_wise": {
+    "vermont_best_rank": 2,
+    "outcome": "ER_VISITS_PER_1000_BENES",
+    "units": 50,
+    "position": 5,
+    "p": 0.1,
+    "interpretation": "Family-wise permutation over three co-primary outcomes: each unit contributes its most extreme within-outcome rank. Unlike a Bonferroni correction it does not assume the outcomes are independent."
+  },
   "model": {
     "name": "intercept-shifted synthetic control",
     "treatment_year": 2018,
@@ -117,6 +125,32 @@
           -503.63
         ],
         "threshold": "baseline donor weight greater than 0.01"
+      },
+      "predictor_set_stability": {
+        "MA_PRTCPTN_RATE": {
+          "mean_post_gap": -321.41,
+          "delta_vs_baseline": 29.59,
+          "post_rmspe_rank": 14,
+          "pre_rmspe": 10.255
+        },
+        "BENE_AVG_AGE": {
+          "mean_post_gap": -372.31,
+          "delta_vs_baseline": -21.31,
+          "post_rmspe_rank": 10,
+          "pre_rmspe": 15.821
+        },
+        "BENE_DUAL_PCT": {
+          "mean_post_gap": -481.79,
+          "delta_vs_baseline": -130.79,
+          "post_rmspe_rank": 11,
+          "pre_rmspe": 12.873
+        },
+        "BENE_FEML_PCT": {
+          "mean_post_gap": -356.01,
+          "delta_vs_baseline": -5.01,
+          "post_rmspe_rank": 13,
+          "pre_rmspe": 16.746
+        }
       }
     },
     "IP_CVRD_STAYS_PER_1000_BENES": {
@@ -208,6 +242,32 @@
           5.73
         ],
         "threshold": "baseline donor weight greater than 0.01"
+      },
+      "predictor_set_stability": {
+        "MA_PRTCPTN_RATE": {
+          "mean_post_gap": 2.73,
+          "delta_vs_baseline": -1.81,
+          "post_rmspe_rank": 43,
+          "pre_rmspe": 2.435
+        },
+        "BENE_AVG_AGE": {
+          "mean_post_gap": 4.39,
+          "delta_vs_baseline": -0.14,
+          "post_rmspe_rank": 35,
+          "pre_rmspe": 2.988
+        },
+        "BENE_DUAL_PCT": {
+          "mean_post_gap": 7.81,
+          "delta_vs_baseline": 3.27,
+          "post_rmspe_rank": 18,
+          "pre_rmspe": 2.673
+        },
+        "BENE_FEML_PCT": {
+          "mean_post_gap": 5.58,
+          "delta_vs_baseline": 1.04,
+          "post_rmspe_rank": 26,
+          "pre_rmspe": 2.898
+        }
       }
     },
     "ER_VISITS_PER_1000_BENES": {
@@ -301,6 +361,32 @@
           161.98
         ],
         "threshold": "baseline donor weight greater than 0.01"
+      },
+      "predictor_set_stability": {
+        "MA_PRTCPTN_RATE": {
+          "mean_post_gap": 72.8,
+          "delta_vs_baseline": -12.54,
+          "post_rmspe_rank": 2,
+          "pre_rmspe": 0.676
+        },
+        "BENE_AVG_AGE": {
+          "mean_post_gap": 85.8,
+          "delta_vs_baseline": 0.45,
+          "post_rmspe_rank": 2,
+          "pre_rmspe": 0.992
+        },
+        "BENE_DUAL_PCT": {
+          "mean_post_gap": 80.56,
+          "delta_vs_baseline": -4.79,
+          "post_rmspe_rank": 2,
+          "pre_rmspe": 0.871
+        },
+        "BENE_FEML_PCT": {
+          "mean_post_gap": 91.85,
+          "delta_vs_baseline": 6.5,
+          "post_rmspe_rank": 2,
+          "pre_rmspe": 0.61
+        }
       }
     }
   },

@@ -35,6 +35,41 @@ level, largely unmeasurable. I built the case back up from primary sources so th
 on something an adversary could check. The <a href="/_resources/onecare/methodology.html">methodology
 note</a> and the <a href="/_resources/onecare/data/">data</a> are there for exactly that.</p>
 
+<h3>What the model set out to do, and what the public record can test</h3>
+
+<p>The model's own logic ran in a chain, and the public evidence covers that chain very unevenly.
+Naming the chain first makes it possible to see which links this essay can actually pull on — and
+avoids the commonest error in reading a program like this one, which is to judge the whole against
+an outcome its operative mechanism was barely positioned to move.</p>
+
+<div class="tablewrap"><table class="data">
+<caption>What the model put in motion, and what public evidence can test.</caption>
+<thead><tr><th>Stage</th><th>Examples</th><th>What the public record supports</th></tr></thead>
+<tbody>
+<tr><td>Inputs</td><td>Federal waivers, state oversight, OneCare administration, provider participation</td><td>Budgets, orders and agreements are public and detailed</td></tr>
+<tr><td>Activities</td><td>Attribution, prospective payment, care coordination, analytics</td><td>Participation and payment reporting is partial</td></tr>
+<tr><td>Immediate outputs</td><td>Lives reached, dollars genuinely at risk, practices supported</td><td>Reach can be bounded; implementation fidelity cannot</td></tr>
+<tr><td>Intermediate outcomes</td><td>Primary care, specialty contact, ED visits, admissions</td><td>Medicare measures exist; Medicaid has no causal evaluation</td></tr>
+<tr><td>Final outcomes</td><td>Total cost, health, access, equity, provider stability</td><td>Mostly descriptive statewide indicators, and no equity data at all</td></tr>
+</tbody></table></div>
+
+<h3>The verdict, by evidence domain</h3>
+
+<p>The single most misleading thing an evaluation can do is report one grade. The evidence here is
+strong in one domain and absent in another, so the honest summary separates them. Everything below
+is argued at length in the sections that follow; this is the map, not a substitute for them.</p>
+
+<div class="tablewrap"><table class="data">
+<caption>What the public record will and will not support, by evaluation domain.</caption>
+<thead><tr><th>Domain</th><th>Judgment</th><th>Confidence</th></tr></thead>
+<tbody>
+<tr><td>Reach</td><td>The prospective-payment mechanism the model is named for covered a small share of statewide spending — about four cents on the dollar at its peak, and zero in commercial all eight years.</td><td>High</td></tr>
+<tr><td>Implementation</td><td>Attribution, analytics and provider payments demonstrably operated; fidelity, local variation and what actually changed in practices are incompletely documented.</td><td>Moderate</td></tr>
+<tr><td>Effectiveness</td><td>Medicare results are mixed and specification-sensitive: spending unremarkable against placebos, admissions flat, ED use divergent but confounded. Medicaid effects are unknown.</td><td>Low</td></tr>
+<tr><td>Efficiency</td><td>Administrative costs are measurable; benefits rest on a contested causal estimate and compliance costs were never measured, so no signed net figure is supportable.</td><td>Low</td></tr>
+<tr><td>Equity</td><td>The public record does not characterise effects by race, income, disability, rurality or payer. This is a gap in the evidence, not a finding of no effect.</td><td>Insufficient</td></tr>
+</tbody></table></div>
+
 <hr>
 
 <h2>The spending question</h2>
@@ -185,13 +220,32 @@ on one scale and the ED series is the one that moved.</p>
   definitions.</figcaption>
 </figure>
 
-<p>Vermont's emergency-department use diverged from its counterfactual, and the divergence is real:
-p&nbsp;=&nbsp;0.04, second-most-extreme of fifty states, on the outcome whose fit generalises best —
-held out of its own estimation the ED model predicts 2017 almost exactly, so its precision is earned
-rather than borrowed. This is the one place in the statewide data where something clearly happened.
+<p>Vermont's emergency-department use diverged from its counterfactual, and of the three outcomes it
+is the one that survives every check the design can run. It is second-most-extreme of fifty states on
+post-period RMSPE, tenth on the ratio ranking, and it holds rank 2 under every predictor set — drop
+any covariate and refit all fifty units and the ordering does not move. The fit also generalises
+best: held out of its own estimation the ED model predicts 2017 almost exactly, so its precision is
+earned rather than borrowed. <strong>Corrected for testing three outcomes, the family-wise
+permutation puts it at p&nbsp;=&nbsp;0.10</strong> — five of the fifty states reach a best-of-three
+rank at least as extreme as Vermont's. That is the number to carry: not the 0.04 an isolated test
+reports, and not a threshold crossing. This is the one place in the statewide data where the
+comparison shows a persistent, specification-independent divergence.
 It also runs opposite to the direction the model's theory predicts. An organization paid to manage a
 population was supposed to move care upstream and out of the emergency department; Vermont's ED rate
 went the other way, and kept going after the model ended its scale-up.</p>
+
+<figure>
+  <img src="/_resources/onecare/figures/fig2b_specification.svg"
+       alt="Two panels. Left: for each of spending, inpatient stays and ED visits, Vermont's rank among 50 states under two statistics, joined by a line — spending 16th and 25th, inpatient 31st and 47th, ED 2nd and 10th. Right: a scatter of pre-period against post-period fit error for all 50 states on ED visits, pre-period error on a log scale, with Vermont high on post-period error at an ordinary pre-period error, and a cluster of seven states at the far left whose pre-period error is effectively zero.">
+  <figcaption><strong>The ED result is the most extreme under either statistic, and the choice
+  between them is not innocent.</strong> The ratio ranking divides post-period error by pre-period
+  error, so the seven states at the left of the right-hand panel — reproduced by their own donor
+  pools to within a ten-thousandth of a visit — get enormous ratios from a vanishing denominator.
+  Vermont sits at an ordinary pre-period error with an unusually large post-period one, which is the
+  pattern the raw statistic is built to detect and the ratio is built to discount. Both are reported
+  because neither is disinterested. Source: CMS Geographic Variation PUF; construction in the
+  <a href="/_resources/onecare/methodology.html">methodology note</a>.</figcaption>
+</figure>
 
 <p>What the finding establishes is a divergence, not its cause. Two rival explanations are live, and
 both would produce this pattern without any help from the payment model — so the section below is
@@ -273,9 +327,9 @@ that margin, measured directly, Vermont moved the way the theory wanted. The hon
 Vermont's emergency departments got busier relative to comparators, that the increase was not in
 avoidable visits, and that nobody has run the comparison that would say why.</p>
 
-<p><strong>Two statistical qualifications, stated once.</strong> Three outcomes were tested and
-this is the section on the one that came out most extreme; a p of 0.04 in three tries corresponds to
-roughly a one-in-nine chance under the global null. And this synthetic control is retrospective: the
+<p><strong>Two statistical qualifications, stated once.</strong> Three outcomes were tested and this
+is the section on the one that came out most extreme, which is why the number quoted above is the
+family-wise 0.10 rather than the isolated 0.04. And this synthetic control is retrospective: the
 specification was chosen with the data in hand, not registered in advance, so it carries none of the
 protection a pre-committed design would. Neither qualification makes the divergence go away; both mean it should be
 carried as a strong signal awaiting an out-of-sample test rather than as a settled fact. The resolution is pre-registered as hypothesis H5 — if the gap
@@ -358,7 +412,7 @@ scorecard, carries the causal question.</p>
 
 <hr>
 
-<h2>Population health: the targets met themselves</h2>
+<h2>Contextual trends not attributed to OneCare</h2>
 
 <p>Vermont's model was reported, year after year, as meeting its population-health targets. Both
 halves of that sentence are true and only one is informative, because the targets were set against
@@ -366,6 +420,12 @@ Vermont's own projected baseline rather than against what comparable states actu
 Vermont against its Northeast peers instead, and the story on the two flagship causes — overdose and
 suicide — is not the deterioration the failure case wants, nor the success the target regime claims.
 It is mostly a pre-existing gap the model did not touch.</p>
+
+<p>Nothing in this section is an effect estimate, and the section is placed here rather than beside
+the Medicare results for that reason. There is no comparison group in any meaningful sense: the
+six-state peer mean is a descriptive device, not a counterfactual, and it is doing none of the work
+the synthetic control does above. These series can characterise the conditions the model operated in
+and refute crude claims made about it in either direction. They cannot grade it.</p>
 
 <figure>
   <img src="/_resources/onecare/figures/fig3_pophealth.svg"
@@ -387,7 +447,19 @@ Suicide is a <em>level</em> difference, not a trend: Vermont has run several poi
 its peers since around 2010 — eight years before the model — and the gap did not widen during the
 model window (+5.2 immediately before, +5.5 during, age-adjusted, well inside the year-to-year noise).
 A level that predates the model cannot indict it; by the same token, a suicide "target" scored against
-Vermont's own baseline cannot credit it. Overdose is a genuine deterioration relative to peers — the
+Vermont's own baseline cannot credit it.</p>
+
+<p>That level gap is also largely an artefact of which peers are chosen, and the choice should be
+made visible rather than defended. Against the six-state mean Vermont runs +6.2 per 100,000 over
+2019–24; against New Hampshire and Maine alone — the two states that actually resemble it in
+population density, rurality and firearm prevalence — the gap is <strong>+0.5</strong>. Vermont is
+not an outlier among rural northern New England states; it is an outlier against a mean that
+includes Massachusetts, New York, Connecticut and Rhode Island. The overdose comparison is not
+sensitive in the same way (+0.1 against the six, &minus;0.6 against the two), so the contrast is
+specific to suicide and specific to urbanicity. Read the suicide panel as a statement about the
+kind of state Vermont is, not about anything the model did.</p>
+
+<p>Overdose is a genuine deterioration relative to peers — the
 multi-year climb survives the Poisson noise in the counts — but the overdose curve is a fentanyl curve,
 and no one credible thinks an accountable care organization could have stopped a fentanyl wave. That
 cuts against counting the target regime as success exactly as much as it cuts against blaming the model
@@ -904,8 +976,8 @@ version. Better specification bought a factor of nine here, and a redesign buys 
 obvious one — a county-level dose-response across 2,702 counties in 50 states, regressing the change
 in Medicare spending on the change in ACO penetration with state fixed effects and errors clustered
 by state — resolves effects roughly eight times smaller than the statewide design can, and returns
-<strong>a precisely estimated zero</strong>: $0.24 per percentage point of penetration, standard
-error $0.76. Over the 50-point penetration spread that separates a saturated county from an
+<strong>a tightly bounded null</strong>: $0.24 per percentage point of penetration, standard
+error $0.76 — precise conditional on the model, which is not the same as identified. Over the 50-point penetration spread that separates a saturated county from an
 unpenetrated one, that is $12 per beneficiary-year, against a detectable floor of about $105. A
 pre-trend placebo on the same specification is null, and counting the suppressed small cells at their
 upper bound rather than zero barely moves the coefficient. NORC's per-attributed-life estimate would

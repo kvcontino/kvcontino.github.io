@@ -44,9 +44,13 @@ already ~52% ACO-penetrated by 2017, so that is an assumption, and it is stated 
 exists so that a unit fitting its own pre-period badly is not credited with a large post-period
 error. Demeaning already does that job — equalising pre-period fit is precisely what it is for — and
 dividing by a now-near-zero denominator injects noise instead of removing bias. It also creates a
-researcher degree of freedom that has to be closed: five degenerate placebos (MA, MO, SD, TN and WA,
-each reproduced by its own donor pool to a fraction of a cent) produce ratios in the
-10<sup>5</sup>–10<sup>6</sup> range, and
+researcher degree of freedom that has to be closed: six or seven placebos per outcome are reproduced
+by their own donor pools to within 10<sup>&minus;4</sup> of a unit — MA, MO, SD, TN, WA and WI on
+spending, a partly different set on each of the other two — and those produce ratios in the
+10<sup>5</sup>–10<sup>6</sup> range. The
+<a href="/_resources/onecare/figures/fig2b_specification.svg">pre-fit-against-post-fit panel</a>
+shows them as the cluster at the left edge. Because the set is outcome-specific, any exclusion rule
+has to be fixed before looking rather than tuned per outcome, and
 sweeping the exclusion floor from zero to one times Vermont's pre-RMSPE moves the ED p-value from
 0.200 to 0.025. A p-value that swings on a nuisance parameter is not a p-value. Ranking on
 post-period RMSPE needs no floor and admits no such choice.</p>
@@ -200,11 +204,51 @@ of &minus;$625 — the sign is stable, the magnitude is not. The ED 2024 gap run
 against a baseline of +149, so the ED finding does not rest on any single donor. Inpatient stays swing
 from &minus;2.9 to +5.7 across the same exercise, crossing zero, which is what a null looks like.</p>
 
-<p><strong>Multiplicity.</strong> Three co-primary outcomes were tested with the identical procedure.
-The most extreme result is ED use at p&nbsp;=&nbsp;0.04 on the post-RMSPE ranking; a Bonferroni
-correction across the three puts it at 0.12, and on the ratio ranking it is 0.20 unadjusted and 0.60
-adjusted. ED should therefore be read as the best result in a small family, not as a threshold
-crossing. The analysis was retrospective rather than pre-registered.</p>
+<p><strong>Multiplicity, by permutation rather than by Bonferroni.</strong> Three co-primary outcomes
+were tested with the identical procedure, and ED is the most extreme of the three at
+p&nbsp;=&nbsp;0.04 on the post-RMSPE ranking. A Bonferroni correction would put that at 0.12, but
+Bonferroni assumes the three tests are independent, and they are not: the same beneficiaries generate
+all three series, so spending, admissions and ED visits move together.</p>
+
+<p>The permutation machinery answers the question without that assumption. Rank every unit within
+each outcome, give each unit the single best rank it achieved on any of the three, and ask where
+Vermont's best sits among all fifty units' bests. Vermont's best is 2nd, on ED; <strong>five of the
+fifty units reach a best rank of 2 or better, so the family-wise p is 0.10</strong>. That is the
+honest headline number for the ED result: worse than the 0.04 an isolated test would report, better
+than the 0.12 an independence assumption would impose, and not contingent on a correction the data
+do not support. It should be read as a signal worth an out-of-sample test, not as a finding. The
+analysis was retrospective rather than pre-registered.</p>
+
+<p><strong>Predictor-set stability.</strong> Each of the four covariates is dropped in turn and the
+whole procedure — Vermont's fit and all 49 placebo fits — is rerun, so the rank is recomputed rather
+than assumed.</p>
+
+<div class="tablewrap">
+<table class="data">
+  <caption>Mean post-period gap and post-RMSPE rank with each covariate removed. The ED rank does not
+  move at all; the spending estimate moves by more than a third of its own size.</caption>
+  <thead><tr><th>Dropped predictor</th><th class="num">Spending gap</th><th class="num">rank</th><th class="num">Inpatient gap</th><th class="num">rank</th><th class="num">ED gap</th><th class="num">rank</th></tr></thead>
+  <tbody>
+    <tr><td><em>none (published fit)</em></td><td class="num">&minus;$351</td><td class="num">16</td><td class="num">+4.5</td><td class="num">31</td><td class="num">+85.3</td><td class="num">2</td></tr>
+    <tr><td>Medicare Advantage rate</td><td class="num">&minus;$321</td><td class="num">14</td><td class="num">+2.7</td><td class="num">43</td><td class="num">+72.8</td><td class="num">2</td></tr>
+    <tr><td>Average beneficiary age</td><td class="num">&minus;$372</td><td class="num">10</td><td class="num">+4.4</td><td class="num">35</td><td class="num">+85.8</td><td class="num">2</td></tr>
+    <tr><td>Dual-eligible share</td><td class="num">&minus;$482</td><td class="num">11</td><td class="num">+7.8</td><td class="num">18</td><td class="num">+80.6</td><td class="num">2</td></tr>
+    <tr><td>Female share</td><td class="num">&minus;$356</td><td class="num">13</td><td class="num">+5.6</td><td class="num">26</td><td class="num">+91.8</td><td class="num">2</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>This is the clearest single diagnostic in the section. <strong>ED holds rank 2 under every
+specification</strong>, with the gap between +73 and +92 — the result does not depend on any one
+covariate. <strong>Spending does not hold</strong>: dropping dual-eligible share alone moves the
+mean gap from &minus;$351 to &minus;$482, and the rank wanders between 10 and 16, which is another
+reason the spending estimate is reported without precision. Inpatient use has a stable near-zero gap
+and a rank that swings from 18 to 43, which is what an outcome with no signal looks like — the rank
+of a null result is close to arbitrary.</p>
+
+<p>Dropping the Medicare Advantage predictor pulls the ED gap down by 12.5 visits per 1,000, the
+largest single movement of the ED estimate. That is consistent with MA composition carrying some of
+the divergence and is a further reason the confound is recorded as unresolved rather than dismissed.</p>
 
 <p><strong>Caveats.</strong> Synthetic control on a single treated unit gives effect estimates with
 permutation-based inference only — no confidence intervals in the usual sense. The pre-period is short:
@@ -260,10 +304,33 @@ MIOV</a> age-adjusted rates (2019–2024) appended at a marked seam. Rate-based 
 crude prevalence, comparing Vermont's gap versus peers before (≤2017) and after (≥2018) the model
 boundary.</p>
 
-<p><strong>Peer set.</strong> The unweighted mean of NH, ME, MA, NY, CT, RI — the same six comparators
-used throughout. The overdose index uses the mean of each state's own 2015-indexed trajectory (an
-average state path), which differs by a few points from a population-pooled index but tells the same
-story.</p>
+<p><strong>Peer set, and its sensitivity.</strong> The unweighted mean of NH, ME, MA, NY, CT, RI — the
+same six comparators used throughout. Unweighted means Rhode Island and New York count equally; the
+object is an average <em>state path</em>, not a population-pooled regional rate. The overdose index
+uses the mean of each state's own 2015-indexed trajectory, which differs by a few points from a
+population-pooled index but tells the same story.</p>
+
+<div class="tablewrap">
+<table class="data">
+  <caption>Vermont minus the peer mean, age-adjusted per 100,000, 2019–2024 (MIOV). The peer
+  definition is a free choice, so it is reported as a sensitivity rather than fixed silently.</caption>
+  <thead><tr><th>Peer definition</th><th class="num">Suicide</th><th class="num">Overdose</th></tr></thead>
+  <tbody>
+    <tr><td>Six-state Northeast (published)</td><td class="num">+6.22</td><td class="num">+0.12</td></tr>
+    <tr><td>NH and ME only</td><td class="num"><span class="hi">+0.49</span></td><td class="num">&minus;0.60</td></tr>
+    <tr><td>Census Northeast division (8 states)</td><td class="num">+6.60</td><td class="num">+0.17</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>This matters enough to change how the suicide panel should be read. Vermont's apparent
+suicide-rate excess is <strong>almost entirely a comparison-set artefact</strong>: against the two
+states that resemble it in rurality, density and firearm prevalence, the gap is half a point rather
+than six. It is not that Vermont is unusual among comparable states; it is that four of the six
+published comparators are substantially urban and have low suicide rates. The overdose comparison is
+robust to the same swap, so the sensitivity is specific to suicide. Neither series is an effect
+estimate, but a descriptive claim that flips on peer choice should not be stated without the
+sensitivity attached.</p>
 
 <p><strong>Suicide: level, not trend.</strong> The WONDER extension is load-bearing for the essay's
 reframe. Age-adjusted, Vermont ran +5.2 above the peer-6 mean in the four years immediately before the
@@ -535,11 +602,35 @@ hypothesis.)</p>
 
 <p>The <a href="/_resources/onecare/data/">data directory</a> holds the generated result files
 (synthetic-control gaps and placebos, hospital margins, the population-health inputs, the CBP series,
-the RAND relative-price table) alongside the public inputs used in the figures. The seven figures on the
-<a href="/_resources/onecare/">essay page</a> are regenerated by <code>build_figures.py</code> in that
-directory (Python, matplotlib, pandas). The heavy raw downloads behind the synthetic control — the CMS
-Geographic Variation PUF, HCRIS, and CBP archives — are reproducible from the source links and are not
-mirrored here for size; the derived series that the figures actually consume are.</p>
+the RAND relative-price table) alongside the public inputs used in the figures.</p>
+
+<p><strong>What reproduces from this directory, and what does not.</strong> Stating this precisely,
+because "every figure is reproducible" and "an adversary could rerun the analysis" are different
+claims and only the first is true here without a second download.</p>
+
+<div class="tablewrap">
+<table class="data">
+  <caption>Reproduction scope by layer.</caption>
+  <thead><tr><th>Layer</th><th>Command</th><th>Needs</th></tr></thead>
+  <tbody>
+    <tr><td>Figures from derived results</td><td><code>python3 build_figures.py</code></td><td>This directory only. Python, matplotlib, pandas.</td></tr>
+    <tr><td>Results manifest from the panel</td><td><code>python3 analysis/build_results.py</code></td><td>The companion checkout and the 56&nbsp;MB CMS panel. About two minutes.</td></tr>
+    <tr><td>The panel itself</td><td>manual download</td><td>CMS Geographic Variation PUF, vintage below.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Redistributed here:</strong> every derived CSV and JSON the figures read, including the
+full placebo distributions, and <code>analysis/build_results.py</code>.
+<strong>Not redistributed:</strong> the CMS Geographic Variation PUF, HCRIS cost reports and the CBP
+archives, all of which are large and all of which are public at the source links given in each
+section; and the estimation code proper — <code>synth_medicare.py</code>,
+<code>aco_penetration.py</code>, <code>aco_penetration_backcast.py</code>,
+<code>county_dose_response.py</code> — which lives in the companion <code>onecare_retrospective</code>
+checkout. <code>build_results.py</code> expects that checkout as a sibling directory, or the path in
+<code>ONECARE_SOURCE</code>. Anyone wanting to rerun the estimates rather than the graphics needs
+that repository; anyone wanting to check that the published numbers match the published placebo
+distributions can do it from this directory alone.</p>
 
 <p><strong>Dataset vintages.</strong> CMS revises these files, so which release was used matters. The
 Medicare Geographic Variation PUF underlying every spending and utilization figure, and the

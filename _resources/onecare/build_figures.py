@@ -203,6 +203,72 @@ fig.text(0.06, 0.875,
          fontsize=9, color=INK2, va="top", linespacing=1.5)
 save(fig, "fig2_outcomes")
 
+# ===== Figure 2b: what the inference rests on, both panels from the same fits =====
+manifest = json.load(open("data/results_manifest.json"))
+pstats = pd.read_csv("data/scm_placebo_statistics.csv")
+
+fig, axes = plt.subplots(1, 2, figsize=(12.2, 4.7),
+                         gridspec_kw={"width_ratios": [1.15, 1]})
+fig.subplots_adjust(left=0.145, right=0.975, bottom=0.145, top=0.64, wspace=0.42)
+
+# -- left: the rank moves with the discrepancy statistic --
+ax = axes[0]
+labels = ["Spending\nper capita", "Inpatient\nstays", "ED visits"]
+post_ranks = [res[k]["placebo"]["post_rmspe"]["rank"] for k in order]
+ratio_ranks = [res[k]["placebo"]["post_pre_ratio"]["rank"] for k in order]
+ypos = range(3)
+for y, a, b in zip(ypos, post_ranks, ratio_ranks):
+    ax.plot([a, b], [y, y], color=BASE, lw=2, zorder=0, solid_capstyle="round")
+    ax.annotate(str(a), (a, y), xytext=(0, 9), textcoords="offset points",
+                ha="center", color=VT, fontsize=8.5, fontweight="bold")
+    ax.annotate(str(b), (b, y), xytext=(0, 9), textcoords="offset points",
+                ha="center", color=INK2, fontsize=8.5)
+ax.scatter(post_ranks, list(ypos), color=VT, s=55, zorder=3, label="post-period RMSPE")
+ax.scatter(ratio_ranks, list(ypos), facecolors="none", edgecolors=CMP, s=58,
+           linewidths=1.6, zorder=3, label="post/pre RMSPE ratio")
+ax.set_yticks(list(ypos), labels, fontsize=9.5)
+ax.invert_yaxis()
+ax.set_ylim(2.45, -0.55)   # headroom so the top row's rank labels clear the panel title
+ax.set_xlim(0, 51)
+ax.set_xticks([1, 10, 20, 30, 40, 50])
+ax.set_xlabel("rank among 50 states (1 = most discrepant)", fontsize=9)
+ax.grid(axis="y", visible=False); ax.tick_params(length=0)
+ax.set_title("Rank moves with the statistic", loc="left", fontsize=10.5, color=INK)
+ax.legend(frameon=False, fontsize=8.5, loc="lower right", handletextpad=.4,
+          borderpad=.2, labelcolor=INK2)
+
+# -- right: pre-fit against post-fit, the joint distribution behind both statistics --
+ax = axes[1]
+ed = pstats[pstats.outcome == "ER_VISITS_PER_1000_BENES"]
+vt = manifest["outcomes"]["ER_VISITS_PER_1000_BENES"]
+ax.scatter(ed.pre_rmspe, ed.post_rmspe, s=15, color=CMP, alpha=.75, linewidths=0)
+ax.scatter([vt["pre_rmspe"]], [vt["post_rmspe"]], s=70, color=VT, zorder=3)
+ax.annotate("Vermont", (vt["pre_rmspe"], vt["post_rmspe"]), xytext=(9, -2),
+            textcoords="offset points", color=VT, fontsize=9, fontweight="bold")
+ax.set_xscale("log")
+degenerate = ed[ed.pre_rmspe < 1e-4]
+if len(degenerate):
+    ax.annotate(f"{len(degenerate)} degenerate fits\n(ratio denominator ~0)",
+                (degenerate.pre_rmspe.max(), degenerate.post_rmspe.max()),
+                xytext=(6, 14), textcoords="offset points", color=MUTED,
+                fontsize=8, linespacing=1.4)
+ax.set_xlabel("pre-period RMSPE (log scale)", fontsize=9)
+ax.set_ylabel("post-period RMSPE", fontsize=9)
+ax.grid(axis="x", visible=True, color=GRID, lw=.6)
+ax.tick_params(length=0)
+ax.set_title("ED visits: pre-fit vs. post-fit, all 50", loc="left",
+             fontsize=10.5, color=INK)
+
+fig.suptitle("What the emergency-department inference rests on",
+             x=0.145, y=0.975, ha="left", fontsize=12.5, fontweight="bold", color=INK)
+fig.text(0.145, 0.90,
+         "Left: the same intercept-shifted fits ranked two defensible ways. Right: the ratio "
+         "statistic divides the vertical\naxis by the horizontal one, so units at the left edge "
+         "get large ratios from a small denominator — which is\nwhy both rankings are reported "
+         "rather than one being called honest.",
+         fontsize=9, color=INK2, va="top", linespacing=1.5)
+save(fig, "fig2b_specification")
+
 # ================= Figure 3: population health =================
 PEERS = ["NH", "ME", "MA", "NY", "CT", "RI"]
 PN = {"New Hampshire": "NH", "Maine": "ME", "Massachusetts": "MA", "New York": "NY",

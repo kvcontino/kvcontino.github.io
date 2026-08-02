@@ -51,6 +51,73 @@ def rank(values, target):
     return 1 + sum(value >= target for value in values.values())
 
 
+def within_outcome_ranks(placebo_post, vt_post):
+    """Rank every unit, Vermont included, on one outcome. 1 = most discrepant."""
+    allunits = dict(placebo_post, VT=vt_post)
+    return {
+        unit: 1 + sum(v >= value for v in allunits.values()) - 1
+        for unit, value in allunits.items()
+    }
+
+
+def family_wise(per_outcome_ranks):
+    """Max-statistic permutation across the three co-primary outcomes.
+
+    Bonferroni assumes the outcomes are independent; these three are measured on
+    one population and are not. The permutation makes no such assumption: give
+    every unit the single best rank it achieved on any outcome, then ask where
+    Vermont's best sits in the distribution of everyone else's best. A placebo
+    state that happens to look extreme on one of three outcomes is exactly the
+    null this is testing against.
+    """
+    units = set().union(*(r for r in per_outcome_ranks.values()))
+    best = {u: min(r[u] for r in per_outcome_ranks.values()) for u in units}
+    vt = best["VT"]
+    # Lower rank = more extreme, so Vermont's position counts units at least as extreme.
+    position = sum(value <= vt for value in best.values())
+    return {
+        "vermont_best_rank": vt,
+        "outcome": min(per_outcome_ranks, key=lambda k: per_outcome_ranks[k]["VT"]),
+        "units": len(best),
+        "position": position,
+        "p": round(position / len(best), 3),
+        "interpretation": (
+            "Family-wise permutation over three co-primary outcomes: each unit "
+            "contributes its most extreme within-outcome rank. Unlike a Bonferroni "
+            "correction it does not assume the outcomes are independent."
+        ),
+    }
+
+
+def predictor_stability(panel, key, donors, baseline_gap):
+    """Refit dropping each covariate in turn, ranks recomputed from scratch."""
+    original = list(sm.COVARIATES)
+    out = {}
+    try:
+        for dropped in original:
+            sm.COVARIATES = [c for c in original if c != dropped]
+            actual, synthetic, _ = fit(panel, key, "VT", donors)
+            gap = actual - synthetic
+            vt_post, vt_pre = rmspe(gap, POST), rmspe(gap, PRE)
+            placebo_post = {}
+            for state in donors:
+                p_a, p_s, _ = fit(
+                    panel, key, state, [d for d in donors if d != state]
+                )
+                placebo_post[state] = rmspe(p_a - p_s, POST)
+            out[dropped] = {
+                "mean_post_gap": round(float(gap.loc[POST].mean()), 2),
+                "delta_vs_baseline": round(
+                    float(gap.loc[POST].mean()) - baseline_gap, 2
+                ),
+                "post_rmspe_rank": rank(placebo_post, vt_post),
+                "pre_rmspe": round(vt_pre, 3),
+            }
+    finally:
+        sm.COVARIATES = original
+    return out
+
+
 def main():
     panel = sm.load_panel()
     donors = [
@@ -59,6 +126,7 @@ def main():
     ]
     outcomes = {}
     placebo_rows = []
+    outcome_ranks = {}
 
     for key, label in sm.OUTCOMES.items():
         actual, synthetic, weights = fit(panel, key, "VT", donors)
@@ -78,12 +146,14 @@ def main():
             placebo_rows.append({
                 "outcome": key,
                 "state": state,
+                "pre_rmspe": round(p_pre, 6),
                 "post_rmspe": round(p_post, 6),
                 "post_pre_ratio": round(placebo_ratio[state], 6),
             })
 
         post_rank = rank(placebo_post, vt_post)
         ratio_rank = rank(placebo_ratio, vt_post / vt_pre)
+        outcome_ranks[key] = within_outcome_ranks(placebo_post, vt_post)
 
         cv = {}
         for held_out in PRE:
@@ -159,6 +229,9 @@ def main():
                 ],
                 "threshold": "baseline donor weight greater than 0.01",
             },
+            "predictor_set_stability": predictor_stability(
+                panel, key, donors, float(gap.loc[POST].mean())
+            ),
         }
 
     for outcome in outcomes.values():
@@ -169,8 +242,9 @@ def main():
             )
 
     manifest = {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated": str(date.today()),
+        "family_wise": family_wise(outcome_ranks),
         "model": {
             "name": "intercept-shifted synthetic control",
             "treatment_year": 2018,
