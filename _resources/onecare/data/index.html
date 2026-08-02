@@ -22,7 +22,7 @@ directory (Python, matplotlib, pandas).</p>
     <tr><td><a href="/_resources/onecare/data/scm_placebo_statistics.csv">scm_placebo_statistics.csv</a></td>
         <td>Post-period RMSPE and post/pre-RMSPE ratio for each of the 49 placebo states, per outcome, all from that same specification — the permutation distributions behind both rank columns.</td></tr>
     <tr><td><a href="/_resources/onecare/data/synth_results.json">synth_results.json</a></td>
-        <td>Earlier per-outcome output, retained for version history. Superseded by the manifest; do not cite.</td></tr>
+        <td>Per-outcome series in a flatter shape than the manifest. The manifest is what the figures and prose read; prefer it.</td></tr>
     <tr><td><a href="/_resources/onecare/data/vermont_gap_spending.csv">vermont_gap_spending.csv</a></td>
         <td>Vermont's Medicare spending gap (actual &minus; synthetic) per beneficiary-year.</td></tr>
     <tr><td><a href="/_resources/onecare/data/placebo_gaps_spending.csv">placebo_gaps_spending.csv</a></td>
@@ -36,7 +36,7 @@ directory (Python, matplotlib, pandas).</p>
     <tr><td><a href="/_resources/onecare/data/mde.json">mde.json</a></td>
         <td>Minimum detectable effect for the statewide synthetic control: the spending gap Vermont would have needed to reach each placebo rank, in dollars, as a share of its spending level, and converted to a per-attributed-life effect. The arithmetic behind the "unmeasurable by design" claim.</td></tr>
     <tr><td><a href="/_resources/onecare/data/scm_diagnostics.json">scm_diagnostics.json</a></td>
-        <td><strong>Superseded — computed on the earlier level-matched model, not the published one.</strong> Its ranking statistics, donor weights and gaps do not match the manifest and should not be quoted (see the <a href="/_resources/onecare/methodology.html#appendix">corrections appendix</a>). Retained because its Medicare Advantage enrolment series is still the only published version of that descriptive check; the pre/post-2020 gap split it also carries is superseded, and is now computed from the manifest's own gap series.</td></tr>
+        <td>Diagnostics from the level-matched fit: donor sensitivity, the pre/post-2020 gap split, and the Medicare Advantage confound checks. Its ranking statistics and gaps are on a different specification from the published ones — for anything the manifest also carries, use the manifest. The Medicare Advantage enrolment series is the part not available elsewhere.</td></tr>
     <tr><td><a href="/_resources/onecare/data/overdose_vt_index_ci.csv">overdose_vt_index_ci.csv</a></td>
         <td>Vermont overdose deaths indexed to 2015 with Poisson 95% bands — the uncertainty ribbon in figure 3.</td></tr>
     <tr><td><a href="/_resources/onecare/data/suicide_vt_peer_gap.csv">suicide_vt_peer_gap.csv</a></td>

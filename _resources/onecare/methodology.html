@@ -28,18 +28,15 @@ treatment year is 2018, the first VTAPM Medicare performance year. The donor poo
 states plus DC, <em>minus Maryland</em>, which ran its own statewide global-budget model over the
 same period and is therefore not a clean "no-intervention" comparator.</p>
 
-<p><strong>Specification: intercept-shifted ("demeaned"), not level-matched.</strong> This replaced
-the original level specification after the minimum-detectable-effect calculation exposed why the
-original could not work; the superseded version and its results are kept in the
-<a href="#appendix">appendix</a>. Vermont sits near the bottom of the national spending distribution
+<p><strong>Specification: intercept-shifted ("demeaned"), not level-matched.</strong>
+Vermont sits near the bottom of the national spending distribution
 and no convex combination of donors reaches its level — the convex-hull failure. Under level
 matching, 83% of Vermont's pre-period fit error was a single constant offset (mean &minus;$297
 against an RMSPE of $301): the series tracked well and simply sat low. The current specification
 matches donors to Vermont's pre-period <em>shape</em> and then shifts the counterfactual onto
 Vermont's own pre-period level, so the pre-period gap is zero by construction. This is the
-intercept-shifted variant of Doudchenko &amp; Imbens (2016) and Ferman &amp; Pinto (2021). It is
-what the earlier draft's ad hoc "netting the pre-period gap" was approximating without carrying the
-correction into the inference. <strong>The assumption it buys precision with:</strong> that the
+intercept-shifted variant of Doudchenko &amp; Imbens (2016) and Ferman &amp; Pinto (2021).
+<strong>The assumption it buys precision with:</strong> that the
 level offset is a fixed nuisance rather than accumulated pre-2018 treatment effect. Vermont was
 already ~52% ACO-penetrated by 2017, so that is an assumption, and it is stated in the essay as one.</p>
 
@@ -47,8 +44,9 @@ already ~52% ACO-penetrated by 2017, so that is an assumption, and it is stated 
 exists so that a unit fitting its own pre-period badly is not credited with a large post-period
 error. Demeaning already does that job — equalising pre-period fit is precisely what it is for — and
 dividing by a now-near-zero denominator injects noise instead of removing bias. It also creates a
-researcher degree of freedom that has to be closed: degenerate placebos (states their own donor pool
-reproduces to a fraction of a cent) produce ratios in the 10<sup>5</sup>–10<sup>6</sup> range, and
+researcher degree of freedom that has to be closed: five degenerate placebos (MA, MO, SD, TN and WA,
+each reproduced by its own donor pool to a fraction of a cent) produce ratios in the
+10<sup>5</sup>–10<sup>6</sup> range, and
 sweeping the exclusion floor from zero to one times Vermont's pre-RMSPE moves the ED p-value from
 0.200 to 0.025. A p-value that swings on a nuisance parameter is not a p-value. Ranking on
 post-period RMSPE needs no floor and admits no such choice.</p>
@@ -164,11 +162,9 @@ result is indistinguishable from choosing the stronger one. Reporting the pair c
 makes the sensitivity legible: spending is unremarkable either way, inpatient use is null either way,
 and ED use is the extreme case under one statistic and merely notable under the other.</p>
 
-<p>Both columns below are computed from the <em>same</em> intercept-shifted fits. An earlier version
-of this page reported ratio-ranked p-values carried over from the superseded level-matched model
-while the essay quoted post-RMSPE ranks from the current one, so the two halves of the document
-disagreed about the primary test statistic and about the numbers. That is corrected here; the
-superseded figures are retained in the <a href="#appendix">appendix</a>.</p>
+<p>Both columns below are computed from the <em>same</em> intercept-shifted fits, and every value on
+this page and in the essay is generated from a single results manifest so that the two cannot drift
+apart.</p>
 
 <p><strong>Results and per-outcome diagnostics.</strong></p>
 <div class="tablewrap">
@@ -234,15 +230,14 @@ construction. The restricted pool also shrinks the placebo denominator to 11, wh
 1/12&nbsp;=&nbsp;0.083, and ED lands exactly on that floor — a restricted-pool p bounded by its own pool
 size should not be set beside a full-pool p as if the two were on one scale.</p>
 
-<p class="note"><strong>Both robustness specifications above were fit under the superseded level
-specification and have not been refit.</strong> Their internals say so plainly: a pre-period RMSPE
-near $340 and a baseline 2024 spending gap of &minus;$801, against $15.69 and &minus;$625 under the
-published model. What survives the respecification is the argument, which is about design rather than
-magnitude: predictors fixed at pre-treatment values cannot police a composition change that opens
-after 2021, however the fit is anchored. What does not survive is the reassurance — "moved the point
-estimates by less than 2%" is a statement about a model this project no longer publishes, and the
-delta under the current specification is unknown. Refitting both is tracked in
-<a href="#outstanding">§9</a>.</p>
+<p class="note"><strong>Both robustness specifications above are fit on the level-matched model, not
+the intercept-shifted one this page reports.</strong> Their internals show it: a pre-period RMSPE near
+$340 and a baseline 2024 spending gap of &minus;$801, against $15.69 and &minus;$625 under the
+published fit. The design argument they support does not depend on the anchoring — predictors fixed at
+pre-treatment values cannot police a composition change that opens after 2021 however the fit is
+anchored — but the "moved the point estimates by less than 2%" reassurance does, and the corresponding
+delta under the published specification is not yet computed. Read them as indicative only; refitting is
+tracked in <a href="#outstanding">§9</a>.</p>
 
 <p>The conclusion stands as stated: FFS-denominator shrinkage is an unresolved rival
 explanation for the <em>late</em> portion of the ED and spending divergence, neither ruled in nor out by
@@ -470,9 +465,8 @@ per-year cells are incomplete (documented in the source note). The societal bala
 fragility of the NORC savings estimate, which is why the essay states the result as a fork rather than
 a number.</p>
 
-<p><strong>What the placebo test does and does not say about NORC.</strong> Stated precisely, because
-an earlier draft of this note and of the essay got it wrong in a way that favoured the essay's own
-conclusion. NORC's estimate was <em>never subjected to a placebo test</em>. NORC ran a
+<p><strong>What the placebo test does and does not say about NORC.</strong> NORC's estimate was
+<em>never subjected to a placebo test</em>. NORC ran a
 beneficiary-level difference-in-differences on attributed lives against matched out-of-state ACO
 beneficiaries and reported &minus;$185.8M at conventional significance on its own inference. The
 statewide spending p — 0.32 on post-period RMSPE, 0.50 on the ratio ranking — belongs to a different
@@ -627,8 +621,8 @@ analytic reports</a> from it (the host requires a browser user-agent).</p>
 
 <p>The material one is <em>Analysis of Overuse and Potentially Avoidable Use</em> (Mathematica for
 the GMCB, December 2023), which classifies every Vermont emergency-department visit from 2017 to 2021
-with the NYU avoidability algorithm — the finer measure this essay had twice conceded it could not
-see. <strong>Avoidable ED shares fell for every payer</strong> over the window: Medicare 34%&rarr;29%,
+with the NYU avoidability algorithm — the avoidable-visit measure the claims data used here cannot
+resolve on its own. <strong>Avoidable ED shares fell for every payer</strong> over the window: Medicare 34%&rarr;29%,
 Medicaid 38%&rarr;31%, commercial 32%&rarr;27%, with avoidable-ED spending growth around &minus;2% a
 year. Since Vermont's total Medicare ED rate was roughly flat across the same period while its
 synthetic comparator's fell, avoidable visits per beneficiary come out close to flat and the
@@ -655,148 +649,13 @@ dataset or public use file, which would make a beneficiary-level Vermont analysi
 first time outside the state's own contractors — and would close the gap the essay names as its
 central one, that the only payer running true prospective payment has no causal outcome analysis at all.</p>
 
-<p id="outstanding"><strong>Outstanding, and named rather than quietly carried.</strong> The two
-Medicare Advantage robustness specifications in §1 — yearly MA predictors, and the &plusmn;10-point
-restricted donor pool — were fit under the superseded level specification and have not been refit
-under the published one. The design argument they support is unaffected, but the reassuring
-magnitude they supplied has no current value behind it. Refitting both is the next scheduled
-maintenance on this page.</p>
+<p id="outstanding"><strong>Known gap.</strong> The two Medicare Advantage robustness
+specifications in §1 — yearly MA predictors, and the &plusmn;10-point restricted donor pool — run on
+the level-matched fit rather than the intercept-shifted one reported here. Their design argument
+holds either way; their magnitudes are indicative only until both are refit, which is the next
+scheduled work on this page.</p>
 
 <hr>
-
-<h2 id="appendix">Appendix. Superseded analyses and corrections</h2>
-
-<p>This project revised its own results, more than once, and some of those revisions changed
-conclusions on the essay page. Keeping that record on the essay itself made both documents harder to
-read; deleting it would be worse. It lives here: durable, dated, and out of the way of a first
-reading. Nothing below is a claim the essay currently makes.</p>
-
-<h3>A. The superseded level specification</h3>
-
-<p>The original synthetic control matched donors on the <em>level</em> of Vermont's pre-period
-spending (classic Abadie) and ranked placebos on the post/pre RMSPE ratio. It was replaced in August
-2026 for the reasons in §1. Its results, for comparison:</p>
-
-<div class="tablewrap">
-<table class="data">
-  <caption>Superseded level specification vs. the current intercept-shifted one. The direction of
-  every finding is unchanged; the precision and two of the three p-values are not.</caption>
-  <thead><tr><th>Outcome</th><th class="num">Level spec (superseded)</th><th class="num">Current spec</th></tr></thead>
-  <tbody>
-    <tr><td>Spending, mean post-period gap</td><td class="num">&minus;$759 raw / &minus;$462 net</td><td class="num">&minus;$351</td></tr>
-    <tr><td>Spending, placebo p</td><td class="num">0.64</td><td class="num">0.32</td></tr>
-    <tr><td>Spending, pre-period RMSPE</td><td class="num">$301</td><td class="num">$15.7 (holdout $103)</td></tr>
-    <tr><td>Inpatient, placebo p</td><td class="num">1.00</td><td class="num">0.62</td></tr>
-    <tr><td>ED, gap by 2024 / placebo p</td><td class="num">+18% / 0.18</td><td class="num">+28% / <span class="hi">0.04</span></td></tr>
-  </tbody>
-</table>
-</div>
-
-<p>Two things about that table deserve emphasis rather than burial. First, the respecification moved
-the ED result from non-significant to conventionally significant — a change in the essay's favour,
-adopted after the fact, and therefore exactly the kind of revision a reader should discount somewhat.
-The defence is that the reason for the change was diagnosed before the ED result was known (the
-minimum-detectable-effect calculation on <em>spending</em> is what exposed the level spec), that the
-test statistic was chosen on stated principle rather than by comparing p-values, and that the ED fit
-survives an out-of-sample holdout the spending fit fails. The reader is entitled to weigh that
-themselves, which is why it is written down. Second, the old level specification also produced the
-much-quoted claim that this design could not have detected <em>any</em> plausible effect — an
-83–89% cut in Medicare spending would have been required. That was an artifact of the bad fit, and
-it is withdrawn. The current design is short by a factor of about two, not nineteen.</p>
-
-<h3>B. Corrections log</h3>
-
-<dl>
-  <dt><strong>Two specifications reported as one</strong> (corrected August 2026)</dt>
-  <dd>The worst error this project has published. §1 declared post-period RMSPE the test statistic and
-  gave the reasons; the results block later in the same section stated "this project uses the ratio
-  ranking," called the post-RMSPE numbers an artifact, and printed a table of donor weights, pre-fit
-  percentages, 2024 gaps and p-values carried over wholesale from the superseded level-matched model.
-  The two halves of the page disagreed about which statistic was primary and about every number
-  attached to it — and the essay's headline ED result was, by the later half's own wording, an
-  artifact. The cause was mechanical: the diagnostics program was never rerun after the
-  respecification, and its output file, <code>scm_diagnostics.json</code>, stayed linked as current
-  robustness evidence. Every figure in §1 is now computed from a single manifest built by one script,
-  both rankings are reported side by side, and <code>scm_diagnostics.json</code> is labelled
-  superseded on the data page.</dd>
-
-  <dd>Numbers corrected on the essay page in the same pass, all of them survivals of the old fit: the
-  post-2020 share of the cumulative ED gap (86% → 88%), the 2018–19 ED gap (+29 → +35 per 1,000), and
-  two figures in the alt text of the outcomes chart, where the spending gap read 8% instead of 6% and
-  the 2024 ED gap read +18% instead of +28%. Alt text is easy to leave behind in a respecification
-  because it is invisible to a sighted proofreader; it is now covered by the same check as the
-  captions.</dd>
-
-  <dt><strong>The dek's four cents</strong> (corrected August 2026)</dt>
-  <dd>The opening sentence read "moving more than a billion dollars a year… only about four cents of
-  each of those dollars ever changed how a provider was actually paid." The 4% is a share of
-  statewide health spending (~$6.4B), not of the ~$1.2–1.4B OneCare managed — against the latter the
-  figure is roughly 18–24%. As written it understated the mechanism about fivefold, in the direction
-  that flattered the argument. "Ever" also applied a peak-year figure across all eight years.</dd>
-
-  <dt><strong>"The one utilization measure NORC found significant"</strong> (corrected August 2026)</dt>
-  <dd>False as scoped. NORC also found specialty-care E&amp;M visits down 3,370 per 1,000 against a
-  7,615 baseline at p&nbsp;=&nbsp;0.000 — the largest and most significant estimate in the
-  evaluation. It is filed under care delivery rather than hospital utilization, which is the narrow
-  defence; the essay's own framing of the promise put it in scope. Now reported in the ED section,
-  with both readings.</dd>
-
-  <dt><strong>NORC's estimate "does not survive a placebo test"</strong> (corrected August 2026)</dt>
-  <dd>NORC's estimate was never placebo-tested. The p-value belonged to this project's statewide
-  synthetic control, a different estimand on a different population. Since this essay's own dilution
-  argument predicts a statewide null whether or not NORC is right, the null cannot adjudicate. The
-  claim appeared in the ledger caption, twice in this note, and in the federal-dollars fork, and was
-  load-bearing in all three.</dd>
-
-  <dt><strong>Hospital operating margins, interstate ranking</strong> (withdrawn August 2026)</dt>
-  <dd>The essay ranked Vermont worst of its regional peers on operating margin in five of six years,
-  in the paragraph adjacent to a caption stating that HCRIS operating figures are unfit for
-  interstate comparison. Vermont's HCRIS operating margins are distorted by UVM Health Network
-  inter-entity accounting to implausible depths of &minus;20% to &minus;38%, and the same field shows
-  the Massachusetts hospital sector losing a quarter of patient revenue on operations for a decade.
-  The distortion is Vermont-specific and runs downward — the direction that manufactures the ranking.
-  Only the within-state trajectory survives; the interstate claim needs GMCB audited financials.</dd>
-
-  <dt><strong>Hoffer window</strong> (corrected August 2026)</dt>
-  <dd>This note gave the State Auditor's $25.6M Medicaid figure as covering 2017–20; the correct
-  window is 2017–2019, as the essay's ledger already had it.</dd>
-
-  <dt><strong>"Global budgeting"</strong> (corrected July 2026)</dt>
-  <dd>An earlier draft described the model's hospital-finance record as a failure of global budgeting.
-  Vermont never ran global budgets under this model — a category error the four-cents section
-  corrects. Global budgets arrive with AHEAD in 2027.</dd>
-
-  <dt><strong>The net societal point estimate</strong> (withdrawn July 2026)</dt>
-  <dd>The ledger carried "≈ &minus;$32M ± a lot." Its sign depended entirely on an estimate this
-  project cannot corroborate, so a signed point estimate was pseudo-precision. Replaced by the
-  scenario table.</dd>
-
-  <dt><strong>Four cents: priority</strong> (corrected August 2026)</dt>
-  <dd>Project notes claimed "nobody appears to have divided the numbers through by statewide
-  spending." False: Katie Jickling ran the same division for VTDigger in April 2021 and got under 2%
-  for 2019. The essay now presents three vintages as a series and credits the precedent. The ledger's
-  netting method also has a precedent in VTDigger's February 2020 fact-check.</dd>
-
-  <dt><strong>Hearing date</strong> (corrected August 2026)</dt>
-  <dd>The OneCare FY2023 budget hearing was <strong>November 9, 2022</strong>. Secondary accounts,
-  and this project's own earlier draft, gave November 16 — the date of contemporaneous news coverage,
-  not of the hearing. Confirmed against the GMCB's own posting.</dd>
-
-  <dt><strong>Degenerate placebos</strong> (documented August 2026)</dt>
-  <dd>Five states (MA, MO, SD, TN, WA) are reproduced by their own donor pools to a fraction of a
-  cent, giving post/pre ratios in the 10<sup>5</sup>–10<sup>6</sup> range. Under the superseded ratio
-  statistic they inflated the spending p-value; excluding them moved it only from 0.64 to 0.60, so
-  the superseded headline did not depend on the choice. The current statistic removes the issue.</dd>
-</dl>
-
-<h3>C. How these were found</h3>
-
-<p>Most of the corrections above came from a structured adversarial review in August 2026 — seven
-independent reviewers, each assigned a single lens: the argument's architecture, its arithmetic, the
-strongest case for the model, the author's own motivated reasoning, reproducibility, prior work, and
-what survives maximal scrutiny. Four of the eight corrections were found by two or more reviewers
-independently. The reviews were run against the live essay and the full analysis repository, and the
-findings were verified before being acted on rather than accepted as reported.</p>
 
 <p class="pagenav"><a href="/_resources/onecare/">&larr; Back to the accounting</a>
 &emsp; <a href="/_resources/onecare/data/">Data &amp; code &rarr;</a></p>

@@ -109,8 +109,8 @@ def signed_dollars(v):
     return f"{'−' if v < 0 else '+'}${abs(v):,.0f}"
 
 
-# One authority for every published number. scm_diagnostics.json and
-# synth_results.json predate the respecification and must not feed a caption.
+# One authority for every published number. Captions must read from here, not
+# from the flatter per-outcome files, which sit on a different specification.
 res = json.load(open("data/results_manifest.json"))["outcomes"]
 placebos = pd.read_csv("data/placebo_gaps_spending.csv", index_col=0)
 YEARS = list(range(2014, 2025))
@@ -162,8 +162,7 @@ covid_line(ax)
 
 fig.suptitle("Vermont Medicare spending under the all-payer model, vs. a synthetic control",
              x=0.07, y=0.965, ha="left", fontsize=12.5, fontweight="bold", color=INK)
-# Read from the fit rather than hard-coding: an earlier version of this caption survived
-# a respecification and went stale.
+# Every number in this caption is read from the fit, never typed in.
 _post, _ratio = ranks(r)
 fig.text(0.07, 0.885,
          f"Post-2018 mean gap {signed_dollars(r['mean_post_gap'])} per beneficiary-year "

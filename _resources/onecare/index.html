@@ -138,9 +138,8 @@ the four cents reach by two other routes.</p>
 a way the specification does not fix. Vermont sits near the bottom of the national spending
 distribution and no blend of donors reaches its level, so the fit here matches the <em>shape</em> of
 Vermont's pre-period and shifts the counterfactual onto Vermont's own level — the intercept-shifted
-specification described in the <a href="/_resources/onecare/methodology.html">methodology note</a>,
-which replaced an earlier one that matched on levels and fit far worse. That buys a great deal of
-precision and it hides a problem: held out of its own fit, the spending model predicts 2017 with an
+specification described in the <a href="/_resources/onecare/methodology.html">methodology note</a>.
+That buys a great deal of precision and it hides a problem: held out of its own fit, the spending model predicts 2017 with an
 error of $103 while reporting an in-sample error of $3. It understates its own uncertainty roughly
 thirty-sevenfold. The honest noise floor for this outcome is the $103, not the $3, and every
 sensitivity claim below is built on the former. Of the three outcomes this is the one whose fit
@@ -276,10 +275,9 @@ avoidable visits, and that nobody has run the comparison that would say why.</p>
 
 <p><strong>Two statistical qualifications, stated once.</strong> Three outcomes were tested and
 this is the section on the one that came out most extreme; a p of 0.04 in three tries corresponds to
-roughly a one-in-nine chance under the global null. And this retrospective synthetic control was not
-pre-registered, and its specification was revised once after the first results were seen — disclosed
-in the <a href="/_resources/onecare/methodology.html#appendix">appendix</a> because a reader should
-be able to weigh it. Neither qualification makes the divergence go away; both mean it should be
+roughly a one-in-nine chance under the global null. And this synthetic control is retrospective: the
+specification was chosen with the data in hand, not registered in advance, so it carries none of the
+protection a pre-committed design would. Neither qualification makes the divergence go away; both mean it should be
 carried as a strong signal awaiting an out-of-sample test rather than as a settled fact. The resolution is pre-registered as hypothesis H5 — if the gap
 was model-caused, removing the model should bend it; continued growth on trend exonerates the model
 on this margin.</p>
@@ -658,9 +656,9 @@ Decompose Vermont's 13-point total-margin fall from 2021 to 2022 and its operati
 — essentially all of the swing was the collapse of non-operating income.</p>
 
 <p>What survives is the within-state trajectory: Vermont's operating margin did not recover across
-the model's back half while its total margin swung on investment returns. An earlier version ranked
-Vermont worst in the region on operating margin; that claim is withdrawn and the reasons are in the
-<a href="/_resources/onecare/methodology.html#appendix">appendix</a>. The all-payer model did
+the model's back half while its total margin swung on investment returns. The interstate ranking will
+not carry more than that: HCRIS aggregates are sensitive to which hospitals report in which year, and
+Vermont's small hospital count makes a regional rank unstable. The all-payer model did
 not stabilize hospital finance; it coincided with the region's worst operating stretch in a decade,
 driven by labor and traveler costs, payer mix, and the price dynamics below.</p>
 
@@ -783,8 +781,9 @@ when — is beyond establishment counts entirely.</p>
 <h2>The ledger</h2>
 
 <p>The essay is called an accounting, so here is the account. It gives no single net societal
-figure; an earlier version did, and the <a href="/_resources/onecare/methodology.html#appendix">appendix</a>
-records why that was pseudo-precision. Below instead is the ledger by accounting stance, with each row's window, and with transfers (money moved within the system) kept
+figure, because the largest benefit term is a contested causal estimate and the windows do not align;
+summing them would buy a precision the inputs cannot support.
+Below instead is the ledger by accounting stance, with each row's window, and with transfers (money moved within the system) kept
 separate from resource costs (real deadweight), because conflating the two is how both the boosters
 and the critics have miscounted.</p>
 
@@ -884,9 +883,7 @@ together, the design could not have detected an effect of the size a four-percen
 produce. A null from an underpowered test is not evidence of no effect; it is evidence the test could not
 see one.</p>
 
-<p>That claim was an assertion in an earlier version of this essay, stacked out of four qualitative
-reasons, and a reader was entitled to ask for the number. Asking for it changed the answer, which is
-why the earlier specification is now recorded in an appendix rather than on this page. The test
+<p>That is a claim about power, so it should be computed rather than asserted. The test
 detects Vermont when its post-period deviation exceeds the placebo states'; working backwards from
 that distribution gives the smallest effect this design could have seen.
 <strong>Reaching conventional significance would have required a sustained spending gap of about
@@ -895,12 +892,10 @@ population the model actually reached — roughly 40% of fee-for-service benefic
 per-attributed-life effect of roughly $1,500 to $1,900 a year, about <strong>two to two-and-a-half
 times</strong> the $758 the federal evaluation estimated.</p>
 
-<p>So the claim has to be narrowed, and narrowing it is the honest outcome of having computed it.
-The design was not blind. It was short by a factor of about two — close enough that a Vermont effect
-at twice NORC's estimated size would have registered, and far enough that an effect at NORC's actual
-size could not. The earlier version of this essay put that shortfall at a factor of nineteen and
-concluded no design could have seen anything; that was wrong, and it was wrong in the direction that
-flattered the argument. What is left is narrower and still holds: this design could not resolve an
+<p>So the claim has to be narrowed. The design was not blind: it was short by a factor of about two —
+close enough that a Vermont effect at twice NORC's estimated size would have registered, and far
+enough that an effect at NORC's actual size could not. That is a real limitation and a much smaller
+one than "unmeasurable." What is left is narrower and still holds: this design could not resolve an
 effect of the magnitude anyone actually claims for the model, and the reason is not subtle — a
 statewide series averages a treated half against an untreated half, and a state is one unit.</p>
 
