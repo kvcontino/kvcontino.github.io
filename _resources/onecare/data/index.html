@@ -12,7 +12,10 @@ raw archives are reproducible from the source links.</p>
 <a href="/_resources/onecare/build_figures.py"><code>build_figures.py</code></a> in the parent directory
 (Python, matplotlib, pandas); the estimates themselves rebuild from <code>analysis/</code> given the
 companion checkout — see the <a href="/_resources/onecare/methodology.html">methodology note</a> for
-which inputs are redistributed here and which must be downloaded.</p>
+which inputs are redistributed here and which must be downloaded. The shipped SVGs are transparent so
+they sit on the page's own background; set <code>ONECARE_PREVIEW=&lt;dir&gt;</code> to render opaque
+PNGs on black instead, which is the only way to proof figure text — matplotlib saves it as glyph
+outlines, not as characters.</p>
 
 <h2>Generated results</h2>
 <div class="tablewrap">
