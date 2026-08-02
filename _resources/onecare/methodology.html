@@ -257,9 +257,9 @@ the divergence and is a further reason the confound is recorded as unresolved ra
 <p><strong>Caveats.</strong> Synthetic control on a single treated unit gives effect estimates with
 permutation-based inference only — no confidence intervals in the usual sense. The pre-period is short:
 the Geographic Variation PUF begins in 2014, so the fit rests on four pre-treatment years (2014–2017)
-against four outcome-lag predictors plus four covariates, which risks tracking pre-trend noise. Under
-the intercept-shifted specification the pre-period gap is zero by construction, so the raw-versus-net
-distinction the earlier level specification needed no longer applies. State-level Medicare data
+against four outcome-lag predictors plus four covariates, which risks tracking pre-trend noise. The
+pre-period gap is zero by construction here, so the spending gap needs no separate netting.
+State-level Medicare data
 cannot see commercial or Medicaid populations, where much of the model's activity nominally sat, and it
 is fee-for-service only (see the Medicare Advantage robustness section below). The ED result is the most
 extreme in placebo rank under either statistic, but "most extreme of three" is not the same as
@@ -273,7 +273,7 @@ Health Advantage launched. Two specifications address it, both refit on the publ
 model by <code>analysis/ma_robustness.py</code>, with placebo ranks recomputed inside each specification
 rather than borrowed from the baseline. <strong>(A) Yearly MA predictors</strong> replaces the single
 pre-period MA mean with one column per pre-period year, so a flat trajectory and a climbing one that
-share an average are no longer treated as identical. <strong>(B) Restricted donor pool</strong> keeps
+share an average are not treated as identical. <strong>(B) Restricted donor pool</strong> keeps
 only the 11 states within &plusmn;10 points of Vermont's pre-period mean MA rate (8.3%): AK, DC, DE,
 IA, KS, MS, ND, NE, NH, OK, WY.</p>
 
@@ -291,13 +291,11 @@ IA, KS, MS, ND, NE, NH, OK, WY.</p>
 </table>
 </div>
 
-<p>Two things follow, and they point in opposite directions for the two outcomes.</p>
+<p>The two outcomes behave differently, and the difference is the point.</p>
 
-<p><strong>The old reassurance does not survive the respecification.</strong> On the superseded
-level-matched model these same two specifications moved the point estimates by less than 2%, and that
-number was quoted here as evidence the confound was small. Under the published model the spending
-estimate moves 11% and 22% — a real sensitivity, and one more reason the spending gap is reported
-without precision.</p>
+<p><strong>Spending is sensitive to how MA is handled.</strong> The estimate moves 11% under yearly
+predictors and 22% under the restricted pool. That is a real sensitivity, and one more reason the
+spending gap is reported without precision.</p>
 
 <p><strong>ED is unmoved where it matters.</strong> Its rank is 2nd under both specifications, and the
 gap moves by &minus;2.3% and <em>+10.6%</em> — controlling MA more aggressively makes the ED divergence
@@ -602,8 +600,8 @@ cannot quietly rewrite itself to fit what arrives.</p>
 <p><strong>Design constraint, as registered on 5 July 2026.</strong> Vermont's AHEAD hospital global
 budgets were scheduled to begin 1 January 2027, which made 2026 the only clean post-model,
 pre-AHEAD year; any analysis of 2027 and later would have had to treat AHEAD as a second treatment
-rather than a continuation of "no model." <strong>This constraint was removed by events — see the
-amendment below.</strong></p>
+rather than a continuation of "no model." Vermont's withdrawal from AHEAD lifted that constraint;
+the amendment below records what changed and what it does to the design.</p>
 
 <div class="tablewrap">
 <table class="data">
@@ -639,10 +637,7 @@ for primary-care medical homes for a decade, in parallel with and predating the 
 outcome is logged alongside the payment-driven and workforce/telehealth-driven branches — if the rising
 primary-care contact was Blueprint-driven, it persists after the model ends regardless of the ACO. This
 makes the favorable primary-care signal non-attributable to the model by default and is recorded as an
-amendment, not a change to the frozen prediction. (The diagnostics, leave-one-out, multiplicity, and
-Medicare-Advantage robustness material in Section 1, and the WONDER suicide extension in Section 2, were
-also added in this revision round; they harden the reported analysis without altering any frozen
-hypothesis.)</p>
+amendment, not a change to the frozen prediction.</p>
 
 <p><strong>Post-registration amendment (2026-08-02): Vermont withdrew from AHEAD.</strong> In late
 July 2026 (reported 24–28 July) the state notified CMS that it would not proceed with the AHEAD model, after
@@ -651,9 +646,8 @@ million to about $10 million. Vermont is redirecting to the Rural Health Transfo
 $195 million first-year award, roughly $1 billion over five years) and has said it remains committed
 to hospital global budgets as a long-term goal but is not ready to implement them.</p>
 
-<p>This <em>loosens</em> the design in the one way that matters, and the loosening has to be recorded
-rather than quietly enjoyed. The frozen hypotheses are unchanged and no prediction is revised. But
-the binding constraint on the wind-down study was that a second treatment landed in January 2027,
+<p>The frozen hypotheses are unchanged and no prediction is revised. What changes is the window.
+The binding constraint on the wind-down study was that a second treatment landed in January 2027,
 leaving a single clean post-model year. With AHEAD withdrawn and global budgets deferred to no
 announced date, <strong>2026, 2027 and 2028 are all clean post-model, pre-global-budget years unless
 and until Vermont announces an implementation date.</strong> Three post-period years instead of one
@@ -812,14 +806,6 @@ cannot support a new causal estimate. The step beyond is a formal request for th
 dataset or public use file, which would make a beneficiary-level Vermont analysis possible for the
 first time outside the state's own contractors — and would close the gap the essay names as its
 central one, that the only payer running true prospective payment has no causal outcome analysis at all.</p>
-
-<p id="outstanding"><strong>Resolved.</strong> The two Medicare Advantage robustness
-specifications in §1 formerly ran on the level-matched fit. Both were refit on the published
-specification (<code>analysis/ma_robustness.py</code>, results in
-<code>data/ma_robustness.json</code>); the table there is now current, and the earlier
-"less than 2%" figure is withdrawn — the spending estimate moves 11% and 22% under the two
-specifications, while the ED rank holds at 2nd under both.</p>
-
 <hr>
 
 <p class="pagenav"><a href="/_resources/onecare/">&larr; Back to the accounting</a>
