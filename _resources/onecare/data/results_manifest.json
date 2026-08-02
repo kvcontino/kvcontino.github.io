@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "generated": "2026-08-01",
+  "model": {
+    "name": "intercept-shifted synthetic control",
+    "treatment_year": 2018,
+    "pre_period": [
+      2014,
+      2015,
+      2016,
+      2017
+    ],
+    "post_period": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "treated_unit": "VT",
+    "excluded_donors": [
+      "MD"
+    ],
+    "primary_reporting_rule": "Report both post-RMSPE and post/pre-RMSPE placebo ranks. Do not classify either as a definitive hypothesis test.",
+    "multiplicity": "Three co-primary Medicare outcomes; interpret the most extreme rank in the family and avoid outcome-wise threshold claims."
+  },
+  "outcomes": {
+    "TOT_MDCR_STDZD_PYMT_PC": {
+      "label": "Total standardized payment per capita ($)",
+      "estimand": "Vermont minus an intercept-shifted synthetic comparison; incremental 2018 regime change over an already ACO-exposed baseline",
+      "actual": {
+        "2014": 7050.65,
+        "2015": 7391.22,
+        "2016": 7540.94,
+        "2017": 7669.66,
+        "2018": 7716.87,
+        "2019": 7818.83,
+        "2020": 7273.65,
+        "2021": 8137.22,
+        "2022": 8567.43,
+        "2023": 9314.45,
+        "2024": 9544.33
+      },
+      "synthetic": {
+        "2014": 7048.67,
+        "2015": 7386.1,
+        "2016": 7522.93,
+        "2017": 7694.77,
+        "2018": 7973.28,
+        "2019": 8207.14,
+        "2020": 7739.82,
+        "2021": 8612.13,
+        "2022": 8754.18,
+        "2023": 9373.73,
+        "2024": 10169.5
+      },
+      "gap": {
+        "2014": 1.98,
+        "2015": 5.12,
+        "2016": 18.01,
+        "2017": -25.11,
+        "2018": -256.41,
+        "2019": -388.31,
+        "2020": -466.17,
+        "2021": -474.91,
+        "2022": -186.75,
+        "2023": -59.28,
+        "2024": -625.17
+      },
+      "weights": {
+        "WY": 0.4298,
+        "ME": 0.2827,
+        "DC": 0.1674,
+        "DE": 0.115,
+        "AK": 0.0051
+      },
+      "mean_post_gap": -351.0,
+      "mean_post_gap_pct": -4.04,
+      "pre_rmspe": 15.693,
+      "post_rmspe": 394.355,
+      "post_pre_ratio": 25.129,
+      "placebo": {
+        "n": 49,
+        "post_rmspe": {
+          "rank": 16,
+          "p": 0.32,
+          "bonferroni_three_outcomes": 0.96
+        },
+        "post_pre_ratio": {
+          "rank": 25,
+          "p": 0.5,
+          "bonferroni_three_outcomes": 1
+        },
+        "interpretation": "Exact ranks under two defensible discrepancy statistics; neither is treated as a binary significance verdict."
+      },
+      "preperiod_cross_validation": {
+        "leave_one_year_out_gap": {
+          "2014": -88.138,
+          "2015": 11.755,
+          "2016": 62.886,
+          "2017": -103.353
+        },
+        "rmse": 75.072,
+        "interpretation": "Four temporal holdouts are an overfit diagnostic, not a sampling-based uncertainty interval."
+      },
+      "leave_one_contributing_donor_out": {
+        "gap_2024_by_omitted_donor": {
+          "DC": -610.83,
+          "DE": -716.61,
+          "ME": -759.42,
+          "WY": -503.63
+        },
+        "range": [
+          -759.42,
+          -503.63
+        ],
+        "threshold": "baseline donor weight greater than 0.01"
+      }
+    },
+    "IP_CVRD_STAYS_PER_1000_BENES": {
+      "label": "Inpatient stays per 1,000",
+      "estimand": "Vermont minus an intercept-shifted synthetic comparison; incremental 2018 regime change over an already ACO-exposed baseline",
+      "actual": {
+        "2014": 210.04,
+        "2015": 219.62,
+        "2016": 218.82,
+        "2017": 220.57,
+        "2018": 219.02,
+        "2019": 213.84,
+        "2020": 177.57,
+        "2021": 176.96,
+        "2022": 175.67,
+        "2023": 180.59,
+        "2024": 177.91
+      },
+      "synthetic": {
+        "2014": 215.15,
+        "2015": 218.06,
+        "2016": 217.11,
+        "2017": 218.73,
+        "2018": 214.51,
+        "2019": 210.0,
+        "2020": 171.86,
+        "2021": 172.16,
+        "2022": 168.79,
+        "2023": 175.3,
+        "2024": 177.15
+      },
+      "gap": {
+        "2014": -5.11,
+        "2015": 1.55,
+        "2016": 1.71,
+        "2017": 1.84,
+        "2018": 4.51,
+        "2019": 3.83,
+        "2020": 5.7,
+        "2021": 4.8,
+        "2022": 6.88,
+        "2023": 5.28,
+        "2024": 0.76
+      },
+      "weights": {
+        "MA": 0.4095,
+        "NH": 0.3684,
+        "AK": 0.1618,
+        "NV": 0.0604
+      },
+      "mean_post_gap": 4.54,
+      "mean_post_gap_pct": 2.46,
+      "pre_rmspe": 2.954,
+      "post_rmspe": 4.877,
+      "post_pre_ratio": 1.651,
+      "placebo": {
+        "n": 49,
+        "post_rmspe": {
+          "rank": 31,
+          "p": 0.62,
+          "bonferroni_three_outcomes": 1
+        },
+        "post_pre_ratio": {
+          "rank": 47,
+          "p": 0.94,
+          "bonferroni_three_outcomes": 1
+        },
+        "interpretation": "Exact ranks under two defensible discrepancy statistics; neither is treated as a binary significance verdict."
+      },
+      "preperiod_cross_validation": {
+        "leave_one_year_out_gap": {
+          "2014": -7.769,
+          "2015": 3.776,
+          "2016": 3.713,
+          "2017": 2.883
+        },
+        "rmse": 4.917,
+        "interpretation": "Four temporal holdouts are an overfit diagnostic, not a sampling-based uncertainty interval."
+      },
+      "leave_one_contributing_donor_out": {
+        "gap_2024_by_omitted_donor": {
+          "AK": 4.07,
+          "MA": 5.73,
+          "NH": -2.9,
+          "NV": 1.14
+        },
+        "range": [
+          -2.9,
+          5.73
+        ],
+        "threshold": "baseline donor weight greater than 0.01"
+      }
+    },
+    "ER_VISITS_PER_1000_BENES": {
+      "label": "ED visits per 1,000",
+      "estimand": "Vermont minus an intercept-shifted synthetic comparison; incremental 2018 regime change over an already ACO-exposed baseline",
+      "actual": {
+        "2014": 651.6,
+        "2015": 675.48,
+        "2016": 662.27,
+        "2017": 661.76,
+        "2018": 670.58,
+        "2019": 669.9,
+        "2020": 541.77,
+        "2021": 585.45,
+        "2022": 626.76,
+        "2023": 657.2,
+        "2024": 671.55
+      },
+      "synthetic": {
+        "2014": 652.65,
+        "2015": 673.9,
+        "2016": 662.88,
+        "2017": 661.68,
+        "2018": 647.57,
+        "2019": 623.03,
+        "2020": 487.46,
+        "2021": 506.98,
+        "2022": 517.32,
+        "2023": 520.54,
+        "2024": 522.89
+      },
+      "gap": {
+        "2014": -1.06,
+        "2015": 1.59,
+        "2016": -0.61,
+        "2017": 0.08,
+        "2018": 23.01,
+        "2019": 46.86,
+        "2020": 54.31,
+        "2021": 78.47,
+        "2022": 109.44,
+        "2023": 136.66,
+        "2024": 148.66
+      },
+      "weights": {
+        "WY": 0.3836,
+        "MS": 0.2499,
+        "DC": 0.2205,
+        "AK": 0.0882,
+        "RI": 0.0578
+      },
+      "mean_post_gap": 85.34,
+      "mean_post_gap_pct": 15.62,
+      "pre_rmspe": 1.001,
+      "post_rmspe": 96.054,
+      "post_pre_ratio": 95.945,
+      "placebo": {
+        "n": 49,
+        "post_rmspe": {
+          "rank": 2,
+          "p": 0.04,
+          "bonferroni_three_outcomes": 0.12
+        },
+        "post_pre_ratio": {
+          "rank": 10,
+          "p": 0.2,
+          "bonferroni_three_outcomes": 0.6
+        },
+        "interpretation": "Exact ranks under two defensible discrepancy statistics; neither is treated as a binary significance verdict."
+      },
+      "preperiod_cross_validation": {
+        "leave_one_year_out_gap": {
+          "2014": -6.265,
+          "2015": 10.996,
+          "2016": -1.775,
+          "2017": 0.013
+        },
+        "rmse": 6.39,
+        "interpretation": "Four temporal holdouts are an overfit diagnostic, not a sampling-based uncertainty interval."
+      },
+      "leave_one_contributing_donor_out": {
+        "gap_2024_by_omitted_donor": {
+          "AK": 152.99,
+          "DC": 127.13,
+          "MS": 136.67,
+          "RI": 161.98,
+          "WY": 138.57
+        },
+        "range": [
+          127.13,
+          161.98
+        ],
+        "threshold": "baseline donor weight greater than 0.01"
+      }
+    }
+  },
+  "limitations": [
+    "Four pre-treatment years and one treated state.",
+    "Treatment date is a regime change after substantial prior ACO exposure.",
+    "Most post-treatment years overlap COVID-era disruption.",
+    "Fee-for-service composition changes as Medicare Advantage grows.",
+    "Statewide Medicare results do not identify Medicaid effects."
+  ]
+}
