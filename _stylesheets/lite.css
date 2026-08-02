@@ -169,6 +169,21 @@ table.data tbody tr:hover { background: #141414; }
 }
 .note strong { color: #cd9575; }
 
+/* Quoted testimony / transcript extracts — deliberately recessive against .note,
+   which uses the accent border for the essay's own asides. */
+blockquote {
+  border-left: 2px solid #444;
+  padding: 0.2em 0 0.2em 1.4em;
+  margin: 1.8em 0;
+  color: #b8b8b8;
+  font-size: 0.95em;
+  hyphens: none;
+  max-width: 84ex;
+}
+blockquote p { margin: 0 0 0.8em 0; }
+blockquote p:last-child { margin-bottom: 0; }
+blockquote strong { color: #cdb8a8; font-weight: 600; }
+
 .pagenav {
   margin-top: 3em;
   padding-top: 1.4em;

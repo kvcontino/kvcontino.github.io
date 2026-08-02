@@ -1,0 +1,112 @@
+{
+  "source_numerator": "CMS Number of ACO Assigned Beneficiaries by County (MSSP)",
+  "source_denominator": "CMS Medicare Geographic Variation PUF, BENES_OM_CNT",
+  "years": [
+    2016,
+    2017,
+    2018,
+    2019
+  ],
+  "summary": [
+    {
+      "year": 2016,
+      "vt_lo": 45.46,
+      "vt_hi": 45.46,
+      "synthetic_lo": 22.81,
+      "synthetic_hi": 22.81,
+      "donor_mean_lo": 21.8,
+      "donor_mean_hi": 21.8,
+      "vt_rank": 2,
+      "n_states": 51,
+      "vt_comparable": true
+    },
+    {
+      "year": 2017,
+      "vt_lo": 51.61,
+      "vt_hi": 56.74,
+      "synthetic_lo": 24.79,
+      "synthetic_hi": 29.18,
+      "donor_mean_lo": 24.17,
+      "donor_mean_hi": 27.34,
+      "vt_rank": 2,
+      "n_states": 51,
+      "vt_comparable": true
+    },
+    {
+      "year": 2018,
+      "vt_lo": 1.08,
+      "vt_hi": 5.79,
+      "synthetic_lo": 27.29,
+      "synthetic_hi": 32.33,
+      "donor_mean_lo": 28.05,
+      "donor_mean_hi": 31.87,
+      "vt_rank": 50,
+      "n_states": 51,
+      "vt_comparable": false
+    },
+    {
+      "year": 2019,
+      "vt_lo": 0.35,
+      "vt_hi": 5.04,
+      "synthetic_lo": 24.78,
+      "synthetic_hi": 29.63,
+      "donor_mean_lo": 28.3,
+      "donor_mean_hi": 31.86,
+      "vt_rank": 50,
+      "n_states": 51,
+      "vt_comparable": false
+    }
+  ],
+  "next_gen_2017_donor_adjustment": [
+    {
+      "state": "IA",
+      "state_name": "Iowa",
+      "ng_aco": "Iowa Health Accountable Care",
+      "ng_benes": 80373,
+      "ffs": 462030,
+      "mssp_pen": 31.0,
+      "ng_adds_pp": 17.4,
+      "combined_pen": 48.4
+    },
+    {
+      "state": "ME",
+      "state_name": "Maine",
+      "ng_aco": "Beacon Health, LLC",
+      "ng_benes": 11604,
+      "ffs": 210245,
+      "mssp_pen": 45.5,
+      "ng_adds_pp": 5.5,
+      "combined_pen": 51.1
+    },
+    {
+      "state": "NH",
+      "state_name": "New Hampshire",
+      "ng_aco": "Dartmouth-Hitchcock Health",
+      "ng_benes": 19089,
+      "ffs": 225488,
+      "mssp_pen": 35.7,
+      "ng_adds_pp": 8.5,
+      "combined_pen": 44.2
+    }
+  ],
+  "headline_2017_gap": {
+    "vt_2017": 51.6,
+    "synthetic_2017_mssp_only": 24.8,
+    "synthetic_2017_incl_next_gen": 26.4,
+    "gap_pp_mssp_only": 26.8,
+    "gap_pp_incl_next_gen": 25.3
+  },
+  "continuity_across_2018": {
+    "vt_2017_mssp_assigned": 60480,
+    "vt_2017_ffs": 117186,
+    "vt_2017_pct_of_ffs": 51.6,
+    "vt_2020_vtapm_attributed": 49337,
+    "vt_2020_ffs": 118987,
+    "vt_2020_pct_of_ffs": 41.5,
+    "norc_headline_pct_of_eligible": 57.5,
+    "reading": "On a consistent all-FFS denominator Vermont's Medicare ACO share did not rise when the all-payer model began. NORC's 57.5% is a share of attribution-eligible beneficiaries, not of all FFS \u2014 the two figures are not interchangeable."
+  },
+  "vermont_next_gen_pre2018": null,
+  "vermont_mssp_exit_2018": "OneCare left MSSP for the VTAPM Medicare ACO Initiative in 2018; that model is outside this PUF, so Vermont's 2018+ values are not comparable and are not a decline in ACO participation.",
+  "note": "Vermont had no Next Generation or Pioneer ACO before 2018, so its MSSP figure is complete Medicare ACO exposure; donor figures are lower bounds."
+}

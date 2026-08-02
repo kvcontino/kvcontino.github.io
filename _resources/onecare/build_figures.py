@@ -22,6 +22,20 @@ PREVIEW = os.environ.get("ONECARE_PREVIEW")
 INK = "#ededed"; INK2 = "#c9c9c9"; MUTED = "#9a9a9a"
 GRID = "#333333"; BASE = "#4d4d4d"; FAINT = "#3a3a3a"
 VT = "#cd9575"                        # the site's accent — Vermont, everywhere
+# Comparator series gray. NOT INK2/MUTED: against VT on a dark surface those score a
+# normal-vision separation of only ~14.5 and ~8.6 (OKLab dE x100), both under the 15
+# floor, so a reader with full colour vision can struggle to tell the pair apart.
+# #7d7d7d clears it — 15.0 normal, 11.1 protan, 16.3 tritan. Measured, not eyeballed.
+# INK2/MUTED remain the TEXT tokens (subtitles, tick labels, annotations, ref lines).
+#
+# ONE comparator step, deliberately. No third gray exists that clears 15 against BOTH
+# the accent and #7d7d7d while keeping 3:1 contrast on black — lighter steps drift into
+# the accent's lightness, darker ones fail the surface. Tested #c9c9c9/#b0b0b0/#a8a8a8/
+# #5f5f5f/#565656; all fail. So every comparator series shares this one gray and is
+# separated from its neighbours by dash pattern and a direct end label, never by colour.
+# The trade is deliberate: it buys separation on the distinction that carries the
+# argument (Vermont vs. not-Vermont) and spends it on one that does not (US vs. peers).
+CMP = "#7d7d7d"
 
 plt.rcParams.update({
     "font.family": "sans-serif", "font.size": 10.5,
@@ -91,7 +105,7 @@ fig, axes = plt.subplots(1, 3, figsize=(12.5, 4.0))
 fig.subplots_adjust(left=0.07, right=0.985, bottom=0.13, top=0.80, wspace=0.30)
 
 ax = axes[0]
-ax.plot(YEARS, synth.values, color=INK2, lw=1.8, ls=DASH)
+ax.plot(YEARS, synth.values, color=CMP, lw=1.8, ls=DASH)
 ax.plot(YEARS, actual.values, color=VT, lw=2.6)
 end(ax, 2024, actual[2024], "Vermont", VT, dy=-10, bold=True)
 end(ax, 2024, synth[2024], "synthetic VT", INK2, dy=6)
@@ -125,10 +139,15 @@ covid_line(ax)
 
 fig.suptitle("Vermont Medicare spending under the all-payer model, vs. a synthetic control",
              x=0.07, y=0.965, ha="left", fontsize=12.5, fontweight="bold", color=INK)
+# Read from the fit rather than hard-coding: an earlier version of this caption survived
+# a respecification and went stale.
+_h = r.get("holdout_2017_error", {})
 fig.text(0.07, 0.885,
-         "Post-2018 mean gap −$759 per beneficiary-year; −$462 after netting the pre-period gap.\n"
-         "Placebo p = 0.64 — the direction the federal evaluation found, not an individually "
-         "significant estimate.",
+         f"Post-2018 mean gap {r['mean_post_gap']:,.0f} per beneficiary-year "
+         f"({r['mean_post_gap_pct']:.1f}%), {r['specification']} specification; "
+         f"pre-period gap is zero by construction.\n"
+         f"Placebo p = {r['placebo_p']:.2f} — the direction the federal evaluation found, "
+         f"not an individually significant estimate.",
          fontsize=9, color=INK2, parse_math=False, va="center", linespacing=1.5)
 save(fig, "fig1_spending")
 
@@ -195,8 +214,8 @@ fig.subplots_adjust(left=0.06, right=0.94, bottom=0.13, top=0.75, wspace=0.32)
 ax = axes[0]
 ax.axhline(100, color=BASE, lw=0.8, ls=DASH, zorder=0)
 ax.fill_between(YA, od_ci["lo"].reindex(YA), od_ci["hi"].reindex(YA), color=VT, alpha=0.15, lw=0, zorder=0)
-ax.plot(YA, us_idx.reindex(YA), color=MUTED, lw=1.5)
-ax.plot(YA, peer_idx.reindex(YA), color=INK2, lw=1.8, ls=DASH)
+ax.plot(YA, us_idx.reindex(YA), color=CMP, lw=1.5)
+ax.plot(YA, peer_idx.reindex(YA), color=CMP, lw=1.8, ls=DASH)
 ax.plot(YA, vt_idx.reindex(YA), color=VT, lw=2.6)
 end(ax, 2025, vt_idx[2025], "Vermont", VT, bold=True)
 end(ax, 2025, us_idx[2025], "US", MUTED, dy=7)
@@ -209,23 +228,23 @@ ax.set_title("Overdose deaths, indexed (2015 = 100), with 95% CI", loc="left", f
 ax = axes[1]
 sui_all_max = max(sui_wonder_vt.max(), sui_wonder_peer.max(), sui_vt.max(), sui_peer.max())
 ymax = max(sui_all_max, odr_vt.max(), odr_peer.max()) * 1.10
-ax.plot(YW, sui_wonder_peer.values, color=INK2, lw=1.8, ls=DASH)
+ax.plot(YW, sui_wonder_peer.values, color=CMP, lw=1.8, ls=DASH)
 ax.plot(YW, sui_wonder_vt.values, color=VT, lw=2.6)
-ax.plot(YB, sui_peer.reindex(YB), color=INK2, lw=1.5, ls=DOT, marker="o", ms=3)
+ax.plot(YB, sui_peer.reindex(YB), color=CMP, lw=1.5, ls=DOT, marker="o", ms=3)
 ax.plot(YB, sui_vt.reindex(YB), color=VT, lw=1.5, ls=DOT, marker="o", ms=3.5)
 ax.axvline(2019, color=MUTED, lw=0.6, ls="-", alpha=0.4, zorder=0)
 ax.annotate("WONDER (final) →\nMIOV (provisional)", (2019, ymax * 0.82), xytext=(4, 0),
             textcoords="offset points", color=MUTED, fontsize=7.3, va="top", linespacing=1.3)
 end(ax, 2024, sui_vt[2024], "VT", VT, bold=True)
-end(ax, 2024, sui_peer[2024], "6 NE peers", INK2)
+end(ax, 2024, sui_peer[2024], "6 NE peers", CMP)
 style(ax); ax.set_ylim(0, ymax); ax.set_xlim(2004, 2027.6); ax.set_xticks([2005, 2010, 2015, 2020, 2024])
 ax.set_title("Suicide, deaths per 100k, 2005–2024", loc="left", fontsize=10.5, color=INK)
 
 ax = axes[2]
-ax.plot(YB, odr_peer.reindex(YB), color=INK2, lw=1.8, ls=DASH)
+ax.plot(YB, odr_peer.reindex(YB), color=CMP, lw=1.8, ls=DASH)
 ax.plot(YB, odr_vt.reindex(YB), color=VT, lw=2.6)
 end(ax, 2024, odr_vt[2024], "VT", VT, bold=True)
-end(ax, 2024, odr_peer[2024], "6 NE peers", INK2)
+end(ax, 2024, odr_peer[2024], "6 NE peers", CMP)
 style(ax); ax.set_ylim(0, ymax); ax.set_xlim(2019, 2025.6); ax.set_xticks(range(2019, 2025))
 ax.set_title("Overdose, deaths per 100k", loc="left", fontsize=10.5, color=INK)
 
@@ -250,9 +269,9 @@ fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.2))
 fig.subplots_adjust(left=0.07, right=0.90, bottom=0.12, top=0.78, wspace=0.26)
 ax = axes[0]
 ax.axhline(100, color=BASE, lw=0.8, ls=DASH, zorder=0)
-ax.plot(YRS, idx(us_estab).reindex(YRS), color=MUTED, lw=1.4)
-ax.plot(YRS, idx(estab[FIPS["ME"]]).reindex(YRS), color=MUTED, lw=1.6, ls=DOT)
-ax.plot(YRS, idx(estab[FIPS["NH"]]).reindex(YRS), color=INK2, lw=1.8, ls=DASH)
+ax.plot(YRS, idx(us_estab).reindex(YRS), color=CMP, lw=1.4)
+ax.plot(YRS, idx(estab[FIPS["ME"]]).reindex(YRS), color=CMP, lw=1.6, ls=DOT)
+ax.plot(YRS, idx(estab[FIPS["NH"]]).reindex(YRS), color=CMP, lw=1.8, ls=DASH)
 ax.plot(YRS, idx(estab[FIPS["VT"]]).reindex(YRS), color=VT, lw=2.8)
 end(ax, 2023, idx(us_estab)[2023], "US", MUTED, dy=7)
 end(ax, 2023, idx(estab[FIPS["NH"]])[2023], "NH  −2%", INK2, dy=-2)
@@ -262,10 +281,10 @@ style(ax); ax.set_xlim(2014, 2025.6); ax.set_xticks(range(2014, 2024, 2))
 ax.set_title("Physician-office establishments, indexed (2014 = 100)", loc="left", fontsize=10.5, color=INK)
 ax = axes[1]
 per_vt = emp[FIPS["VT"]] / estab[FIPS["VT"]]; per_nh = emp[FIPS["NH"]] / estab[FIPS["NH"]]
-ax.plot(YRS, per_nh.reindex(YRS), color=INK2, lw=1.8, ls=DASH)
+ax.plot(YRS, per_nh.reindex(YRS), color=CMP, lw=1.8, ls=DASH)
 ax.plot(YRS, per_vt.reindex(YRS), color=VT, lw=2.8)
 end(ax, 2023, per_vt[2023], "VT", VT, bold=True)
-end(ax, 2023, per_nh[2023], "NH", INK2)
+end(ax, 2023, per_nh[2023], "NH", CMP)
 style(ax); ax.set_ylim(0, max(per_vt.max(), per_nh.max()) * 1.12)
 ax.set_xlim(2014, 2025.2); ax.set_xticks(range(2014, 2024, 2))
 ax.set_title("Employees per office (fewer offices, but larger)", loc="left", fontsize=10.5, color=INK)
@@ -290,7 +309,7 @@ fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.6), width_ratios=[1, 1.15])
 fig.subplots_adjust(left=0.065, right=0.965, bottom=0.11, top=0.76, wspace=0.42)
 ax = axes[0]
 ax.axhline(100, color=BASE, lw=0.8, ls=DASH, zorder=0)
-ax.plot(gidx.index, gidx["nh"], color=INK2, lw=1.8, ls=DASH)
+ax.plot(gidx.index, gidx["nh"], color=CMP, lw=1.8, ls=DASH)
 ax.plot(gidx.index, gidx["uvmhn"], color=VT, lw=1.8, ls=DOT)
 ax.plot(gidx.index, gidx["rest"], color=VT, lw=2.8)
 end(ax, 2023, gidx["nh"][2023], "NH  −3%", INK2, dy=4)
@@ -310,12 +329,12 @@ ax.set_ylim(-0.7, len(chg) + 0.5)
 ax.annotate("VT statewide −26%", (-26, len(chg) + 0.35), color=VT, fontsize=8,
             ha="center", va="top", parse_math=False)
 for y, (county, v) in zip(ypos, chg.items()):
-    color = VT if county in UVMHN else MUTED
+    color = VT if county in UVMHN else CMP
     ax.plot([0, v], [y, y], color=color, lw=1.1, alpha=0.6)
     ax.plot(v, y, "o", color=color, ms=6)
     ax.annotate(f"{vt.loc[2014, county]:.0f}→{vt.loc[2023, county]:.0f}",
                 (v, y), xytext=(-6 if v < 0 else 6, 0), textcoords="offset points",
-                color=MUTED if county not in UVMHN else VT, fontsize=7.5,
+                color=CMP if county not in UVMHN else VT, fontsize=7.5,
                 ha="right" if v < 0 else "left", va="center", parse_math=False)
 ax.set_yticks(list(ypos))
 ax.set_yticklabels(chg.index, fontsize=9,
@@ -398,4 +417,105 @@ fig.text(0.055, 0.855, "Vermont's commercial prices ran 283% of Medicare in 2022
          "model's mature years. Source: RAND Hospital Price Transparency 5.1.",
          fontsize=9, color=INK2, va="center", linespacing=1.5, parse_math=False)
 save(fig, "fig6_prices")
+
+# ============ Figure 7: pre-treatment ACO penetration — the attenuation ============
+pen = pd.read_csv("data/aco_penetration_states.csv")
+apen = json.load(open("data/aco_penetration.json"))
+aback = json.load(open("data/aco_penetration_backcast.json"))
+
+fig, axes = plt.subplots(1, 2, figsize=(12.5, 4.4),
+                         gridspec_kw={"width_ratios": [1.15, 1]})
+fig.subplots_adjust(left=0.065, right=0.985, bottom=0.13, top=0.72, wspace=0.22)
+
+# ---- panel A: where Vermont sat in the 2017 national distribution ----
+ax = axes[0]
+d17 = (pen[pen.year == 2017][["state_name", "pen_lo"]]
+       .sort_values("pen_lo", ascending=False).reset_index(drop=True))
+d17["rank"] = d17.index + 1
+LABEL = {"Vermont": VT, "Delaware": CMP, "Iowa": CMP, "Maine": CMP, "Alaska": CMP,
+         "District of Columbia": CMP}
+# Delaware is the only state above Vermont, so it is labelled to the LEFT of its dot;
+# labelling both to the right would put Vermont's text straight through it.
+LEFT_LABEL = {"Delaware"}
+
+rest = d17[~d17.state_name.isin(LABEL)]
+ax.scatter(rest.pen_lo, rest["rank"], s=13, color=FAINT, zorder=2,
+           edgecolors="none")
+for name, color in LABEL.items():
+    row = d17[d17.state_name == name]
+    if row.empty:
+        continue
+    x, y = float(row.pen_lo.iloc[0]), int(row["rank"].iloc[0])
+    is_vt = name == "Vermont"
+    # 2px surface ring so a highlighted dot never merges with a neighbour
+    ax.scatter([x], [y], s=95 if is_vt else 58, color=color, zorder=4,
+               edgecolors="#000000", linewidths=1.6)
+    short = {"District of Columbia": "DC"}.get(name, name)
+    left = name in LEFT_LABEL
+    # Vermont sits one rank under Delaware, so drop its label clear of Delaware's dot.
+    ax.annotate(f"{short}  {x:.0f}%", (x, y),
+                xytext=(-11 if left else 11, -15 if is_vt else 0),
+                textcoords="offset points",
+                color=color, va="center", ha="right" if left else "left",
+                fontsize=9.5 if is_vt else 9,
+                fontweight="bold" if is_vt else "normal", parse_math=False)
+
+synth17 = apen["headline_2017_gap"]["synthetic_2017_incl_next_gen"]
+ax.axvline(synth17, color=BASE, lw=0.9, ls=DASH, zorder=1)
+ax.annotate(f"synthetic\nVermont {synth17:.0f}%", (synth17, 43), xytext=(-8, 0),
+            textcoords="offset points", color=MUTED, fontsize=8.5, ha="right",
+            va="center", linespacing=1.4, parse_math=False)
+
+ax.set_ylim(52.5, -1.8)
+ax.set_xlim(0, 60)
+ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
+ax.set_ylabel("national rank", fontsize=9, color=MUTED)
+ax.grid(axis="x", visible=True); ax.grid(axis="y", visible=False)
+ax.tick_params(length=0)
+ax.set_title("Every state, 2017: share of Medicare FFS in an ACO", loc="left",
+             fontsize=10.5, color=INK)
+
+# ---- panel B: the whole pre-period, Vermont vs its synthetic control ----
+ax = axes[1]
+yrs = [2014, 2015, 2016, 2017]
+bk = {r["year"]: r for r in aback["backcast"]}
+sm = {r["year"]: r for r in apen["summary"]}
+vt_s = [bk[2014]["vt"], bk[2015]["vt"], sm[2016]["vt_lo"], sm[2017]["vt_lo"]]
+sy_s = [bk[2014]["synthetic_mssp"], bk[2015]["synthetic_mssp"],
+        sm[2016]["synthetic_lo"], sm[2017]["synthetic_lo"]]
+
+# Estimated years (2014-15) are drawn dashed with open markers; measured years
+# (2016-17, county-grain) solid and filled. Data quality is encoded, not asserted.
+for series, color, lw, name, dy in ((vt_s, VT, 2.6, "Vermont", -13),
+                                    (sy_s, CMP, 1.8, "synthetic VT", 11)):
+    ax.plot(yrs[1:], series[1:], color=color, lw=lw)
+    ax.plot(yrs[:2], series[:2], color=color, lw=lw, ls=DASH)
+    ax.plot(yrs[2:], series[2:], color=color, lw=0, marker="o", ms=7,
+            markerfacecolor=color, markeredgecolor="#000000", markeredgewidth=1.4)
+    ax.plot(yrs[:2], series[:2], color=color, lw=0, marker="o", ms=7,
+            markerfacecolor="none", markeredgecolor=color, markeredgewidth=1.6)
+    end(ax, 2017, series[-1], name, color, dy=dy, bold=(name == "Vermont"))
+
+ax.axvspan(2013.85, 2015.5, color="#ffffff", alpha=0.028, zorder=0, lw=0)
+ax.annotate("estimated\n(open markers)", (2014.15, 8), color=MUTED, fontsize=8.5,
+            va="center", linespacing=1.4, parse_math=False)
+ax.annotate("measured", (2016.55, 8), color=MUTED, fontsize=8.5, va="center",
+            parse_math=False)
+
+ax.set_xlim(2013.85, 2018.5)
+ax.set_xticks(yrs)
+ax.set_ylim(0, 70)
+ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
+style(ax, model_line=None)
+ax.set_title("The synthetic control's whole pre-period fit window", loc="left",
+             fontsize=10.5, color=INK)
+
+fig.suptitle("Vermont entered the model already among the most ACO-saturated states in the country",
+             x=0.055, y=0.965, ha="left", fontsize=12, fontweight="bold", color=INK)
+fig.text(0.055, 0.875,
+         "In 2017, 51.6% of Vermont's Medicare fee-for-service beneficiaries were already in a Shared Savings Program ACO — second only to Delaware,\n"
+         "and roughly twice its synthetic control. 2018 marks a change of ACO regime, not the arrival of one.",
+         fontsize=9, color=INK2, va="center", linespacing=1.5, parse_math=False)
+save(fig, "fig7_aco_penetration")
+
 print("all figures written")

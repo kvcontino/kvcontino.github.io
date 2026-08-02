@@ -1,0 +1,102 @@
+{
+  "attributed_share": 0.415,
+  "norc_estimate_pbpy": -757.67,
+  "outcomes": {
+    "TOT_MDCR_STDZD_PYMT_PC": {
+      "vt_post_rmspe": 394.35,
+      "placebo_p": 0.32,
+      "honest_noise_floor_holdout": 103.353,
+      "in_sample_pre_rmspe": 2.794,
+      "overconfidence_factor": 37.0,
+      "mde": [
+        {
+          "target_rank": 1,
+          "implied_p": 0.02,
+          "mde_statewide": 795.9,
+          "vt_actual": 394.4,
+          "multiple_of_actual": 2.02,
+          "per_attributed_life": 1918.0,
+          "multiple_of_norc": 2.5
+        },
+        {
+          "target_rank": 2,
+          "implied_p": 0.04,
+          "mde_statewide": 622.0,
+          "vt_actual": 394.4,
+          "multiple_of_actual": 1.58,
+          "per_attributed_life": 1499.0,
+          "multiple_of_norc": 2.0
+        },
+        {
+          "target_rank": 3,
+          "implied_p": 0.06,
+          "mde_statewide": 618.3,
+          "vt_actual": 394.4,
+          "multiple_of_actual": 1.57,
+          "per_attributed_life": 1490.0,
+          "multiple_of_norc": 2.0
+        }
+      ]
+    },
+    "IP_CVRD_STAYS_PER_1000_BENES": {
+      "vt_post_rmspe": 4.88,
+      "placebo_p": 0.62,
+      "honest_noise_floor_holdout": 2.883,
+      "in_sample_pre_rmspe": 3.143,
+      "overconfidence_factor": 0.9,
+      "mde": [
+        {
+          "target_rank": 1,
+          "implied_p": 0.02,
+          "mde_statewide": 21.2,
+          "vt_actual": 4.9,
+          "multiple_of_actual": 4.35
+        },
+        {
+          "target_rank": 2,
+          "implied_p": 0.04,
+          "mde_statewide": 16.8,
+          "vt_actual": 4.9,
+          "multiple_of_actual": 3.44
+        },
+        {
+          "target_rank": 3,
+          "implied_p": 0.06,
+          "mde_statewide": 16.0,
+          "vt_actual": 4.9,
+          "multiple_of_actual": 3.27
+        }
+      ]
+    },
+    "ER_VISITS_PER_1000_BENES": {
+      "vt_post_rmspe": 96.05,
+      "placebo_p": 0.04,
+      "honest_noise_floor_holdout": 0.013,
+      "in_sample_pre_rmspe": 0.867,
+      "overconfidence_factor": 0.0,
+      "mde": [
+        {
+          "target_rank": 1,
+          "implied_p": 0.02,
+          "mde_statewide": 119.3,
+          "vt_actual": 96.1,
+          "multiple_of_actual": 1.24
+        },
+        {
+          "target_rank": 2,
+          "implied_p": 0.04,
+          "mde_statewide": 52.3,
+          "vt_actual": 96.1,
+          "multiple_of_actual": 0.54
+        },
+        {
+          "target_rank": 3,
+          "implied_p": 0.06,
+          "mde_statewide": 52.2,
+          "vt_actual": 96.1,
+          "multiple_of_actual": 0.54
+        }
+      ]
+    }
+  }
+}

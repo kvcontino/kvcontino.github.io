@@ -1,0 +1,67 @@
+{
+  "method": "ACO-level N_AB from the Shared Savings Program Performance Year Financial and Quality Results PUF, split by each ACO's own state mix learned from the 2016 county file (ACO ID join); FFS-proportional fallback for ACOs absent from that file.",
+  "rejected_method": "FFS-proportional split for all ACOs \u2014 fails the bridge test at -28.7 pp for Vermont in 2016, because it splits OneCare by NH/VT population when OneCare is ~95% VT.",
+  "holdout": {
+    "shares_from": 2016,
+    "scored_on": 2017,
+    "mean_abs_error_pp": 1.76,
+    "focus": [
+      {
+        "state": "AK",
+        "pen_true": 4.62,
+        "pen_est": 7.42,
+        "err_pp": 2.79
+      },
+      {
+        "state": "DC",
+        "pen_true": 16.96,
+        "pen_est": 17.99,
+        "err_pp": 1.03
+      },
+      {
+        "state": "DE",
+        "pen_true": 53.23,
+        "pen_est": 56.54,
+        "err_pp": 3.31
+      },
+      {
+        "state": "ME",
+        "pen_true": 45.54,
+        "pen_est": 46.48,
+        "err_pp": 0.94
+      },
+      {
+        "state": "VT",
+        "pen_true": 51.61,
+        "pen_est": 52.13,
+        "err_pp": 0.52
+      },
+      {
+        "state": "WY",
+        "pen_true": 6.81,
+        "pen_est": 11.1,
+        "err_pp": 4.28
+      }
+    ]
+  },
+  "backcast": [
+    {
+      "year": 2014,
+      "vt": 60.7,
+      "synthetic_mssp": 12.9,
+      "synthetic_incl_pioneer": 15.4,
+      "gap_pp": 45.3,
+      "vt_fallback_pct": 14.4,
+      "iowa_fallback_pct": 41.0
+    },
+    {
+      "year": 2015,
+      "vt": 54.0,
+      "synthetic_mssp": 15.0,
+      "synthetic_incl_pioneer": 15.0,
+      "gap_pp": 39.0,
+      "vt_fallback_pct": 3.8,
+      "iowa_fallback_pct": 38.2
+    }
+  ]
+}

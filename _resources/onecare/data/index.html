@@ -22,11 +22,35 @@ directory (Python, matplotlib, pandas).</p>
     <tr><td><a href="/_resources/onecare/data/vermont_gap_spending.csv">vermont_gap_spending.csv</a></td>
         <td>Vermont's Medicare spending gap (actual &minus; synthetic) per beneficiary-year.</td></tr>
     <tr><td><a href="/_resources/onecare/data/placebo_gaps_spending.csv">placebo_gaps_spending.csv</a></td>
-        <td>The same spending gap computed for all 49 placebo states — the permutation distribution behind p&nbsp;=&nbsp;0.64.</td></tr>
+        <td>The same spending gap computed for all 49 placebo states — the permutation distribution behind p&nbsp;=&nbsp;0.32.</td></tr>
     <tr><td><a href="/_resources/onecare/data/hospital_margins.csv">hospital_margins.csv</a></td>
         <td>Aggregate hospital total margins, Vermont / New Hampshire / US, from HCRIS.</td></tr>
     <tr><td><a href="/_resources/onecare/data/brfss_summary.csv">brfss_summary.csv</a></td>
         <td>BRFSS chronic-disease and access gaps, Vermont vs. peer mean, pre/post the 2018 boundary.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/county_dose_response.json">county_dose_response.json</a></td>
+        <td>County-level dose-response: change in Medicare spending regressed on change in ACO penetration across 2,702 counties, with the pre-trend placebo and the suppression sensitivity. The higher-powered design that returns a precisely estimated zero.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/mde.json">mde.json</a></td>
+        <td>Minimum detectable effect for the statewide synthetic control: the spending gap Vermont would have needed to reach each placebo rank, in dollars, as a share of its spending level, and converted to a per-attributed-life effect. The arithmetic behind the "unmeasurable by design" claim.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/scm_diagnostics.json">scm_diagnostics.json</a></td>
+        <td>Synthetic-control robustness: per-outcome pre-fit quality, both ranking statistics, leave-one-out donor sensitivity, the pre/post-2020 gap split, and the Medicare Advantage confound checks.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/overdose_vt_index_ci.csv">overdose_vt_index_ci.csv</a></td>
+        <td>Vermont overdose deaths indexed to 2015 with Poisson 95% bands — the uncertainty ribbon in figure 3.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/suicide_vt_peer_gap.csv">suicide_vt_peer_gap.csv</a></td>
+        <td>Vermont vs. six-peer age-adjusted suicide rates, 2005–2024, with the WONDER-to-MIOV seam marked. Also consumed by figure 3.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/margins_extended.csv">margins_extended.csv</a></td>
+        <td>Hospital total and operating margins, five states, 2018–2023, revenue-weighted from HCRIS — the margins table. See the operating-margin caveat in the methodology note before using the operating column across states.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/margins_extended_meanofratios.csv">margins_extended_meanofratios.csv</a></td>
+        <td>The same margins computed as an unweighted mean of hospital-level ratios rather than revenue-weighted, as a sensitivity check on the aggregation choice.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/settlements_attribution.csv">settlements_attribution.csv</a></td>
+        <td>OneCare settlement history and attributed lives by payer and performance year, as far as the public record allows — several GMCB cells are image exhibits and remain incomplete.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/aco_penetration_states.csv">aco_penetration_states.csv</a></td>
+        <td>Share of Medicare fee-for-service beneficiaries assigned to a Shared Savings Program ACO, by state and year 2016–2019, with the suppressed-cell bounds. The pre-treatment attenuation measure.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/aco_penetration.json">aco_penetration.json</a></td>
+        <td>Summary of the same: Vermont vs. synthetic Vermont by year, the Next Generation adjustment for donor states, and the 2017&ndash;2020 continuity check on one denominator.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/aco_penetration_backcast.csv">aco_penetration_backcast.csv</a></td>
+        <td>The same measure back-extended to 2014&ndash;2015 from ACO-level results files, with the per-state share of each estimate that relied on the fallback split.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/aco_penetration_backcast.json">aco_penetration_backcast.json</a></td>
+        <td>The back-cast summary, the rejected FFS-proportional rule and why, and the out-of-sample holdout scores (2016 shares &rarr; 2017 prediction &rarr; 2017 truth).</td></tr>
   </tbody>
 </table>
 </div>

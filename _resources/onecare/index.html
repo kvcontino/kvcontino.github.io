@@ -6,9 +6,10 @@ description: "What the public data says Vermont's eight-year all-payer ACO exper
 
 <p class="dek">For eight years Vermont ran the most ambitious all-payer payment experiment
 in the country, moving more than a billion dollars a year in provider payments through a
-single accountable care organization — though, as this accounting will show, only about four
-cents of each of those dollars ever changed how a provider was actually paid. It sunset at the
-end of 2025. This is an accounting of what the public data says it did — and did not — do.</p>
+single accountable care organization — though, as this accounting will show, at its peak only
+about four cents of every dollar Vermont spent on health care was ever paid in the way the
+model was built to pay it. It sunset at the end of 2025. This is an accounting of what the
+public data says it did — and did not — do.</p>
 
 <p class="meta">By Kevin Contino &middot; July 2026 &middot; Every figure below is rebuilt from
 public data; the code, the source files, and a
@@ -42,34 +43,111 @@ note</a> and the <a href="/_resources/onecare/data/">data</a> are there for exac
 comparison state doing all the work, I built a <em>synthetic Vermont</em> — a weighted blend of
 other states, fit to match Vermont's pre-model Medicare spending trajectory, then carried forward
 as the counterfactual. The gap between real and synthetic Vermont after 2018 is the model's
-apparent effect. One thing to hold onto about what this estimand can mean: Vermont was already a
-mature ACO state before 2018, and the donor states are ordinary ACO-saturated Medicare. So the
-number below is not "the model versus no reform" — it is the incremental effect of the
-<em>all-payer wrapper</em> over a baseline that already contained garden-variety Medicare ACO
-participation.</p>
+apparent effect.</p>
+
+<p>One thing has to be held onto about what this estimand can mean, and it bears on every null
+below. Vermont was already a mature ACO state well before the treatment date. OneCare entered the
+Medicare Shared Savings Program in 2013 — the same payer as the outcome measured here, five years
+early. The state's commercial and Medicaid shared-savings programs began on January 1, 2014, the
+first year of the pre-period fit. And Vermont Medicaid Next Generation — the one mechanism this
+essay will conclude was ever real — launched in 2017, <em>inside</em> the pre-period, with four
+risk-bearing hospital communities and about 29,000 attributed lives. The line marked 2018 is not the
+line between reform and no reform. It is the line between one kind of ACO and a slightly different
+one.</p>
+
+<p>That is measurable, so I measured it. CMS publishes assigned-beneficiary counts by county for
+every Shared Savings Program ACO; aggregating those to state of residence and dividing by each
+state's Medicare fee-for-service population gives a like-for-like ACO penetration rate. Vermont
+entered the model as the second-most ACO-saturated state in the country.</p>
+
+<figure>
+  <img src="/_resources/onecare/figures/fig7_aco_penetration.svg"
+       alt="Two panels. Left: all 51 states ranked by the share of Medicare fee-for-service beneficiaries assigned to a Shared Savings Program ACO in 2017, from Alaska at 5 percent up to Delaware at 53 percent; Vermont is highlighted second from the top at 52 percent, with Maine at 46, Iowa at 31 and DC at 17 marked, and a dashed line at synthetic Vermont's 32 percent. Right: Vermont versus synthetic Vermont across 2014 to 2017, Vermont falling from 61 to 45 percent and back to 52 while the synthetic rises from 15 to 24 percent; the 2014 and 2015 points are drawn with open markers and dashed lines to mark them as estimated.">
+  <figcaption><strong>Vermont ran between 45% and 61% of its Medicare fee-for-service population
+  inside an ACO across the synthetic control's entire pre-period — roughly two to three times its
+  own comparator in every year.</strong> The 2016–17 figures are measured from county-level
+  assignment files; 2014–15 are estimated from ACO-level counts split by each ACO's own state mix,
+  a method whose out-of-sample error on 2017 is 1.8 points nationally and 0.5 points for Vermont.
+  Suppressed small cells count as zero, so each figure is a lower bound. Sources: CMS
+  <a class="external" href="https://data.cms.gov/medicare-shared-savings-program/number-of-accountable-care-organization-assigned-beneficiaries-by-county">Number
+  of ACO Assigned Beneficiaries by County</a>, CMS Shared Savings Program Performance Year results,
+  and the Medicare Geographic Variation PUF.</figcaption>
+</figure>
+
+<p>In 2017, 60,480 of Vermont's 117,186 fee-for-service beneficiaries were already assigned to an
+ACO — behind only Delaware. Its synthetic control sat at about 25%. That comparison is if anything
+too kind to my own argument, because the Shared Savings Program was not the only ACO game: Maine,
+which carries the second-largest donor weight, also ran a Next Generation ACO, which this file does
+not cover. Vermont ran none — no Next Generation, no Pioneer — so Vermont's figure is complete while
+the donors' are understated. Adding Maine's Next Generation population back lifts synthetic Vermont
+to about 26%. <strong>Vermont went into 2018 some twenty-five percentage points more ACO-penetrated
+than its own counterfactual — roughly twice as saturated.</strong> It is also worth seeing how
+unlike each other the donors are on this measure: Delaware sits at 53%, Wyoming under 7%. Whatever
+the donor blend is matching Vermont on, it is not accountable-care exposure.</p>
+
+<p>Nor is this a late-arriving feature of the pre-period. The county files begin in 2016, but the
+ACO-level results files reach back further, and splitting each ACO's beneficiaries by its own
+observed state mix carries Vermont's series back to the start of the fit window. That method is
+worth one sentence of defence, because the obvious alternative is wrong: splitting a multi-state
+ACO in proportion to state population puts only a third of OneCare in Vermont, when OneCare is
+about 95% Vermont, and it misses the true 2016 figure by 29 points. Splitting by each ACO's own
+mix instead — learned from 2016 alone, then tested against 2017, a year the fitting never saw —
+lands within 0.5 points for Vermont and 1.8 nationally. On that footing Vermont ran <strong>61% in
+2014 and 54% in 2015</strong>, against a synthetic control near 15% in both years. Vermont's ACO
+penetration never fell below 45% in any year the synthetic control was fitted on. The pre-period
+this design treats as clean baseline is nothing of the kind.</p>
+
+<p>Three consequences follow, and I want all three on the table. First, the estimate below is not
+"the model versus no reform" but the increment of the <em>all-payer wrapper</em> over an ACO
+baseline — attenuated before any data was collected, so a null against it is weaker evidence than a
+null against an untreated comparison. Second, and cutting the other way, the specification this
+essay uses assumes that pre-existing gap away. Matching Vermont's pre-period shape and shifting the
+counterfactual onto Vermont's own level treats the level offset as a nuisance — but if any part of
+it is accumulated pre-2018 ACO effect rather than the donor pool's failure to reach Vermont's low
+spending, the specification is subtracting real signal along with the nuisance. I lean to the
+donor-pool explanation as the more parsimonious one, and the essay's estimate is smaller for having
+made that choice. It is a choice, not a finding, and it is the single assumption most worth
+attacking.</p>
+
+<p>Third — and this one is not a caveat but a finding. If the all-payer model was a step change in
+accountable care, the count should jump in 2018. It does not. Vermont's Shared Savings Program
+number falls off a cliff that year, but only because OneCare <em>left</em> that program for the
+all-payer model's own Medicare track, which CMS reports separately; the beneficiaries did not go
+anywhere. Put both regimes on one denominator and Vermont ran 51.6% of its fee-for-service
+population inside an ACO in 2017 and 41.5% in 2020, the model's third performance year. It did not
+rise. The federal evaluation's more familiar 57.5% is a share of attribution-<em>eligible</em>
+beneficiaries, a narrower denominator, and the two numbers must not be set side by side without that
+restatement. On a consistent count, joining the most ambitious payment experiment in the country did
+not put a single additional Vermonter inside an accountable care organization. It changed the
+contract governing people who were already in one — which is the same finding the scale targets and
+the four cents reach by two other routes.</p>
 
 <figure>
   <img src="/_resources/onecare/figures/fig1_spending.svg"
        alt="Three panels: Vermont vs synthetic Vermont Medicare spending per capita 2014–2024, tracking closely with a 2020 reference line marking the pandemic; the gap between them, which is already negative before 2018 and widens after; and Vermont's gap laid against 49 placebo states, where it sits unremarkably in the middle of the pack.">
-  <figcaption><strong>Vermont Medicare spending ran below its synthetic control after 2018 — by
-  about $462 per beneficiary-year net of the pre-period gap.</strong> The direction matches the
-  federal evaluation. But when the same procedure is run on all 49 other states as placebos
-  (right panel), Vermont's gap is unremarkable: a permutation test puts it at p&nbsp;=&nbsp;0.64.
+  <figcaption><strong>Vermont Medicare spending ran about $351 per beneficiary-year below its
+  synthetic control after 2018 — roughly 4%.</strong> The direction matches the federal evaluation.
+  But when the same procedure is run on all 49 other states as placebos (right panel), Vermont's gap
+  is unremarkable: a permutation test puts it at p&nbsp;=&nbsp;0.32.
   A 2020 reference line marks the pandemic, which dominates five of the seven post-model years.
   Source: <a class="external" href="https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-geographic-comparisons/medicare-geographic-variation-by-national-state-county">CMS
   Medicare Geographic Variation PUF</a>, price-standardized Original Medicare.</figcaption>
 </figure>
 
-<p>The savings replicate in direction and not in significance, and they are fragile in three
-separate ways. The pre-period fit is the worst of the three outcomes — Vermont sits near the
-bottom of the national spending distribution and no donor blend fully reaches it, so the fit is off
-by about 4% of the level even before treatment. The point estimate is a two-state tug-of-war:
-dropping either of the two dominant donors swings the 2024 gap from &minus;$567 to &minus;$1,111.
-And the direction, though real, does not clear a placebo test. Two of those three are the kind of
-thing a hostile analyst would seize on, so I am flagging them myself.</p>
+<p>The savings replicate in direction and not in significance, and the estimate remains fragile in
+a way the specification does not fix. Vermont sits near the bottom of the national spending
+distribution and no blend of donors reaches its level, so the fit here matches the <em>shape</em> of
+Vermont's pre-period and shifts the counterfactual onto Vermont's own level — the intercept-shifted
+specification described in the <a href="/_resources/onecare/methodology.html">methodology note</a>,
+which replaced an earlier one that matched on levels and fit far worse. That buys a great deal of
+precision and it hides a problem: held out of its own fit, the spending model predicts 2017 with an
+error of $103 while reporting an in-sample error of $3. It understates its own uncertainty roughly
+thirty-sevenfold. The honest noise floor for this outcome is the $103, not the $3, and every
+sensitivity claim below is built on the former. Of the three outcomes this is the one whose fit
+generalises worst — a hostile analyst would seize on it, so I am flagging it myself.</p>
 
 <p>There is a fourth problem, and it cuts the other way from how it first reads. Netted against the
-pre-period, the &minus;$462 gap is roughly 4–5% of Medicare spending — and that is a <em>gross</em>
+pre-period, the &minus;$351 gap is roughly 4% of Medicare spending — and that is a <em>gross</em>
 figure, before any side payments, from a mechanism that reached four cents of every dollar. The
 benchmark that matters is hospital-led ACOs, because that is what OneCare is. In the Shared Savings
 Program, McWilliams and colleagues found that hospital-integrated ACOs' spending reductions were
@@ -98,35 +176,61 @@ on one scale and the ED series is the one that moved.</p>
   <img src="/_resources/onecare/figures/fig2_outcomes.svg"
        alt="Three panels at one shared scale showing Vermont's gap versus its synthetic control as a percentage, with a 2020 reference line: spending about 8 percent below counterfactual, inpatient stays flat on zero, and emergency department visits rising to about plus 18 percent by 2024, most of the rise after 2020.">
   <figcaption><strong>Inpatient stays never moved; emergency-department visits rose against the
-  counterfactual — most of it after 2020.</strong> Vermont's ED gap reached roughly +18% by 2024
-  (placebo p&nbsp;=&nbsp;0.18, rank about 9th of 50 — the strongest signal in the data, but short
-  of significance). Inpatient utilization is flat (p&nbsp;=&nbsp;1.00). A 2020 reference line marks
+  counterfactual — most of it after 2020.</strong> Vermont's ED gap reached roughly +28% by 2024,
+  averaging +16% across the post-period (placebo p&nbsp;=&nbsp;0.04, second of 50 — and the only
+  outcome here that clears a conventional threshold). Inpatient utilization is flat
+  (p&nbsp;=&nbsp;0.62). A 2020 reference line marks
   the pandemic; 86% of the cumulative ED gap accrues after it. Source: CMS Geographic Variation PUF;
   see the <a href="/_resources/onecare/methodology.html">methodology note</a> for the outcome
   definitions.</figcaption>
 </figure>
 
-<p>This is the finding a reader is most tempted to treat as a verdict, so it is worth being exact
-about what standard it meets and what it does not. The model neither prevented the ED rise nor
-plausibly caused it, and at four percent penetration it was not positioned to do either. The signal
-is real enough to report — it is the highest-ranked of the three outcomes against placebos — but
-the placebo p is 0.18, not 0.02, which on 50 states means Vermont is roughly the ninth-most-extreme,
-not an outlier. And three things keep it from indicting the model:</p>
+<p>Vermont's emergency-department use diverged from its counterfactual, and the divergence is real:
+p&nbsp;=&nbsp;0.04, second-most-extreme of fifty states, on the outcome whose fit generalises best —
+held out of its own estimation the ED model predicts 2017 almost exactly, so its precision is earned
+rather than borrowed. This is the one place in the statewide data where something clearly happened.
+It also runs opposite to the direction the model's theory predicts. An organization paid to manage a
+population was supposed to move care upstream and out of the emergency department; Vermont's ED rate
+went the other way, and kept going after the model ended its scale-up.</p>
 
-<p><strong>The federal evaluation points the same way, not the other.</strong> NORC's own
+<p>What the finding establishes is a divergence, not its cause. Two rival explanations are live, and
+both would produce this pattern without any help from the payment model — so the section below is
+about which of the three is doing the work, not about whether the result counts.</p>
+
+<p><strong>The federal evaluation finds the same direction in the attributed population.</strong> NORC's own
 beneficiary-level measure for the attributed Medicare population — ED visits and observation stays
 combined — also <em>rose</em>, by 40.7 per 1,000 (about 8% above baseline), non-significant
-(p&nbsp;=&nbsp;0.32), directionally consistent with the statewide climb here. The one utilization
-measure NORC found significant was a <em>fall</em> in acute inpatient stays (&minus;35.6 per 1,000,
-p&nbsp;&lt;&nbsp;0.10) — and part of that decline is deliberate substitution of observation stays for
-admissions, which lands inside the ED-and-observation measure. So flat inpatient counts alongside a
-rising ED-and-observation count is partly the admission-to-observation signature that ACO theory
-predicts as a <em>success</em>. The testable promise the data can see (all ED visits) is coarser than
-the promise the theory makes (avoidable ED visits); the coarser measure cannot cleanly separate the
-two. This is the closest the attributed-population evaluation comes to the statewide finding, and it
-corroborates rather than contradicts it.</p>
+(p&nbsp;=&nbsp;0.32), directionally consistent with the statewide climb here. Within NORC's
+hospital-and-ED block, the only significant result was a <em>fall</em> in acute inpatient stays
+(&minus;35.6 per 1,000, p&nbsp;&lt;&nbsp;0.10) — and part of that decline is deliberate substitution
+of observation stays for admissions, which lands inside the ED-and-observation measure. So flat
+inpatient counts alongside a rising ED-and-observation count is partly the admission-to-observation
+signature that ACO theory predicts as a <em>success</em>. The testable promise the data can see (all
+ED visits) is coarser than the promise the theory makes (avoidable ED visits); the coarser measure
+cannot cleanly separate the two. The relevant point for the statewide result is that the
+attributed-population evaluation moves the same way: two independent designs, on different
+populations with different comparators, both find Vermont's emergency-department contact rising.
+That is corroboration, and it is why the divergence should be taken as real rather than as an
+artifact of one specification.</p>
 
-<p><strong>Most of the gap is post-2020, and there is a live rival for it.</strong> A modest gap was
+<p>One NORC result sits outside that block and is larger than anything in it, so it belongs here
+rather than in a footnote: <strong>specialty-care evaluation-and-management visits fell by 3,370 per
+1,000 beneficiary-years against a baseline of 7,615 — a 44% drop, and the most significant estimate
+in the evaluation at p&nbsp;=&nbsp;0.000.</strong> It is filed under care delivery rather than
+hospital utilization, which is why the sentence above is scoped the way it is, but the section's own
+framing of the promise — "more primary care" — puts it in play. It admits two readings and the data
+does not choose between them. Read one way it is the model's theory working: care moving off the
+specialty ladder is what an ACO paid to manage a population is supposed to produce. Read the other,
+it is reduced access to specialists in a state with known workforce shortages, which is the moderate
+version of the rationing critique and a good deal harder to dismiss than the 20,000-deaths version
+taken apart below. Two things keep either reading from being banked. Primary-care E&amp;M visits rose
+in the same table but not significantly (+1,255.8, p&nbsp;=&nbsp;0.240), so the substitution the
+favorable reading needs is not established; and ambulatory-care-sensitive hospitalizations — the
+direct measure of the avoidable admissions both readings imply should move — sat at +0.1 per 1,000,
+p&nbsp;=&nbsp;0.971. Something real happened to specialty contact. Neither the essay nor NORC can say
+what it did to anyone.</p>
+
+<p><strong>Rival one: the workforce and boarding crisis.</strong> A modest gap was
 already visible in 2018–19 (about +29 per 1,000), but the divergence roughly doubles after 2020 and
 the post-2020 years account for 86% of the cumulative total — squarely the window of the national
 and Vermont-specific ED-boarding and workforce crisis, which NORC names as its own explanation.
@@ -138,14 +242,44 @@ synthetic comparator's in exactly that year. If healthier beneficiaries are the 
 the shrinking denominator mechanically inflates per-capita FFS spending and ED rates with no change
 in real utilization. Robustness checks that match MA penetration in the pre-period move the estimate
 by less than 2% — but by construction they cannot reach a divergence that opens up entirely after
-2021, which is exactly where the reviewers said to expect it to hide.</p>
+2021, which is exactly where it would hide. Call this rival two: a compositional artifact rather than
+a change in anyone's behaviour. Neither rival is idle, and neither is established. The workforce
+explanation has to account for the gap that was already open in 2018–19, before the crisis; the
+denominator explanation has to account for the divergence continuing to widen through 2024, well
+after the initial Medicare Advantage shift. Both are more parsimonious than a payment mechanism
+reaching four cents of the dollar, which is the third candidate and the weakest of them.</p>
 
-<p><strong>This was the best of three outcomes.</strong> Three outcomes were tested; under the
-global null, one p around 0.18 in three tries is unremarkable, and the section is on the one that
-came out most extreme. Unlike the pre-registered wind-down test below, this retrospective synthetic
-control was not pre-registered. So the honest claim is narrow: in the one place the model made a
-falsifiable promise about the point of care, the data did not move in its favor, and it did not move
-enough against it to convict. The resolution is pre-registered as hypothesis H5 — if the +18% gap
+<p><strong>The finer measure the theory actually names points the other way.</strong> This essay
+has said twice that all-ED-visits is a coarser thing than the avoidable-ED-visits the model promised
+to reduce, and that the coarser measure cannot separate them. Vermont's all-payer claims database
+can. A 2023 analysis of VHCURES commissioned by the Green Mountain Care Board classified every
+Vermont emergency-department visit from 2017 to 2021 using the NYU avoidability algorithm, and
+<strong>the avoidable share fell for every payer</strong>: 34% to 29% for Medicare, 38% to 31% for
+Medicaid, 32% to 27% for commercial, with total avoidable-ED spending growth running about
+&minus;2% a year. Put that beside the finding above and the picture changes shape. Vermont's total
+Medicare ED rate was roughly flat from 2017 to 2024 (662 to 672 per 1,000) while its synthetic
+comparator's fell — that divergence is what the p&nbsp;=&nbsp;0.04 is measuring — but within those
+visits, the share the model was actually supposed to prevent was declining. Multiply the two through
+and avoidable ED visits per Vermont beneficiary come out close to flat, with the rise concentrated in
+visits no care-coordination programme claims to avert.</p>
+
+<p>Two limits on that, both real. The VHCURES series has <em>no comparison group</em> — it is
+Vermont against its own past, the exact target-versus-baseline construction this essay criticises
+elsewhere, and avoidable-ED shares were falling nationally over the same window. And it stops in
+2021, before the largest part of the divergence above accrues. So it cannot exonerate the model, and
+I am not claiming it does. What it does is remove the strongest available reading of the ED result:
+the statewide series was never evidence that the model failed on its own stated margin, because on
+that margin, measured directly, Vermont moved the way the theory wanted. The honest summary is that
+Vermont's emergency departments got busier relative to comparators, that the increase was not in
+avoidable visits, and that nobody has run the comparison that would say why.</p>
+
+<p><strong>Two statistical qualifications, stated once.</strong> Three outcomes were tested and
+this is the section on the one that came out most extreme; a p of 0.04 in three tries corresponds to
+roughly a one-in-nine chance under the global null. And this retrospective synthetic control was not
+pre-registered, and its specification was revised once after the first results were seen — disclosed
+in the <a href="/_resources/onecare/methodology.html#appendix">appendix</a> because a reader should
+be able to weigh it. Neither qualification makes the divergence go away; both mean it should be
+carried as a strong signal awaiting an out-of-sample test rather than as a settled fact. The resolution is pre-registered as hypothesis H5 — if the gap
 was model-caused, removing the model should bend it; continued growth on trend exonerates the model
 on this margin.</p>
 
@@ -212,7 +346,12 @@ Medicare beneficiaries the model had to enroll — it fell short throughout, and
 <em>waived enforcement in October 2021</em>, deeming the targets unattainable.</p>
 
 <p>That scale failure is the state's own official version of the four-cents finding: by the
-government's own scoreboard the model never reached the reach it was built to reach. What the
+government's own scoreboard the model never reached the reach it was built to reach. An independent
+count agrees. Measured against all Medicare fee-for-service beneficiaries rather than the narrower
+attribution-eligible population, Vermont's ACO-enrolled share ran 51.6% the year before the model
+began and 41.5% in 2020 — the model did not expand accountable care in Medicare so much as re-paper
+it. The scale targets and the federal ACO assignment files, compiled by different people for
+different purposes, land in the same place. What the
 scoreboard cannot do is credit the growth hit as an <em>effect</em>. The growth targets were set
 against Vermont's own projected baseline, not against what comparable states actually did, and with
 no comparator a target beaten is a projection beaten — which is why the synthetic control, not the
@@ -281,16 +420,169 @@ refusal to read a number as more than it is.</p>
 
 <hr>
 
+<h2>One hearing, five hours</h2>
+
+<p>Everything above is aggregate. It is worth stopping once in a room, because the central finding of
+this essay was said out loud in one — under oath, by the people who ran the model — four years before
+I went looking for it in the data.</p>
+
+<p>On November 9, 2022, OneCare came before the Green Mountain Care Board for its fiscal year 2023
+budget hearing. The board was newly constituted and its chair, Owen Foster, opened with an
+admonition rather than a welcome:</p>
+
+<blockquote>
+  <p>To my eye, the fiscal year 2022 presentation by OneCare was not particularly well-focused. It was
+  long on process and light on demonstrable results. […] So I ask OneCare to please concentrate your
+  remarks on objectively showing the impact OneCare has had, not through one-off anecdotes but
+  quantifiable metrics and analysis that tie back to OneCare's work.</p>
+</blockquote>
+
+<p>He added that the witnesses were under oath, and that "obfuscation or misleading responses are
+detrimental to this board's review and the process." Five hours later the board had not gotten what
+it asked for. The exchange that matters most for this essay took two questions:</p>
+
+<blockquote>
+  <p><strong>MR. FOSTER:</strong> And in terms of shifting people to value-based care, it looks like
+  only one payer is actually doing unreconciled fixed-perspective payment. Is that right?<br>
+  <strong>MS. LONER:</strong> That is correct.<br>
+  <strong>MR. FOSTER:</strong> So how would investing more in population health increase that
+  output?<br>
+  <strong>MS. LONER:</strong> So I think of the two things as very different. You're talking about
+  fixed, predictable payments. […] That is, indeed, only being offered by one payer, Medicaid, right
+  now. The state doesn't have a means to force commercial payers to enter into fixed arrangements.
+  And through the agreement with the state, Medicare has signaled to the state through that agreement
+  that they will not offer fixed prospective payments.</p>
+</blockquote>
+
+<p>That is the chief executive of the all-payer model's only ACO confirming, in year five of eight,
+that the all-payer model had one payer. The next section is arithmetic performed on that answer.
+Later in the same hearing a board member read the number straight off page 22 of OneCare's own
+submission: of $306 million in Medicaid total cost of care, "only 171 million's unreconciled" — the
+rest still billed fee-for-service. Nobody in the room disputed it. OneCare's finance vice-president
+explained the gap and moved on.</p>
+
+<p>The rest of Loner's answer deserves more than the quotation marks I have put around it, because it
+is the best defense available to the model and it comes from the witness. She named two constraints,
+neither of which was hers. The state had no means to compel commercial payers into fixed
+arrangements — a limit that traces to the 1985 Supreme Court decision holding self-funded employer
+plans beyond the reach of state insurance law, which is why "all-payer" was voluntary for the payers
+that mattered most. And Medicare, through the very agreement that created the model, had signalled it
+would not offer fixed prospective payment. Take both seriously and four cents stops being a story
+about an organization that failed to execute and becomes a story about a ceiling set by the federal
+counterparty and by federal law, with the state holding an instrument that could only reach Medicaid.
+That reframing survives everything else in this essay, and it should change who the finding is about.
+It does not rescue the design: a state that accepts a payment-reform mandate it has no authority to
+deliver, and then spends eight years and nine figures administering the fraction it can reach, has
+still made a choice worth auditing. But the choice was made in 2016, by the people who signed an
+agreement without a rate provision — not in the years afterward by the people asked to explain it.</p>
+
+<p>What the board could not get was evidence. Asked for OneCare's top three key performance
+indicators — six years in — the answer was that ten or twelve were with the UVM health-services
+research team and headed to OneCare's own board: "I don't want to be in front of our governance
+process in saying what those final measures are." Thom Walsh, a board member, put the standard as
+plainly as it can be put:</p>
+
+<blockquote>
+  <p>If there was a mature service organization following outcomes and working to improve processes,
+  we'd see tables and charts of where things were at the beginning, what's the — the current system
+  performance, what interventions have we utilized, and what's the performance now? […] I — I don't
+  see things like that in your submission. I see a lot of different grass from a lot of different
+  places and a lot of reference to federal government things.</p>
+</blockquote>
+
+<p>Walsh was also, in 2022, looking at the same two signals this essay reconstructs in 2026: he noted
+that suicides were at an all-time high in Vermont and that OneCare's emergency-department visits ran
+"twenty-nine to thirty-seven percent above those of comparison ACOs." The figures were on the record
+the whole time. What the board wanted was somebody to connect them to the money, and what it got, on
+the question of timeframe, was this:</p>
+
+<blockquote>
+  <p>[…] how do you manage these one-year payer-contract cycles and performance expectations with mid-
+  and long-term outcomes that our clinicians remind us all the time it's going to take years, decades,
+  generations to address.</p>
+  <p class="src" style="margin-top:0.7em;font-size:0.85em;">Spoken by OneCare's chief operating
+  officer, per VTDigger's contemporaneous report. The official transcript labels the speaker as a
+  board member, which the content contradicts — "all levels of <em>our</em> governance," "we as the
+  staff at OneCare." I read that as a transcription error and name no speaker above.</p>
+</blockquote>
+
+<p>I read this transcript in 2023 and came away with five questions. The third was the one that
+stuck, and it is the one this essay exists to answer: what percentage of Vermont health-care dollars
+actually moves under the arrangement being described? I want to be careful about what the generational
+answer does and does not show, because the easy reading is the wrong one. It is not evidence of bad
+faith. Delivery-system change really is slow, and the mortality caveat above concedes as much on the
+measures where it applies. What it is, is a defense with no expiry — and it sits oddly beside what
+OneCare said its own work was. Asked in that same hearing what the organization actually did, Loner
+named three core capabilities: "the contracting, the data and analytics, and the payment reform
+mechanisms." None of those is a generational project. All three can be reported year over year. Asked
+next whether she had "any sort of hierarchy or basis to opine on which are the most effective at
+curbing costs," she answered: "I don't know that I could answer that question." Set that beside a
+mechanism reaching
+four cents of the dollar and the shape of the problem is clear. The model was hard to evaluate
+because of how it was built, and the language around it made not evaluating it comfortable.</p>
+
+<hr>
+
 <h2>Four cents on the dollar</h2>
 
-<p>Here is the finding that reframes all the others. The model's premise — providers freed from
-fee-for-service, paid prospectively to manage a population — describes about <strong>four percent of
-Vermont health-care spending at its peak</strong>. Everything above is measured against a mechanism
-that, in dollar terms, barely existed.</p>
+<p>So: the model's premise — providers freed from fee-for-service, paid prospectively to manage a
+population — describes about <strong>four percent of Vermont health-care spending at its peak</strong>.
+Everything above is measured against a mechanism that, in dollar terms, barely existed.</p>
 
-<p>The arithmetic is not subtle. True unreconciled fixed prospective payment ran roughly
-$250–290 million in FY24, against a health-care system of about $6.4 billion. The GMCB's own budget
-order states plainly that Medicaid was the <em>only</em> payer offering it (¶51). Medicare's version —
+<p>This is not a new finding and I should not present it as one. Katie Jickling ran the same division
+for VTDigger in <a class="external" href="https://vtdigger.org/2021/04/16/all-payer-was-supposed-to-change-the-way-health-care-is-paid-for-four-years-later-it-hasnt/">April
+2021</a>, five years before this essay: about 13% of Vermont health-care spending flowed through
+OneCare, of which only 13% arrived as fixed monthly payments — "less than 2% overall." Loner confirmed
+then that Medicaid comprised the entire figure. Kevin Mullin, chairing the Green Mountain Care Board,
+called it <em>"abysmal"</em> and said the state was "way behind" a 25% expectation. What my number adds
+is not discovery but a series:</p>
+
+<div class="tablewrap">
+<table class="data">
+  <caption>Fixed prospective payment as a share of total Vermont health-care spending, three
+  independent vintages. Sources: VTDigger/GMCB (2021); OneCare FY2023 budget submission p. 22, as read
+  into the November 9, 2022 hearing record; GMCB FY24 ACO Budget Order ¶51.</caption>
+  <thead>
+    <tr><th>Year</th><th>Source</th><th class="num">Share of the health-care dollar</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2019</td><td>VTDigger, from GMCB figures</td><td class="num">under 2%</td></tr>
+    <tr><td>FY2023</td><td>OneCare's own budget submission ($171M of $306M)</td><td class="num">~2.8%</td></tr>
+    <tr><td>FY2024</td><td>GMCB budget order, this essay's calculation</td><td class="num">~4%</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Read down that column. The signature mechanism of the most ambitious payment experiment in the
+country doubled over five years and finished at four cents. It was never concealed: the regulator
+published it, a reporter divided it out and printed it in 2021, and the operator confirmed the
+arithmetic under oath in 2022. What was missing was never the number. It was somebody willing to set
+it next to the outcome claims and say that the second cannot mean much given the first.</p>
+
+<p>Two things have to be said before that column is allowed to carry any weight, because a hostile
+reader pulling the same budget orders will find both. <strong>Four cents is the strictest of three
+defensible definitions, and I chose it.</strong> Counting Medicare's all-inclusive population-based
+payment — prospective in cash flow, reconciled to fee-for-service at settlement — roughly doubles the
+figure to <strong>8–9%</strong>. Counting everything OneCare managed, total cost of care plus
+population-health programs, reaches about <strong>22%</strong>. I hold to the strict definition, for
+the reason the next paragraphs give: reconciled money leaves the provider facing fee-for-service
+economics at the margin, which is the thing the model was for. But a reader is entitled to the other
+two rungs, and to the fact that the headline is the smallest of them.</p>
+
+<p><strong>And the strict series is not as monotone as three tidy rows suggest.</strong> The broader
+prospective share — Medicare's reconciled payment included — ran near <strong>68% in FY18</strong>,
+collapsed to <strong>31–34% across FY21–23</strong> as hospitals exited the Medicare arrangement and
+COVID narrowed everything, and rebuilt only to <strong>44% in FY24 and 41% in FY25</strong>, never
+regaining two-thirds of where it started. That is a different shape from the rising line above:
+mechanism reach fell for most of the model's life and recovered late. It does not change the strict
+number the marquee claim rests on, and it does not rescue the model — a measure that ends well below
+where it began is not a success story either. But "doubled over five years" is the strict measure's
+shape, not the model's, and the two should not be confused.</p>
+
+<p>The arithmetic underneath the last row is not subtle. True unreconciled fixed prospective payment
+ran roughly $250–290 million in FY24, against a health-care system of about $6.4 billion; the GMCB's
+own budget order repeats in writing what Loner said in the hearing, that Medicaid was the
+<em>only</em> payer offering it (¶51). Medicare's version —
 an all-inclusive population-based payment that, on paper, is a comprehensive prospective payment in
 lieu of fee-for-service — reconciled back to fee-for-service at settlement, so providers ultimately
 bore fee-for-service economics; both commercial payers stayed fee-for-service for all eight years.
@@ -362,15 +654,14 @@ worst in the region and commercial prices among the highest in the Northeast.</p
 too (&minus;1.7%), and the whole region took the same air-pocket: the 2020–21 spike from COVID Provider
 Relief Fund payments and a strong investment market unwound into a 2022 bond-and-equity bear market.
 Decompose Vermont's 13-point total-margin fall from 2021 to 2022 and its operating margin barely moved
-— essentially all of the swing was the collapse of non-operating income. The durable claim is the
-operating one, and it is worse for the model, not better: on operating margin Vermont ranked worst of
-its four regional peers in five of the model's last six years, not just in 2022. Its hospitals' underlying
-losses on patient care were the deepest in the neighborhood through most of the model's back half — a
-claim I attach the HCRIS caveat to every time, pending GMCB audited financials. The all-payer model did
+— essentially all of the swing was the collapse of non-operating income.</p>
+
+<p>What survives is the within-state trajectory: Vermont's operating margin did not recover across
+the model's back half while its total margin swung on investment returns. An earlier version ranked
+Vermont worst in the region on operating margin; that claim is withdrawn and the reasons are in the
+<a href="/_resources/onecare/methodology.html#appendix">appendix</a>. The all-payer model did
 not stabilize hospital finance; it coincided with the region's worst operating stretch in a decade,
-driven by labor and traveler costs, payer mix, and the price dynamics below. (The essay's earlier draft
-called this a failure of "global budgeting" — a category error the four-cents section corrects: Vermont
-never ran global budgets under this model. Those arrive with AHEAD in 2027.)</p>
+driven by labor and traveler costs, payer mix, and the price dynamics below.</p>
 
 <figure>
   <img src="/_resources/onecare/figures/fig6_prices.svg"
@@ -400,6 +691,20 @@ it never appears in the outcome data. The state's cost-containment vehicle was a
 company owned and governed by the state's dominant price-setters — the hospitals whose commercial prices
 the previous section shows rising. A cost-containment institution controlled by the entities whose costs
 it exists to contain is a governance fact worth stating plainly, and it was never on the public ledger.</p>
+
+<p>The November 2022 hearing put the sharpest version of it into the record, almost in passing.
+Foster asked the executives directly whether they were UVM Medical Center employees. They were —
+"our employment attachment is UVMMC," the chief operating officer said — and UVMMC set their
+salaries under its own compensation policy, with the OneCare board setting only the chief
+executive's. OneCare was a separate limited-liability 501(c)(3) whose sole member was UVMMC. So the
+entity charged with holding Vermont's dominant hospital network accountable for total cost of care
+was staffed by that network's employees, on that network's pay scale. In the same hearing OneCare
+was moving staff and analytics into the network itself and contracting the services back; a board
+member noted what that looked like from outside — "it's UVM employees taking UVM and data services
+under the CFO's management to aggregate quality and operational data throughout the whole state" —
+and got assurances about firewalls and protections rather than a change of course. None of this was
+hidden, and none of it appears in any outcome measure. It is the kind of fact that only shows up if
+somebody reads the transcript.</p>
 
 <p>Three quieter incentives held the arrangement together. First, an <strong>administrative shield</strong>:
 Advanced Alternative Payment Model status carried a Medicare exemption from the individual MIPS reporting
@@ -476,10 +781,9 @@ when — is beyond establishment counts entirely.</p>
 
 <h2>The ledger</h2>
 
-<p>The essay is called an accounting, so here is the account. The earlier version of this table
-carried a single societal figure — "≈ &minus;$32M ± a lot" — a signed point estimate whose sign flips
-with the essay's own placebo test. That was pseudo-precision. Below instead is the ledger by
-accounting stance, with each row's window, and with transfers (money moved within the system) kept
+<p>The essay is called an accounting, so here is the account. It gives no single net societal
+figure; an earlier version did, and the <a href="/_resources/onecare/methodology.html#appendix">appendix</a>
+records why that was pseudo-precision. Below instead is the ledger by accounting stance, with each row's window, and with transfers (money moved within the system) kept
 separate from resource costs (real deadweight), because conflating the two is how both the boosters
 and the critics have miscounted.</p>
 
@@ -487,7 +791,7 @@ and the critics have miscounted.</p>
 <table class="data">
   <caption>The account by frame. Transfers redistribute dollars within the system; resource costs are
   real deadweight. No net societal point estimate is given — its sign rests entirely on the NORC
-  Medicare estimate, which does not survive a placebo test. See the
+  Medicare estimate, which this essay's statewide analogue does not corroborate. See the
   <a href="/_resources/onecare/methodology.html">methodology note</a> for components and sources.</caption>
   <thead>
     <tr><th>Line</th><th>Accounting stance</th><th>Window</th><th class="num">Amount</th><th>Kind</th></tr>
@@ -545,9 +849,13 @@ successful ACO.</p>
   <em>E</em> (≈$150M, roughly independent of <em>f</em>, since shared savings are paid against negotiated
   benchmarks whether or not the savings were real) minus <em>f</em> times the savings <em>S</em> (≈$186M
   over the measured 2018–22 window). The break-even is <strong>f* = E/S ≈ 0.75–0.85</strong>: Vermont came
-  out ahead on federal dollars unless at least roughly three-quarters of the estimated savings were real —
-  and nothing in the evidence supports a number that high, since the placebo test (p&nbsp;=&nbsp;0.64, part
-  of the gap predating treatment) cannot certify even the sign. If the causal savings continued past 2022,
+  out ahead on federal dollars unless at least roughly three-quarters of the estimated savings were real.
+  I cannot bound <em>f</em> away from that number, and I should not pretend otherwise: the statewide
+  placebo test (p&nbsp;=&nbsp;0.32) is a weak instrument on this outcome, so it cannot be turned
+  around and used to cap <em>f</em>. NORC's own estimate
+  is the only direct evidence on <em>f</em>, and it points high. What the break-even does instead is
+  locate the question: the federal-dollar case for the model requires a large <em>f</em>, and a large
+  <em>f</em> is precisely the world in which the clinical case is strong too. If the causal savings continued past 2022,
   <em>S</em> grows and f* falls toward ~0.5; if instead one counts the gross settlements rather than the net
   retained, <em>E</em> rises enough that f* exceeds 1 — the extraction reading then wins outright, on every
   value of <em>f</em>. The verdict is monotone across the whole interior: there is no value of <em>f</em>
@@ -564,12 +872,56 @@ successful ACO.</p>
 <h2>What it means for AHEAD</h2>
 
 <p>The most policy-useful way to state the verdict is not "it was a wash." It is that the experiment was
-built such that its success or failure was, at the state level, largely unmeasurable. Take the dose (four
-cents of the dollar), the dilution (half of one payer, none of commercial), and the permutation floor (with
-about 49 placebos the finest detectable p is roughly 0.02) together, and the design could not have detected
-an effect of the size a four-percent mechanism could plausibly produce. A null from an underpowered test is
-not evidence of no effect; it is evidence the test could not see one. That is the lesson worth carrying, and
-it is a lesson about evaluation design as much as about payment reform.</p>
+built such that its success or failure was, at the state level, largely unmeasurable. Four things stack in
+the same direction. The <strong>dose</strong>: four cents of the dollar. The <strong>dilution</strong>: half
+of one payer, none of commercial. The <strong>attenuated contrast</strong>: Vermont entered 2018 with
+51.6% of its Medicare fee-for-service population already in an ACO — second in the nation, and about
+twenty points above its own synthetic control — so 2018 marks a change of ACO regime rather than the
+arrival of one, and the increment being tested is smaller than the reform being argued about. And the
+<strong>permutation floor</strong>: with about 49 placebos the finest detectable p is roughly 0.02. Put
+together, the design could not have detected an effect of the size a four-percent mechanism could plausibly
+produce. A null from an underpowered test is not evidence of no effect; it is evidence the test could not
+see one.</p>
+
+<p>That claim was an assertion in an earlier version of this essay, stacked out of four qualitative
+reasons, and a reader was entitled to ask for the number. Asking for it changed the answer, which is
+why the earlier specification is now recorded in an appendix rather than on this page. The test
+detects Vermont when its post-period deviation exceeds the placebo states'; working backwards from
+that distribution gives the smallest effect this design could have seen.
+<strong>Reaching conventional significance would have required a sustained spending gap of about
+$620 to $800 per beneficiary-year</strong>, against an actual gap of $394. Converted to the
+population the model actually reached — roughly 40% of fee-for-service beneficiaries — that is a
+per-attributed-life effect of roughly $1,500 to $1,900 a year, about <strong>two to two-and-a-half
+times</strong> the $758 the federal evaluation estimated.</p>
+
+<p>So the claim has to be narrowed, and narrowing it is the honest outcome of having computed it.
+The design was not blind. It was short by a factor of about two — close enough that a Vermont effect
+at twice NORC's estimated size would have registered, and far enough that an effect at NORC's actual
+size could not. The earlier version of this essay put that shortfall at a factor of nineteen and
+concluded no design could have seen anything; that was wrong, and it was wrong in the direction that
+flattered the argument. What is left is narrower and still holds: this design could not resolve an
+effect of the magnitude anyone actually claims for the model, and the reason is not subtle — a
+statewide series averages a treated half against an untreated half, and a state is one unit.</p>
+
+<p>What remains is a claim about the estimand rather than the estimator, and it is the more durable
+version. Better specification bought a factor of nine here, and a redesign buys more. Running the
+obvious one — a county-level dose-response across 2,702 counties in 50 states, regressing the change
+in Medicare spending on the change in ACO penetration with state fixed effects and errors clustered
+by state — resolves effects roughly eight times smaller than the statewide design can, and returns
+<strong>a precisely estimated zero</strong>: $0.24 per percentage point of penetration, standard
+error $0.76. Over the 50-point penetration spread that separates a saturated county from an
+unpenetrated one, that is $12 per beneficiary-year, against a detectable floor of about $105. A
+pre-trend placebo on the same specification is null, and counting the suppressed small cells at their
+upper bound rather than zero barely moves the coefficient. NORC's per-attributed-life estimate would
+imply about $7.58 per point; this design rules that out by roughly ten standard errors. Nationally,
+across every county CMS reports, accountable-care penetration does not move Medicare spending by
+anything close to the amount claimed for it. But that design answers a different question. It would measure what accountable-care penetration does in
+general; it cannot isolate what Vermont's all-payer wrapper did, because the wrapper was a
+state-level policy with one unit, and no amount of geographic resolution manufactures a second
+Vermont. The limit is not the analyst's arithmetic. It is that the thing being evaluated was
+implemented once, at a scale where the only clean comparison is to a Vermont that does not exist.
+(One note on the calculation: it assumes a constant post-period gap, the friendliest available
+assumption — a gap that grows over time would have to be larger still at its peak.)</p>
 
 <p>It bears directly on what came next, because the successor is not a continuation. AHEAD is a sunset, not
 a cancellation for failure — the agreement expired on schedule — and its design is itself evidence for the
@@ -605,9 +957,22 @@ when practice and reporting data land, and the second quarter of 2028, when the 
 
 <p>Until then, the accounting stands where the data leaves it. Vermont did not transform its health
 care and did not get robbed. It ran a careful, costly experiment on four percent of its
-health-care dollar, held the rest of the system constant, and learned — at real expense, and worth
-knowing — how little that four percent could move on its own, and how hard the design made it to
-tell.</p>
+health-care dollar, held the rest of the system constant, and cannot say what that four percent did —
+not because nobody looked, but because the experiment was built at a scale its own evaluation could
+not resolve. That is the finding. It is a smaller and stranger thing than either side wanted, and it
+is worth knowing.</p>
+
+<p>Which leaves the standard Thom Walsh set in that hearing room in 2022, and never got met: tables
+and charts of where things were at the beginning, what interventions were used, and what the
+performance is now. It was not an unreasonable thing to ask of an organization eight years and nine
+figures into the work — and it is worth being clear that the answer, honestly assembled, would have
+been mostly negative space. Not "here is what we achieved," but "here is what we can and cannot
+resolve, and why." Everything above is an outsider's attempt at that, four years late, built from
+public files by someone with no access to the claims data the model itself ran on. What I could not
+do from outside is exactly the point: the one payer that ran the mechanism has no causal analysis,
+and the claims database that might have supplied one is closed. The accounting anyone could do was
+always going to end here. The accounting that would have settled it was never going to come from
+outside — and it never came from inside either.</p>
 
 <hr>
 
@@ -622,8 +987,13 @@ themselves are reproduced by <code>build_figures.py</code> in that directory.</p
 <p class="src" style="font-size:0.85em;color:#9a9a9a;hyphens:none;text-align:left;">
 Primary sources:
 <a class="external" href="https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-geographic-comparisons/medicare-geographic-variation-by-national-state-county">CMS Medicare Geographic Variation PUF</a> &middot;
+<a class="external" href="https://data.cms.gov/medicare-shared-savings-program/number-of-accountable-care-organization-assigned-beneficiaries-by-county">CMS Number of ACO Assigned Beneficiaries by County (MSSP)</a> &middot;
+<a class="external" href="https://data.cms.gov/medicare-shared-savings-program/next-generation-accountable-care-organization-model-data">CMS Next Generation ACO Model Data</a> &middot;
+<a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/GMCB%20-%20Final%20PAU%20and%20Overuse%20Report%20%2812.29.23%29_0.pdf">Mathematica for GMCB, <em>Analysis of Overuse and Potentially Avoidable Use</em> (VHCURES, Dec 2023)</a> &middot;
 <a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/2024-12/VTAPM_FourthEvaluationReport.pdf">NORC Fourth Evaluation Report (2018–2022)</a> &middot;
 <a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/FY24%20ACO%20Budget%20Order%20OneCare%20Vermont%20Docket%20No.%2023-001-A%20_%20FINAL.pdf">GMCB FY24 OneCare Budget Order</a> &middot;
+<a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/VGMCB00008_GMCB%20Board%20Meeting_20221109_TRANSCRIPT.pdf">GMCB hearing transcript, OneCare FY2023 budget submission (November 9, 2022)</a> &middot;
+<a class="external" href="https://vtdigger.org/2021/04/16/all-payer-was-supposed-to-change-the-way-health-care-is-paid-for-four-years-later-it-hasnt/">Katie Jickling, <em>All-payer was supposed to change the way health care is paid for. Four years later, it hasn't.</em> (VTDigger, April 2021)</a> &middot;
 <a class="external" href="https://www.onecarevt.org/results-archives/">OneCare settlement results archive</a> &middot;
 <a class="external" href="https://data.cdc.gov/NCHS/VSRR-Provisional-Drug-Overdose-Death-Counts/xkb8-kh2a">CDC VSRR overdose counts</a> &middot;
 <a class="external" href="https://wonder.cdc.gov/">CDC WONDER underlying cause of death</a> &middot;
