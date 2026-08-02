@@ -9,8 +9,10 @@ description: "The generated result files and public inputs behind the OneCare ac
 raw archives are reproducible from the source links.</p>
 
 <p class="meta">Plain CSV and JSON &middot; regenerate the figures with
-<a href="/_resources/onecare/build_figures.py"><code>build_figures.py</code></a> in the parent
-directory (Python, matplotlib, pandas).</p>
+<a href="/_resources/onecare/build_figures.py"><code>build_figures.py</code></a> in the parent directory
+(Python, matplotlib, pandas); the estimates themselves rebuild from <code>analysis/</code> given the
+companion checkout — see the <a href="/_resources/onecare/methodology.html">methodology note</a> for
+which inputs are redistributed here and which must be downloaded.</p>
 
 <h2>Generated results</h2>
 <div class="tablewrap">
@@ -19,6 +21,8 @@ directory (Python, matplotlib, pandas).</p>
   <tbody>
     <tr><td><a href="/_resources/onecare/data/results_manifest.json">results_manifest.json</a></td>
         <td><strong>The authority for every published number.</strong> Current intercept-shifted fits for all three outcomes: actual, synthetic and gap series by year, donor weights, both placebo rankings, leave-one-pre-year-out diagnostics, donor sensitivity, predictor-set stability, the family-wise permutation across the three outcomes, and the stated limitations. The figures and the prose read from this file.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/ma_robustness.json">ma_robustness.json</a></td>
+        <td>Medicare Advantage robustness on the published specification: yearly-MA predictors and the &plusmn;10-point restricted donor pool, each with its own recomputed placebo rank, against the baseline.</td></tr>
     <tr><td><a href="/_resources/onecare/data/scm_placebo_statistics.csv">scm_placebo_statistics.csv</a></td>
         <td>Pre-period RMSPE, post-period RMSPE and their ratio for each of the 49 placebo states, per outcome, all from that same specification — the permutation distributions behind both rank columns, and the joint pre/post distribution plotted in figure 2b.</td></tr>
     <tr><td><a href="/_resources/onecare/data/synth_results.json">synth_results.json</a></td>
@@ -34,9 +38,9 @@ directory (Python, matplotlib, pandas).</p>
     <tr><td><a href="/_resources/onecare/data/county_dose_response.json">county_dose_response.json</a></td>
         <td>County-level dose-response: change in Medicare spending regressed on change in ACO penetration across 2,702 counties, with the pre-trend placebo and the suppression sensitivity. Resolves far smaller effects than the statewide design and finds none — but the regressor is endogenous, so this is a precise association, not an identified zero.</td></tr>
     <tr><td><a href="/_resources/onecare/data/mde.json">mde.json</a></td>
-        <td>Minimum detectable effect for the statewide synthetic control: the spending gap Vermont would have needed to reach each placebo rank, in dollars, as a share of its spending level, and converted to a per-attributed-life effect. The arithmetic behind the "unmeasurable by design" claim.</td></tr>
+        <td>Minimum detectable effect for the statewide synthetic control: the spending gap Vermont would have needed to reach each placebo rank, in dollars, as a share of its spending level, and converted to a per-attributed-life effect. Quoted on the post-period RMSPE scale, the same scale the test uses. The design falls short by roughly a factor of two, not by an order of magnitude.</td></tr>
     <tr><td><a href="/_resources/onecare/data/scm_diagnostics.json">scm_diagnostics.json</a></td>
-        <td>Diagnostics from the level-matched fit: donor sensitivity, the pre/post-2020 gap split, and the Medicare Advantage confound checks. Its ranking statistics and gaps are on a different specification from the published ones — for anything the manifest also carries, use the manifest. The Medicare Advantage enrolment series is the part not available elsewhere.</td></tr>
+        <td>Diagnostics from the level-matched fit. Its ranking statistics, gaps and Medicare Advantage robustness runs are on a different specification from the published ones — use the manifest and <code>ma_robustness.json</code> for those. The Medicare Advantage <em>enrolment</em> series by year is the part not available elsewhere.</td></tr>
     <tr><td><a href="/_resources/onecare/data/overdose_vt_index_ci.csv">overdose_vt_index_ci.csv</a></td>
         <td>Vermont overdose deaths indexed to 2015 with Poisson 95% bands — the uncertainty ribbon in figure 3.</td></tr>
     <tr><td><a href="/_resources/onecare/data/suicide_vt_peer_gap.csv">suicide_vt_peer_gap.csv</a></td>

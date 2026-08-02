@@ -266,30 +266,53 @@ extreme in placebo rank under either statistic, but "most extreme of three" is n
 "significant": 2nd of 50 on post-period RMSPE, 10th on the ratio, and 0.12 once corrected for the
 three co-primary outcomes. It is reported as the strongest signal in the data, not as a proven effect.</p>
 
-<p><strong>Medicare Advantage / denominator robustness.</strong> Because the PUF is fee-for-service only,
-differential MA growth is a live confound: Vermont's FFS denominator shrank 16.5% from its 2019 peak to
-2024, and its MA penetration crossed above its synthetic comparator's in 2022, the year UVM Health
-Advantage launched. Two robustness specifications — adding yearly MA penetration as a time-varying
-predictor, and restricting the donor pool to states within ±10 percentage points of Vermont's pre-period
-MA rate — moved the 2024 point estimates by less than 2%. This is genuinely informative but a structurally
-weak test of the actual worry: synthetic-control predictors are fixed at pre-treatment values, and the
-MA divergence opens up almost entirely after 2021, a window no pre-period-matching variant can reach by
-construction. The restricted pool also shrinks the placebo denominator to 11, whose finest achievable p is
-1/12&nbsp;=&nbsp;0.083, and ED lands exactly on that floor — a restricted-pool p bounded by its own pool
-size should not be set beside a full-pool p as if the two were on one scale.</p>
+<p><strong>Medicare Advantage / denominator robustness.</strong> Because the PUF is fee-for-service
+only, differential MA growth is a live confound: Vermont's FFS denominator shrank 16.5% from its 2019
+peak to 2024, and its MA penetration crossed above its synthetic comparator's in 2022, the year UVM
+Health Advantage launched. Two specifications address it, both refit on the published intercept-shifted
+model by <code>analysis/ma_robustness.py</code>, with placebo ranks recomputed inside each specification
+rather than borrowed from the baseline. <strong>(A) Yearly MA predictors</strong> replaces the single
+pre-period MA mean with one column per pre-period year, so a flat trajectory and a climbing one that
+share an average are no longer treated as identical. <strong>(B) Restricted donor pool</strong> keeps
+only the 11 states within &plusmn;10 points of Vermont's pre-period mean MA rate (8.3%): AK, DC, DE,
+IA, KS, MS, ND, NE, NH, OK, WY.</p>
 
-<p class="note"><strong>Both robustness specifications above are fit on the level-matched model, not
-the intercept-shifted one this page reports.</strong> Their internals show it: a pre-period RMSPE near
-$340 and a baseline 2024 spending gap of &minus;$801, against $15.69 and &minus;$625 under the
-published fit. The design argument they support does not depend on the anchoring — predictors fixed at
-pre-treatment values cannot police a composition change that opens after 2021 however the fit is
-anchored — but the "moved the point estimates by less than 2%" reassurance does, and the corresponding
-delta under the published specification is not yet computed. Read them as indicative only; refitting is
-tracked in <a href="#outstanding">§9</a>.</p>
+<div class="tablewrap">
+<table class="data">
+  <caption>Medicare Advantage robustness, intercept-shifted specification throughout. The restricted
+  pool has 11 donors, so its finest achievable p is 1/12&nbsp;=&nbsp;0.083 and its p is not on the same
+  scale as the full-pool figures.</caption>
+  <thead><tr><th>Specification</th><th class="num">Spending gap</th><th class="num">vs. baseline</th><th class="num">rank</th><th class="num">ED gap</th><th class="num">vs. baseline</th><th class="num">rank</th></tr></thead>
+  <tbody>
+    <tr><td><em>Baseline (published)</em></td><td class="num">&minus;$351</td><td class="num">—</td><td class="num">16/50</td><td class="num">+85.3</td><td class="num">—</td><td class="num">2/50</td></tr>
+    <tr><td>A. Yearly MA predictors</td><td class="num">&minus;$392</td><td class="num neg">&minus;11.5%</td><td class="num">12/50</td><td class="num">+83.4</td><td class="num">&minus;2.3%</td><td class="num hi">2/50</td></tr>
+    <tr><td>B. Restricted donor pool</td><td class="num">&minus;$429</td><td class="num neg">&minus;22.2%</td><td class="num">3/12</td><td class="num">+94.4</td><td class="num">+10.6%</td><td class="num hi">2/12</td></tr>
+  </tbody>
+</table>
+</div>
 
-<p>The conclusion stands as stated: FFS-denominator shrinkage is an unresolved rival
-explanation for the <em>late</em> portion of the ED and spending divergence, neither ruled in nor out by
-these checks, and it does not overturn the placebo inference.</p>
+<p>Two things follow, and they point in opposite directions for the two outcomes.</p>
+
+<p><strong>The old reassurance does not survive the respecification.</strong> On the superseded
+level-matched model these same two specifications moved the point estimates by less than 2%, and that
+number was quoted here as evidence the confound was small. Under the published model the spending
+estimate moves 11% and 22% — a real sensitivity, and one more reason the spending gap is reported
+without precision.</p>
+
+<p><strong>ED is unmoved where it matters.</strong> Its rank is 2nd under both specifications, and the
+gap moves by &minus;2.3% and <em>+10.6%</em> — controlling MA more aggressively makes the ED divergence
+slightly larger, not smaller. That is the opposite of what the confound story predicts. If differential
+MA growth were manufacturing the ED result, restricting the pool to states on Vermont's own MA
+trajectory should shrink it.</p>
+
+<p>None of which retires the worry, for a reason no version of this test can fix: synthetic-control
+predictors are fixed at pre-treatment values, and the MA divergence opens almost entirely after 2021 —
+a window no pre-period-matching variant can reach by construction. Restricting the donor pool on
+<em>pre-period</em> MA does not restrict it on post-period MA trajectories. So the honest statement is
+narrower than either "controlled for" or "unresolved": the confound is not doing the work in the
+direction these tests can see, and the direction they cannot see remains open. FFS-denominator
+shrinkage stays a live rival explanation for the <em>late</em> portion of the divergence, neither ruled
+in nor out, and it does not overturn the placebo inference.</p>
 
 <hr>
 
@@ -576,9 +599,11 @@ removal is a second natural experiment. These hypotheses, outcomes, and decision
 <strong>5 July 2026</strong>, before any 2026 outcome data existed or was public, so the retrospective
 cannot quietly rewrite itself to fit what arrives.</p>
 
-<p><strong>Design constraint.</strong> Vermont's AHEAD hospital global budgets begin 1 January 2027.
-<strong>2026 is the only clean post-model, pre-AHEAD year.</strong> Any analysis of 2027 and later must
-treat AHEAD as a second treatment, not a continuation of "no model."</p>
+<p><strong>Design constraint, as registered on 5 July 2026.</strong> Vermont's AHEAD hospital global
+budgets were scheduled to begin 1 January 2027, which made 2026 the only clean post-model,
+pre-AHEAD year; any analysis of 2027 and later would have had to treat AHEAD as a second treatment
+rather than a continuation of "no model." <strong>This constraint was removed by events — see the
+amendment below.</strong></p>
 
 <div class="tablewrap">
 <table class="data">
@@ -589,7 +614,7 @@ treat AHEAD as a second treatment, not a continuation of "no model."</p>
     <tr><td class="hi">H2</td><td>Waiver utilization</td><td>Benefit-enhancement waivers (e.g. the 3-day SNF-rule waiver) end with the ACO; SNF covered stays per 1,000 fall or shift in 2026. <em>Geo Variation PUF (weak proxy).</em></td></tr>
     <tr><td class="hi">H3</td><td>Primary-care contact</td><td>NORC found rising primary-care E&amp;M visits. If payment-driven, VT primary-care rates decline vs. synthetic in 2026; if workforce/telehealth-driven, no reversion. <em>Geo Variation PUF E&amp;M measures.</em></td></tr>
     <tr><td class="hi">H4</td><td>Practice stability</td><td>If fixed payments stabilized independent practices, attrition accelerates in 2026–27 without them. <em>CBP NAICS 6211; NPPES deactivations.</em></td></tr>
-    <tr><td class="hi">H5</td><td>ED trajectory</td><td>Asymmetric test: if the +18% ED gap was model-caused, it stabilizes or shrinks post-model; continued growth on trend exonerates the model on this margin.</td></tr>
+    <tr><td class="hi">H5</td><td>ED trajectory</td><td>Asymmetric test: if the ED gap was model-caused, it stabilizes or shrinks post-model; continued growth on trend exonerates the model on this margin.</td></tr>
     <tr><td class="hi">H6</td><td>Reporting burden</td><td>Providers revert to individual MIPS reporting; VT clinician MIPS participation/scores dip in PY2026 vs. national trend. <em>CMS QPP public files.</em></td></tr>
   </tbody>
 </table>
@@ -600,7 +625,8 @@ post-period as data lands; the 2026 gap and its placebo rank are the H1/H3/H5 te
 after seeing 2026 data — any additional models are labeled exploratory. Effect direction and placebo
 rank (top-5 of the donor pool, ≈ p&nbsp;&le;&nbsp;0.10) are the evidence bar; single-year, single-state
 estimates are noisy and are reported as evidence weight, not verdicts. Confounders to log rather than
-model away: AHEAD phase-in, Medicaid redetermination aftermath, UVMHN financial distress, and any 2026
+model away: the 2026 federal funding reduction and the Rural Health Transformation disbursements that
+replaced AHEAD, Medicaid redetermination aftermath, UVMHN financial distress, and any 2026
 Vermont payment legislation (a primary-care fixed-payment bill would directly contaminate H3/H4 —
 track its status).</p>
 
@@ -617,6 +643,30 @@ amendment, not a change to the frozen prediction. (The diagnostics, leave-one-ou
 Medicare-Advantage robustness material in Section 1, and the WONDER suicide extension in Section 2, were
 also added in this revision round; they harden the reported analysis without altering any frozen
 hypothesis.)</p>
+
+<p><strong>Post-registration amendment (2026-08-02): Vermont withdrew from AHEAD.</strong> In late
+July 2026 (reported 24–28 July) the state notified CMS that it would not proceed with the AHEAD model, after
+renegotiated federal terms cut the funding Vermont could reinvest in primary care from roughly $138
+million to about $10 million. Vermont is redirecting to the Rural Health Transformation Program (a
+$195 million first-year award, roughly $1 billion over five years) and has said it remains committed
+to hospital global budgets as a long-term goal but is not ready to implement them.</p>
+
+<p>This <em>loosens</em> the design in the one way that matters, and the loosening has to be recorded
+rather than quietly enjoyed. The frozen hypotheses are unchanged and no prediction is revised. But
+the binding constraint on the wind-down study was that a second treatment landed in January 2027,
+leaving a single clean post-model year. With AHEAD withdrawn and global budgets deferred to no
+announced date, <strong>2026, 2027 and 2028 are all clean post-model, pre-global-budget years unless
+and until Vermont announces an implementation date.</strong> Three post-period years instead of one
+is a material gain for a design this short — the minimum detectable effect in §1 is driven by the
+brevity of the series, and this is the first thing to change it in the right direction.</p>
+
+<p>Two guards go with it. Withdrawal is not the absence of a shock: the funding reduction that caused
+it is itself a change in the federal payment environment, and the Rural Health Transformation money
+begins arriving in the same window. Both are logged as confounders to track rather than treated as
+"no model." And the extension is contingent — if Vermont announces a global-budget start date, the
+clean window closes at that date and the pre-registration reverts to the original constraint. The
+review dates below are unchanged; what changes is that the 2028-Q2 review can now use more than one
+post-model year.</p>
 
 <hr>
 
@@ -637,13 +687,14 @@ claims and only the first is true here without a second download.</p>
   <tbody>
     <tr><td>Figures from derived results</td><td><code>python3 build_figures.py</code></td><td>This directory only. Python, matplotlib, pandas.</td></tr>
     <tr><td>Results manifest from the panel</td><td><code>python3 analysis/build_results.py</code></td><td>The companion checkout and the 56&nbsp;MB CMS panel. About two minutes.</td></tr>
+    <tr><td>Medicare Advantage robustness</td><td><code>python3 analysis/ma_robustness.py</code></td><td>Same inputs. About four minutes — it refits every placebo twice.</td></tr>
     <tr><td>The panel itself</td><td>manual download</td><td>CMS Geographic Variation PUF, vintage below.</td></tr>
   </tbody>
 </table>
 </div>
 
 <p><strong>Redistributed here:</strong> every derived CSV and JSON the figures read, including the
-full placebo distributions, and <code>analysis/build_results.py</code>.
+full placebo distributions, and the two scripts in <code>analysis/</code>.
 <strong>Not redistributed:</strong> the CMS Geographic Variation PUF, HCRIS cost reports and the CBP
 archives, all of which are large and all of which are public at the source links given in each
 section; and the estimation code proper — <code>synth_medicare.py</code>,
@@ -762,11 +813,12 @@ dataset or public use file, which would make a beneficiary-level Vermont analysi
 first time outside the state's own contractors — and would close the gap the essay names as its
 central one, that the only payer running true prospective payment has no causal outcome analysis at all.</p>
 
-<p id="outstanding"><strong>Known gap.</strong> The two Medicare Advantage robustness
-specifications in §1 — yearly MA predictors, and the &plusmn;10-point restricted donor pool — run on
-the level-matched fit rather than the intercept-shifted one reported here. Their design argument
-holds either way; their magnitudes are indicative only until both are refit, which is the next
-scheduled work on this page.</p>
+<p id="outstanding"><strong>Resolved.</strong> The two Medicare Advantage robustness
+specifications in §1 formerly ran on the level-matched fit. Both were refit on the published
+specification (<code>analysis/ma_robustness.py</code>, results in
+<code>data/ma_robustness.json</code>); the table there is now current, and the earlier
+"less than 2%" figure is withdrawn — the spending estimate moves 11% and 22% under the two
+specifications, while the ED rank holds at 2nd under both.</p>
 
 <hr>
 

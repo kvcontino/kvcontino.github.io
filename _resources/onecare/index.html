@@ -245,11 +245,15 @@ fee-for-service only, and Vermont's FFS denominator shrank 16.5% from its 2019 p
 Advantage grew — the UVM Health Network co-launched a Medicare Advantage plan in January 2022, and
 Vermont's MA penetration crossed <em>above</em> its synthetic comparator's in exactly that year. If
 healthier beneficiaries are the ones leaving fee-for-service, the shrinking denominator mechanically
-inflates per-capita rates with no change in anyone's behaviour. Dropping the MA predictor and
-refitting moves the ED gap by 12.5 visits per 1,000, the largest single movement the predictor
-sensitivity produces — enough to take the confound seriously, not enough to explain the result.
-Pre-period matching cannot reach a composition change that opens after 2021, which is exactly where
-it would hide.</p>
+inflates per-capita rates with no change in anyone's behaviour. Two refits test it: entering MA
+penetration year by year rather than as a pre-period average, and restricting the donor pool to the
+eleven states within ten points of Vermont's own pre-period MA rate. Vermont's ED rank is 2nd under
+both, and the second refit makes the gap <em>larger</em>, not smaller — building the comparison out
+of states on Vermont's own MA trajectory does not erase the divergence, which is the opposite of what
+this rival predicts. That is as far as the test can go, because synthetic-control predictors are
+fixed at pre-treatment values and the MA divergence opens after 2021, which is exactly where it would
+hide. The confound is not doing the work in the direction the design can see; the direction it cannot
+see stays open.</p>
 
 <p>Neither rival is idle and neither is established. The workforce explanation has to account for the
 gap already open in 2018–19, before the crisis. The denominator explanation has to account for the
@@ -818,33 +822,49 @@ manufactures a second Vermont.</p>
 
 <hr>
 
-<h2>Implications for AHEAD</h2>
+<h2>What comes next, and what it should carry forward</h2>
 
-<p>The successor is not a continuation. AHEAD is a sunset rather than a cancellation for failure — the
-agreement expired on schedule — and its design is itself evidence for the reading here: it
-<em>keeps</em> hospital global budgets and <em>drops</em> the statewide-ACO wrapper, the part of the
-Vermont model that touched four cents of the dollar. Three things carry forward.</p>
+<p>The successor was going to be AHEAD, and now it is not. Vermont signed the State Agreement in
+January 2025, and in late July 2026 notified CMS it would withdraw, after renegotiated federal terms
+cut the money the state could reinvest in primary care from roughly $138 million to about $10 million.
+The state has redirected to the Rural Health Transformation Program — a $195 million first-year award,
+roughly $1 billion over five years — and says it remains committed to hospital global budgets in the
+long run without being ready to implement them.</p>
+
+<p>That ending rhymes with the beginning in a way worth stating plainly. The central reframing this
+essay took from the 2022 hearing was that four cents was a ceiling set by the federal counterparty
+and by federal law, not a failure of execution: the state could not compel commercial payers, and
+Medicare declined to offer fixed prospective payment through the very agreement that created the
+model. AHEAD then ended the same way — not repudiated on evidence, but withdrawn when the federal
+counterparty changed the terms. Twice now the binding constraint on Vermont payment reform has been
+the disposition of the payer in Baltimore rather than anything the state or its providers did. That
+is the most durable finding here, and it survived the program it was derived from.</p>
+
+<p>Three things should carry forward to whatever Vermont builds with the rural-health money.</p>
 
 <p><strong>Define exposure before launch, and report it annually.</strong> Dollars nominally managed,
 dollars attributed, and dollars actually paid prospectively are three different quantities, and the
 gap between the first and the third is the whole finding here. It took an outside reconstruction and
 a board member reading page 22 aloud to establish a number the program could have published every
-year.</p>
+year. A program that reports its own reach cannot be argued about at the wrong order of magnitude for
+eight years.</p>
 
-<p><strong>Guarantee evaluation access as a condition of the waiver.</strong> The one payer that ran true
-prospective payment has no causal outcome analysis at all. NORC
-could not produce a Medicaid estimate for data reasons, and VHCURES is effectively inaccessible to
-independent analysts. By this essay's own logic, the one place the mechanism actually operated is the
-one place nobody can evaluate it. That is a hole in the record, not merely in this retrospective, and
-it is fixable in advance at no analytic cost.</p>
+<p><strong>Guarantee evaluation access as a condition of taking the money.</strong> The one payer that
+ran true prospective payment has no causal outcome analysis at all. NORC could not produce a Medicaid
+estimate for data reasons, and VHCURES is effectively inaccessible to independent analysts. The one
+place the mechanism actually operated is the one place nobody can evaluate it. That is a hole in the
+record, not merely in this retrospective, and it is fixable in advance at no analytic cost. A
+five-year, billion-dollar program is exactly the scale at which that condition is cheap to impose and
+expensive to omit.</p>
 
 <p><strong>Do not expect a payment contract to substitute for price regulation.</strong> Maryland
 extracts and contains because it regulates prices; Vermont governed everything except price.
-Pennsylvania's Rural Health Model ran the same wager on a smaller stage and reached a compatible
-place — participating hospitals' finances stabilised, no significant community-level drop in
-avoidable utilisation, ended December 2024. Act 167 plus AHEAD are Vermont's convergence, eight years
-late, on the mechanism Maryland used all along. AHEAD's global budgets address a different mechanism
-from OneCare's and should be evaluated on their own terms rather than as a second verdict on this one.</p>
+Pennsylvania's Rural Health Model ran the same wager on a smaller stage and reached a compatible place
+— participating hospitals' finances stabilised, no significant community-level drop in avoidable
+utilisation, ended December 2024. Act 167 was Vermont's belated convergence on the mechanism Maryland
+used all along, and with AHEAD withdrawn it is now carrying that argument alone. Global budgets, if
+they arrive, address a different mechanism from OneCare's and should be evaluated on their own terms
+rather than as a second verdict on this one.</p>
 
 <hr>
 
@@ -856,10 +876,14 @@ practice attrition, the ED trajectory, and reporting burden — are written down
 pre-registered before any 2026 outcome data existed, so the retrospective cannot quietly rewrite
 itself to fit whatever arrives. The primary-care prediction carries an explicit third branch,
 Blueprint for Health as the rival driver, so a favourable reading is not credited to the model by
-default. The window is genuinely constrained: Vermont's AHEAD hospital global budgets begin in January
-2027, which makes 2026 the only clean post-model year the data will ever offer. Review dates are the
-second quarter of 2027, when practice and reporting data land, and the second quarter of 2028, when
-claims catch up.</p>
+default. When those predictions were frozen the window looked like a single year: AHEAD's hospital
+global budgets were due in January 2027, so 2026 was the only clean post-model year the data would
+ever offer. Vermont's withdrawal removed that ceiling. With global budgets deferred to no announced
+date, 2026, 2027 and 2028 are all clean post-model years — three observations instead of one, on a
+design whose central weakness is the brevity of its series. That is the first thing to move the
+minimum detectable effect in the right direction, and it arrived by accident rather than by design.
+Review dates are unchanged: the second quarter of 2027, when practice and reporting data land, and
+the second quarter of 2028, when claims catch up.</p>
 
 <p>Until then the accounting stands where the data leaves it. Vermont did not transform its health
 care and did not get robbed. It ran a careful, costly experiment on four percent of its health-care
@@ -910,7 +934,10 @@ Primary sources:
 <a class="external" href="https://www.census.gov/programs-surveys/cbp.html">Census County Business Patterns</a> &middot;
 <a class="external" href="https://www.rand.org/pubs/research_reports/RRA1144-2-v2.html">RAND Hospital Price Transparency 5.1</a> &middot;
 <a class="external" href="https://vtdigger.org/2026/03/13/vermonts-8-year-all-payer-health-care-experiment-sunset-at-the-end-of-2025-what-did-it-teach-us/">VTDigger post-mortem (March 2026)</a> &middot;
-<a class="external" href="https://www.uvmhealth.org/onecare-vermont-a-retrospective">OneCare retrospective (UVM Health Network)</a>
+<a class="external" href="https://www.uvmhealth.org/onecare-vermont-a-retrospective">OneCare retrospective (UVM Health Network)</a> &middot;
+<a class="external" href="https://vermontbiz.com/news/2026/july/24/vermont-withdraws-ahead-commits-rural-health-transformation">Vermont withdraws from AHEAD (Vermont Business Magazine, July 2026)</a> &middot;
+<a class="external" href="https://www.vermontpublic.org/local-news/2026-07-28/vermont-ends-another-healthcare-reform-experiment">Vermont ends another health care reform experiment (Vermont Public, July 2026)</a> &middot;
+<a class="external" href="https://healthcarereform.vermont.gov/hr1rural-health-transformation-fund">Vermont Rural Health Transformation Program (State of Vermont)</a>
 </p>
 
 <p class="pagenav"><a href="/_resources/onecare/methodology.html">Methodology &amp; pre-registration &rarr;</a>

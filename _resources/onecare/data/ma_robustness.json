@@ -1,0 +1,147 @@
+{
+ "generated": "2026-08-02",
+ "model": "intercept-shifted synthetic control (the published specification)",
+ "vt_pre_period_mean_ma": 0.0829,
+ "restrict_pp": 0.1,
+ "restricted_pool": [
+  "AK",
+  "DC",
+  "DE",
+  "IA",
+  "KS",
+  "MS",
+  "ND",
+  "NE",
+  "NH",
+  "OK",
+  "WY"
+ ],
+ "outcomes": {
+  "TOT_MDCR_STDZD_PYMT_PC": {
+   "baseline": {
+    "specification": "baseline (published)",
+    "n_donors": 49,
+    "mean_post_gap": -351.0,
+    "gap_2024": -625.17,
+    "pre_rmspe": 15.693,
+    "post_rmspe": 394.355,
+    "post_rmspe_rank": 16,
+    "units": 50,
+    "p": 0.32,
+    "finest_achievable_p": 0.02,
+    "weights": {
+     "WY": 0.4298,
+     "ME": 0.2827,
+     "DC": 0.1674,
+     "DE": 0.115,
+     "AK": 0.0051
+    }
+   },
+   "yearly_ma": {
+    "specification": "yearly MA predictors",
+    "n_donors": 49,
+    "mean_post_gap": -391.53,
+    "gap_2024": -665.25,
+    "pre_rmspe": 19.006,
+    "post_rmspe": 431.409,
+    "post_rmspe_rank": 12,
+    "units": 50,
+    "p": 0.24,
+    "finest_achievable_p": 0.02,
+    "weights": {
+     "WY": 0.4857,
+     "DC": 0.2701,
+     "ME": 0.1067,
+     "AK": 0.0604,
+     "DE": 0.0478,
+     "MS": 0.0293
+    },
+    "delta_mean_post_gap": -40.53,
+    "pct_change_mean_post_gap": -11.5
+   },
+   "restricted_pool": {
+    "specification": "restricted donor pool",
+    "n_donors": 11,
+    "mean_post_gap": -429.03,
+    "gap_2024": -743.69,
+    "pre_rmspe": 21.313,
+    "post_rmspe": 472.414,
+    "post_rmspe_rank": 3,
+    "units": 12,
+    "p": 0.25,
+    "finest_achievable_p": 0.083,
+    "weights": {
+     "WY": 0.5639,
+     "DC": 0.3352,
+     "MS": 0.0627,
+     "AK": 0.0327,
+     "DE": 0.0055
+    },
+    "delta_mean_post_gap": -78.03,
+    "pct_change_mean_post_gap": -22.2
+   }
+  },
+  "ER_VISITS_PER_1000_BENES": {
+   "baseline": {
+    "specification": "baseline (published)",
+    "n_donors": 49,
+    "mean_post_gap": 85.34,
+    "gap_2024": 148.66,
+    "pre_rmspe": 1.001,
+    "post_rmspe": 96.054,
+    "post_rmspe_rank": 2,
+    "units": 50,
+    "p": 0.04,
+    "finest_achievable_p": 0.02,
+    "weights": {
+     "WY": 0.3836,
+     "MS": 0.2499,
+     "DC": 0.2205,
+     "AK": 0.0882,
+     "RI": 0.0578
+    }
+   },
+   "yearly_ma": {
+    "specification": "yearly MA predictors",
+    "n_donors": 49,
+    "mean_post_gap": 83.39,
+    "gap_2024": 146.19,
+    "pre_rmspe": 1.378,
+    "post_rmspe": 94.048,
+    "post_rmspe_rank": 2,
+    "units": 50,
+    "p": 0.04,
+    "finest_achievable_p": 0.02,
+    "weights": {
+     "WY": 0.396,
+     "DC": 0.2393,
+     "MS": 0.2193,
+     "AK": 0.104,
+     "RI": 0.0414
+    },
+    "delta_mean_post_gap": -1.95,
+    "pct_change_mean_post_gap": -2.3
+   },
+   "restricted_pool": {
+    "specification": "restricted donor pool",
+    "n_donors": 11,
+    "mean_post_gap": 94.4,
+    "gap_2024": 167.22,
+    "pre_rmspe": 1.758,
+    "post_rmspe": 107.258,
+    "post_rmspe_rank": 2,
+    "units": 12,
+    "p": 0.167,
+    "finest_achievable_p": 0.083,
+    "weights": {
+     "WY": 0.3722,
+     "MS": 0.3636,
+     "DC": 0.2389,
+     "NH": 0.0253
+    },
+    "delta_mean_post_gap": 9.06,
+    "pct_change_mean_post_gap": 10.6
+   }
+  }
+ }
+}
