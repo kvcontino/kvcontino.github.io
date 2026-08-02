@@ -17,8 +17,12 @@ directory (Python, matplotlib, pandas).</p>
 <table class="data">
   <thead><tr><th>File</th><th>Contents</th></tr></thead>
   <tbody>
+    <tr><td><a href="/_resources/onecare/data/results_manifest.json">results_manifest.json</a></td>
+        <td><strong>The authority for every published number.</strong> Current intercept-shifted fits for all three outcomes: actual, synthetic and gap series by year, donor weights, both placebo rankings, leave-one-pre-year-out diagnostics, donor sensitivity, and the stated limitations. The figures and the prose read from this file.</td></tr>
+    <tr><td><a href="/_resources/onecare/data/scm_placebo_statistics.csv">scm_placebo_statistics.csv</a></td>
+        <td>Post-period RMSPE and post/pre-RMSPE ratio for each of the 49 placebo states, per outcome, all from that same specification — the permutation distributions behind both rank columns.</td></tr>
     <tr><td><a href="/_resources/onecare/data/synth_results.json">synth_results.json</a></td>
-        <td>Synthetic-control output for all three outcomes: actual, synthetic, and gap series by year, donor weights, and placebo p-values.</td></tr>
+        <td>Earlier per-outcome output, retained for version history. Superseded by the manifest; do not cite.</td></tr>
     <tr><td><a href="/_resources/onecare/data/vermont_gap_spending.csv">vermont_gap_spending.csv</a></td>
         <td>Vermont's Medicare spending gap (actual &minus; synthetic) per beneficiary-year.</td></tr>
     <tr><td><a href="/_resources/onecare/data/placebo_gaps_spending.csv">placebo_gaps_spending.csv</a></td>
@@ -28,11 +32,11 @@ directory (Python, matplotlib, pandas).</p>
     <tr><td><a href="/_resources/onecare/data/brfss_summary.csv">brfss_summary.csv</a></td>
         <td>BRFSS chronic-disease and access gaps, Vermont vs. peer mean, pre/post the 2018 boundary.</td></tr>
     <tr><td><a href="/_resources/onecare/data/county_dose_response.json">county_dose_response.json</a></td>
-        <td>County-level dose-response: change in Medicare spending regressed on change in ACO penetration across 2,702 counties, with the pre-trend placebo and the suppression sensitivity. The higher-powered design that returns a precisely estimated zero.</td></tr>
+        <td>County-level dose-response: change in Medicare spending regressed on change in ACO penetration across 2,702 counties, with the pre-trend placebo and the suppression sensitivity. Resolves far smaller effects than the statewide design and finds none — but the regressor is endogenous, so this is a precise association, not an identified zero.</td></tr>
     <tr><td><a href="/_resources/onecare/data/mde.json">mde.json</a></td>
         <td>Minimum detectable effect for the statewide synthetic control: the spending gap Vermont would have needed to reach each placebo rank, in dollars, as a share of its spending level, and converted to a per-attributed-life effect. The arithmetic behind the "unmeasurable by design" claim.</td></tr>
     <tr><td><a href="/_resources/onecare/data/scm_diagnostics.json">scm_diagnostics.json</a></td>
-        <td>Synthetic-control robustness: per-outcome pre-fit quality, both ranking statistics, leave-one-out donor sensitivity, the pre/post-2020 gap split, and the Medicare Advantage confound checks.</td></tr>
+        <td><strong>Superseded — computed on the earlier level-matched model, not the published one.</strong> Its ranking statistics, donor weights and gaps do not match the manifest and should not be quoted (see the <a href="/_resources/onecare/methodology.html#appendix">corrections appendix</a>). Retained because its Medicare Advantage enrolment series is still the only published version of that descriptive check; the pre/post-2020 gap split it also carries is superseded, and is now computed from the manifest's own gap series.</td></tr>
     <tr><td><a href="/_resources/onecare/data/overdose_vt_index_ci.csv">overdose_vt_index_ci.csv</a></td>
         <td>Vermont overdose deaths indexed to 2015 with Poisson 95% bands — the uncertainty ribbon in figure 3.</td></tr>
     <tr><td><a href="/_resources/onecare/data/suicide_vt_peer_gap.csv">suicide_vt_peer_gap.csv</a></td>

@@ -74,7 +74,8 @@ prediction the optimiser never saw:</p>
 <p>The spending fit understates its predictive error roughly thirty-sevenfold; its in-sample RMSPE
 is not a usable noise floor and the essay quotes the holdout error instead. The ED fit predicts a
 held-out year almost exactly, so its precision is earned rather than borrowed — which is why the ED
-result is reported as meeting a conventional threshold and the spending result is not. A synthetic
+result is reported as the firmest of the three, subject to the multiplicity caveat below, and the
+spending result is not reported with precision at all. A synthetic
 Vermont is built
 as a non-negative weighted average of donors (weights <var>w</var>&nbsp;&ge;&nbsp;0,
 &sum;<var>w</var>&nbsp;=&nbsp;1) chosen to minimize squared distance on standardized predictors:
@@ -147,59 +148,79 @@ it beside them would manufacture an increase that the consistent count does not 
 <p><strong>Inference.</strong> In-space placebos: refit the whole procedure pretending each donor
 state was the treated unit, and rank Vermont's effect within that placebo distribution. The reported
 p-value is Vermont's rank divided by (number of donors + 1). This is a permutation test, not a t-test;
-with ~49 placebos the finest achievable p is about 0.02, and the honest reading of a p&nbsp;=&nbsp;0.64
+with 49 placebos the finest achievable p is about 0.02, and the honest reading of a p&nbsp;=&nbsp;0.62
 is "unremarkable against placebos," not "precisely zero."</p>
 
-<p><strong>The ranking statistic (and why it matters).</strong> Placebos can be ranked two ways: on
-the raw post-period fit error, or — the Abadie standard — on the ratio of post-period to pre-period
-RMSPE, which discounts placebos that fit their own pre-period badly. This project uses the
-<strong>ratio ranking</strong>. The choice is not cosmetic: the raw ranking would report
-p&nbsp;=&nbsp;0.06 for spending and p&nbsp;=&nbsp;0.04 for ED, both far more "significant" than the
-ratio's 0.64 and 0.18. That apparent significance is an artifact — Vermont has the worst pre-period
-fit of any state on spending (it sits near the bottom of the national distribution, and no donor blend
-reaches it), so a large raw post-period error is expected and the ratio correctly discounts it. The
-honest numbers are the ratio-ranked ones; the raw alternative is named here only to show the better
-number was not cherry-picked.</p>
+<p><strong>The ranking statistic (and why both are reported).</strong> Placebos can be ranked two ways:
+on the post-period fit error, or — the Abadie standard — on the ratio of post-period to pre-period
+RMSPE, which discounts placebos that fit their own pre-period badly. Neither is uniquely correct
+here, and this page reports <strong>both</strong>.</p>
+
+<p>The case against the ratio is the one made above: demeaning already equalises pre-period fit, so
+the denominator is small by construction, and the exclusion floor needed to keep degenerate placebos
+out of the numerator is a free parameter that moves the ED p-value from 0.200 to 0.025. The case for
+it is that it is the field standard, and quietly dropping the statistic that produces the weaker
+result is indistinguishable from choosing the stronger one. Reporting the pair costs nothing and
+makes the sensitivity legible: spending is unremarkable either way, inpatient use is null either way,
+and ED use is the extreme case under one statistic and merely notable under the other.</p>
+
+<p>Both columns below are computed from the <em>same</em> intercept-shifted fits. An earlier version
+of this page reported ratio-ranked p-values carried over from the superseded level-matched model
+while the essay quoted post-RMSPE ranks from the current one, so the two halves of the document
+disagreed about the primary test statistic and about the numbers. That is corrected here; the
+superseded figures are retained in the <a href="#appendix">appendix</a>.</p>
 
 <p><strong>Results and per-outcome diagnostics.</strong></p>
 <div class="tablewrap">
 <table class="data">
-  <caption>Synthetic-control diagnostics. Pre-RMSPE as a share of the pre-period mean is the fit-quality
-  read; the ratio-ranked p is the reported inference. Full detail in
-  <a href="/_resources/onecare/data/scm_diagnostics.json"><code>scm_diagnostics.json</code></a>.</caption>
+  <caption>Synthetic-control diagnostics, all from the current intercept-shifted specification. Pre-RMSPE
+  is in-sample; the leave-one-pre-year-out RMSE is the out-of-sample counterpart, and the gap between them
+  is the overfitting read. Full detail in
+  <a href="/_resources/onecare/data/results_manifest.json"><code>results_manifest.json</code></a>.</caption>
   <thead>
-    <tr><th>Outcome</th><th>Donor weights (&gt;0)</th><th class="num">Pre-fit</th><th class="num">2024 gap</th><th class="num">p (ratio)</th><th class="num">p (raw)</th></tr>
+    <tr><th>Outcome</th><th>Donor weights (&gt;0)</th><th class="num">Pre-RMSPE</th><th class="num">LOYO RMSE</th><th class="num">Mean post gap</th><th class="num">Post-RMSPE rank</th><th class="num">Ratio rank</th></tr>
   </thead>
   <tbody>
-    <tr><td>Spending / capita</td><td>IA .39, AK .37, ME .22, DC .01</td><td class="num">4.1% (weak)</td><td class="num">&minus;$801</td><td class="num">0.64</td><td class="num">0.06</td></tr>
-    <tr><td>Inpatient stays /1,000</td><td>AK .35, IA .34, ME .25, NH .05</td><td class="num">5.6% (weak)</td><td class="num">+1.5</td><td class="num">1.00</td><td class="num">0.96</td></tr>
-    <tr><td>ED visits /1,000</td><td>AK .36, NE .32, DC .20, MS .13</td><td class="num">1.0% (excellent)</td><td class="num">+101</td><td class="num">0.18</td><td class="num">0.04</td></tr>
+    <tr><td>Spending / capita</td><td>WY .43, ME .28, DC .17, DE .12, AK .01</td><td class="num">$15.69</td><td class="num">$75</td><td class="num">&minus;$351 (&minus;4.0%)</td><td class="num">16/50</td><td class="num">25/50</td></tr>
+    <tr><td>Inpatient stays /1,000</td><td>MA .41, NH .37, AK .16, NV .06</td><td class="num">2.95</td><td class="num">4.9</td><td class="num">+4.5 (+2.5%)</td><td class="num">31/50</td><td class="num">47/50</td></tr>
+    <tr><td>ED visits /1,000</td><td>WY .38, MS .25, DC .22, AK .09, RI .06</td><td class="num">1.00</td><td class="num">6.4</td><td class="num">+85.3 (+15.6%)</td><td class="num">2/50</td><td class="num">10/50</td></tr>
   </tbody>
 </table>
 </div>
-<p>Spending: post-2018 mean gap &minus;$759 per beneficiary-year raw, &minus;$462 after netting the
-pre-period gap; placebo p&nbsp;=&nbsp;0.64. Inpatient: no movement, p&nbsp;=&nbsp;1.00. ED visits: +18%
-versus synthetic by 2024, rising monotonically, p&nbsp;=&nbsp;0.18 (rank ~9 of 50).</p>
+<p>The pre-RMSPE column should not be read as fit quality. Demeaning makes the pre-period easy to
+match, so a small in-sample error is expected rather than earned; the LOYO column is what carries
+information. It is a second, milder version of the 2017 holdout above — the model is refit four times,
+each time dropping one pre-period year and scoring the year it did not see, and the RMSE across those
+four forecasts is reported. The two diagnostics agree in direction and differ in severity: the single
+2017 holdout puts spending at 37&times; overconfident, the four-year average at closer to five. Either
+way the mean post-period spending gap of &minus;$351 sits inside the model's own forecast error, which
+is why it is not reported with precision. ED visits are the opposite case — the fit predicts a held-out
+year to within 6.4 visits per 1,000 against a post-period gap of 85.3. That asymmetry, not the rank
+alone, is why ED is the firmer of the three.</p>
 
-<p><strong>Leave-one-out sensitivity.</strong> Refitting without each contributing donor: the spending
-2024 gap swings from &minus;$567 to &minus;$1,111 depending on which of the two dominant donors (IA, AK)
-is dropped — a two-state tug-of-war, not a broad base, which is why the spending estimate is presented as
-fragile. The ED 2024 gap is stable across the same exercise (92 to 103), so the ED finding does not rest
-on any single donor.</p>
+<p><strong>Leave-one-out sensitivity.</strong> Refitting without each contributing donor moves the
+spending 2024 gap between &minus;$504 (dropping WY) and &minus;$759 (dropping ME) against a baseline
+of &minus;$625 — the sign is stable, the magnitude is not. The ED 2024 gap runs from +127 to +162
+against a baseline of +149, so the ED finding does not rest on any single donor. Inpatient stays swing
+from &minus;2.9 to +5.7 across the same exercise, crossing zero, which is what a null looks like.</p>
 
-<p><strong>Multiplicity.</strong> Three outcomes were tested with the identical procedure. Under the
-global null, the best of three p-values landing near 0.18 is unremarkable; the ED section reports the
-most extreme of the family and should be read with that in mind.</p>
+<p><strong>Multiplicity.</strong> Three co-primary outcomes were tested with the identical procedure.
+The most extreme result is ED use at p&nbsp;=&nbsp;0.04 on the post-RMSPE ranking; a Bonferroni
+correction across the three puts it at 0.12, and on the ratio ranking it is 0.20 unadjusted and 0.60
+adjusted. ED should therefore be read as the best result in a small family, not as a threshold
+crossing. The analysis was retrospective rather than pre-registered.</p>
 
 <p><strong>Caveats.</strong> Synthetic control on a single treated unit gives effect estimates with
 permutation-based inference only — no confidence intervals in the usual sense. The pre-period is short:
 the Geographic Variation PUF begins in 2014, so the fit rests on four pre-treatment years (2014–2017)
-against four outcome-lag predictors plus four covariates, which risks tracking pre-trend noise; the
-spending gap is reported net of the residual pre-period gap for that reason. State-level Medicare data
+against four outcome-lag predictors plus four covariates, which risks tracking pre-trend noise. Under
+the intercept-shifted specification the pre-period gap is zero by construction, so the raw-versus-net
+distinction the earlier level specification needed no longer applies. State-level Medicare data
 cannot see commercial or Medicaid populations, where much of the model's activity nominally sat, and it
 is fee-for-service only (see the Medicare Advantage robustness section below). The ED result is the most
-robust in placebo rank but still short of conventional significance; it is reported as the strongest
-signal in the data, not as a proven effect.</p>
+extreme in placebo rank under either statistic, but "most extreme of three" is not the same as
+"significant": 2nd of 50 on post-period RMSPE, 10th on the ratio, and 0.12 once corrected for the
+three co-primary outcomes. It is reported as the strongest signal in the data, not as a proven effect.</p>
 
 <p><strong>Medicare Advantage / denominator robustness.</strong> Because the PUF is fee-for-service only,
 differential MA growth is a live confound: Vermont's FFS denominator shrank 16.5% from its 2019 peak to
@@ -210,8 +231,20 @@ MA rate — moved the 2024 point estimates by less than 2%. This is genuinely in
 weak test of the actual worry: synthetic-control predictors are fixed at pre-treatment values, and the
 MA divergence opens up almost entirely after 2021, a window no pre-period-matching variant can reach by
 construction. The restricted pool also shrinks the placebo denominator to 11, whose finest achievable p is
-1/12&nbsp;=&nbsp;0.083; ED lands exactly on that floor, so the restricted-pool p should not be quoted beside
-the full-pool 0.18 as if on the same scale. The conclusion: FFS-denominator shrinkage is an unresolved rival
+1/12&nbsp;=&nbsp;0.083, and ED lands exactly on that floor — a restricted-pool p bounded by its own pool
+size should not be set beside a full-pool p as if the two were on one scale.</p>
+
+<p class="note"><strong>Both robustness specifications above were fit under the superseded level
+specification and have not been refit.</strong> Their internals say so plainly: a pre-period RMSPE
+near $340 and a baseline 2024 spending gap of &minus;$801, against $15.69 and &minus;$625 under the
+published model. What survives the respecification is the argument, which is about design rather than
+magnitude: predictors fixed at pre-treatment values cannot police a composition change that opens
+after 2021, however the fit is anchored. What does not survive is the reassurance — "moved the point
+estimates by less than 2%" is a statement about a model this project no longer publishes, and the
+delta under the current specification is unknown. Refitting both is tracked in
+<a href="#outstanding">§9</a>.</p>
+
+<p>The conclusion stands as stated: FFS-denominator shrinkage is an unresolved rival
 explanation for the <em>late</em> portion of the ED and spending divergence, neither ruled in nor out by
 these checks, and it does not overturn the placebo inference.</p>
 
@@ -442,8 +475,8 @@ an earlier draft of this note and of the essay got it wrong in a way that favour
 conclusion. NORC's estimate was <em>never subjected to a placebo test</em>. NORC ran a
 beneficiary-level difference-in-differences on attributed lives against matched out-of-state ACO
 beneficiaries and reported &minus;$185.8M at conventional significance on its own inference. The
-p&nbsp;=&nbsp;0.64 belongs to a different estimand — this project's statewide, all-fee-for-service
-synthetic control. The honest statement is that an independent statewide analogue does not corroborate
+statewide spending p — 0.32 on post-period RMSPE, 0.50 on the ratio ranking — belongs to a different
+estimand: this project's statewide, all-fee-for-service synthetic control. The honest statement is that an independent statewide analogue does not corroborate
 NORC, not that NORC failed a test. And the essay's own dilution argument cuts further against the
 stronger reading: if a real effect concentrated in roughly half of one payer is averaged across a
 whole-state series, the statewide estimate should come out smaller and noisier <em>even if NORC is
@@ -573,7 +606,12 @@ errors clustered by state.</p>
 <p>A precisely estimated zero. The detectable effect at 80% power is about $2.13 per percentage
 point — roughly $105 across the 50-point spread between a saturated and an unpenetrated county,
 some eight times finer than the statewide design's $796 floor. NORC's per-attributed-life estimate
-implies about $7.58 per point, which this rules out by roughly ten standard errors. The placebo is
+implies about $7.58 per point, roughly ten standard errors from this coefficient — but that distance
+is not a refutation. Ruling NORC out would require this regression to identify the same causal
+quantity, and the paragraph below explains why it does not; a large gap between an experimental-style
+estimate and an endogenous observational one is as easily a statement about the observational design.
+What survives is narrower and still useful: across the national variation that does exist, more ACO
+penetration is not associated with lower county spending. The placebo is
 null, so the identifying variation is not obviously picking up pre-existing divergence, and the
 suppression sensitivity shows the null is not an artefact of measurement error in the regressor
 attenuating the coefficient toward zero. <strong>What it does not license:</strong> a causal claim.
@@ -616,6 +654,13 @@ cannot support a new causal estimate. The step beyond is a formal request for th
 dataset or public use file, which would make a beneficiary-level Vermont analysis possible for the
 first time outside the state's own contractors — and would close the gap the essay names as its
 central one, that the only payer running true prospective payment has no causal outcome analysis at all.</p>
+
+<p id="outstanding"><strong>Outstanding, and named rather than quietly carried.</strong> The two
+Medicare Advantage robustness specifications in §1 — yearly MA predictors, and the &plusmn;10-point
+restricted donor pool — were fit under the superseded level specification and have not been refit
+under the published one. The design argument they support is unaffected, but the reassuring
+magnitude they supplied has no current value behind it. Refitting both is the next scheduled
+maintenance on this page.</p>
 
 <hr>
 
@@ -662,6 +707,26 @@ it is withdrawn. The current design is short by a factor of about two, not ninet
 <h3>B. Corrections log</h3>
 
 <dl>
+  <dt><strong>Two specifications reported as one</strong> (corrected August 2026)</dt>
+  <dd>The worst error this project has published. §1 declared post-period RMSPE the test statistic and
+  gave the reasons; the results block later in the same section stated "this project uses the ratio
+  ranking," called the post-RMSPE numbers an artifact, and printed a table of donor weights, pre-fit
+  percentages, 2024 gaps and p-values carried over wholesale from the superseded level-matched model.
+  The two halves of the page disagreed about which statistic was primary and about every number
+  attached to it — and the essay's headline ED result was, by the later half's own wording, an
+  artifact. The cause was mechanical: the diagnostics program was never rerun after the
+  respecification, and its output file, <code>scm_diagnostics.json</code>, stayed linked as current
+  robustness evidence. Every figure in §1 is now computed from a single manifest built by one script,
+  both rankings are reported side by side, and <code>scm_diagnostics.json</code> is labelled
+  superseded on the data page.</dd>
+
+  <dd>Numbers corrected on the essay page in the same pass, all of them survivals of the old fit: the
+  post-2020 share of the cumulative ED gap (86% → 88%), the 2018–19 ED gap (+29 → +35 per 1,000), and
+  two figures in the alt text of the outcomes chart, where the spending gap read 8% instead of 6% and
+  the 2024 ED gap read +18% instead of +28%. Alt text is easy to leave behind in a respecification
+  because it is invisible to a sighted proofreader; it is now covered by the same check as the
+  captions.</dd>
+
   <dt><strong>The dek's four cents</strong> (corrected August 2026)</dt>
   <dd>The opening sentence read "moving more than a billion dollars a year… only about four cents of
   each of those dollars ever changed how a provider was actually paid." The 4% is a share of

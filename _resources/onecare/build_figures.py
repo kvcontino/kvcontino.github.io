@@ -90,7 +90,28 @@ def save(fig, name):
           (".png" if PREVIEW else ".svg"))
 
 
-res = json.load(open("data/synth_results.json"))
+def ordinal(n):
+    """1st, 2nd, 3rd, 11th, 21st. Ranks move on every refit, so the suffix is
+    derived rather than written into the caption alongside the number."""
+    n = int(n)
+    suffix = ("th" if 10 <= n % 100 <= 20
+              else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th"))
+    return f"{n}{suffix}"
+
+
+def ranks(outcome):
+    """Both placebo rankings for one outcome, as ordinals out of 50."""
+    p = outcome["placebo"]
+    return ordinal(p["post_rmspe"]["rank"]), ordinal(p["post_pre_ratio"]["rank"])
+
+
+def signed_dollars(v):
+    return f"{'−' if v < 0 else '+'}${abs(v):,.0f}"
+
+
+# One authority for every published number. scm_diagnostics.json and
+# synth_results.json predate the respecification and must not feed a caption.
+res = json.load(open("data/results_manifest.json"))["outcomes"]
 placebos = pd.read_csv("data/placebo_gaps_spending.csv", index_col=0)
 YEARS = list(range(2014, 2025))
 
@@ -111,6 +132,8 @@ end(ax, 2024, actual[2024], "Vermont", VT, dy=-10, bold=True)
 end(ax, 2024, synth[2024], "synthetic VT", INK2, dy=6)
 dollars(ax); style(ax)
 ax.set_xlim(2014, 2026.6)
+# Headroom so the synthetic-VT end label clears the panel title.
+ax.set_ylim(top=max(actual.max(), synth.max()) * 1.06)
 ax.set_title("Standardized Medicare payment per capita", loc="left", fontsize=10.5, color=INK)
 covid_line(ax, label=True)
 
@@ -141,13 +164,13 @@ fig.suptitle("Vermont Medicare spending under the all-payer model, vs. a synthet
              x=0.07, y=0.965, ha="left", fontsize=12.5, fontweight="bold", color=INK)
 # Read from the fit rather than hard-coding: an earlier version of this caption survived
 # a respecification and went stale.
-_h = r.get("holdout_2017_error", {})
+_post, _ratio = ranks(r)
 fig.text(0.07, 0.885,
-         f"Post-2018 mean gap {r['mean_post_gap']:,.0f} per beneficiary-year "
-         f"({r['mean_post_gap_pct']:.1f}%), {r['specification']} specification; "
+         f"Post-2018 mean gap {signed_dollars(r['mean_post_gap'])} per beneficiary-year "
+         f"({r['mean_post_gap_pct']:.1f}%), intercept-shifted specification; "
          f"pre-period gap is zero by construction.\n"
-         f"Placebo p = {r['placebo_p']:.2f} — the direction the federal evaluation found, "
-         f"not an individually significant estimate.",
+         f"Vermont ranks {_post} of 50 on post-period RMSPE and {_ratio} on the post/pre "
+         f"ratio — the direction the federal evaluation found, not a settled causal estimate.",
          fontsize=9, color=INK2, parse_math=False, va="center", linespacing=1.5)
 save(fig, "fig1_spending")
 
@@ -155,8 +178,8 @@ save(fig, "fig1_spending")
 order = ["TOT_MDCR_STDZD_PYMT_PC", "IP_CVRD_STAYS_PER_1000_BENES", "ER_VISITS_PER_1000_BENES"]
 titles = ["Spending per capita", "Inpatient stays", "ED visits"]
 
-fig, axes = plt.subplots(1, 3, figsize=(12.5, 3.8), sharey=True)
-fig.subplots_adjust(left=0.06, right=0.985, bottom=0.13, top=0.78, wspace=0.12)
+fig, axes = plt.subplots(1, 3, figsize=(12.5, 4.1), sharey=True)
+fig.subplots_adjust(left=0.06, right=0.985, bottom=0.12, top=0.73, wspace=0.12)
 for i, (ax, key, title) in enumerate(zip(axes, order, titles)):
     rr = res[key]
     g = pd.Series({int(k): v for k, v in rr["gap"].items()})
@@ -165,16 +188,20 @@ for i, (ax, key, title) in enumerate(zip(axes, order, titles)):
     ax.axhline(0, color=BASE, lw=1)
     ax.plot(YEARS, pct.values, color=VT, lw=2.6)
     style(ax)
-    ax.set_title(f"{title}   (placebo p = {rr['placebo_p']:.2f})", loc="left",
+    _p, _r = ranks(rr)
+    ax.set_title(f"{title}   (rank {_p} / {_r} of 50)", loc="left",
                  fontsize=10.5, color=INK)
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:+.0f}%"))
     ax.set_xlim(2014, 2024.3)
     covid_line(ax, label=(i == 0))
 fig.suptitle("Vermont vs. synthetic control — the gap as a share of the counterfactual",
              x=0.06, y=0.95, ha="left", fontsize=12.5, fontweight="bold", color=INK)
-fig.text(0.06, 0.85,
+fig.text(0.06, 0.875,
          "One scale across all three. Spending fell and ED visits rose against the "
-         "counterfactual; inpatient stays never moved.", fontsize=9, color=INK2)
+         "counterfactual; inpatient stays never moved.\nRanks are Vermont's place among "
+         "50 states on post-period RMSPE / the post-to-pre RMSPE ratio — both from the "
+         "same fits, neither treated as a verdict.",
+         fontsize=9, color=INK2, va="top", linespacing=1.5)
 save(fig, "fig2_outcomes")
 
 # ================= Figure 3: population health =================

@@ -174,13 +174,14 @@ on one scale and the ED series is the one that moved.</p>
 
 <figure>
   <img src="/_resources/onecare/figures/fig2_outcomes.svg"
-       alt="Three panels at one shared scale showing Vermont's gap versus its synthetic control as a percentage, with a 2020 reference line: spending about 8 percent below counterfactual, inpatient stays flat on zero, and emergency department visits rising to about plus 18 percent by 2024, most of the rise after 2020.">
+       alt="Three panels at one shared scale showing Vermont's gap versus its synthetic control as a percentage, with a 2020 reference line: spending about 6 percent below counterfactual, inpatient stays flat on zero, and emergency department visits rising to about plus 28 percent by 2024, most of the rise after 2020.">
   <figcaption><strong>Inpatient stays never moved; emergency-department visits rose against the
   counterfactual — most of it after 2020.</strong> Vermont's ED gap reached roughly +28% by 2024,
-  averaging +16% across the post-period (placebo p&nbsp;=&nbsp;0.04, second of 50 — and the only
-  outcome here that clears a conventional threshold). Inpatient utilization is flat
+  averaging +16% across the post-period (placebo p&nbsp;=&nbsp;0.04, second of 50 on post-period
+  RMSPE — the most extreme of the three outcomes, though 10th of 50 on the ratio ranking and 0.12
+  after correcting for three outcomes). Inpatient utilization is flat
   (p&nbsp;=&nbsp;0.62). A 2020 reference line marks
-  the pandemic; 86% of the cumulative ED gap accrues after it. Source: CMS Geographic Variation PUF;
+  the pandemic; 88% of the cumulative ED gap accrues after it. Source: CMS Geographic Variation PUF;
   see the <a href="/_resources/onecare/methodology.html">methodology note</a> for the outcome
   definitions.</figcaption>
 </figure>
@@ -231,8 +232,8 @@ p&nbsp;=&nbsp;0.971. Something real happened to specialty contact. Neither the e
 what it did to anyone.</p>
 
 <p><strong>Rival one: the workforce and boarding crisis.</strong> A modest gap was
-already visible in 2018–19 (about +29 per 1,000), but the divergence roughly doubles after 2020 and
-the post-2020 years account for 86% of the cumulative total — squarely the window of the national
+already visible in 2018–19 (about +35 per 1,000), but the divergence roughly doubles after 2020 and
+the post-2020 years account for 88% of the cumulative total — squarely the window of the national
 and Vermont-specific ED-boarding and workforce crisis, which NORC names as its own explanation.
 There is also a denominator problem the synthetic control cannot reach. The spending and ED series
 are Medicare fee-for-service only, and Vermont's FFS denominator shrank 16.5% from its 2019 peak as
@@ -913,9 +914,12 @@ error $0.76. Over the 50-point penetration spread that separates a saturated cou
 unpenetrated one, that is $12 per beneficiary-year, against a detectable floor of about $105. A
 pre-trend placebo on the same specification is null, and counting the suppressed small cells at their
 upper bound rather than zero barely moves the coefficient. NORC's per-attributed-life estimate would
-imply about $7.58 per point; this design rules that out by roughly ten standard errors. Nationally,
-across every county CMS reports, accountable-care penetration does not move Medicare spending by
-anything close to the amount claimed for it. But that design answers a different question. It would measure what accountable-care penetration does in
+imply about $7.58 per point, some ten standard errors away — though calling that a refutation would
+require this regression to identify what NORC identifies, and it does not: ACO penetration is chosen,
+not assigned, and provider markets that organise into ACOs differ from those that don't in ways no
+state fixed effect absorbs. The defensible reading is associational and still worth having.
+Nationally, across every county CMS reports, more accountable-care penetration does not come with
+lower Medicare spending. But that design answers a different question. It would measure what accountable-care penetration does in
 general; it cannot isolate what Vermont's all-payer wrapper did, because the wrapper was a
 state-level policy with one unit, and no amount of geographic resolution manufactures a second
 Vermont. The limit is not the analyst's arithmetic. It is that the thing being evaluated was
