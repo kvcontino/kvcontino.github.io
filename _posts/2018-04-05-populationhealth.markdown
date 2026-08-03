@@ -3,6 +3,11 @@ title:  "Reflections on Population Health"
 date:   2018-04-05 14:50:00 -0500
 layout: default
 categories: health
+# Keeps this post out of /feed.xml. jekyll-feed filters on `post.draft != true`
+# and that is its only per-post hook. The post still publishes at its usual URL —
+# the explicit `categories:` above is what stops Jekyll's draft handling from
+# moving it. Remove this line to put the post back in the feed.
+draft: true
 ---
 
 Almost no one takes the idea of addressing the non-medical determinants of health as seriously as they should.

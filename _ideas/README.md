@@ -18,3 +18,13 @@ Nothing in here is published. `_drafts/` now holds only real drafts.
 | `wu-wei/` | The "Grain and Pivot" essay — outline plus a standalone HTML draft. |
 | `radio_kevin.m3u` | Playlist. |
 | `post-template.md` | Skeleton front matter and component reminders for a new post. Its `date: YYYY-MM-DD` is an intentional placeholder — harmless here, but it is what broke the draft build while this file sat in `_drafts/`. |
+
+## To do
+
+**A post index, once there are a handful of posts.** No page iterates
+`site.posts` today, so posts are reachable only by direct link and the Projects
+page is doing the job by hand. Deferred deliberately: with two posts, one of
+them held back from the feed, an index would surface more than it organises.
+When it goes in it should advertise the RSS feed alongside it — `/feed.xml`
+already exists and the layout already carries `{% feed_meta %}` for
+autodiscovery, but nothing offers the reader a visible link to subscribe.
