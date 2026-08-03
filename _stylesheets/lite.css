@@ -1,4 +1,25 @@
 /* Base */
+
+/* Two measures, and only two. Both are in px on purpose: `ex` is font-relative,
+   so the same `85ex` resolves to a different pixel width on every element that
+   changes font-size — which is how the essay pages ended up with six different
+   right edges. Text blocks get --measure; figures and data tables get the
+   deliberate breakout at --measure-wide. Nothing else sets its own width. */
+:root {
+  --measure: 730px;
+  --measure-wide: 1100px;
+  /* Sidebar is 20% of the wrapper, content 80%, so this caps the content
+     column at --measure-wide and keeps the nav from drifting away from the
+     text on wide monitors. */
+  --wrapper-max: calc(var(--measure-wide) / 0.8);
+}
+
+/* Border-box everywhere, so padding and borders count *inside* a width rather
+   than being added to it. Without this, blockquote's 1.4em indent, a list's
+   40px marker gutter and the sidebar's 3% padding each push their element past
+   the measure by exactly their own padding — three more ragged edges. */
+*, *::before, *::after { box-sizing: border-box; }
+
 html {
   font-family: 'Spectral', serif;
 }
@@ -17,6 +38,8 @@ body {
 .site-wrapper {
   display: flex;
   align-items: flex-start;
+  max-width: var(--wrapper-max);
+  margin: 0 auto;          /* drop this line to keep the page flush left */
 }
 
 .sidebar {
@@ -68,10 +91,12 @@ h1, h2, h3 {
 h1 { font-size: 2.6em; }
 h2 { font-size: 2.0em; }
 h3 { font-size: 1.5em; }
+h1, h2, h3 { max-width: var(--measure); }
 
 /* Text */
-p { max-width: 85ex; }
-li { margin: 16px 0; max-width: 85ex; }
+p { max-width: var(--measure); }
+ul, ol { max-width: var(--measure); }
+li { margin: 16px 0; }
 em { color: #DDD; }
 strong { color: #DDD; }
 dfn { color: #DDD; }
@@ -113,7 +138,7 @@ span.rw { font-family: monospace; font-style: italic; }
   color: #cdb8a8;
   text-align: left;
   hyphens: none;
-  max-width: 80ex;
+  max-width: var(--measure);
   margin: 0 0 1.2em 0;
 }
 .meta {
@@ -121,11 +146,12 @@ span.rw { font-family: monospace; font-style: italic; }
   color: #9a9a9a;
   font-style: italic;
   text-align: left;
+  max-width: var(--measure);
   margin-bottom: 2em;
 }
 .meta a, .dek a { color: #cd9575; }
 
-figure { margin: 2.4em 0; }
+figure { margin: 2.4em 0; max-width: var(--measure-wide); }
 figure img, figure svg { width: 100%; height: auto; display: block; }
 figcaption {
   font-size: 0.82em;
@@ -134,11 +160,11 @@ figcaption {
   text-align: left;
   hyphens: none;
   margin-top: 0.6em;
-  max-width: 90ex;
+  max-width: var(--measure);
 }
 figcaption strong { color: #cdb8a8; }
 
-.tablewrap { overflow-x: auto; margin: 2em 0; -webkit-overflow-scrolling: touch; }
+.tablewrap { overflow-x: auto; margin: 2em 0; max-width: var(--measure-wide); -webkit-overflow-scrolling: touch; }
 table.data {
   border-collapse: collapse;
   width: 100%;
@@ -166,6 +192,7 @@ table.data tbody tr:hover { background: #141414; }
   margin: 2em 0;
   color: #d8d8d8;
   hyphens: none;
+  max-width: var(--measure);
 }
 .note strong { color: #cd9575; }
 
@@ -178,7 +205,7 @@ blockquote {
   color: #b8b8b8;
   font-size: 0.95em;
   hyphens: none;
-  max-width: 84ex;
+  max-width: var(--measure);
 }
 blockquote p { margin: 0 0 0.8em 0; }
 blockquote p:last-child { margin-bottom: 0; }
@@ -189,6 +216,7 @@ blockquote strong { color: #cdb8a8; font-weight: 600; }
   padding-top: 1.4em;
   border-top: 1px solid #333;
   font-size: 0.9em;
+  max-width: var(--measure);
 }
 
 /* Misc */
@@ -197,6 +225,8 @@ hr {
   border-top: 1px solid #8c8c8c;
   border-bottom: 1px solid #fff;
   margin: 2.4em 0;
+  /* A section rule belongs to the text it divides, not to the figure column. */
+  max-width: var(--measure);
 }
 
 footer {
