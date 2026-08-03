@@ -18,7 +18,7 @@ This post describes the early nineteenth century settlement of Northern New York
             and Romulus.">
 </figure>
 
-<b>Setting the Stage: Macomb's Purchase</b>
+<h3>Setting the Stage: Macomb's Purchase</h3>
 
 In 1784, the Oneida Indians ceded all of Northern New York to New York State. The land was mostly unsettled wilderness. Although the area served as a hunting ground for several Native American tribes, including the Oneida, their presence was minimal by this period.
 
@@ -38,7 +38,7 @@ Attempting to find some way to profit off of his lands, Constable went to Paris 
 
 ...
 
-<b>Introducing James Le Ray de Chaumont</b>
+<h3>Introducing James Le Ray de Chaumont</h3>
 
 James Le Ray de Chaumont was the scion of a prominent family of French aristocrats. His father, Jacques Leray de Chaumont, had become wealthy as the owner of a merchant fleet, and he had earned his family’s aristocratic title several decades earlier with the purchase of the Chateau de Chaumont in the Loire Valley.  
 
@@ -67,7 +67,7 @@ Years later, when Constable was trying to find something to do with a few hundre
             hermitage.">
 </figure>
 
-<b>Early Settlement: 1794 - 1805</b>
+<h3>Early Settlement: 1794 - 1805</h3>
 
 James Le Ray’s intent was different from Macomb’s from the start: Le Ray was a developer, and his interest in the North Country was based a vision for what the land could become over decades rather than a short-term concern for profit. (Of course, recovering his family fortune was among Le Ray’s goals.) 
 
@@ -87,7 +87,7 @@ Rather than ending Le Ray's interest in Northern New York, this failure inspired
 
 In 1800, Le Ray sponsored a second attempt to settle Castorland, this time recruiting American settlers. Jacob Brown, a Quaker from Bucks County, Pennsylvania, led the effort, and Vermonters made up most of the settlement party. (By now, Le Ray had abandoned any plans to re-settle refugees of the French Revolution on the New York frontier.) Brown established his settlement about four miles upstream from the mouth of the Black River, and it would eventually grow into the present-day Village of Brownville.
 
-<b>James Le Ray Comes to Northern New York (1805 - 1820)</b>
+<h3>James Le Ray Comes to Northern New York (1805 - 1820)</h3>
 
 With the success of Brown’s settlement, James Le Ray decided to move his family to Northern New York. He imported livestock and skilled artisans to his new estate, and built a mansion in the neoclassical style on a site that is now occuped by Fort Drum. A village quickly developed near the site of his mansion, persisting until the mid-twentieth century when it was displaced to make way for the expansion of the military reservation. Le Ray and his family relocated to this mansion in 1806. Though it burned to the ground in 1822, Le Ray’s eldest son, Vincent, immediately rebuilt it on the same site. 
 
@@ -105,7 +105,7 @@ In 1815, James Le Ray’s financial problems recurred, and he returned to France
 
 ...
 
-<b>A Second Wave of French Settlement (1820 - 1836)</b>
+<h3>A Second Wave of French Settlement (1820 - 1836)</h3>
 
 James Le Ray's return to France helped to bring about a second round of French immigration after 1815, as Le Ray promoted his sons lands to prospective settlers.
 
@@ -135,7 +135,7 @@ Vincent Le Ray left behind an agent at his family’s land office in Chaumont, w
 
 ...
 
-<b>Persisting French Influence? (1836 - present)</b>
+<h3>Persisting French Influence? (1836 - present)</h3>
 
 The number of French Settlers in Northern New York was never large. The 1810 Census shows only 101 residents with French surnames in all of Jefferson County, or less than one percent of the total population, and over one third of these individuals were members of James Le Ray’s household. 
 
@@ -163,7 +163,7 @@ For much of the early nineteenth century, Northern New York remained an isolated
 
 ...
 
-<b>Further Reading</b>
+<h3>Further Reading</h3>
 <ol>
 <li>Beers, S.N & D.G. (1864). New topographical atlas of Jefferson Co., New York. Philadelphia, PA: C.K. Stone.
 </li><li>Burr, D.H. (1829). A map of the County of Jefferson. Ithaca, NY: Office of the Surveyor General.
