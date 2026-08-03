@@ -1,3 +1,11 @@
+---
+layout: default
+title: "Metropolitan Age Structure — State Table"
+description: "Median age, county interquartile ranges, prime-age median and OADR for all 51 states."
+---
+
+<p class="meta"><a href="/_resources/metro-age-structure/report.html">&larr; back to the technical report</a></p>
+
 | state | median age | county p25–p75 | prime-age median | OADR | county OADR p25–p75 |
 |---|---:|---|---:|---:|---|
 | Utah | 32.6 | 33.6–40.2 | 41.8 | 0.266 | 0.303–0.459 |

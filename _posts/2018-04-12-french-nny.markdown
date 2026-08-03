@@ -9,7 +9,14 @@ This post describes the early nineteenth century settlement of Northern New York
 
 ...
 
-<img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/macombspurchase.jpg" />
+<figure>
+  <img src="/_images/macombspurchase.jpg"
+       alt="Simeon De Witt's 1802 map of the State of New York. The northern half of the
+            state is laid out in numbered survey townships across Macomb's Purchase,
+            between the St. Lawrence River, Lake Ontario and Lake Champlain; to the south
+            the Military Tract carries classical town names such as Homer, Cicero, Ovid
+            and Romulus.">
+</figure>
 
 <b>Setting the Stage: Macomb's Purchase</b>
 
@@ -49,7 +56,16 @@ Years later, when Constable was trying to find something to do with a few hundre
 
 ...
 
-<img style="center;margin:0 25px 0 0; padding-left:2%" width="100%" src="/_images/frenchsettlementnny.png" />
+<figure style="max-width:623px">
+  <img src="/_images/frenchsettlementnny.png"
+       alt="Map titled &quot;French Settlement on the Lands of the Castorland Company in
+            Northern New York&quot;. The Castorland tract is shaded across what is now
+            Jefferson and Lewis counties, from Cape Vincent and Chaumont on Lake Ontario
+            east to Natural Bridge and Carthage. Settlements marked include Alexandria Bay,
+            Clayton, LaFargeville, Depauville, Brownville, Theresa, Philadelphia and
+            Deferiet; points of interest include the Le Ray mansions and Joseph Bonaparte's
+            hermitage.">
+</figure>
 
 <b>Early Settlement: 1794 - 1805</b>
 

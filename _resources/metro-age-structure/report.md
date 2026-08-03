@@ -359,7 +359,7 @@ Incidentally, Provo is not the highest under-5 metro in the country:
 
 Florida makes the point numerically: state median age 43.1, but its counties run from 40.9 at the 25th percentile to 47.8 at the 75th — an interquartile range of 6.9 years, and its youngest county is 33.5.
 
-Full state table with interquartile ranges: [`figures/state_table.md`](../figures/state_table.md).
+Full state table with interquartile ranges: [`figures/state_table.md`](/_resources/metro-age-structure/figures/state_table.html).
 
 ### Youngest and oldest states
 
@@ -1029,7 +1029,7 @@ _Every column in every processed table carries a description._
 
 ## Appendix: source inventory
 
-80 cached files, 251 MB. Full URLs, byte sizes, SHA256 hashes and retrieval timestamps are in [`data/raw/MANIFEST.md`](../data/raw/MANIFEST.md); every HTTP request with its status code is logged in `data/raw/fetch_log.jsonl`.
+80 cached files, 251 MB. Full URLs, byte sizes, SHA256 hashes and retrieval timestamps are in [`data/raw/MANIFEST.md`](/_resources/metro-age-structure/manifest.html); every HTTP request with its status code is logged in `data/raw/fetch_log.jsonl`.
 
 | source | status |
 |---|---|

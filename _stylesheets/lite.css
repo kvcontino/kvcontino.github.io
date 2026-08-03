@@ -182,6 +182,8 @@ table.data caption {
 table.data th, table.data td { padding: 8px 14px; border-bottom: 1px solid #333; }
 table.data thead th { color: #cd9575; font-weight: 600; border-bottom: 1px solid #555; }
 table.data td.num, table.data th.num { text-align: right; font-variant-numeric: tabular-nums; }
+/* For short label columns — dates, codes — that must not break mid-value. */
+table.data td.nowrap, table.data th.nowrap { white-space: nowrap; }
 table.data .hi { color: #cd9575; }
 table.data .neg { color: #c8735a; }
 table.data tbody tr:hover { background: #141414; }
