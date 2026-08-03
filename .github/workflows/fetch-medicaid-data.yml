@@ -12,22 +12,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # NOTE: this URL is pinned to the 2024 annual table, so the data is
+      # expected NOT to change between releases — a run that commits nothing is
+      # the normal outcome. When CMS publishes the next annual table the file
+      # name has to be bumped by hand; nothing here will notice on its own.
+      #
+      # -f makes curl exit non-zero on an HTTP error instead of writing the
+      # error page into the data file. Without it a dead endpoint is silently
+      # converted and committed as if it were real data.
       - name: Fetch managed care data
         run: |
-          curl -s "https://download.medicaid.gov/data/share-of-medicaid-enrollees-in-managed-care.2024-table5.csv" > /tmp/managed-care.csv
+          curl -fsS --retry 3 --retry-delay 5 \
+            "https://download.medicaid.gov/data/share-of-medicaid-enrollees-in-managed-care.2024-table5.csv" \
+            -o /tmp/managed-care.csv
+          test -s /tmp/managed-care.csv
           python3 _resources/mcaid/convert_mc.py
-          echo "Done"
-
-      - name: Fetch MBES expenditure catalog
-        run: |
-          curl -s "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?limit=50&sort=modified" > _resources/mcaid/mbes-catalog.json
-          echo "Done"
+          python3 -c "import json,sys; d=json.load(open('_resources/mcaid/managed-care.json')); \
+            sys.exit('managed-care.json is empty') if not d else print(f'ok: {len(d)} records')"
 
       - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add _resources/mcaid/managed-care.json _resources/mcaid/mbes-catalog.json
-          git diff --staged --quiet || git commit -m "chore: refresh Medicaid data $(date +%Y-%m)"
-          git pull --rebase
-          git push
+          git pull --rebase origin master
+          git add _resources/mcaid/managed-care.json
+          if git diff --staged --quiet; then
+            echo "no change — nothing to commit"
+          else
+            git commit -m "chore: refresh Medicaid data $(date +%Y-%m)"
+            git push
+          fi
