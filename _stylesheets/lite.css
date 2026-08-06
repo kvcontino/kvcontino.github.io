@@ -1,17 +1,93 @@
-/* Base */
+/* ============================================================================
+   Blade Runner title-card theme.
 
-/* Two measures, and only two. Both are in px on purpose: `ex` is font-relative,
-   so the same `85ex` resolves to a different pixel width on every element that
-   changes font-size — which is how the essay pages ended up with six different
-   right edges. Text blocks get --measure; figures and data tables get the
-   deliberate breakout at --measure-wide. Nothing else sets its own width. */
+   The 1982 main titles are set entirely in Goudy Oldstyle on black. Three
+   devices carry the whole design, and this stylesheet implements exactly those
+   three and nothing else:
+
+     1. ALL CAPS, letterspaced, for a card that introduces a proper name.
+     2. Small caps for a proper name introduced inside running text.
+     3. Red, once, for the thing being named — and never again.
+
+   The crawl itself is set like a book: sentence case, first-line indents, no
+   space between paragraphs, generous word spacing, ragged right.
+
+   Letterspacing is applied to capitals and small capitals only. Never to
+   lowercase. (Goudy himself is supposed to have had opinions about the men who
+   do that to lowercase.) Every tracked rule below therefore also sets
+   `text-transform: uppercase` or `font-variant-caps`, so the two travel
+   together and a future edit cannot separate them.
+   ========================================================================= */
+
+/* --- Typeface -------------------------------------------------------------
+   Self-hosted, not Google-served, for one load-bearing reason: Google's
+   subsetter strips the OpenType layout tables down to
+   `liga/locl/lnum/frac/numr/dnom` and the small-caps feature (`smcp`, `c2sc`)
+   does not survive. `font-variant-caps` against that subset falls back to
+   browser-synthesised small caps — scaled-down capitals, too light against the
+   lowercase, which is the one thing this design cannot afford. The upstream
+   OFL font carries 121 real small-cap glyphs. Both faces together are ~72 KB,
+   less than the two Google families they replace, and cost no third-party
+   request. Licence travels with them in assets/fonts/OFL.txt.
+
+   Note: upstream ships `smcp` on the roman only. The italic has no small caps,
+   so `.sc` nested inside italic text will synthesise. Avoid that combination. */
+@font-face {
+  font-family: 'Sorts Mill Goudy';
+  src: url('/assets/fonts/SortsMillGoudy-Regular.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sorts Mill Goudy';
+  src: url('/assets/fonts/SortsMillGoudy-Italic.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
+  /* Two measures, and only two. Both are in px on purpose: `ex` is font-relative,
+     so the same `85ex` resolves to a different pixel width on every element that
+     changes font-size — which is how the essay pages ended up with six different
+     right edges. Text blocks get --measure; figures and data tables get the
+     deliberate breakout at --measure-wide. Nothing else sets its own width. */
   --measure: 730px;
   --measure-wide: 1100px;
   /* Sidebar is 20% of the wrapper, content 80%, so this caps the content
      column at --measure-wide and keeps the nav from drifting away from the
      text on wide monitors. */
   --wrapper-max: calc(var(--measure-wide) / 0.8);
+
+  /* --- Palette ----------------------------------------------------------
+     Sampled from the title cards themselves rather than invented. The film's
+     white is #ececec — very slightly off pure white, and neutral, not warm.
+     The film's red is #980000, a genuinely dark blood red.
+
+     That red is 2.34:1 against black. It fails WCAG at every size, so it is
+     not usable as-is for anything that has to be read. Two reds resolve this
+     without abandoning the look:
+
+       --bleed  #b81419  3.15:1 — clears AA for large text (>=24px) only.
+                Display use: the h1 marquee, and the debut of a `.term`, where
+                the italic carries the emphasis and the colour is decoration.
+       --ember  #e04a42  5.23:1 — clears AA for body text. Anything at reading
+                size that signals through colour: links on hover, table
+                accents, notes.
+
+     Ratios are recomputed by hand if these ever change; see the typography
+     conventions note. Do not reach for the authentic #980000 on live text. */
+  --void:      #000000;
+  --ink:       #e8e8e8;   /* 17.1:1 — body */
+  --ink-dim:   #9a9a9a;   /*  7.5:1 — captions, meta, secondary nav */
+  --ink-faint: #444444;   /* rules and borders only, never text */
+  --bleed:     #b81419;   /* display red   */
+  --ember:     #e04a42;   /* text-size red */
+
+  /* The single tracking token. If a rule sets letter-spacing, it is this
+     value, and the run it applies to is capitals. */
+  --track: 0.14em;
 }
 
 /* Border-box everywhere, so padding and borders count *inside* a width rather
@@ -21,14 +97,16 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  font-family: 'Spectral', serif;
+  font-family: 'Sorts Mill Goudy', 'Iowan Old Style', Georgia, serif;
 }
 
 body {
   margin: 0;
-  font-size: 18px;
-  color: white;
-  background-color: black;
+  /* 20px, not the old 18px: Goudy Oldstyle has a notably small x-height, so it
+     reads a size smaller than Spectral did at the same nominal font-size. */
+  font-size: 20px;
+  color: var(--ink);
+  background-color: var(--void);
   padding-left: 10%;
   padding-right: 10%;
   padding-bottom: 5%;
@@ -48,193 +126,334 @@ body {
   text-align: right;
   padding-right: 3%;
   padding-top: 4%;
-  font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 2px;
-  font-size: 22px;
+  font-size: 0.8em;
 }
 
+/* The site name is a credit card: a person's name, in caps, in white —
+   "HARRISON FORD", not "BLADE RUNNER". */
 .site-name {
-  margin-bottom: 1.5em;
+  margin-bottom: 2.4em;
+  text-transform: uppercase;
+  letter-spacing: var(--track);
+  color: var(--ink);
 }
+
+/* Tracking adds space *after* the final letter too, which pushes right-aligned
+   type away from its own right edge. Pull the column back by one track so the
+   nav aligns optically rather than metrically. */
+.sidebar { margin-right: calc(-1 * var(--track)); }
 
 .sidebar a {
   display: block;
-  color: #CCC;
+  margin-bottom: 1.4em;
+  text-transform: uppercase;
+  letter-spacing: var(--track);
+  color: var(--ink-dim);
   text-decoration: none;
-  margin-bottom: 1.5em;
 }
+.sidebar a:hover { color: var(--ink); }
 
+/* --- The crawl ------------------------------------------------------------
+   Set like a book. Ragged right, not justified: the crawl in the film is
+   ragged, and justification plus the wide word spacing below would fight each
+   other and open rivers. Hyphenation off for the same reason — a book of this
+   period would break words, but a browser's hyphenation dictionary breaks them
+   badly and the ragged edge is the point. */
 .content {
   width: 80%;
   padding-top: 4%;
-  line-height: 1.7em;
-  text-align: justify;
-  hyphens: auto;
+  line-height: 1.75;
+  text-align: left;
+  hyphens: none;
+  word-spacing: 0.12em;
 }
 
-/* Links */
-a:link { color: #CCC; }
-a:visited { color: #cd9575; }
-a:active { color: #cd9575; }
-a:link.external { color: #77216F; text-decoration: none; }
-a:visited.external { color: #cd9575; text-decoration: none; }
-a:active.external { color: #cd9575; text-decoration: none; }
+/* First-line indents carry the paragraph break, so the paragraphs close up.
+   Scoped to `.content >` so that .dek, figcaption, blockquote and the
+   generated resource pages keep their own spacing. The first paragraph after
+   any heading is not indented — that is the book convention, and `p + p` gives
+   it for free by only indenting a paragraph that follows another paragraph. */
+.content > p {
+  margin: 0;
+  max-width: var(--measure);
+}
+.content > p + p { text-indent: 1.6em; }
+/* The indent rule above is specificity 0-1-2 (one class, two elements), so a
+   bare `.dek { text-indent: 0 }` at 0-1-0 loses to it and the deck ends up
+   indented. These selectors are 0-2-0 and win. Any future paragraph-level
+   component that must not indent belongs on this list. */
+.content > .dek,
+.content > .meta,
+.content > .note,
+.content > .pagenav,
+.content > figcaption { text-indent: 0; }
+/* .dek and .meta are themselves <p>, so the essay's opening paragraph counts as
+   `p + p` and picks up an indent it should not have — the first paragraph of a
+   section is always flush. */
+.content > .dek + p,
+.content > .meta + p { text-indent: 0; }
 
-/* Headings */
-h1, h2, h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
-  color: #cd9575;
-  line-height: 1.2em;
+/* Links: underlined always, so the signal never depends on colour alone. The
+   red lives in the rule under the word rather than the word itself, which
+   keeps body text at full contrast and spends the accent on interaction. */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--bleed);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:visited { color: var(--ink-dim); }
+a:hover, a:focus {
+  color: var(--ember);
+  text-decoration-color: var(--ember);
 }
 
-h1 { font-size: 2.6em; }
-h2 { font-size: 2.0em; }
-h3 { font-size: 1.5em; }
+/* --- Title cards ---------------------------------------------------------- */
+
+/* h1 is the marquee — the title of the work, in red, like "BLADE RUNNER". */
+h1 {
+  font-size: 2.4em;
+  line-height: 1.15;
+  margin: 0 0 0.8em 0;
+  text-transform: uppercase;
+  letter-spacing: var(--track);
+  color: var(--bleed);
+  font-weight: 400;
+  word-spacing: normal;
+}
+
+/* h2 and h3 are credit cards — white caps. h2 takes full capitals; h3 takes
+   small capitals, so the two ranks differ by case as well as size and the
+   page never shows three sizes of the same shouting. */
+h2 {
+  font-size: 1.5em;
+  line-height: 1.25;
+  margin: 2em 0 0.6em 0;
+  text-transform: uppercase;
+  letter-spacing: var(--track);
+  color: var(--ink);
+  font-weight: 400;
+  word-spacing: normal;
+}
+
+h3 {
+  font-size: 1.15em;
+  line-height: 1.3;
+  margin: 2em 0 0.5em 0;
+  font-variant-caps: all-small-caps;
+  -webkit-font-variant-caps: all-small-caps;
+  font-feature-settings: "smcp" 1, "c2sc" 1;
+  letter-spacing: var(--track);
+  color: var(--ink);
+  font-weight: 400;
+  word-spacing: normal;
+}
+
 h1, h2, h3 { max-width: var(--measure); }
 
-/* Text */
-p { max-width: var(--measure); }
+/* --- The two emphasis devices ---------------------------------------------
+
+   .sc    a proper name being introduced into running text. Real small caps
+          from the font, tracked, same colour as the body. Use on FIRST
+          mention only; afterwards the name is set plainly.
+
+   .term  a term of art, italic on every appearance.
+   .term.debut  its first appearance, additionally in red.
+
+   This is the film's exact logic for "Replicant": italicised every time,
+   red only on its debut. The italic is what carries the emphasis; the red is
+   decoration on top of it, which is also why the low-contrast --bleed is
+   acceptable here — remove the colour and nothing is lost. */
+.sc {
+  font-variant-caps: all-small-caps;
+  -webkit-font-variant-caps: all-small-caps;
+  font-feature-settings: "smcp" 1, "c2sc" 1;
+  letter-spacing: var(--track);
+}
+
+.term { font-style: italic; }
+.term.debut { color: var(--bleed); }
+
+/* A run of full capitals set inline — a card-style name in body copy. */
+.caps {
+  text-transform: uppercase;
+  letter-spacing: var(--track);
+  font-size: 0.92em;   /* full caps at body size read too large next to Goudy's
+                          small x-height; a hair down evens the colour */
+}
+
+/* Plain emphasis stays plain. In a single-typeface design with no bold weight
+   available, italic is the only emphasis, and it should not also change
+   colour — that was a habit from the two-typeface theme. */
+em, i, dfn, var, cite { font-style: italic; color: inherit; }
+strong, b { font-weight: 400; font-style: italic; color: var(--ink); }
+
 ul, ol { max-width: var(--measure); }
-li { margin: 16px 0; }
-em { color: #DDD; }
-strong { color: #DDD; }
-dfn { color: #DDD; }
-var { color: #DDD; }
+li { margin: 10px 0; }
+
+/* --- Numerals -------------------------------------------------------------
+   Goudy Oldstyle's default figures are oldstyle (ranging) and proportional,
+   which is correct in prose. In a data table they are neither aligned nor
+   scannable, so tables switch to lining figures — which in this font are all
+   exactly 527 units wide, i.e. already tabular. `tabular-nums` below is
+   therefore belt-and-braces; the font has no `tnum` feature and does not need
+   one. */
+table.data, .num, time { font-variant-numeric: lining-nums tabular-nums; }
 
 /* Code */
-pre { color: #202080; }
-samp { color: #202080; }
-tt { color: #202080; }
-code { font-size: 18px; color: #AAA; white-space: pre; }
-
-/* Custom elements */
-rw { font-style: italic; color: #602020; }
-eqn { font-style: italic; color: #202080; }
-
-lambda {
-  font-family: 'Cormorant Garamond', serif;
-  color: #cd9575;
+pre, code, samp, tt, kbd {
+  font-family: ui-monospace, 'DejaVu Sans Mono', monospace;
+  font-size: 0.85em;
+  color: var(--ink-dim);
+  word-spacing: normal;
 }
+pre { overflow-x: auto; max-width: var(--measure-wide); }
 
-biglambda {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 42px;
-  color: #cd9575;
-}
+/* Custom elements retained for _ideas/post-template.md. Rethemed off the old
+   #202080 blue, which sat at about 1.4:1 on black and was unreadable. */
+rw  { font-style: italic; color: var(--ember); }
+eqn { font-style: italic; color: var(--ink-dim); }
+lambda, biglambda { color: var(--bleed); }
+biglambda { font-size: 42px; }
 
-/* Equations */
-div.equation { font-style: italic; color: #202080; margin: 16px 0; }
-div.equation em { color: red; }
-span.equation { font-style: italic; color: #202080; }
-span.equation em { color: red; }
-span.program { font-family: monospace; }
-span.rw { font-family: monospace; font-style: italic; }
+div.equation, span.equation { font-style: italic; color: var(--ink-dim); }
+div.equation { margin: 1.2em 0; }
+div.equation em, span.equation em { color: var(--ember); font-style: normal; }
+span.program { font-family: ui-monospace, monospace; }
+span.rw { font-family: ui-monospace, monospace; font-style: italic; }
 
-/* Essay / analysis components (long-form pieces with figures + data tables) */
+/* --- Essay / analysis components (long-form pieces with figures + tables) --- */
 .dek {
-  font-size: 1.25em;
-  line-height: 1.5em;
-  color: #cdb8a8;
-  text-align: left;
+  font-size: 1.2em;
+  line-height: 1.5;
+  color: var(--ink);
   hyphens: none;
   max-width: var(--measure);
   margin: 0 0 1.2em 0;
+  text-indent: 0;
 }
 .meta {
   font-size: 0.8em;
-  color: #9a9a9a;
+  color: var(--ink-dim);
   font-style: italic;
-  text-align: left;
   max-width: var(--measure);
-  margin-bottom: 2em;
+  margin-bottom: 2.4em;
+  text-indent: 0;
 }
-.meta a, .dek a { color: #cd9575; }
+.meta a, .dek a { color: inherit; }
 
-figure { margin: 2.4em 0; max-width: var(--measure-wide); }
+figure { margin: 2.6em 0; max-width: var(--measure-wide); }
 figure img, figure svg { width: 100%; height: auto; display: block; }
 figcaption {
-  font-size: 0.82em;
-  line-height: 1.5em;
-  color: #9a9a9a;
-  text-align: left;
+  font-size: 0.8em;
+  line-height: 1.5;
+  color: var(--ink-dim);
   hyphens: none;
+  word-spacing: normal;
   margin-top: 0.6em;
   max-width: var(--measure);
 }
-figcaption strong { color: #cdb8a8; }
+figcaption strong {
+  color: var(--ink);
+  font-style: normal;
+  font-variant-caps: all-small-caps;
+  -webkit-font-variant-caps: all-small-caps;
+  font-feature-settings: "smcp" 1, "c2sc" 1;
+  letter-spacing: var(--track);
+}
 
-.tablewrap { overflow-x: auto; margin: 2em 0; max-width: var(--measure-wide); -webkit-overflow-scrolling: touch; }
+.tablewrap { overflow-x: auto; margin: 2.2em 0; max-width: var(--measure-wide); -webkit-overflow-scrolling: touch; }
 table.data {
   border-collapse: collapse;
   width: 100%;
-  font-size: 0.9em;
-  line-height: 1.4em;
+  font-size: 0.85em;
+  line-height: 1.45;
   text-align: left;
   hyphens: none;
+  word-spacing: normal;
 }
 table.data caption {
   text-align: left;
-  color: #9a9a9a;
+  color: var(--ink-dim);
   font-size: 0.9em;
   padding-bottom: 0.6em;
 }
-table.data th, table.data td { padding: 8px 14px; border-bottom: 1px solid #333; }
-table.data thead th { color: #cd9575; font-weight: 600; border-bottom: 1px solid #555; }
-table.data td.num, table.data th.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.data th, table.data td { padding: 8px 14px; border-bottom: 1px solid var(--ink-faint); }
+/* Column heads get the small-caps treatment rather than a colour or a weight —
+   the font has no bold, and the accent is spent elsewhere. */
+table.data thead th {
+  color: var(--ink);
+  font-weight: 400;
+  font-variant-caps: all-small-caps;
+  -webkit-font-variant-caps: all-small-caps;
+  font-feature-settings: "smcp" 1, "c2sc" 1;
+  letter-spacing: var(--track);
+  border-bottom: 1px solid #666;
+}
+table.data td.num, table.data th.num { text-align: right; }
 /* For short label columns — dates, codes — that must not break mid-value. */
 table.data td.nowrap, table.data th.nowrap { white-space: nowrap; }
-table.data .hi { color: #cd9575; }
-table.data .neg { color: #c8735a; }
+table.data .hi  { color: var(--ember); }
+table.data .neg { color: var(--ember); font-style: italic; }
 table.data tbody tr:hover { background: #141414; }
 
 .note {
-  border-left: 2px solid #cd9575;
+  border-left: 2px solid var(--bleed);
   padding: 0.2em 0 0.2em 1.2em;
   margin: 2em 0;
-  color: #d8d8d8;
+  color: var(--ink);
   hyphens: none;
   max-width: var(--measure);
+  text-indent: 0;
 }
-.note strong { color: #cd9575; }
+.note p { text-indent: 0; }
+.note strong {
+  color: var(--ember);
+  font-style: normal;
+  font-variant-caps: all-small-caps;
+  -webkit-font-variant-caps: all-small-caps;
+  font-feature-settings: "smcp" 1, "c2sc" 1;
+  letter-spacing: var(--track);
+}
 
 /* Quoted testimony / transcript extracts — deliberately recessive against .note,
    which uses the accent border for the essay's own asides. */
 blockquote {
-  border-left: 2px solid #444;
+  border-left: 2px solid var(--ink-faint);
   padding: 0.2em 0 0.2em 1.4em;
   margin: 1.8em 0;
-  color: #b8b8b8;
+  color: var(--ink-dim);
   font-size: 0.95em;
   hyphens: none;
   max-width: var(--measure);
 }
-blockquote p { margin: 0 0 0.8em 0; }
+blockquote p { margin: 0 0 0.8em 0; text-indent: 0; }
 blockquote p:last-child { margin-bottom: 0; }
-blockquote strong { color: #cdb8a8; font-weight: 600; }
+blockquote strong { color: var(--ink); font-style: normal; }
 
 .pagenav {
   margin-top: 3em;
   padding-top: 1.4em;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--ink-faint);
   font-size: 0.9em;
   max-width: var(--measure);
+  text-indent: 0;
 }
 
 /* Misc */
 hr {
   border: 0;
-  border-top: 1px solid #8c8c8c;
-  border-bottom: 1px solid #fff;
-  margin: 2.4em 0;
+  border-top: 1px solid var(--ink-faint);
+  margin: 2.6em 0;
   /* A section rule belongs to the text it divides, not to the figure column. */
   max-width: var(--measure);
 }
 
 footer {
-  font-size: 14px;
+  font-size: 0.7em;
   font-style: italic;
-  color: #CCC;
+  color: var(--ink-dim);
 }
 
 #pdfdisplay {
@@ -244,6 +463,7 @@ footer {
 /* Mobile */
 @media (max-width: 600px) {
   body {
+    font-size: 18px;
     padding-left: 5%;
     padding-right: 5%;
   }
@@ -258,12 +478,14 @@ footer {
     padding-right: 0;
     padding-top: 2%;
     padding-bottom: 2%;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid var(--ink-faint);
   }
+
+  .site-name { margin-bottom: 0.8em; }
 
   .sidebar a {
     display: inline;
-    margin-right: 1.5em;
+    margin-right: 1.4em;
     margin-bottom: 0;
   }
 
@@ -272,7 +494,7 @@ footer {
     padding-top: 4%;
   }
 
-  h1 { font-size: 2.0em; }
-  h2 { font-size: 1.6em; }
-  h3 { font-size: 1.3em; }
+  h1 { font-size: 1.9em; }
+  h2 { font-size: 1.35em; }
+  h3 { font-size: 1.1em; }
 }

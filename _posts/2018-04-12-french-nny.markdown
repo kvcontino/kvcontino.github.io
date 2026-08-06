@@ -5,7 +5,7 @@ layout: default
 categories: cultural-landscapes
 ---
 
-This post describes the early nineteenth century settlement of Northern New York by French immigrants. The region's history shows that French developers, particularly the Le Ray family, were important during its early Euro-American settlement. However, only a small proportion of those who actually settled the region were French, and those early French settlers were quickly and heavily outnumbered by New Englanders. Even so, the French legacy in Northern New York remains significant.
+This post describes the early nineteenth century settlement of Northern New York by French immigrants. The region's history shows that French developers, particularly <span class="sc">the Le Ray family</span>, were important during its early Euro-American settlement. However, only a small proportion of those who actually settled the region were French, and those early French settlers were quickly and heavily outnumbered by New Englanders. Even so, the French legacy in Northern New York remains significant.
 
 ...
 
@@ -20,27 +20,27 @@ This post describes the early nineteenth century settlement of Northern New York
 
 <h3>Setting the Stage: Macomb's Purchase</h3>
 
-In 1784, the Oneida Indians ceded all of Northern New York to New York State. The land was mostly unsettled wilderness. Although the area served as a hunting ground for several Native American tribes, including the Oneida, their presence was minimal by this period.
+In 1784, <span class="sc">the Oneida Indians</span> ceded all of Northern New York to New York State. The land was mostly unsettled wilderness. Although the area served as a hunting ground for several Native American tribes, including the Oneida, their presence was minimal by this period.
 
 A few ruined forts along the Saint Lawrence River were the only real trace of earlier Euro-American activity. The nearest American settlements were dozens of miles away, in the Mohawk Valley and along Lake Champlain. 
 
-Almost a decade later, in 1791, the New York State Board of Land Commissioners auctioned off most of the region - 3.7 million acres - in six “Great Tracts." A New York City-based syndicate purchased all six of the Great Tracts at eight cents per acre. The leader of that syndicate was an Irish-born fur trader named Alexander Macomb.
+Almost a decade later, in 1791, the New York State Board of Land Commissioners auctioned off most of the region - 3.7 million acres - in six “Great Tracts." A New York City-based syndicate purchased all six of the Great Tracts at eight cents per acre. The leader of that syndicate was an Irish-born fur trader named <span class="sc">Alexander Macomb</span>.
 
-Macomb’s Purchase included almost all of four present-day counties: Jefferson, Lewis, Saint Lawrence, and Franklin. The largest piece of land in the area excluded from the purchase, the Saint Lawrence Ten Towns, had been purchased by Macomb several years earlier.
+<span class="sc">Macomb’s Purchase</span> included almost all of four present-day counties: Jefferson, Lewis, Saint Lawrence, and Franklin. The largest piece of land in the area excluded from the purchase, <span class="sc">the Saint Lawrence Ten Towns</span>, had been purchased by Macomb several years earlier.
  
 Macomb may have made one of the largest private land purchases in the young history of the country, but he was not a developer: Instead, he hoped to make a fortune in land speculation. Macomb planned to divide his purchase into much smaller plots to be sold at a significant markup. 
 
 However, this plan never came to fruition. Macomb failed to swiftly capitalize on his purchase in Northern New York, and other unsuccessful business ventures quickly depleted his fortune. These failures drove Macomb into bankruptcy and debtor's prison.
  
-Macomb's financial ruin left his associate, William Constable, with sole title to the southern portion of Macomb's Purchase. Constable had been supervisor of Great Tracs Four, Five, and Six, which comprise most of present-day Jefferson and Lewis counties. 
+Macomb's financial ruin left his associate, <span class="sc">William Constable</span>, with sole title to the southern portion of Macomb's Purchase. Constable had been supervisor of Great Tracs Four, Five, and Six, which comprise most of present-day Jefferson and Lewis counties. 
 
-Attempting to find some way to profit off of his lands, Constable went to Paris with an offer for his friend, a French nobleman named James Le Ray de Chaumont: If Le Ray could find interested investors, Northern New York would become into a haven for refugees of the French Revolution.
+Attempting to find some way to profit off of his lands, Constable went to Paris with an offer for his friend, a French nobleman named <span class="sc">James Le Ray de Chaumont</span>: If Le Ray could find interested investors, Northern New York would become into a haven for refugees of the French Revolution.
 
 ...
 
 <h3>Introducing James Le Ray de Chaumont</h3>
 
-James Le Ray de Chaumont was the scion of a prominent family of French aristocrats. His father, Jacques Leray de Chaumont, had become wealthy as the owner of a merchant fleet, and he had earned his family’s aristocratic title several decades earlier with the purchase of the Chateau de Chaumont in the Loire Valley.  
+James Le Ray de Chaumont was the scion of a prominent family of French aristocrats. His father, <span class="sc">Jacques Leray de Chaumont</span>, had become wealthy as the owner of a merchant fleet, and he had earned his family’s aristocratic title several decades earlier with the purchase of the Chateau de Chaumont in the Loire Valley.  
 
 As someone who had made much of his fortune through sea trade, Jacques Leray had longstanding ties with the United States, and he ranked among the earliest and most fervent French supporters of the American Revolution. When Benjamin Franklin and John Adams came to France to plead for aid, Jacques Leray was their host, and he used his influence to buy Franklin and Adams time before the court of Louis XVI.
 
@@ -63,7 +63,7 @@ Years later, when Constable was trying to find something to do with a few hundre
             Jefferson and Lewis counties, from Cape Vincent and Chaumont on Lake Ontario
             east to Natural Bridge and Carthage. Settlements marked include Alexandria Bay,
             Clayton, LaFargeville, Depauville, Brownville, Theresa, Philadelphia and
-            Deferiet; points of interest include the Le Ray mansions and Joseph Bonaparte's
+            Deferiet; points of interest include the Le Ray mansions and <span class="sc">Joseph Bonaparte</span>'s
             hermitage.">
 </figure>
 
@@ -71,11 +71,11 @@ Years later, when Constable was trying to find something to do with a few hundre
 
 James Le Ray’s intent was different from Macomb’s from the start: Le Ray was a developer, and his interest in the North Country was based a vision for what the land could become over decades rather than a short-term concern for profit. (Of course, recovering his family fortune was among Le Ray’s goals.) 
 
-In 1792, Le Ray partnered with his brother-in-law, Peter Chassanis, to form the Antwerp Land Company. Le Ray lacked the financial capacity to back this venture himself, but he made up for his lack of funds with connections and charm. With support from dozens of American and European investors, the Antwerp Land Company purchased over 600,000 acres, including all of Great Tract Four and portions of Great Tract Five lying north of the Black River. 
+In 1792, Le Ray partnered with his brother-in-law, <span class="sc">Peter Chassanis</span>, to form <span class="sc">the Antwerp Land Company</span>. Le Ray lacked the financial capacity to back this venture himself, but he made up for his lack of funds with connections and charm. With support from dozens of American and European investors, the Antwerp Land Company purchased over 600,000 acres, including all of Great Tract Four and portions of Great Tract Five lying north of the Black River. 
 
 Despite the skill with which Le Ray had attracted financial backing, the Antwerp Land Company's purchase fell through within a year, and Le Ray was forced to return the land to Constable 
 
-Two years later, in 1794, Le Ray and Chassanis attempted again to purchase land from Constable, this time with more success. The two Frenchmen formed the Castorland Company. The Castorland took its name from the French word for beaver, of which there were many in the region. (Castor oil is actually a vegetable oil, but it gets its name from its use as a replacement for castoreum, which is a tincture extracted from a beaver's perineal glands.) The Castorland Company re-purchased 215,000 acres of the land that had the Antwerp Company had briefly held.
+Two years later, in 1794, Le Ray and Chassanis attempted again to purchase land from Constable, this time with more success. The two Frenchmen formed <span class="sc">the Castorland Company</span>. The Castorland took its name from the French word for beaver, of which there were many in the region. (Castor oil is actually a vegetable oil, but it gets its name from its use as a replacement for castoreum, which is a tincture extracted from a beaver's perineal glands.) The Castorland Company re-purchased 215,000 acres of the land that had the Antwerp Company had briefly held.
 
 Peter Chassanis and Le Ray had already begun to make elaborate plans for Castorland - plotting locations of highways, bridges, mills, and even future cities - but it was Chassanis alone who led the first attempt at settlement by bringing twenty aristocratic families from France into the Black River Valley of present-day Jefferson and Lewis counties.
 
@@ -85,19 +85,19 @@ Two villages stand today on the sites of the Chassanis company's settlements: Ca
 
 Rather than ending Le Ray's interest in Northern New York, this failure inspired him to adapt to the realities of the frontier environment. In 1798, when the New York State legislature prohibited non-citizens from owning property, Le Ray bought out his French partners to become the sole owner of Castorland. Furthermore, Le Ray set about purchasing the remaining lands that had once been purchased by the ill-fated Antwerp Company, and by 1800, Le Ray had re-acquired almost all of the original 600,000 acres.
 
-In 1800, Le Ray sponsored a second attempt to settle Castorland, this time recruiting American settlers. Jacob Brown, a Quaker from Bucks County, Pennsylvania, led the effort, and Vermonters made up most of the settlement party. (By now, Le Ray had abandoned any plans to re-settle refugees of the French Revolution on the New York frontier.) Brown established his settlement about four miles upstream from the mouth of the Black River, and it would eventually grow into the present-day Village of Brownville.
+In 1800, Le Ray sponsored a second attempt to settle Castorland, this time recruiting American settlers. <span class="sc">Jacob Brown</span>, a Quaker from Bucks County, Pennsylvania, led the effort, and Vermonters made up most of the settlement party. (By now, Le Ray had abandoned any plans to re-settle refugees of the French Revolution on the New York frontier.) Brown established his settlement about four miles upstream from the mouth of the Black River, and it would eventually grow into the present-day Village of Brownville.
 
 <h3>James Le Ray Comes to Northern New York (1805 - 1820)</h3>
 
-With the success of Brown’s settlement, James Le Ray decided to move his family to Northern New York. He imported livestock and skilled artisans to his new estate, and built a mansion in the neoclassical style on a site that is now occuped by Fort Drum. A village quickly developed near the site of his mansion, persisting until the mid-twentieth century when it was displaced to make way for the expansion of the military reservation. Le Ray and his family relocated to this mansion in 1806. Though it burned to the ground in 1822, Le Ray’s eldest son, Vincent, immediately rebuilt it on the same site. 
+With the success of Brown’s settlement, James Le Ray decided to move his family to Northern New York. He imported livestock and skilled artisans to his new estate, and built a mansion in the neoclassical style on a site that is now occuped by <span class="sc">Fort Drum</span>. A village quickly developed near the site of his mansion, persisting until the mid-twentieth century when it was displaced to make way for the expansion of the military reservation. Le Ray and his family relocated to this mansion in 1806. Though it burned to the ground in 1822, Le Ray’s eldest son, Vincent, immediately rebuilt it on the same site. 
 
 Le Ray’s second mansion is one of the few structures erected by French nobles in Northern New York that remains standing today. It has been used by the US military since Fort Drum (then called Camp Drum) became an army reservation in 1940, first as the commanding officer’s residence, and later as a guest house for visiting dignitaries.
 
 In the wake of Jacob Brown’s success, settlement continued throughout much of Castorland at a rapid pace. Cape Vincent was first settled in 1801, and Chaumont was first settled in 1802, both by groups of New Englanders working under the direction of Le Ray. Also in 1802, Le Ray established his land office, Chaumont House, in Chaumont. In 1804, Le Ray sold a piece of land to a group of Quakers, whose settlement would become the Village of Philadelphia. By 1805, the area was thickly settled enough that a movement led by several Watertown-based merchants succeeded in convincing the state legislature to create the counties of Jefferson and Lewis.
 
-James Le Ray continued working to develop his land and attract new settlers. Convinced that improved roads were the key to solidifying the importance of Northern New York, he helped to develop the Saint Lawrence Turnpike Company and served as its President. The Saint Lawrence Turnpike eventually extended across Macomb’s Purchase - connecting the Black River Valley, south of the Le Ray Mansion, to Malone, in the northern reaches of Franklin County. In addition to opening much of Saint Lawrence and Jefferson counties to settlement, the road was a key strategic resource for the United States during the War of 1812, allowing for the quick movement of troops and materiel along the length of the Canadian border. 
+James Le Ray continued working to develop his land and attract new settlers. Convinced that improved roads were the key to solidifying the importance of Northern New York, he helped to develop <span class="sc">the Saint Lawrence Turnpike Company</span> and served as its President. The Saint Lawrence Turnpike eventually extended across Macomb’s Purchase - connecting the Black River Valley, south of the Le Ray Mansion, to Malone, in the northern reaches of Franklin County. In addition to opening much of Saint Lawrence and Jefferson counties to settlement, the road was a key strategic resource for the United States during the War of 1812, allowing for the quick movement of troops and materiel along the length of the Canadian border. 
 
-Later, Le Ray served as President of the Jefferson County Agricultural Society, a capacity in which he organized the first county fair. Le Ray also donated land parcels for the construction of Catholic and Protestant churches alike throughout the region. 
+Later, Le Ray served as President of <span class="sc">the Jefferson County Agricultural Society</span>, a capacity in which he organized the first county fair. Le Ray also donated land parcels for the construction of Catholic and Protestant churches alike throughout the region. 
 
 Although the Erie Canal eventually funneled more settlers past the region, Le Ray advocated for its construction. However he campaigned for a route through the Black River Valley - passing through Castorland and bypassing Western New York. 
 
@@ -115,15 +115,15 @@ One of the most notable figures involved in this period of settlement was Joseph
 
 The most impressive of Bonaparte’s projects was a sizable summer mansion situated on the southeast shore of Lake Diana (now called Lake Bonaparte). In 1830, Bonaparte sold his holdings in Northern New Yorkand permanently withdrew to his estate in New Jersey. Bonaparte's mansion fell into disuse and was destroyed by fire not long after his departure. No trace of it remains today, and Lake Bonaparte hosts only a few scattered cottages.
 
-Another French noble involved in this stage of settlement was Baroness Jenika de Feriet, an old friend of James Le Ray. In 1820, Le Ray sold de Feriet a tract of land on a bend in the Black River, where she built a mansion. In 1828, De Feriet mortgaged her holdings amidst financial difficulties; she attempted to ameliorate these problems by building a village, but her project failed to attract settlers and only added to her debts. In 1841, de Feriet returned to France in destitution. 
+Another French noble involved in this stage of settlement was <span class="sc">Baroness Jenika de Feriet</span>, an old friend of James Le Ray. In 1820, Le Ray sold de Feriet a tract of land on a bend in the Black River, where she built a mansion. In 1828, De Feriet mortgaged her holdings amidst financial difficulties; she attempted to ameliorate these problems by building a village, but her project failed to attract settlers and only added to her debts. In 1841, de Feriet returned to France in destitution. 
 
-De Feriet's mansion remained standing until it burned to the ground in 1871. Today, only overgrown stone pathways remain. Jenika de Feriet’s estate stood abandoned until 1901, when the Saint Regis Paper Mill was constructed at its site. This was one of the largest paper mills in the world at the time of its construction. The adjacent company town was named Deferiet for the site’s former occupant, and its population peaked at 1,500 in 1922. The mill has since closed, and today the village is  ruins and about one hundred residents.
+De Feriet's mansion remained standing until it burned to the ground in 1871. Today, only overgrown stone pathways remain. Jenika de Feriet’s estate stood abandoned until 1901, when <span class="sc">the Saint Regis Paper Mill</span> was constructed at its site. This was one of the largest paper mills in the world at the time of its construction. The adjacent company town was named Deferiet for the site’s former occupant, and its population peaked at 1,500 in 1922. The mill has since closed, and today the village is  ruins and about one hundred residents.
 
-A particularly odd episode involves a third French settler who arrived in Northern New York during this period. John la Farge was a French merchant who had been living in New York City for several years. During the early 1820s, la Farge purchased Penet’s Square, a 100 square mile tract of land covering a perfect square in northern Jefferson County.
+A particularly odd episode involves a third French settler who arrived in Northern New York during this period. <span class="sc">John la Farge</span> was a French merchant who had been living in New York City for several years. During the early 1820s, la Farge purchased <span class="sc">Penet’s Square</span>, a 100 square mile tract of land covering a perfect square in northern Jefferson County.
 
-The strange thing about Penet's Square is that it was *not* included in Macomb's Purchase. For unclear reasons, this land was set aside for a man named Peter Penet under the terms of the 1784 treaty between New York State and the Oneida Indians. 
+The strange thing about Penet's Square is that it was *not* included in Macomb's Purchase. For unclear reasons, this land was set aside for a man named <span class="sc">Peter Penet</span> under the terms of the 1784 treaty between New York State and the Oneida Indians. 
 
-Penet disappeared not long after acquiring title to the tract, and no one seems to know what happened to him. But his disappearance left his land in an unclear legal position for decades. During this time, Penet's Square attracted a group of squatters known to other settlers as the Catfish People on account of their supposed diet. By the time New York State took the land and sold it to la Farge, the Catfish people had been living on there for decades and numbered in the hundreds.
+Penet disappeared not long after acquiring title to the tract, and no one seems to know what happened to him. But his disappearance left his land in an unclear legal position for decades. During this time, Penet's Square attracted a group of squatters known to other settlers as <span class="sc">the Catfish People</span> on account of their supposed diet. By the time New York State took the land and sold it to la Farge, the Catfish people had been living on there for decades and numbered in the hundreds.
 
 Not surprisingly, the Catfish People resented la Farge's presence and his legal claim to their lands. Although la Farge attempted to placate them, even going so far as to grant most of the squatters title to the land that they occupied, the Catfish People attempted to murder him and succeeded in burning his first homestead to the ground. 
 

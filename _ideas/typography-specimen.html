@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- ===========================================================================
+     TYPOGRAPHY SPECIMEN — kvcontino.github.io
+
+     Lives in _ideas/ so Jekyll never publishes it. This is the visual half of
+     the site's typographic standard; the written half is the memory note
+     `feedback-typography-conventions`.
+
+     To view it:
+       bundle exec jekyll build
+       cp _ideas/typography-specimen.html _site/
+       (cd _site && python3 -m http.server 4000)
+       open http://127.0.0.1:4000/typography-specimen.html
+
+     When you change lite.css, look at this page before you look at anything
+     else. Every device the stylesheet offers appears here exactly once.
+     ======================================================================= -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Typography specimen</title>
+  <link rel="preload" href="/assets/fonts/SortsMillGoudy-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" type="text/css" href="/_stylesheets/lite.css">
+</head>
+<body>
+<div class="site-wrapper">
+  <nav class="sidebar">
+    <p class="site-name">K.V. Contino</p>
+    <a href="/index.html">About</a>
+    <a href="/_pages/presentations.html">Projects</a>
+  </nav>
+  <main class="content">
+
+    <h1>Typography Specimen</h1>
+
+    <p class="dek">One typeface, two reds, three devices. Everything the
+    stylesheet can do, on one page, so a regression has somewhere to show
+    itself.</p>
+
+    <p class="meta">Sorts Mill Goudy (Barry Schwartz, 2010), a revival of
+    Frederic Goudy's Goudy Oldstyle of 1915 — the face used throughout the
+    <span class="term">Blade Runner</span> main titles.</p>
+
+    <h2>The crawl</h2>
+
+    <p>The source text, set the way the film sets it: sentence case, first-line
+    indents, no space between paragraphs, generous word spacing, ragged right.
+    Proper names take small capitals on introduction. A term of art is
+    italicised every time it appears and red only the first time.</p>
+
+    <p>Early in the 21st Century, <span class="sc">the Tyrell Corporation</span>
+    advanced Robot evolution into the <span class="sc">Nexus</span> phase — a
+    being virtually identical to a human — known as a
+    <span class="term debut">Replicant</span>.</p>
+
+    <p>The <span class="sc">Nexus</span> 6 <span class="term">Replicants</span>
+    were superior in strength and agility, and at least equal in intelligence,
+    to the genetic engineers who created them. Note that the second paragraph
+    indents and the first does not, that <span class="sc">Nexus</span> is no
+    longer being introduced but is set in small capitals again here only to show
+    the glyphs, and that <span class="term">Replicants</span> has lost its red.</p>
+
+    <h2>Title cards</h2>
+
+    <p>An <span class="caps">inline run of capitals</span> takes the tracking
+    and a hair less size. Small capitals — <span class="sc">Fort Drum</span>,
+    <span class="sc">OneCare Vermont</span>, <span class="sc">Arcadia</span> —
+    take the same tracking. Lowercase never does.</p>
+
+    <h3>A third-rank heading is small capitals</h3>
+
+    <p>Which distinguishes it from the second rank by case as well as size, so
+    the page never shows three sizes of the same shouting. Body copy resumes
+    here at full contrast, with a <a href="#">link carrying a red rule beneath
+    it</a> rather than red letters, so the signal survives colour blindness and
+    keeps the text at 17:1.</p>
+
+    <h2>Figures and data</h2>
+
+    <div class="tablewrap" style="max-width:var(--measure)">
+      <table class="data">
+        <caption>Lining figures in tables; oldstyle figures in prose.</caption>
+        <thead>
+          <tr><th>Colour</th><th class="num">Ratio on black</th><th>Permitted use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="nowrap">ink &middot; #e8e8e8</td><td class="num">17.14</td><td>body</td></tr>
+          <tr><td class="nowrap">ink-dim &middot; #9a9a9a</td><td class="num">7.46</td><td>captions, meta</td></tr>
+          <tr><td class="nowrap">ember &middot; #e04a42</td><td class="num hi">5.23</td><td>any text-size accent</td></tr>
+          <tr><td class="nowrap">bleed &middot; #b81419</td><td class="num neg">3.15</td><td>display only, &ge;24px</td></tr>
+          <tr><td class="nowrap">film red &middot; #980000</td><td class="num neg">2.34</td><td>never, on live text</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>In running prose the figures are oldstyle and proportional, as Goudy
+    intended: 1915, 1982, 21st Century, 0123456789. In the table above they are
+    lining and — because every lining figure in this font is 527 units wide —
+    already tabular.</p>
+
+    <div class="note">
+      <p><strong>An aside</strong> takes the display red as a rule down its
+      left edge. The rule is a graphic, not text, so the low-contrast red is
+      fine there.</p>
+    </div>
+
+    <blockquote>
+      <p>Anyone who would letterspace lowercase would steal sheep.</p>
+      <p><strong>Frederic Goudy</strong>, as usually reported</p>
+    </blockquote>
+
+    <hr>
+
+    <p>Ordinary <em>italic emphasis</em> stays the same colour as the body. The
+    face has no bold weight, so <strong>strong</strong> is italic too — which
+    means emphasis in this design is a single gesture and cannot be stacked.</p>
+
+    <ul>
+      <li>Lists sit inside the measure.</li>
+      <li>They do not take the first-line indent.</li>
+      <li>They do not take word spacing beyond the body value.</li>
+    </ul>
+
+  </main>
+</div>
+<footer></footer>
+</body>
+</html>
