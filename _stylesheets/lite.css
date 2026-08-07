@@ -173,25 +173,23 @@ body {
    generated resource pages keep their own spacing. The first paragraph after
    any heading is not indented — that is the book convention, and `p + p` gives
    it for free by only indenting a paragraph that follows another paragraph. */
-.content > p {
-  margin: 0;
-  max-width: var(--measure);
-}
-.content > p + p { text-indent: 1.6em; }
-/* The indent rule above is specificity 0-1-2 (one class, two elements), so a
-   bare `.dek { text-indent: 0 }` at 0-1-0 loses to it and the deck ends up
-   indented. These selectors are 0-2-0 and win. Any future paragraph-level
-   component that must not indent belongs on this list. */
-.content > .dek,
-.content > .meta,
-.content > .note,
-.content > .pagenav,
-.content > figcaption { text-indent: 0; }
-/* .dek and .meta are themselves <p>, so the essay's opening paragraph counts as
-   `p + p` and picks up an indent it should not have — the first paragraph of a
-   section is always flush. */
-.content > .dek + p,
-.content > .meta + p { text-indent: 0; }
+/* Every paragraph in the column obeys the measure — that part is universal. */
+.content > p { max-width: var(--measure); }
+
+/* Book setting applies to PLAIN paragraphs only, and the `:not([class])` is
+   load-bearing. `.content > p` is specificity 0-1-1, which beats a component's
+   own `.dek { margin: … }` at 0-1-0 — so a blanket `margin: 0` here silently
+   stripped the spacing from every deck, attribution and caption on the site and
+   collapsed them against whatever followed. Matching only unclassed paragraphs
+   means a component keeps its own margins by default, and nothing has to be
+   listed here when a new one is added.
+
+   The same restriction on both sides of the sibling selector gives the book
+   rule for free: consecutive body paragraphs indent, and the first paragraph
+   after a heading, deck or figure does not — because its predecessor is not a
+   plain <p>. */
+.content > p:not([class]) { margin: 0; }
+.content > p:not([class]) + p:not([class]) { text-indent: 1.6em; }
 
 /* Links: underlined always, so the signal never depends on colour alone. The
    red lives in the rule under the word rather than the word itself, which
@@ -490,6 +488,77 @@ figcaption strong {
   margin: 0 0 1.6em 0;
 }
 .content > .statnote { text-indent: 0; }
+
+/* --- Staged sequence -------------------------------------------------------
+   An ordered process, drawn as one. The rule down the left is a single
+   ::before on the list rather than a border per item, so it reads as one
+   continuous line the numbered nodes sit on; the last item masks the tail of
+   it so the line stops at the final node instead of running past it. Built
+   from a real <ol> so the order is in the markup, not only in the paint. */
+.stages {
+  position: relative;
+  list-style: none;
+  counter-reset: stage;
+  padding: 0 0 0 3.2em;
+  margin: 2em 0;
+  max-width: var(--measure);
+  word-spacing: normal;
+}
+.stages::before {
+  content: "";
+  position: absolute;
+  left: 0.85em;
+  top: 0.55em;
+  bottom: 0;
+  width: 1px;
+  background: var(--ink-faint);
+}
+.stages li {
+  position: relative;
+  margin: 0 0 1.9em 0;
+  counter-increment: stage;
+}
+.stages li:last-child { margin-bottom: 0; }
+/* Cover the rule below the final node. */
+.stages li:last-child::after {
+  content: "";
+  position: absolute;
+  left: -2.35em;
+  top: 1.5em;
+  bottom: -2em;
+  width: 3px;
+  background: var(--void);
+}
+.stages li::before {
+  content: counter(stage);
+  position: absolute;
+  left: -3.2em;
+  top: -0.1em;
+  width: 1.7em;
+  height: 1.7em;
+  line-height: 1.6em;
+  text-align: center;
+  border: 1px solid var(--ink-faint);
+  border-radius: 50%;
+  background: var(--void);
+  color: var(--ink-dim);
+  font-size: 0.8em;
+  font-variant-numeric: lining-nums;
+}
+.stage-name {
+  display: block;
+  font-variant-caps: all-small-caps;
+  -webkit-font-variant-caps: all-small-caps;
+  font-feature-settings: "smcp" 1, "c2sc" 1;
+  letter-spacing: var(--track);
+  color: var(--ink);
+}
+.stage-q {
+  display: block;
+  color: var(--ink-dim);
+  font-style: italic;
+  margin-top: 0.1em;
+}
 
 /* --- Image comparison (swipe) ---------------------------------------------
    Two images of identical extent stacked; the top one is clipped by width. The

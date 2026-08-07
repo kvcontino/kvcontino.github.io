@@ -88,9 +88,17 @@ for t in ('div','p','figure'):
 | its first appearance | `<span class="term debut">word</span>` | italic **and** red, once |
 | inline capitals | `<span class="caps">text</span>` | tracked |
 | aside | `<div class="note">…</div>` | red rule at the left |
-| wide table or figure | wrap in `<div class="tablewrap" markdown="1">` | `markdown="1"` is required or the markdown inside is not parsed |
+| wide table or figure | wrap in `<div class="tablewrap">` | see the warning below about `markdown="1"` |
 
 Never letterspace lowercase. Full rationale is in `_stylesheets/lite.css`.
+
+> **`markdown="1"` only works inside a Markdown document.** It is a kramdown
+> feature, and kramdown never runs on a `.html` file — so a markdown table
+> inside a `<div markdown="1">` on an HTML page renders as literal `|` pipes.
+> Posts (`.markdown`) are fine. On an HTML project page, write real
+> `<table>` markup, or better, ask whether the thing is a table at all: an
+> ordered process is an `<ol class="stages">`, and a handful of headline
+> numbers is a `.statrow`.
 
 ---
 
