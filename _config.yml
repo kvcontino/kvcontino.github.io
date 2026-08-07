@@ -44,6 +44,10 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
+  # Workflow notes for me, not for readers. A .md without front matter is
+  # copied verbatim into _site and would otherwise be served at its own URL.
+  - PUBLISHING.md
+  - script
 
 include:
 - _stylesheets
