@@ -9,3 +9,7 @@ __pycache__/
 # from one TOWNS data shape to another on 2026-03-22; it is not idempotent —
 # a second run would double-wrap the entries it already converted.
 _resources/update-towns-format.py
+
+# Obsidian vault config — this repo is opened as a vault for writing posts.
+# Workspace layout, plugin state and cache; none of it belongs on the site.
+.obsidian/

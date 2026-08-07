@@ -299,7 +299,7 @@ li { margin: 10px 0; }
    exactly 527 units wide, i.e. already tabular. `tabular-nums` below is
    therefore belt-and-braces; the font has no `tnum` feature and does not need
    one. */
-table.data, .num, time { font-variant-numeric: lining-nums tabular-nums; }
+:is(table.data, .tablewrap table), .num, time { font-variant-numeric: lining-nums tabular-nums; }
 
 /* Code */
 pre, code, samp, tt, kbd {
@@ -364,7 +364,12 @@ figcaption strong {
 }
 
 .tablewrap { overflow-x: auto; margin: 2.2em 0; max-width: var(--measure-wide); -webkit-overflow-scrolling: touch; }
-table.data {
+/* Kramdown emits a bare <table> for a markdown table, so a post written in
+   Obsidian has no class to hang styling on. Matching `.tablewrap table` as well
+   as `table.data` means an ordinary markdown table inside a .tablewrap div gets
+   the full treatment with no extra markup — which is the difference between
+   writing a post and fighting one. */
+:is(table.data, .tablewrap table) {
   border-collapse: collapse;
   width: 100%;
   font-size: 0.85em;
@@ -373,16 +378,16 @@ table.data {
   hyphens: none;
   word-spacing: normal;
 }
-table.data caption {
+:is(table.data, .tablewrap table) caption {
   text-align: left;
   color: var(--ink-dim);
   font-size: 0.9em;
   padding-bottom: 0.6em;
 }
-table.data th, table.data td { padding: 8px 14px; border-bottom: 1px solid var(--ink-faint); }
+:is(table.data, .tablewrap table) th, :is(table.data, .tablewrap table) td { padding: 8px 14px; border-bottom: 1px solid var(--ink-faint); }
 /* Column heads get the small-caps treatment rather than a colour or a weight —
    the font has no bold, and the accent is spent elsewhere. */
-table.data thead th {
+:is(table.data, .tablewrap table) thead th {
   color: var(--ink);
   font-weight: 400;
   font-variant-caps: all-small-caps;
@@ -391,12 +396,12 @@ table.data thead th {
   letter-spacing: var(--track);
   border-bottom: 1px solid #666;
 }
-table.data td.num, table.data th.num { text-align: right; }
+:is(table.data, .tablewrap table) td.num, :is(table.data, .tablewrap table) th.num { text-align: right; }
 /* For short label columns — dates, codes — that must not break mid-value. */
-table.data td.nowrap, table.data th.nowrap { white-space: nowrap; }
-table.data .hi  { color: var(--ember); }
-table.data .neg { color: var(--ember); font-style: italic; }
-table.data tbody tr:hover { background: #141414; }
+:is(table.data, .tablewrap table) td.nowrap, :is(table.data, .tablewrap table) th.nowrap { white-space: nowrap; }
+:is(table.data, .tablewrap table) .hi  { color: var(--ember); }
+:is(table.data, .tablewrap table) .neg { color: var(--ember); font-style: italic; }
+:is(table.data, .tablewrap table) tbody tr:hover { background: #141414; }
 
 .note {
   border-left: 2px solid var(--bleed);
@@ -415,6 +420,37 @@ table.data tbody tr:hover { background: #141414; }
   -webkit-font-variant-caps: all-small-caps;
   font-feature-settings: "smcp" 1, "c2sc" 1;
   letter-spacing: var(--track);
+}
+
+/* --- Post index (/posts/) ---------------------------------------------------
+   A dated list, not prose: no first-line indent, no extra word spacing, and
+   lining figures so the date column scans. The date is set in small capitals'
+   register — dim and tracked — so the title is the only thing competing for
+   attention on each row. */
+.postlist {
+  list-style: none;
+  padding: 0;
+  margin: 2em 0 0 0;
+  max-width: var(--measure);
+}
+.postlist li {
+  margin: 0 0 1.6em 0;
+  word-spacing: normal;
+}
+.postlist time {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 0.2em;
+}
+.postlist a { font-size: 1.05em; }
+.postnote {
+  display: block;
+  font-size: 0.85em;
+  color: var(--ink-dim);
+  margin-top: 0.15em;
 }
 
 /* Quoted testimony / transcript extracts — deliberately recessive against .note,

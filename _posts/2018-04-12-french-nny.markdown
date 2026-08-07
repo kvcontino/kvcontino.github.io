@@ -63,7 +63,7 @@ Years later, when Constable was trying to find something to do with a few hundre
             Jefferson and Lewis counties, from Cape Vincent and Chaumont on Lake Ontario
             east to Natural Bridge and Carthage. Settlements marked include Alexandria Bay,
             Clayton, LaFargeville, Depauville, Brownville, Theresa, Philadelphia and
-            Deferiet; points of interest include the Le Ray mansions and <span class="sc">Joseph Bonaparte</span>'s
+            Deferiet; points of interest include the Le Ray mansions and Joseph Bonaparte's
             hermitage.">
 </figure>
 
@@ -111,7 +111,7 @@ James Le Ray's return to France helped to bring about a second round of French i
 
 While settlers from New Englanders always outnumbered those from France, this primarily non-aristocratic wave of immigrants was more resilient than the first. Decades later, in 1850, nearly 1,500 residents from the Jefferson County section of Castorland had French surnames. (Among its towns, Cape Vincent had the highest share.)
 
-One of the most notable figures involved in this period of settlement was Joseph Bonaparte, former King of Spain and brother to Napoleon Bonaparte. Some time before 1820, James Le Ray convinced Joseph Bonaparte to purchase a sizable piece of land in Northern New York as a place of exile. Bonaparte’s tract was 26,000 acres in size, comprising the present towns of Diana, Wilna, and Antwerp. Bonaparte spent several summers visiting his holdings in Northern New York, and he planned a settlement around one of his homes that grew into the present-day Village of Natural Bridge.
+One of the most notable figures involved in this period of settlement was <span class="sc">Joseph Bonaparte</span>, former King of Spain and brother to Napoleon Bonaparte. Some time before 1820, James Le Ray convinced Joseph Bonaparte to purchase a sizable piece of land in Northern New York as a place of exile. Bonaparte’s tract was 26,000 acres in size, comprising the present towns of Diana, Wilna, and Antwerp. Bonaparte spent several summers visiting his holdings in Northern New York, and he planned a settlement around one of his homes that grew into the present-day Village of Natural Bridge.
 
 The most impressive of Bonaparte’s projects was a sizable summer mansion situated on the southeast shore of Lake Diana (now called Lake Bonaparte). In 1830, Bonaparte sold his holdings in Northern New Yorkand permanently withdrew to his estate in New Jersey. Bonaparte's mansion fell into disuse and was destroyed by fire not long after his departure. No trace of it remains today, and Lake Bonaparte hosts only a few scattered cottages.
 

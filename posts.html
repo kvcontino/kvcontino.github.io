@@ -1,0 +1,33 @@
+---
+layout: default
+title: Posts
+permalink: /posts/
+description: "Short writing and small visualisations."
+---
+
+<p class="dek">Short pieces &mdash; a thought, a chart, a note on something read.
+Longer and more curated work lives under <a href="/_pages/presentations.html">Projects</a>.</p>
+
+<p class="meta">Subscribe by <a href="/feed.xml">RSS</a>.</p>
+
+{% comment %}
+  Mirrors jekyll-feed's own rule (`post.draft != true`) so that a post held back
+  from the feed is held back from this index too, and "draft" means exactly one
+  thing site-wide. Such a post still publishes at its own URL — it is simply
+  not advertised. See _posts/2018-04-05-populationhealth.markdown.
+{% endcomment %}
+{% assign published = site.posts | where_exp: "post", "post.draft != true" %}
+
+{% if published.size == 0 %}
+  <p>Nothing here yet.</p>
+{% else %}
+<ul class="postlist">
+  {% for post in published %}
+  <li>
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    {% if post.description %}<span class="postnote">{{ post.description }}</span>{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
