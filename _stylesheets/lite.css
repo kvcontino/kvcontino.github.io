@@ -102,9 +102,11 @@ html {
 
 body {
   margin: 0;
-  /* 20px, not the old 18px: Goudy Oldstyle has a notably small x-height, so it
-     reads a size smaller than Spectral did at the same nominal font-size. */
-  font-size: 20px;
+  /* 19px, not the 18px of the previous theme: Goudy Oldstyle has a notably
+     small x-height, so it reads a size smaller than Spectral did at the same
+     nominal font-size. 20px was tried first and read slightly loud on a wide
+     monitor. */
+  font-size: 19px;
   color: var(--ink);
   background-color: var(--void);
   padding-left: 10%;
@@ -192,12 +194,14 @@ body {
 .content > p:not([class]) + p:not([class]) { text-indent: 1.6em; }
 
 /* Links: underlined always, so the signal never depends on colour alone. The
-   red lives in the rule under the word rather than the word itself, which
-   keeps body text at full contrast and spends the accent on interaction. */
+   resting rule is grey, not red — a dense link index (the Projects page runs to
+   eleven) turned a red underline into the loudest thing on the page, which is
+   the opposite of an accent used sparingly. Red is now spent only on hover, so
+   it marks interaction rather than decoration. */
 a {
   color: var(--ink);
   text-decoration: underline;
-  text-decoration-color: var(--bleed);
+  text-decoration-color: var(--ink-dim);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
 }
