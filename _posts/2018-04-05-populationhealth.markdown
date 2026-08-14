@@ -8,6 +8,10 @@ categories: health
 # the explicit `categories:` above is what stops Jekyll's draft handling from
 # moving it. Remove this line to put the post back in the feed.
 draft: true
+# Also hide it from search engines. `draft: true` above only removes it from
+# /feed.xml -- jekyll-sitemap is a separate plugin with a separate hook, and
+# "unlinked" and "unindexed" are different asks. Remove both to fully restore.
+sitemap: false
 ---
 
 Almost no one takes the idea of addressing the non-medical determinants of health as seriously as they should.
