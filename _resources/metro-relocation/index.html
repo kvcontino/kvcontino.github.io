@@ -1016,5 +1016,10 @@ recompute();
 
 fetch("walksheds.json").then(r=>r.ok?r.json():Promise.reject()).then(j=>{ WALK=j; renderExplorer(survivors()); }).catch(()=>{ WALK={}; renderExplorer(survivors()); });
 </script>
+<!-- GoatCounter. Cookieless, no personal data, no consent banner owed.
+     This page does not use _layouts/default.html, so it carries its own
+     copy of the snippet. See PUBLISHING.md. -->
+<script data-goatcounter="https://kvcontino.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
