@@ -180,11 +180,16 @@ full standalone document inherits nothing, and there is no error — it just
 quietly never appears in the stats. **If you add one, paste the snippet in
 before `</body>`.** The five existing ones each carry a copy.
 
-The third row is its own case because that file is a *fragment*, not a
-document: `interactive.py` emits a `<style>` block, markup and a `<script>` with
-no `<html>`/`<head>`/`<body>` wrapper, and the site serves it directly. There is
-no `</body>` to insert before, so `src/site.py` appends the snippet as it
-publishes and refuses to run if the file's shape ever changes.
+The third row is its own case because the file is generated: `src/site.py`
+inserts the snippet before `</body>` as it copies, and refuses to publish if
+the file's shape changes or if it already carries one. Do not hand-edit the
+published copy — fix it in the pipeline, then re-run `make site`.
+
+> That page was a bare *fragment* until 2026-08-15 — a `<style>` block, markup
+> and a `<script>` with no `<html>`/`<head>`/`<body>` at all, served directly
+> and left to the browser to wrap. It now emits a real document with a
+> `<title>` and a description, which is what makes it a usable search result
+> rather than a URL.
 
 ```fish
 # which published pages are NOT counted? (want: none)

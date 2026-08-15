@@ -1,4 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metropolitan Age Structure &mdash; Interactive Map | Kevin Contino</title>
+<meta name="description" content="All 387 US metropolitan statistical areas,
+ six switchable measures of age structure, computed from Census Bureau
+ Vintage 2025 population estimates.">
 <style>
+  /* The page ground. .viz-root paints its own surface, but the document
+     around it does not, which shows as a light gutter in dark mode. These
+     mirror --surface-1 in both themes; they are literals because the custom
+     properties are defined on .viz-root and do not reach html/body. */
+  html, body { margin: 0; padding: 0; background: #fcfcfb; }
+  @media (prefers-color-scheme: dark) {
+    html:where(:not([data-theme="light"])),
+    html:where(:not([data-theme="light"])) body { background: #1a1a19; }
+  }
+  html[data-theme="dark"], html[data-theme="dark"] body { background: #1a1a19; }
+
   .viz-root {
     color-scheme: light;
     --surface-1: #fcfcfb; --surface-2: #f2f0ec;
@@ -91,6 +111,8 @@
   .note { font-size: .72rem; color: var(--text-muted); margin-top: .9rem;
           max-width: 62rem; line-height: 1.5; }
 </style>
+</head>
+<body>
 
 <div class="viz-root">
   <h1>Metropolitan age structure, Vintage 2025</h1>
@@ -401,3 +423,5 @@
      interactive.py, which also writes the local report/ copy. -->
 <script data-goatcounter="https://kvcontino.goatcounter.com/count"
         async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
