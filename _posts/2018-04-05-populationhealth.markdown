@@ -12,6 +12,10 @@ draft: true
 # /feed.xml -- jekyll-sitemap is a separate plugin with a separate hook, and
 # "unlinked" and "unindexed" are different asks. Remove both to fully restore.
 sitemap: false
+# And the third ask: stay unindexed even if Google reaches the URL some other
+# way. `sitemap: false` above is only a withdrawn suggestion; this is the
+# prohibition. Read by _layouts/default.html, which emits the robots meta.
+noindex: true
 ---
 
 Almost no one takes the idea of addressing the non-medical determinants of health as seriously as they should.

@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="google-site-verification" content="ZgicrgY81BYDMfQgFNZaXuJMnQhM3vgtZ8-3LeqqqEY">
+  {% comment %}
+    `sitemap: false` only withdraws a page from the sitemap, which is a
+    suggestion about what to crawl -- it does not stop indexing of a URL
+    Google reaches by any other route (an external link, a shared address,
+    a referrer). Pages meant to be linked privately need this as well.
+    Search Console ownership lives in _config.yml under
+    `webmaster_verifications`, emitted by {% raw %}{% seo %}{% endraw %} below.
+  {% endcomment %}
+  {% if page.noindex %}<meta name="robots" content="noindex">{% endif %}
   <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
   <link rel="shortcut icon" href="/favicon/favicon.ico" />
@@ -32,5 +40,17 @@
     </main>
   </div>
   <footer></footer>
+  {% comment %}
+    GoatCounter. No cookies, no personal data, so no consent banner is owed.
+    Loaded last and `async` so it never blocks render; the site works fine
+    with it blocked, which a fair share of visitors will do.
+    `https:` rather than the protocol-relative `//` the docs still show --
+    this site is HTTPS-only and the scheme should not be inherited.
+    count.js skips localhost, so `jekyll serve` previews are not counted.
+    Pages generated outside this layout (the metro-age-structure pipeline)
+    carry no snippet and stay invisible to it.
+  {% endcomment %}
+  <script data-goatcounter="https://kvcontino.goatcounter.com/count"
+          async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
