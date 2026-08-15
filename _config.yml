@@ -20,6 +20,16 @@ description: > # greater_than means to ignore newlines until "baseurl:"
 baseurl: ""
 url: "https://kvcontino.github.io"
 
+# Google Search Console ownership. Emitted into every page's <head> by
+# jekyll-seo-tag. There is a second, older verification tag hardcoded in
+# _layouts/default.html from the 2017 Jekyll conversion; it belongs to a
+# different Google account and no property uses it. Two tags are legal —
+# Google matches the one it issued — so it is left alone deliberately.
+# DNS verification is impossible here: github.io is GitHub's zone, so a
+# URL-prefix property with this meta tag is the only route.
+webmaster_verifications:
+  google: j53lhmpgyzQf9kDTbMxDsIg23dmfz7M8TlyVGGaTmYA
+
 # timezone 
 timezone: America/New_York
 
