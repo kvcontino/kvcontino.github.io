@@ -147,6 +147,53 @@ commit. Wait and retry later.
 
 ---
 
+## Who is reading this
+
+Two separate things, answering two different questions.
+
+**Google Search Console** — *are people finding it?* Impressions, clicks, and
+the queries people actually searched, which no on-page script can see because
+it happens before the visit. Ownership is the `webmaster_verifications:` key in
+`_config.yml`, emitted into every page by `jekyll-seo-tag`.
+
+DNS verification is impossible here and always will be: `github.io` is GitHub's
+zone, so there is no DNS record you can add. If Search Console offers a *Domain
+property*, it is the wrong kind — you need a **URL prefix** property verified by
+HTML tag.
+
+**GoatCounter** — *what happened after the click?* Dashboard at
+<https://kvcontino.goatcounter.com>. No cookies and no personal data, so no
+consent banner is owed. `count.js` skips localhost, so `jekyll serve` previews
+are not counted. Anyone blocking scripts is not counted either; treat the
+numbers as a floor, not a census.
+
+### The snippet lives in three places, and that is the thing to remember
+
+| pages | how they get it |
+|---|---|
+| anything using `_layouts/default.html` | free, nothing to do |
+| standalone project pages in `_resources/` | **their own copy**, before `</body>` |
+| `metro-age-structure/interactive_map.html` | injected by `src/site.py` upstream |
+
+The middle row is the trap. A new project page in `_resources/` written as a
+full standalone document inherits nothing, and there is no error — it just
+quietly never appears in the stats. **If you add one, paste the snippet in
+before `</body>`.** The five existing ones each carry a copy.
+
+The third row is its own case because that file is a *fragment*, not a
+document: `interactive.py` emits a `<style>` block, markup and a `<script>` with
+no `<html>`/`<head>`/`<body>` wrapper, and the site serves it directly. There is
+no `</body>` to insert before, so `src/site.py` appends the snippet as it
+publishes and refuses to run if the file's shape ever changes.
+
+```fish
+# which published pages are NOT counted? (want: none)
+bundle exec jekyll build --quiet
+grep -rL goatcounter _site --include=*.html
+```
+
+---
+
 ## Structure
 
 | path | what |
