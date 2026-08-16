@@ -968,6 +968,157 @@ footer {
   height: 70vh;
 }
 
+/* --- Career figure (index page) --------------------------------------------
+   A span chart of five roles, drawn as INLINE svg rather than shipped as a
+   file. Three reasons, all of them load-bearing:
+     * it inherits Sorts Mill Goudy from `html`, so the figure is set in the
+       page's own face without embedding or glyph-pathing anything;
+     * `var(--ink)` and friends resolve inside it, so the figure tracks the
+       palette instead of freezing a copy of it in hex;
+     * there is no build step to forget. The project figures are matplotlib
+       output; this one is five rectangles and does not earn a pipeline.
+
+   NOTE for check-site.sh: its glyph scan strips <svg> blocks, so nothing here
+   is covered by it. Keep the text to letters, digits and the middot -- no
+   arrows, which this font does not have at all.
+
+   Colour does no identity work. Every bar is labelled directly, and the only
+   encoded distinction is state: a role that ended is --ink-2, the current one
+   is --ink and fades out at the right edge rather than stopping. That is a
+   lightness difference between two near-neutrals, so it survives every form of
+   colour blindness untouched, and the red stays spent on the h1. */
+.cvfig { margin: 2.4em 0 2.8em 0; max-width: var(--measure); }
+/* Directly under its heading the figure is the section's opening, not an
+   interruption in it, so it closes up. The generic figure margin assumes prose
+   above and below. */
+h3 + .cvfig { margin-top: 1.2em; }
+/* Below the measure the label gutter would crush the bars, so the figure
+   scrolls in place instead of reflowing -- same escape hatch as .tablewrap. */
+.cvfig .cvscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.cvfig svg { display: block; width: 100%; min-width: 620px; height: auto; }
+.cv-grid { stroke: var(--ink-faint); stroke-width: 1; }
+.cv-bar  { fill: var(--ink-2); }
+.cv-bar-now { fill: url(#cv-now); }
+#cv-now stop { stop-color: var(--ink); }
+/* `word-spacing: 0.12em` is set on .content for the book setting, and it
+   INHERITS into inline SVG. The gutter was sized from the font's own advance
+   widths (fontTools, 276px for the longest label at 12px), which do not include
+   it; the seven spaces in "Expert Business Intelligence Analyst - Burlington,
+   VT" added ~10px and pushed that label off the left edge of the viewBox, where
+   the SVG clipped it mid-letter. Any measurement taken from font metrics has to
+   turn off the CSS that font metrics cannot see. */
+.cvfig text { word-spacing: normal; }
+.cv-org  { fill: var(--ink);   font-size: 12px; }
+.cv-role { fill: var(--ink-2); font-size: 12px; }
+.cv-year { fill: var(--ink-2); font-size: 11px; letter-spacing: 0.04em; }
+
+/* --- Selected work marks (index page) ---------------------------------------
+   Four links to project pages, each carrying a miniature of the FORM its
+   figures take -- paired pyramids, a slopegraph, a divergence, a series with a
+   cliff in it.
+
+   Deliberately drawn rather than borrowed. Rendering the real figures at this
+   size was tried first: at 250px the type is unreadable, so a thumbnail can
+   only ever communicate a shape, and the two metro figures additionally drag
+   their blue/orange/green categorical palettes onto a page that spends exactly
+   one red. A drawn mark says the same thing the shrunk chart could say, in the
+   page's own two inks.
+
+   Strokes are `currentColor`, so the whole mark takes the link's colour and
+   turns --ember on hover with no rule of its own. */
+.marks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.6em;
+  margin: 1.8em 0 2.6em 0;
+  max-width: var(--measure);
+  word-spacing: normal;
+}
+.mark {
+  display: block;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-top: 1px solid var(--ink-faint);
+  padding-top: 0.9em;
+}
+.mark:visited { color: var(--ink-2); }
+.mark:hover, .mark:focus { color: var(--ember); }
+.mark svg { display: block; width: 100%; height: auto; overflow: visible; }
+.mark-label {
+  display: block;
+  margin-top: 0.7em;
+  font-size: 0.78em;
+  line-height: 1.35;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+}
+/* The mark is decoration for a link whose text already names the target, so it
+   is hidden from assistive tech rather than described twice. */
+
+/* --- Subscribe block --------------------------------------------------------
+   The feed existed from the first build -- jekyll-feed writes /feed.xml and the
+   layout emits {% feed_meta %} for autodiscovery -- but the only visible link
+   to it was one line on /posts/. Autodiscovery is a browser affordance most
+   browsers stopped surfacing years ago, so in practice the feed was invisible.
+
+   The icon is inline SVG, not a character: Sorts Mill Goudy has no geometric
+   shapes, so a glyph would silently fall back to another face. */
+.subscribe {
+  border-top: 1px solid var(--ink-faint);
+  border-bottom: 1px solid var(--ink-faint);
+  padding: 1.4em 0;
+  margin: 2.8em 0 0 0;
+  max-width: var(--measure);
+  display: flex;
+  align-items: baseline;
+  gap: 1.1em;
+  text-indent: 0;
+  word-spacing: normal;
+}
+.subscribe .rss {
+  flex: 0 0 auto;
+  width: 1.5em;
+  height: 1.5em;
+  /* Baseline alignment on a flex item aligns its bottom margin edge; nudge the
+     mark down so it sits on the text baseline rather than above it. */
+  position: relative;
+  top: 0.28em;
+  /* Matches the label rather than the surrounding secondary ink, so the mark
+     and the word read as one control. A graphic may take the display red, but
+     --ember keeps it identical to the text it sits beside. */
+  color: var(--ember);
+}
+/* The icon link has no text, so an underline would be a stray rule under a
+   picture. The colour shift on hover carries the affordance instead, and the
+   adjacent worded link is the accessible route regardless. */
+.rss-link { text-decoration: none; }
+.subscribe a:hover .rss, .subscribe a:focus .rss { color: var(--bleed); }
+.subscribe-body { flex: 1 1 auto; }
+/* The one place on the site where red is the RESTING colour of a piece of text
+   rather than a hover state. It is --ember, not --bleed: at 5.23:1 it clears AA
+   for body text, which the display red does not, and this is set at reading
+   size. No underline -- the small caps and the mark beside it already say
+   "link", and a rule under tracked capitals reads as a mistake. Hover moves it
+   to --bleed, which is the same direction the footnote marker travels. */
+.subscribe-label {
+  display: block;
+  font-variant-caps: all-small-caps;
+  -webkit-font-variant-caps: all-small-caps;
+  font-feature-settings: "smcp" 1, "c2sc" 1;
+  letter-spacing: var(--track);
+  color: var(--ember);
+  text-decoration: none;
+}
+.subscribe-label:visited { color: var(--ember); }
+.subscribe-label:hover, .subscribe-label:focus { color: var(--bleed); }
+.subscribe-note {
+  display: block;
+  font-size: 0.85em;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-top: 0.25em;
+}
+
 /* Mobile */
 @media (max-width: 600px) {
   body {
@@ -1005,4 +1156,8 @@ footer {
   h1 { font-size: 1.9em; }
   h2 { font-size: 1.35em; }
   h3 { font-size: 1.1em; }
+
+  /* Four marks across is 90px each at this width -- below the point where the
+     drawn form is legible. Two up, two down. */
+  .marks { grid-template-columns: repeat(2, 1fr); gap: 1.4em; }
 }

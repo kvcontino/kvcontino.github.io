@@ -108,8 +108,22 @@ for t in ('div','p','figure'):
 | inline capitals | `<span class="caps">text</span>` | tracked |
 | aside | `<div class="note">…</div>` | red rule at the left |
 | wide table or figure | wrap in `<div class="tablewrap">` | see the warning below about `markdown="1"` |
+| link out to a project | `<a class="mark">` + inline SVG inside `<div class="marks">` | four-up grid, two-up under 600px |
+| subscribe block | `<p class="subscribe">` | one per page at most; the nav already carries **Feed** |
 
 Never letterspace lowercase. Full rationale is in `_stylesheets/lite.css`.
+
+> **Inline SVG inherits the page's CSS, including the parts you did not want.**
+> The career figure on `index.html` is hand-written SVG so that it picks up
+> Sorts Mill Goudy and resolves `var(--ink)` — but it also inherited
+> `.content`'s `word-spacing: 0.12em`, which font metrics cannot see, and the
+> longest label overran the viewBox and was clipped mid-letter. Any SVG text
+> sized from font metrics needs `word-spacing: normal`.
+>
+> Note also that `check-site.sh` strips `<svg>` blocks before its glyph scan,
+> so **text inside inline SVG is not covered by it**. The font has no arrows and
+> no geometric shapes; keep SVG text to letters, digits and the middot, and draw
+> any mark as a path.
 
 > **`markdown="1"` only works inside a Markdown document.** It is a kramdown
 > feature, and kramdown never runs on a `.html` file — so a markdown table

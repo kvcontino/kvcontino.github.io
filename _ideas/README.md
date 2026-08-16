@@ -21,10 +21,14 @@ Nothing in here is published. `_drafts/` now holds only real drafts.
 
 ## To do
 
-**A post index, once there are a handful of posts.** No page iterates
-`site.posts` today, so posts are reachable only by direct link and the Projects
-page is doing the job by hand. Deferred deliberately: with two posts, one of
-them held back from the feed, an index would surface more than it organises.
-When it goes in it should advertise the RSS feed alongside it — `/feed.xml`
-already exists and the layout already carries `{% feed_meta %}` for
-autodiscovery, but nothing offers the reader a visible link to subscribe.
+*(The post index and the visible subscribe link that used to head this list are
+both done: `posts.html` iterates `site.posts` and honours `draft: true`, and as
+of 2026-08-16 the feed is advertised from the nav on every page, from a
+`.subscribe` block on the index, and from one line on `/posts/`.)*
+
+**Rewrite `_posts/2018-04-05-populationhealth.markdown` as a critique of
+population health as an idea.** Not a copy-edit of the 2018 post: a reversal of
+it. Held back from the feed and from `/posts/` with `draft: true`, so there is
+no hurry and nothing is advertising it in the meantime. The missing
+`description:` is not worth writing until the argument is settled, since the
+blurb should describe the critique rather than the original.

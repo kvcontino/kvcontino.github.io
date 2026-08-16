@@ -33,6 +33,13 @@
       <a href="/index.html">About</a>
       <a href="/posts/">Posts</a>
       <a href="/_pages/presentations.html">Projects</a>
+      {% comment %}
+        The feed has existed since the first build, but until now the only way
+        to find it was the autodiscovery <link> in <head>, which browsers
+        stopped surfacing years ago, plus one line on /posts/. A nav entry is
+        the one place it is visible from every page.
+      {% endcomment %}
+      <a class="feedlink" href="/feed.xml">Feed</a>
     </nav>
     <main class="content">
       <h1>{{ page.title }}</h1>

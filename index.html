@@ -1,7 +1,37 @@
 ---
 layout: default
-title: Kevin Contino
+title: Kevin V. Contino
 ---
+
+{% comment %}
+  This deck and `description:` in _config.yml say the same thing on purpose: the
+  deck is what a reader sees, the config value is what Google prints and what
+  the RSS channel carries. If one changes, change the other.
+{% endcomment %}
+<p class="dek">Health care, geography, and demographics</p>
+
+{% comment %}
+  The note uses the site's authored footnote format: a .fn span wrapping a
+  .fn-note span. lite.css draws the numbered marker off a counter and opens the
+  note on hover or focus; the script in _layouts/default.html mirrors it into a
+  Notes list at the foot of the page. Nothing else is needed, and this is the
+  first footnote on a page outside _resources/.
+
+  Deliberately no Chinese characters anywhere on this page. Sorts Mill Goudy has
+  no Han glyphs, so they would silently fall back to whatever fontconfig picks,
+  and check-site.sh would flag every one of them. The translation carries it.
+{% endcomment %}
+<blockquote>
+  <p>He cultivated learning and loved the ancients, seeking truth from
+  facts.<span class="fn"><span class="fn-note">Not Mao's phrase, though he made a slogan
+  of it in 1936. It comes from the <cite>Book of Han</cite>, compiled by Ban Gu around
+  111 CE, in the biography of Liu De, Prince Xian of Hejian, who collected and collated
+  texts that had been scattered in the wars ending the Qin. It described a method of
+  study, not a political programme.
+  <a href="https://ctext.org/han-shu/jing-shi-san-wang-zhuan">Primary text at the Chinese
+  Text Project</a>.</span></span></p>
+  <p><cite>Book of Han</cite>, on Liu De, Prince Xian of Hejian.</p>
+</blockquote>
 
 <h3>Personal Summary</h3>
 
@@ -9,53 +39,211 @@ title: Kevin Contino
 
 <h3>Professional Summary</h3>
 
-<p>My work spans over a decade in population health, delivery system transformation, and
-payment reform. In practice that means translating policy documents into defensible
-calculations, reverse-engineering under-documented data environments, and giving
-decision-makers their options when policy and operational reality don't line up.</p>
+{% comment %}
+  The career figure. Inline SVG on purpose: it inherits the page's typeface and
+  resolves the palette variables, so it cannot drift from the stylesheet the way
+  an exported file would. Geometry is on an 11.5-year scale, 2015 to mid-2026,
+  laid out in a 730x290 viewBox: a 286px label gutter (the widest label,
+  "Expert Business Intelligence Analyst - Burlington, VT", measures 276px in
+  Sorts Mill Goudy at 12px) and the chart from x=300 to x=730, so one year is
+  37.39 units. Rows are 46 units apart. If a role is added, the whole thing is
+  five rectangles -- move the numbers by hand rather than reaching for a build
+  step.
+{% endcomment %}
+<figure class="cvfig">
+  <div class="cvscroll">
+    <svg viewBox="0 0 730 290" role="img" aria-labelledby="cvtitle cvdesc">
+      <title id="cvtitle">Roles held, 2015 to present</title>
+      <desc id="cvdesc">A span chart of five consecutive roles at four
+        organizations: Fort Drum Regional Health Planning Organization from 2015
+        to 2019, OneCare Vermont from 2019 to 2023, the University of Vermont
+        Health Network from 2023 to 2024, OneCare Vermont again from 2024 to
+        2025, and Arcadia from 2025 to the present.</desc>
 
-<p>I started as the population health analyst at a rural health planning organization in
-northern New York. From there I spent several years at <span class="sc">OneCare Vermont</span>,
-a CMS Innovation Center ACO intermediating over $1 billion in
-annual provider payments, where I became the
-primary analyst responsible for population health model payment calculations and the
-primary claims analytics resource for the finance team during a period when the
-organization had lost most of its analytics capacity.</p>
+      <defs>
+        <!-- The current role has no end date, so its bar has no end either: it
+             fades out instead of stopping at an arbitrary edge. Sorts Mill
+             Goudy has no arrow glyph, so a fade is also the only honest way to
+             say "continues" without falling back to another face. -->
+        <linearGradient id="cv-now" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0"    stop-opacity="1"/>
+          <stop offset="0.45" stop-opacity="1"/>
+          <stop offset="1"    stop-opacity="0"/>
+        </linearGradient>
+      </defs>
 
-<p>My current work supports California's Medicaid transformation initiatives. I build
-reporting products, develop quality measures, and work directly with state leaders and
-subject matter experts to shape how programs use and present their data.</p>
+      <!-- Grid: solid hairlines every two years, one shade off the surface. -->
+      <g class="cv-grid">
+        <line x1="300"    y1="10" x2="300"    y2="248"/>
+        <line x1="374.78" y1="10" x2="374.78" y2="248"/>
+        <line x1="449.57" y1="10" x2="449.57" y2="248"/>
+        <line x1="524.35" y1="10" x2="524.35" y2="248"/>
+        <line x1="599.13" y1="10" x2="599.13" y2="248"/>
+        <line x1="673.91" y1="10" x2="673.91" y2="248"/>
+      </g>
 
-<p>My focus is seeking truth from facts. I want to understand what we can learn from data
-and tell clear, honest, and practical stories about it.</p>
+      <!-- Row 1: 2015-2019 -->
+      <text class="cv-org"  x="286" y="32" text-anchor="end">Fort Drum Regional Health Planning Organization</text>
+      <text class="cv-role" x="286" y="46" text-anchor="end">Data Analyst &#183; Watertown, NY</text>
+      <rect class="cv-bar" x="300" y="30" width="149.57" height="12" rx="4"/>
 
-<h3>Professional History</h3>
+      <!-- Row 2: 2019-2023. Ends where row 3 begins: the team moved to the
+           Health Network, so this is a handover, not a concurrency. -->
+      <text class="cv-org"  x="286" y="78" text-anchor="end">OneCare Vermont</text>
+      <text class="cv-role" x="286" y="92" text-anchor="end">Population Health Analyst &#183; Colchester, VT</text>
+      <rect class="cv-bar" x="449.57" y="76" width="149.56" height="12" rx="4"/>
 
-<div class="tablewrap" style="max-width:var(--measure)">
-  <table class="data">
-    <tbody>
-      <tr>
-        <td class="nowrap">2025&ndash;</td>
-        <td>Senior Analyst, Arcadia &middot; Boston, MA</td>
-      </tr>
-      <tr>
-        <td class="nowrap">2024&ndash;2025</td>
-        <td>Payment Reform Data Scientist, OneCare Vermont &middot; Colchester, VT</td>
-      </tr>
-      <tr>
-        <td class="nowrap">2023&ndash;2024</td>
-        <td>Expert Business Intelligence Analyst, University of Vermont Health Network
-            &middot; Burlington, VT</td>
-      </tr>
-      <tr>
-        <td class="nowrap">2019&ndash;2024</td>
-        <td>Population Health Analyst, OneCare Vermont &middot; Colchester, VT</td>
-      </tr>
-      <tr>
-        <td class="nowrap">2015&ndash;2019</td>
-        <td>Data Analyst, Fort Drum Regional Health Planning Organization
-            &middot; Watertown, NY</td>
-      </tr>
-    </tbody>
-  </table>
+      <!-- Row 3: 2023-2024 -->
+      <text class="cv-org"  x="286" y="124" text-anchor="end">University of Vermont Health Network</text>
+      <text class="cv-role" x="286" y="138" text-anchor="end">Expert Business Intelligence Analyst &#183; Burlington, VT</text>
+      <rect class="cv-bar" x="599.13" y="122" width="37.39" height="12" rx="4"/>
+
+      <!-- Row 4: 2024-2025 -->
+      <text class="cv-org"  x="286" y="170" text-anchor="end">OneCare Vermont</text>
+      <text class="cv-role" x="286" y="184" text-anchor="end">Payment Reform Data Scientist &#183; Colchester, VT</text>
+      <rect class="cv-bar" x="636.52" y="168" width="37.39" height="12" rx="4"/>
+
+      <!-- Row 5: 2025 to present -->
+      <text class="cv-org"  x="286" y="216" text-anchor="end">Arcadia</text>
+      <text class="cv-role" x="286" y="230" text-anchor="end">Senior Analyst &#183; Boston, MA</text>
+      <rect class="cv-bar-now" x="673.91" y="214" width="56.09" height="12" rx="4"/>
+
+      <g class="cv-year">
+        <text x="300"    y="266" text-anchor="middle">2015</text>
+        <text x="374.78" y="266" text-anchor="middle">2017</text>
+        <text x="449.57" y="266" text-anchor="middle">2019</text>
+        <text x="524.35" y="266" text-anchor="middle">2021</text>
+        <text x="599.13" y="266" text-anchor="middle">2023</text>
+        <text x="673.91" y="266" text-anchor="middle">2025</text>
+      </g>
+    </svg>
+  </div>
+  {% comment %}
+    No figcaption. The h3 immediately above it already says "Professional
+    Summary", so a caption reading "Professional timeline" only repeated the
+    heading. The <title> and <desc> inside the SVG still name the figure for
+    assistive tech, which is where that text was actually doing work.
+  {% endcomment %}
+</figure>
+
+<p>My work spans over a decade in population health, health care delivery system
+transformation, and payment reform.</p>
+
+<p>In practice, that has meant translating policy documents into defensible calculations,
+reverse-engineering under-documented data environments, and explaining options to
+decision-makers when policy and operational reality fail to align.</p>
+
+<p>I started my career as the population health analyst at a rural health planning
+organization in northern New York. From there, I spent several years at
+<span class="sc">OneCare Vermont</span>, a CMS Innovation Center ACO intermediating over
+$1 billion in annual provider payments, where I eventually became the primary analyst
+responsible for population health model payment calculations. During the ACO's
+wind-down, I became the primary claims analytics resource for the finance team during a
+period when the organization had lost most of its analytics capacity.</p>
+
+<p>My current work in the private sector supports California's Medicaid transformation
+initiatives. I build reporting products, develop quality measures, and work directly with
+state leaders and subject matter experts to shape how programs use and present their
+data.</p>
+
+<p>My professional orientation is best summarized as follows: I want to help organizations
+understand how they can use their data to tell clear, honest, and practical stories that
+improve their decisions.</p>
+
+<h3>Selected Work</h3>
+
+{% comment %}
+  Each mark is a miniature of the FORM the linked project's figures take, drawn
+  in the page's two inks rather than cropped from the real chart. Rendering the
+  actual figures at this size was tried and rejected: the type is unreadable
+  below about 400px, and the two metro projects carry categorical blue/orange
+  palettes that would put four more hues on a page that spends one red.
+  Strokes are currentColor so the link colour drives the whole mark.
+{% endcomment %}
+<div class="marks">
+  <a class="mark" href="/_resources/onecare/">
+    <svg viewBox="0 0 120 76" aria-hidden="true" focusable="false">
+      <line x1="58" y1="8" x2="58" y2="64" stroke="var(--ink-faint)" stroke-width="1"/>
+      <line x1="8" y1="68" x2="112" y2="68" stroke="var(--ink-faint)" stroke-width="1"/>
+      <path d="M8 46 L28 43 L58 40 L82 27 L112 13" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 50 L28 47 L58 44 L82 47 L112 53" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+            stroke-dasharray="4 3"/>
+    </svg>
+    <span class="mark-label">OneCare Post-Mortem</span>
+  </a>
+
+  <a class="mark" href="/_resources/metro-age-structure/">
+    <svg viewBox="0 0 120 76" aria-hidden="true" focusable="false">
+      <g fill="currentColor">
+        <rect x="45" y="8"  width="14" height="5"/><rect x="61" y="8"  width="12" height="5"/>
+        <rect x="41" y="15" width="18" height="5"/><rect x="61" y="15" width="16" height="5"/>
+        <rect x="35" y="22" width="24" height="5"/><rect x="61" y="22" width="22" height="5"/>
+        <rect x="29" y="29" width="30" height="5"/><rect x="61" y="29" width="29" height="5"/>
+        <rect x="25" y="36" width="34" height="5"/><rect x="61" y="36" width="33" height="5"/>
+        <rect x="27" y="43" width="32" height="5"/><rect x="61" y="43" width="34" height="5"/>
+        <rect x="33" y="50" width="26" height="5"/><rect x="61" y="50" width="30" height="5"/>
+        <rect x="43" y="57" width="16" height="5"/><rect x="61" y="57" width="20" height="5"/>
+      </g>
+      <line x1="8" y1="68" x2="112" y2="68" stroke="var(--ink-faint)" stroke-width="1"/>
+    </svg>
+    <span class="mark-label">Metropolitan Age Structure</span>
+  </a>
+
+  {% comment %}
+    Geographic, because the project is: a street grid, one address on it, and
+    the area reachable from that address. The catchment turns in right angles
+    along the grid rather than being a circle -- the screen measures what the
+    network reaches, never a Euclidean radius, and a round blob would state the
+    opposite. The dot sits on an intersection, not in a block.
+
+    The grid stops short of y=68 so the baseline rule below it stays the same
+    device the other three marks use, rather than reading as a fourth street.
+  {% endcomment %}
+  <a class="mark" href="/_resources/metro-relocation/">
+    <svg viewBox="0 0 120 76" aria-hidden="true" focusable="false">
+      <g stroke="var(--ink-faint)" stroke-width="1">
+        <line x1="33" y1="6" x2="33" y2="62"/>
+        <line x1="60" y1="6" x2="60" y2="62"/>
+        <line x1="87" y1="6" x2="87" y2="62"/>
+        <line x1="6" y1="20" x2="114" y2="20"/>
+        <line x1="6" y1="38" x2="114" y2="38"/>
+        <line x1="6" y1="56" x2="114" y2="56"/>
+      </g>
+      <path d="M60 10 H87 V20 H101 V38 H87 V56 H46 V38 H19 V20 H33 V10 Z"
+            fill="none" stroke="currentColor" stroke-width="1.6"
+            stroke-linejoin="round"/>
+      <circle cx="60" cy="38" r="3.2" fill="currentColor"/>
+      <line x1="8" y1="68" x2="112" y2="68" stroke="var(--ink-faint)" stroke-width="1"/>
+    </svg>
+    <span class="mark-label">Metro Relocation Screen</span>
+  </a>
+
+  <a class="mark" href="/_resources/mcaid/">
+    <svg viewBox="0 0 120 76" aria-hidden="true" focusable="false">
+      <line x1="8" y1="68" x2="112" y2="68" stroke="var(--ink-faint)" stroke-width="1"/>
+      <path d="M8 58 L26 53 L44 48 L54 26 L72 21 L86 24 L98 46 L112 54" fill="none"
+            stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round"/>
+    </svg>
+    <span class="mark-label">Medicaid Enrollment Monitor</span>
+  </a>
 </div>
+
+<p class="subscribe">
+  <a class="rss-link" href="/feed.xml" aria-label="Subscribe to the RSS feed">
+    <svg class="rss" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <circle cx="5" cy="19" r="2.2" fill="currentColor"/>
+      <path d="M3 13.5a7.5 7.5 0 0 1 7.5 7.5" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M3 7a14 14 0 0 1 14 14" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </a>
+  <span class="subscribe-body">
+    <a class="subscribe-label" href="/feed.xml">Subscribe</a>
+    <span class="subscribe-note">New writing arrives by RSS. Recent pieces are on
+    <a href="/posts/">Posts</a>; longer work is under <a href="/_pages/presentations.html">Projects</a>.</span>
+  </span>
+</p>

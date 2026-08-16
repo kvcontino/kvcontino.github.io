@@ -13,10 +13,17 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Kevin Contino
+title: Kevin V. Contino
 email: kvcontino [at] gmail
+# This is the single source for three things that are easy to forget are linked:
+# jekyll-seo-tag builds the home page's <title> as "{{ site.title }} | {{ site.
+# description }}", which is the line Google prints as the search result; it also
+# fills <meta name="description"> and og:description; and jekyll-feed uses it as
+# the RSS channel description. Change it here and all four move together.
+# It reads as a subtitle after the name, so it is a noun phrase, not a sentence
+# about the site.
 description: > # greater_than means to ignore newlines until "baseurl:"
-  Health, geography, demographics, and more. Safety not guaranteed.
+  Health care, geography, and demographics
 baseurl: ""
 url: "https://kvcontino.github.io"
 
