@@ -80,8 +80,16 @@
      conventions note. Do not reach for the authentic #980000 on live text. */
   --void:      #000000;
   --ink:       #e8e8e8;   /* 17.1:1 — body */
-  --ink-dim:   #9a9a9a;   /*  7.5:1 — captions, meta, secondary nav */
-  --ink-faint: #444444;   /* rules and borders only, never text */
+  /* Secondary text is WARM, not grey. The old --ink-dim was #9a9a9a: a neutral
+     grey at 7.46:1 that read as switched-off rather than as a quieter voice,
+     and was genuinely hard to read at caption size. #cbb8a9 is 10.97:1, half a
+     stop brighter, and warm enough to be obviously a different voice from the
+     neutral body ink rather than a dimmer copy of it. It is also the tint the
+     figures use for their apparatus, so page and chart speak once. */
+  --ink-2:     #cbb8a9;   /* 11.0:1 — captions, meta, secondary nav */
+  --ink-dim:   #cbb8a9;   /* deprecated alias; use --ink-2 */
+  /* Rules only, never text. Warm to match, so no grey survives anywhere. */
+  --ink-faint: #4a4038;
   --bleed:     #b81419;   /* display red   */
   --ember:     #e04a42;   /* text-size red */
 
@@ -150,7 +158,7 @@ body {
   margin-bottom: 1.4em;
   text-transform: uppercase;
   letter-spacing: var(--track);
-  color: var(--ink-dim);
+  color: var(--ink-2);
   text-decoration: none;
 }
 .sidebar a:hover { color: var(--ink); }
@@ -202,11 +210,11 @@ body {
 a {
   color: var(--ink);
   text-decoration: underline;
-  text-decoration-color: var(--ink-dim);
+  text-decoration-color: var(--ink-2);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
 }
-a:visited { color: var(--ink-dim); }
+a:visited { color: var(--ink-2); }
 a:hover, a:focus {
   color: var(--ember);
   text-decoration-color: var(--ember);
@@ -308,7 +316,7 @@ li { margin: 10px 0; }
 pre, code, samp, tt, kbd {
   font-family: ui-monospace, 'DejaVu Sans Mono', monospace;
   font-size: 0.85em;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   word-spacing: normal;
 }
 pre { overflow-x: auto; max-width: var(--measure-wide); }
@@ -316,11 +324,11 @@ pre { overflow-x: auto; max-width: var(--measure-wide); }
 /* Custom elements retained for _ideas/post-template.md. Rethemed off the old
    #202080 blue, which sat at about 1.4:1 on black and was unreadable. */
 rw  { font-style: italic; color: var(--ember); }
-eqn { font-style: italic; color: var(--ink-dim); }
+eqn { font-style: italic; color: var(--ink-2); }
 lambda, biglambda { color: var(--bleed); }
 biglambda { font-size: 42px; }
 
-div.equation, span.equation { font-style: italic; color: var(--ink-dim); }
+div.equation, span.equation { font-style: italic; color: var(--ink-2); }
 div.equation { margin: 1.2em 0; }
 div.equation em, span.equation em { color: var(--ember); font-style: normal; }
 span.program { font-family: ui-monospace, monospace; }
@@ -338,7 +346,7 @@ span.rw { font-family: ui-monospace, monospace; font-style: italic; }
 }
 .meta {
   font-size: 0.8em;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   font-style: italic;
   max-width: var(--measure);
   margin-bottom: 2.4em;
@@ -346,15 +354,24 @@ span.rw { font-family: ui-monospace, monospace; font-style: italic; }
 }
 .meta a, .dek a { color: inherit; }
 
-figure { margin: 2.6em 0; max-width: var(--measure-wide); }
+/* One panel per row means the figures are portrait now, so they sit at the
+   TEXT measure and share the prose's left and right edges. Only tables still
+   break out to --measure-wide, which reads as a deliberate exception rather
+   than as everything being a different width. */
+figure { margin: 2.8em 0; max-width: var(--measure); }
 figure img, figure svg { width: 100%; height: auto; display: block; }
+/* A caption carries three things and used to set each at its own size: a
+   small-caps finding, a paragraph of method, and the provenance line. Three
+   sizes inside one block read as three unrelated things. Now there is ONE
+   caption size; the finding is marked by small caps and the provenance by
+   colour and position, not by shrinking the type further. */
 figcaption {
-  font-size: 0.8em;
-  line-height: 1.5;
-  color: var(--ink-dim);
+  font-size: 0.86em;
+  line-height: 1.6;
+  color: var(--ink-2);
   hyphens: none;
   word-spacing: normal;
-  margin-top: 0.6em;
+  margin-top: 0.9em;
   max-width: var(--measure);
 }
 figcaption strong {
@@ -383,9 +400,10 @@ figcaption strong {
 }
 :is(table.data, .tablewrap table) caption {
   text-align: left;
-  color: var(--ink-dim);
-  font-size: 0.9em;
-  padding-bottom: 0.6em;
+  color: var(--ink-2);
+  font-size: 0.88em;
+  line-height: 1.5;
+  padding-bottom: 0.8em;
 }
 :is(table.data, .tablewrap table) th, :is(table.data, .tablewrap table) td { padding: 8px 14px; border-bottom: 1px solid var(--ink-faint); }
 /* Column heads get the small-caps treatment rather than a colour or a weight —
@@ -404,7 +422,7 @@ figcaption strong {
 :is(table.data, .tablewrap table) td.nowrap, :is(table.data, .tablewrap table) th.nowrap { white-space: nowrap; }
 :is(table.data, .tablewrap table) .hi  { color: var(--ember); }
 :is(table.data, .tablewrap table) .neg { color: var(--ember); font-style: italic; }
-:is(table.data, .tablewrap table) tbody tr:hover { background: #141414; }
+:is(table.data, .tablewrap table) tbody tr:hover { background: #17120f; }  /* warm, to match the palette */
 
 .note {
   border-left: 2px solid var(--bleed);
@@ -445,14 +463,14 @@ figcaption strong {
   font-size: 0.72em;
   letter-spacing: var(--track);
   text-transform: uppercase;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   margin-bottom: 0.2em;
 }
 .postlist a { font-size: 1.05em; }
 .postnote {
   display: block;
   font-size: 0.85em;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   margin-top: 0.15em;
 }
 
@@ -481,14 +499,14 @@ figcaption strong {
   display: block;
   font-size: 0.78em;
   line-height: 1.35;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   letter-spacing: var(--track);
   text-transform: uppercase;
   margin-top: 0.4em;
 }
 .statnote {
   font-size: 0.85em;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   max-width: var(--measure);
   margin: 0 0 1.6em 0;
 }
@@ -546,7 +564,7 @@ figcaption strong {
   border: 1px solid var(--ink-faint);
   border-radius: 50%;
   background: var(--void);
-  color: var(--ink-dim);
+  color: var(--ink-2);
   font-size: 0.8em;
   font-variant-numeric: lining-nums;
 }
@@ -560,7 +578,7 @@ figcaption strong {
 }
 .stage-q {
   display: block;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   font-style: italic;
   margin-top: 0.1em;
 }
@@ -638,11 +656,12 @@ figcaption strong {
    rather than as part of the finding. */
 .prov {
   display: block;
-  margin-top: 0.5em;
+  margin-top: 0.7em;
   /* --ink-dim, not --ink-faint: this is text, and the palette note above is
      explicit that --ink-faint is for rules and borders only. */
-  color: var(--ink-dim);
-  font-size: 0.92em;
+  color: var(--ink-2);
+  font-size: 1em;          /* same size as the caption it closes */
+  opacity: 0.82;           /* set back by tone, not by another size step */
 }
 
 .prov code {
@@ -650,7 +669,7 @@ figcaption strong {
   color: var(--ink);
 }
 
-.prov a { color: var(--ink-dim); }
+.prov a { color: var(--ink-2); }
 .prov a:hover { color: var(--ember); }
 
 /* --- Annotated source list ------------------------------------------------
@@ -660,13 +679,13 @@ figcaption strong {
 .sources {
   max-width: var(--measure);
   padding-left: 1.2em;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   font-size: 0.92em;
   line-height: 1.6;
 }
 
 .sources li { margin-bottom: 0.75em; }
-.sources li::marker { color: var(--ink-dim); }
+.sources li::marker { color: var(--ink-2); }
 /* The source's name carries the colour; the gloss after the colon stays dim. */
 .sources a { color: var(--ink); }
 .sources a:hover { color: var(--ember); }
@@ -688,7 +707,7 @@ figcaption strong {
   text-transform: uppercase;
   letter-spacing: var(--track);
   font-size: 0.78em;
-  color: var(--ink-dim);
+  color: var(--ink-2);
 }
 
 .toc ol {
@@ -698,8 +717,8 @@ figcaption strong {
 }
 
 .toc li { margin-bottom: 0.25em; }
-.toc li::marker { color: var(--ink-dim); font-variant-numeric: lining-nums; }
-.toc a { color: var(--ink-dim); text-decoration: none; }
+.toc li::marker { color: var(--ink-2); font-variant-numeric: lining-nums; }
+.toc a { color: var(--ink-2); text-decoration: none; }
 .toc a:hover { color: var(--ember); }
 
 /* A deep link drops the reader at the heading's very top edge, hard against the
@@ -759,7 +778,7 @@ figcaption strong {
   background: var(--void);
   border: 1px solid var(--ink-faint);
   border-left: 2px solid var(--ember);
-  color: var(--ink-dim);
+  color: var(--ink-2);
   font-size: 0.86em;
   line-height: 1.55;
   text-indent: 0;
@@ -777,7 +796,7 @@ figcaption strong {
   max-width: var(--measure);
   margin-top: 1.2em;
   padding-left: 1.4em;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   font-size: 0.92em;
 }
 
@@ -793,7 +812,7 @@ figcaption strong {
 
 .fn-back {
   text-decoration: none;
-  color: var(--ink-dim);
+  color: var(--ink-2);
 }
 .fn-back:hover { color: var(--ember); }
 
@@ -805,10 +824,13 @@ figcaption strong {
 /* Quoted testimony / transcript extracts — deliberately recessive against .note,
    which uses the accent border for the essay's own asides. */
 blockquote {
-  border-left: 2px solid var(--ink-faint);
+  /* The rule is red, not grey. It is a graphic, so the display red is allowed
+     here even though it fails contrast for text; the quotation itself is set in
+     the warm secondary ink and carries its own contrast. */
+  border-left: 2px solid var(--bleed);
   padding: 0.2em 0 0.2em 1.4em;
   margin: 1.8em 0;
-  color: var(--ink-dim);
+  color: var(--ink-2);
   font-size: 0.95em;
   hyphens: none;
   max-width: var(--measure);
@@ -838,7 +860,7 @@ hr {
 footer {
   font-size: 0.7em;
   font-style: italic;
-  color: var(--ink-dim);
+  color: var(--ink-2);
 }
 
 #pdfdisplay {

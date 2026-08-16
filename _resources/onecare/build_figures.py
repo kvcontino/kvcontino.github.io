@@ -1,11 +1,27 @@
-"""Build the OneCare essay's figures as transparent, dark-theme SVGs that sit
+"""Build the OneCare essay's figures as opaque, dark-theme SVGs that sit
 directly on kvcontino.github.io's black page. Self-contained: reads ./data,
-writes ./figures. Reproduces the analysis figures from the onecare_retrospective
-project in the site's palette (VT = antique-brass accent #cd9575; comparators =
-neutral grays separated by line style and weight, so identity never rests on
-color alone).
+writes ./figures.
+
+Three conventions, each of which the essay depends on:
+
+  * ONE PANEL PER ROW. Panels stack vertically, so a figure is portrait and
+    sits at the page's text measure, sharing both edges with the prose. Side
+    by side, the panels made every figure wider than the column it explained.
+  * RED SUBJECT, WHITE COMPARATORS. Vermont is the site's --ember red and every
+    comparator is near-white, so the series separate by lightness rather than
+    hue. See the palette note below for the measured colour-blindness numbers.
+  * NO TITLE PROSE IN THE IMAGE beyond the title and the panel titles. The
+    standfirst lives in the HTML <figcaption>, where it is selectable, reflows,
+    and is set in the page's own type rather than baked into a picture.
+
+Text is set in Sorts Mill Goudy, the site face, with lining figures frozen in;
+that means the figures are subject to its glyph coverage, which is narrow.
+script/check-site.sh reads the string literals in this file and fails on any
+character the font lacks, because a missing glyph here becomes a .notdef box
+baked into the image where no HTML check can see it.
 
 Run:  python3 build_figures.py
+      ONECARE_PREVIEW=<dir> python3 build_figures.py   # PNGs for eyeballing
 """
 
 import json
@@ -75,23 +91,30 @@ except Exception as exc:                 # noqa: BLE001 - any failure falls back
     print(f"  (font: falling back to sans-serif — {type(exc).__name__}: {exc})")
 
 # ---- site-matched dark palette ----
-INK = "#ededed"; INK2 = "#c9c9c9"; MUTED = "#9a9a9a"
-GRID = "#333333"; BASE = "#4d4d4d"; FAINT = "#3a3a3a"
-VT = "#cd9575"                        # the site's accent — Vermont, everywhere
-# Comparator series gray. NOT INK2/MUTED: against VT on a dark surface those score a
-# normal-vision separation of only ~14.5 and ~8.6 (OKLab dE x100), both under the 15
-# floor, so a reader with full colour vision can struggle to tell the pair apart.
-# #7d7d7d clears it — 15.0 normal, 11.1 protan, 16.3 tritan. Measured, not eyeballed.
-# INK2/MUTED remain the TEXT tokens (subtitles, tick labels, annotations, ref lines).
+# Text and apparatus are warm, data is red-and-white, and no grey appears in
+# either. That is not decoration: it is what makes the separation survive colour
+# blindness.
 #
-# ONE comparator step, deliberately. No third gray exists that clears 15 against BOTH
-# the accent and #7d7d7d while keeping 3:1 contrast on black — lighter steps drift into
-# the accent's lightness, darker ones fail the surface. Tested #c9c9c9/#b0b0b0/#a8a8a8/
-# #5f5f5f/#565656; all fail. So every comparator series shares this one gray and is
-# separated from its neighbours by dash pattern and a direct end label, never by colour.
-# The trade is deliberate: it buys separation on the distinction that carries the
-# argument (Vermont vs. not-Vermont) and spends it on one that does not (US vs. peers).
-CMP = "#7d7d7d"
+# The subject series is the site's --ember red; every comparator is near-white.
+# Separation by LIGHTNESS is the point. Measured OKLab dE x100 against the
+# comparator, normal / protan / deutan / tritan:
+#
+#     ember  vs near-white   37.5 / 39.0 / 32.0 / 38.0   <- shipped
+#     brass  vs mid-grey     15.0 / 12.0 / 15.4 / 13.4   <- the previous pairing
+#
+# The old brass-on-grey pair separated by HUE, which is exactly the channel
+# protanopia and deuteranopia destroy; it scraped the floor at 12. Red on white
+# separates by lightness, which no form of colour blindness touches, and clears
+# it three times over. Dash pattern and a direct end label still carry identity
+# as well, so colour is never the only channel.
+INK  = "#f2e9e2"   # figure titles: warm white, brighter than the caption tier
+INK2 = "#cbb8a9"   # panel titles and axis labels: the site's warm secondary
+MUTED = "#cbb8a9"  # tick labels and annotations: same tier, deliberately
+GRID = "#3a322c"   # warm rules, never text
+BASE = "#5c5048"   # axis spines and reference lines
+FAINT = "#4a4038"  # placebo spaghetti
+VT = "#e04a42"     # the subject, everywhere: the site's --ember
+CMP = "#ececec"    # every comparator series
 
 plt.rcParams.update({
     "font.family": FONT_FAMILY, "font.size": 10.5,
@@ -99,8 +122,11 @@ plt.rcParams.update({
     "xtick.color": MUTED, "ytick.color": MUTED,
     "axes.grid": True, "grid.color": GRID, "grid.linewidth": 0.6,
     "axes.spines.top": False, "axes.spines.right": False,
-    "figure.facecolor": "none", "axes.facecolor": "none",
-    "savefig.facecolor": "none", "savefig.transparent": True,
+    # Painted black rather than transparent. A transparent SVG opened directly
+    # in a browser tab renders on white, and light-on-light is unreadable; the
+    # page it sits on is black either way, so nothing is lost on-page.
+    "figure.facecolor": "#000000", "axes.facecolor": "#000000",
+    "savefig.facecolor": "#000000", "savefig.transparent": False,
 })
 if PREVIEW:
     plt.rcParams.update({"figure.facecolor": "#000000", "axes.facecolor": "#000000",
@@ -114,12 +140,12 @@ DASH = (0, (5, 2)); DOT = (0, (1, 1.6))
 # 1100/1200 = 0.917 for all eight; any spread in authored width would show up
 # on the page as a spread in label size. Heights stay per-figure — only the
 # width is shared, and each height below preserves that figure's own aspect.
-FIG_W = 12.5
+FIG_W = 7.9
 # Title and standfirst sit flush with the figure's left edge, which the page
 # puts flush with the prose. The axes inset (subplots_adjust left=) still
 # varies per figure, because tick-label widths genuinely do.
 TITLE_X = 0.0
-TITLE_SIZE = 12.5
+TITLE_SIZE = 13.5
 
 
 def style(ax, model_line=2017.5):
@@ -133,6 +159,21 @@ def style(ax, model_line=2017.5):
         ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True, nbins="auto"))
     if model_line:
         ax.axvline(model_line, color=BASE, lw=0.8, ls=":", zorder=0)
+
+
+def panel_title(ax, text):
+    """Panel title flush with the FIGURE's left edge, not the axes'.
+
+    The suptitle sits at x=0 so it lines up with the prose column. A plain
+    ax.set_title(loc="left") starts at the axes instead, which is inset by
+    however much room the y-tick labels need, so the two titles land on
+    different left edges and the whole block reads as misaligned against the
+    text. Converting the figure-space offset into axes space puts every title
+    on the one edge.
+    """
+    box = ax.get_position()
+    x = (TITLE_X - box.x0) / box.width
+    ax.set_title(text, loc="left", x=x, fontsize=10.5, color=INK2)
 
 
 def covid_line(ax, label=False):
@@ -197,8 +238,8 @@ synth = pd.Series({int(k): v for k, v in r["synthetic"].items()})
 gap = pd.Series({int(k): v for k, v in r["gap"].items()})
 pre_mean = gap.loc[2014:2017].mean()
 
-fig, axes = plt.subplots(1, 3, figsize=(FIG_W, 4.0))
-fig.subplots_adjust(left=0.07, right=0.985, bottom=0.13, top=0.80, wspace=0.30)
+fig, axes = plt.subplots(3, 1, figsize=(FIG_W, 8.6))
+fig.subplots_adjust(left=0.135, right=0.965, bottom=0.055, top=0.925, hspace=0.42)
 
 ax = axes[0]
 ax.plot(YEARS, synth.values, color=CMP, lw=1.8, ls=DASH)
@@ -209,7 +250,7 @@ dollars(ax); style(ax)
 ax.set_xlim(2014, 2026.6)
 # Headroom so the synthetic-VT end label clears the panel title.
 ax.set_ylim(top=max(actual.max(), synth.max()) * 1.06)
-ax.set_title("Standardized Medicare payment per capita", loc="left", fontsize=10.5, color=INK)
+panel_title(ax, "Standardized Medicare payment per capita")
 covid_line(ax, label=True)
 
 ax = axes[1]
@@ -221,7 +262,7 @@ ax.annotate(f"pre-period mean gap (${pre_mean:,.0f})", (2014.1, pre_mean),
 ax.plot(YEARS, gap.values, color=VT, lw=2.6)
 dollars(ax); style(ax)
 ax.set_xlim(2014, 2024.3)
-ax.set_title("Gap: Vermont − synthetic", loc="left", fontsize=10.5, color=INK)
+panel_title(ax, "Gap: Vermont − synthetic")
 covid_line(ax)
 
 ax = axes[2]
@@ -231,29 +272,22 @@ ax.plot(gap.index, gap.values, color=VT, lw=2.6)
 ax.axhline(0, color=MUTED, lw=0.8)
 dollars(ax); style(ax)
 ax.set_xlim(2014, 2024.6)
-ax.set_title("Vermont gap vs. 49 in-space placebos", loc="left", fontsize=10.5, color=INK)
+panel_title(ax, "Vermont gap vs. 49 in-space placebos")
 end(ax, 2024, gap[2024], "VT", VT, dy=-4, bold=True)
 covid_line(ax)
 
 fig.suptitle("Vermont Medicare spending under the all-payer model, vs. a synthetic control",
-             x=TITLE_X, y=0.965, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
+             x=TITLE_X, y=0.975, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 # Every number in this caption is read from the fit, never typed in.
 _post, _ratio = ranks(r)
-fig.text(TITLE_X, 0.885,
-         f"Post-2018 mean gap {signed_dollars(r['mean_post_gap'])} per beneficiary-year "
-         f"({r['mean_post_gap_pct']:.1f}%), intercept-shifted specification; "
-         f"pre-period gap is zero by construction.\n"
-         f"Vermont ranks {_post} of 50 on post-period RMSPE and {_ratio} on the post/pre "
-         f"ratio: the direction the federal evaluation found, not a settled causal estimate.",
-         fontsize=9, color=INK2, parse_math=False, va="center", linespacing=1.5)
 save(fig, "fig1_spending")
 
 # ================= Figure 2: % gap by outcome, shared scale =================
 order = ["TOT_MDCR_STDZD_PYMT_PC", "IP_CVRD_STAYS_PER_1000_BENES", "ER_VISITS_PER_1000_BENES"]
 titles = ["Spending per capita", "Inpatient stays", "ED visits"]
 
-fig, axes = plt.subplots(1, 3, figsize=(FIG_W, 4.1), sharey=True)
-fig.subplots_adjust(left=0.06, right=0.985, bottom=0.12, top=0.73, wspace=0.12)
+fig, axes = plt.subplots(3, 1, figsize=(FIG_W, 8.2), sharex=True)
+fig.subplots_adjust(left=0.135, right=0.965, bottom=0.055, top=0.93, hspace=0.30)
 for i, (ax, key, title) in enumerate(zip(axes, order, titles)):
     rr = res[key]
     g = pd.Series({int(k): v for k, v in rr["gap"].items()})
@@ -263,28 +297,21 @@ for i, (ax, key, title) in enumerate(zip(axes, order, titles)):
     ax.plot(YEARS, pct.values, color=VT, lw=2.6)
     style(ax)
     _p, _r = ranks(rr)
-    ax.set_title(f"{title}   (rank {_p} / {_r} of 50)", loc="left",
-                 fontsize=10.5, color=INK)
+    panel_title(ax, f"{title}   (rank {_p} / {_r} of 50)")
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:+.0f}%"))
     ax.set_xlim(2014, 2024.3)
     covid_line(ax, label=(i == 0))
 fig.suptitle("Vermont vs. synthetic control: the gap as a share of the counterfactual",
-             x=TITLE_X, y=0.95, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
-fig.text(TITLE_X, 0.875,
-         "One scale across all three. Spending fell and ED visits rose against the "
-         "counterfactual; inpatient stays never moved.\nRanks are Vermont's place among "
-         "50 states on post-period RMSPE / the post-to-pre RMSPE ratio, both from the "
-         "same fits, neither treated as a verdict.",
-         fontsize=9, color=INK2, va="top", linespacing=1.5)
+             x=TITLE_X, y=0.975, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 save(fig, "fig2_outcomes")
 
 # ===== Figure 2b: what the inference rests on, both panels from the same fits =====
 manifest = json.load(open("data/results_manifest.json"))
 pstats = pd.read_csv("data/scm_placebo_statistics.csv")
 
-fig, axes = plt.subplots(1, 2, figsize=(FIG_W, 4.82),
-                         gridspec_kw={"width_ratios": [1.15, 1]})
-fig.subplots_adjust(left=0.145, right=0.990, bottom=0.145, top=0.64, wspace=0.42)
+fig, axes = plt.subplots(2, 1, figsize=(FIG_W, 7.4),
+                         gridspec_kw={"height_ratios": [1.15, 1]})
+fig.subplots_adjust(left=0.155, right=0.965, bottom=0.075, top=0.91, hspace=0.38)
 
 # -- left: the rank moves with the discrepancy statistic --
 ax = axes[0]
@@ -308,7 +335,7 @@ ax.set_xlim(0, 51)
 ax.set_xticks([1, 10, 20, 30, 40, 50])
 ax.set_xlabel("rank among 50 states (1 = most discrepant)", fontsize=9)
 ax.grid(axis="y", visible=False); ax.tick_params(length=0)
-ax.set_title("Rank moves with the statistic", loc="left", fontsize=10.5, color=INK)
+panel_title(ax, "Rank moves with the statistic")
 ax.legend(frameon=False, fontsize=8.5, loc="lower right", handletextpad=.4,
           borderpad=.2, labelcolor=INK2)
 
@@ -331,17 +358,10 @@ ax.set_xlabel("pre-period RMSPE (log scale)", fontsize=9)
 ax.set_ylabel("post-period RMSPE", fontsize=9)
 ax.grid(axis="x", visible=True, color=GRID, lw=.6)
 ax.tick_params(length=0)
-ax.set_title("ED visits: pre-fit vs. post-fit, all 50", loc="left",
-             fontsize=10.5, color=INK)
+panel_title(ax, "ED visits: pre-fit vs. post-fit, all 50")
 
 fig.suptitle("What the emergency-department inference rests on",
              x=TITLE_X, y=0.975, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
-fig.text(TITLE_X, 0.90,
-         "Left: the same intercept-shifted fits ranked two defensible ways. Right: the ratio "
-         "statistic divides the vertical\naxis by the horizontal one, so units at the left edge "
-         "get large ratios from a small denominator, which is\nwhy both rankings are reported "
-         "rather than one being called honest.",
-         fontsize=9, color=INK2, va="top", linespacing=1.5)
 save(fig, "fig2b_specification")
 
 # ================= Figure 3: population health =================
@@ -376,19 +396,21 @@ YW = [y for y in wonder.index if 2005 <= y <= 2020]
 sui_wonder_vt = wonder.loc[YW, "vt_aa_rate"]
 sui_wonder_peer = wonder.loc[YW, "peer6_mean_aa_rate"]
 
-fig, axes = plt.subplots(1, 3, figsize=(FIG_W, 4.0))
-fig.subplots_adjust(left=0.06, right=0.987, bottom=0.13, top=0.75, wspace=0.32)
+fig, axes = plt.subplots(3, 1, figsize=(FIG_W, 8.6))
+fig.subplots_adjust(left=0.135, right=0.965, bottom=0.055, top=0.925, hspace=0.42)
 ax = axes[0]
 ax.axhline(100, color=BASE, lw=0.8, ls=DASH, zorder=0)
 ax.fill_between(YA, od_ci["lo"].reindex(YA), od_ci["hi"].reindex(YA), color=VT, alpha=0.15, lw=0, zorder=0)
 ax.plot(YA, us_idx.reindex(YA), color=CMP, lw=1.5)
 ax.plot(YA, peer_idx.reindex(YA), color=CMP, lw=1.8, ls=DASH)
 ax.plot(YA, vt_idx.reindex(YA), color=VT, lw=2.6)
-end(ax, 2025, vt_idx[2025], "Vermont", VT, bold=True)
-end(ax, 2025, us_idx[2025], "US", MUTED, dy=7)
-end(ax, 2025, peer_idx[2025], "6 NE peers", INK2, dy=-7)
+# All three series converge by 2025, so the end labels need pulling apart
+# vertically or "Vermont" and "US" print on top of each other.
+end(ax, 2025, vt_idx[2025], "Vermont", VT, dy=10, bold=True)
+end(ax, 2025, us_idx[2025], "US", CMP, dy=-2)
+end(ax, 2025, peer_idx[2025], "6 NE peers", CMP, dy=-14)
 style(ax); ax.set_xlim(2015, 2027.6); ax.set_xticks(range(2015, 2026, 2))
-ax.set_title("Overdose deaths, indexed (2015 = 100), with 95% CI", loc="left", fontsize=10.5, color=INK)
+panel_title(ax, "Overdose deaths, indexed (2015 = 100), with 95% CI")
 
 # Suicide panel (axes[1]): WONDER 2005-2020 (final, age-adjusted) spliced with MIOV 2019-24
 # (provisional) at a visibly marked seam.
@@ -400,12 +422,12 @@ ax.plot(YW, sui_wonder_vt.values, color=VT, lw=2.6)
 ax.plot(YB, sui_peer.reindex(YB), color=CMP, lw=1.5, ls=DOT, marker="o", ms=3)
 ax.plot(YB, sui_vt.reindex(YB), color=VT, lw=1.5, ls=DOT, marker="o", ms=3.5)
 ax.axvline(2019, color=MUTED, lw=0.6, ls="-", alpha=0.4, zorder=0)
-ax.annotate("WONDER (final) →\nMIOV (provisional)", (2019, ymax * 0.82), xytext=(4, 0),
+ax.annotate("WONDER (final), then\nMIOV (provisional)", (2019, ymax * 0.82), xytext=(4, 0),
             textcoords="offset points", color=MUTED, fontsize=7.3, va="top", linespacing=1.3)
 end(ax, 2024, sui_vt[2024], "VT", VT, bold=True)
 end(ax, 2024, sui_peer[2024], "6 NE peers", CMP)
 style(ax); ax.set_ylim(0, ymax); ax.set_xlim(2004, 2027.6); ax.set_xticks([2005, 2010, 2015, 2020, 2024])
-ax.set_title("Suicide, deaths per 100k, 2005–2024", loc="left", fontsize=10.5, color=INK)
+panel_title(ax, "Suicide, deaths per 100k, 2005–2024")
 
 ax = axes[2]
 ax.plot(YB, odr_peer.reindex(YB), color=CMP, lw=1.8, ls=DASH)
@@ -413,14 +435,10 @@ ax.plot(YB, odr_vt.reindex(YB), color=VT, lw=2.6)
 end(ax, 2024, odr_vt[2024], "VT", VT, bold=True)
 end(ax, 2024, odr_peer[2024], "6 NE peers", CMP)
 style(ax); ax.set_ylim(0, ymax); ax.set_xlim(2019, 2025.6); ax.set_xticks(range(2019, 2025))
-ax.set_title("Overdose, deaths per 100k", loc="left", fontsize=10.5, color=INK)
+panel_title(ax, "Overdose, deaths per 100k")
 
 fig.suptitle("The overdose climb is real; the suicide gap is a level, not a model-era trend",
-             x=TITLE_X, y=0.955, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
-fig.text(TITLE_X, 0.855, "Overdose index carries a Poisson 95% band (small annual counts). Suicide is "
-         "extended to 2005 (WONDER, age-adjusted); the pre-model\ngap (+5.2, 2014–17) and model-era "
-         "gap (+5.5, 2018–20) are statistically indistinguishable; this predates the model.",
-         fontsize=9, color=INK2, va="center", linespacing=1.5)
+             x=TITLE_X, y=0.975, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 save(fig, "fig3_pophealth")
 
 # ================= Figure 4: consolidation =================
@@ -432,8 +450,8 @@ emp = df.pivot(index="year", columns="fipstate", values="emp")
 us_estab = df.groupby("year")["estab"].sum()
 idx = lambda s: s / s.loc[2014] * 100
 
-fig, axes = plt.subplots(1, 2, figsize=(FIG_W, 4.77))
-fig.subplots_adjust(left=0.07, right=0.989, bottom=0.12, top=0.78, wspace=0.26)
+fig, axes = plt.subplots(2, 1, figsize=(FIG_W, 7.2))
+fig.subplots_adjust(left=0.135, right=0.965, bottom=0.075, top=0.925, hspace=0.34)
 ax = axes[0]
 ax.axhline(100, color=BASE, lw=0.8, ls=DASH, zorder=0)
 ax.plot(YRS, idx(us_estab).reindex(YRS), color=CMP, lw=1.4)
@@ -445,7 +463,7 @@ end(ax, 2023, idx(estab[FIPS["NH"]])[2023], "NH  −2%", INK2, dy=-2)
 end(ax, 2023, idx(estab[FIPS["ME"]])[2023], "ME  −23%", MUTED, dy=6)
 end(ax, 2023, idx(estab[FIPS["VT"]])[2023], "VT  −26%", VT, dy=-6, bold=True)
 style(ax); ax.set_xlim(2014, 2025.6); ax.set_xticks(range(2014, 2024, 2))
-ax.set_title("Physician-office establishments, indexed (2014 = 100)", loc="left", fontsize=10.5, color=INK)
+panel_title(ax, "Physician-office establishments, indexed (2014 = 100)")
 ax = axes[1]
 per_vt = emp[FIPS["VT"]] / estab[FIPS["VT"]]; per_nh = emp[FIPS["NH"]] / estab[FIPS["NH"]]
 ax.plot(YRS, per_nh.reindex(YRS), color=CMP, lw=1.8, ls=DASH)
@@ -454,26 +472,23 @@ end(ax, 2023, per_vt[2023], "VT", VT, bold=True)
 end(ax, 2023, per_nh[2023], "NH", CMP)
 style(ax); ax.set_ylim(0, max(per_vt.max(), per_nh.max()) * 1.12)
 ax.set_xlim(2014, 2025.2); ax.set_xticks(range(2014, 2024, 2))
-ax.set_title("Employees per office (fewer offices, but larger)", loc="left", fontsize=10.5, color=INK)
+panel_title(ax, "Employees per office (fewer offices, but larger)")
 fig.suptitle("Vermont's physician offices thinned faster than its neighbors', but so did Maine's",
-             x=TITLE_X, y=0.955, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
-fig.text(TITLE_X, 0.875, "NH is the clean no-model comparator; ME shows a like-sized decline with\n"
-         "no all-payer model: the honesty guard on reading VT's drop as model-caused.",
-         fontsize=9, color=INK2, va="center", linespacing=1.5)
+             x=TITLE_X, y=0.975, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 save(fig, "fig4_consolidation")
 
 # ================= Figure 5: consolidation, county grain =================
 cty = pd.read_csv("data/cbp_6211_counties_vt_nh.csv")
 UVMHN = ["Chittenden", "Washington", "Addison"]   # UVMMC / CVMC / Porter home counties
 vt = cty[cty.state == "VT"].pivot(index="year", columns="county", values="estab")
-vt = vt.drop(columns=["Grand Isle"])              # ≤2 offices, intermittently disclosed
+vt = vt.drop(columns=["Grand Isle"])              # 2 or fewer offices, intermittently disclosed
 nh_tot = cty[cty.state == "NH"].groupby("year")["estab"].sum()
 grp = pd.DataFrame({"uvmhn": vt[UVMHN].sum(axis=1),
                     "rest": vt.drop(columns=UVMHN).sum(axis=1), "nh": nh_tot})
 gidx = grp / grp.loc[2014] * 100
 
-fig, axes = plt.subplots(1, 2, figsize=(FIG_W, 5.0), width_ratios=[1, 1.15])
-fig.subplots_adjust(left=0.065, right=0.989, bottom=0.11, top=0.76, wspace=0.42)
+fig, axes = plt.subplots(2, 1, figsize=(FIG_W, 8.0), height_ratios=[1, 1.15])
+fig.subplots_adjust(left=0.155, right=0.965, bottom=0.065, top=0.925, hspace=0.34)
 ax = axes[0]
 ax.axhline(100, color=BASE, lw=0.8, ls=DASH, zorder=0)
 ax.plot(gidx.index, gidx["nh"], color=CMP, lw=1.8, ls=DASH)
@@ -483,8 +498,7 @@ end(ax, 2023, gidx["nh"][2023], "NH  −3%", INK2, dy=4)
 end(ax, 2023, gidx["uvmhn"][2023], "UVMHN counties  −18%", VT, dy=6)
 end(ax, 2023, gidx["rest"][2023], "rest of VT  −35%", VT, dy=-6, bold=True)
 style(ax); ax.set_xlim(2014, 2027.4); ax.set_xticks(range(2014, 2024, 2))
-ax.set_title("Physician-office establishments, indexed (2014 = 100)", loc="left",
-             fontsize=10.5, color=INK)
+panel_title(ax, "Physician-office establishments, indexed (2014 = 100)")
 
 ax = axes[1]
 chg = (vt.loc[2023] / vt.loc[2014] - 1) * 100
@@ -499,7 +513,7 @@ for y, (county, v) in zip(ypos, chg.items()):
     color = VT if county in UVMHN else CMP
     ax.plot([0, v], [y, y], color=color, lw=1.1, alpha=0.6)
     ax.plot(v, y, "o", color=color, ms=6)
-    ax.annotate(f"{vt.loc[2014, county]:.0f}→{vt.loc[2023, county]:.0f}",
+    ax.annotate(f"{vt.loc[2014, county]:.0f} to {vt.loc[2023, county]:.0f}",
                 (v, y), xytext=(-6 if v < 0 else 6, 0), textcoords="offset points",
                 color=CMP if county not in UVMHN else VT, fontsize=7.5,
                 ha="right" if v < 0 else "left", va="center", parse_math=False)
@@ -512,15 +526,10 @@ for lbl in ax.get_yticklabels():
 ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:+.0f}%"))
 ax.grid(axis="y", visible=False); ax.grid(axis="x", color=GRID, lw=0.6)
 ax.tick_params(length=0); ax.set_xlim(-62, 8)
-ax.set_title("Change 2014 → 2023, by Vermont county (counts at right)", loc="left",
-             fontsize=10.5, color=INK)
+panel_title(ax, "Change 2014 to 2023, by Vermont county (counts at right)")
 
 fig.suptitle("The thinning was steepest away from the network, not at its center",
-             x=TITLE_X, y=0.955, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
-fig.text(TITLE_X, 0.855, "UVMHN home counties (Chittenden · Washington · Addison) lost 18% of "
-         "physician offices; the rest of Vermont lost 35%.\nCounty counts are small, so grouped "
-         "series are the reliable read. Grand Isle (≤2 offices) excluded.",
-         fontsize=9, color=INK2, va="center", linespacing=1.5, parse_math=False)
+             x=TITLE_X, y=0.975, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 save(fig, "fig5_county")
 
 # ================= Figure 6: commercial prices =================
@@ -530,8 +539,8 @@ allsvc = (rand.loc[NORTHEAST, "Relative price"] * 100)
 allsvc.loc["US"] = 254          # RAND 5.1 published national mean (all services)
 allsvc = allsvc.sort_values()
 
-fig, axes = plt.subplots(1, 2, figsize=(FIG_W, 5.11), width_ratios=[1.35, 1])
-fig.subplots_adjust(left=0.095, right=0.987, bottom=0.12, top=0.76, wspace=0.35)
+fig, axes = plt.subplots(2, 1, figsize=(FIG_W, 8.2), height_ratios=[1.35, 1])
+fig.subplots_adjust(left=0.165, right=0.965, bottom=0.065, top=0.925, hspace=0.30)
 ax = axes[0]
 for y, (st, v) in enumerate(allsvc.items()):
     if st == "VT":
@@ -553,8 +562,7 @@ for lbl in ax.get_yticklabels():
 ax.grid(axis="y", visible=False); ax.grid(axis="x", color=GRID, lw=0.6)
 ax.tick_params(length=0); ax.set_xlim(0, 345)
 ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
-ax.set_title("Commercial price as % of Medicare, all services (2022)", loc="left",
-             fontsize=10.5, color=INK)
+panel_title(ax, "Commercial price as % of Medicare, all services (2022)")
 
 # Hospital-system outpatient trajectories, RAND 5.1 annex (hospital_finance_findings.md)
 ax = axes[1]
@@ -574,15 +582,10 @@ ax.set_xlim(2019.6, 2024.6); ax.set_xticks([2020, 2022])
 ax.set_ylim(300, 375)
 ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
 style(ax, model_line=None)
-ax.set_title("Hospital-system outpatient price, % of Medicare", loc="left",
-             fontsize=10.5, color=INK)
+panel_title(ax, "Hospital-system outpatient price, % of Medicare")
 
 fig.suptitle("Commercial prices: highest in the Northeast after New York, and still climbing",
-             x=TITLE_X, y=0.955, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
-fig.text(TITLE_X, 0.855, "Vermont's commercial prices ran 283% of Medicare in 2022, above the US "
-         "average. Every major Vermont hospital system's\noutpatient price rose through the "
-         "model's mature years. Source: RAND Hospital Price Transparency 5.1.",
-         fontsize=9, color=INK2, va="center", linespacing=1.5, parse_math=False)
+             x=TITLE_X, y=0.975, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 save(fig, "fig6_prices")
 
 # ============ Figure 7: pre-treatment ACO penetration — the attenuation ============
@@ -590,9 +593,9 @@ pen = pd.read_csv("data/aco_penetration_states.csv")
 apen = json.load(open("data/aco_penetration.json"))
 aback = json.load(open("data/aco_penetration_backcast.json"))
 
-fig, axes = plt.subplots(1, 2, figsize=(FIG_W, 4.4),
-                         gridspec_kw={"width_ratios": [1.15, 1]})
-fig.subplots_adjust(left=0.065, right=0.989, bottom=0.13, top=0.72, wspace=0.22)
+fig, axes = plt.subplots(2, 1, figsize=(FIG_W, 7.6),
+                         gridspec_kw={"height_ratios": [1.15, 1]})
+fig.subplots_adjust(left=0.145, right=0.965, bottom=0.07, top=0.915, hspace=0.34)
 
 # ---- panel A: where Vermont sat in the 2017 national distribution ----
 ax = axes[0]
@@ -643,8 +646,7 @@ ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
 ax.set_ylabel("national rank", fontsize=9, color=MUTED)
 ax.grid(axis="x", visible=True); ax.grid(axis="y", visible=False)
 ax.tick_params(length=0)
-ax.set_title("Every state, 2017: share of Medicare FFS in an ACO", loc="left",
-             fontsize=10.5, color=INK)
+panel_title(ax, "Share of Medicare FFS beneficiaries in an ACO, 2017")
 
 # ---- panel B: the whole pre-period, Vermont vs its synthetic control ----
 ax = axes[1]
@@ -678,15 +680,10 @@ ax.set_xticks(yrs)
 ax.set_ylim(0, 70)
 ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
 style(ax, model_line=None)
-ax.set_title("The synthetic control's whole pre-period fit window", loc="left",
-             fontsize=10.5, color=INK)
+panel_title(ax, "Share of Vermont Medicare FFS beneficiaries in an ACO, 2014-2017")
 
 fig.suptitle("Vermont entered the model already among the most ACO-saturated states in the country",
-             x=TITLE_X, y=0.965, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
-fig.text(TITLE_X, 0.875,
-         "In 2017, 51.6% of Vermont's Medicare fee-for-service beneficiaries were already in a Shared Savings Program ACO: second only to Delaware,\n"
-         "and roughly twice its synthetic control. 2018 marks a change of ACO regime, not the arrival of one.",
-         fontsize=9, color=INK2, va="center", linespacing=1.5, parse_math=False)
+             x=TITLE_X, y=0.975, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 save(fig, "fig7_aco_penetration")
 
 print("all figures written")

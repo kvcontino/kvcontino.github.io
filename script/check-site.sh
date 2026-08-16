@@ -165,6 +165,41 @@ then note "ok"; else fail=1; fi
 # fontconfig picks, in a different face, at a different weight. That shipped
 # twice before this check existed (U+21A9 in a footnote back-link, U+2248 in a
 # figure caption). Scoped to pages that actually load lite.css.
+# Figure text is glyph-pathed into the SVG, so the HTML scan above cannot see
+# it -- and matplotlib now sets the figures in the same face as the page. A
+# character the font lacks becomes a .notdef box baked into the image, which no
+# amount of HTML checking will catch. Read the strings straight out of the
+# figure builders instead.
+section "figure text glyph coverage"
+if python3 - <<'PY'
+import re, os, glob, sys, unicodedata
+try:
+    from fontTools.ttLib import TTFont
+except ImportError:
+    print("  (fontTools not installed - skipped)"); sys.exit(0)
+cov = set()
+for face in ("Regular", "Italic"):
+    p = f"assets/fonts/SortsMillGoudy-{face}.woff2"
+    if os.path.exists(p):
+        cov |= set(TTFont(p).getBestCmap())
+if not cov:
+    print("  (font not found - skipped)"); sys.exit(0)
+bad = []
+for src in glob.glob("_resources/**/build_figures.py", recursive=True):
+    for n, line in enumerate(open(src, encoding="utf-8"), 1):
+        if line.lstrip().startswith("#"):
+            continue
+        for lit in re.findall(r'"((?:[^"\\]|\\.)*)"|\'((?:[^\'\\]|\\.)*)\'', line):
+            for ch in (lit[0] or lit[1]):
+                if ord(ch) < 0x20 or ch.isspace() or ord(ch) in cov:
+                    continue
+                bad.append(f"U+{ord(ch):04X} {ch!r} ({unicodedata.name(ch,'?')}) - {src}:{n}")
+for b in sorted(set(bad)):
+    print("  TOFU IN FIGURE TEXT: " + b)
+sys.exit(1 if bad else 0)
+PY
+then note "ok"; else fail=1; fi
+
 section "glyph coverage"
 if python3 - <<'PY'
 import re, os, glob, sys, unicodedata
