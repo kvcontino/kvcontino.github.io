@@ -771,3 +771,63 @@ suptitle(fig, "Vermont entered the model already among the most ACO-saturated st
 save(fig, "fig7_aco_penetration")
 
 print("all figures written")
+
+
+# ---- fig8: the reform timeline --------------------------------------------
+# A chronology, not a measurement: nothing here comes from the manifest, and the
+# dates are the cited ones in the essay's notes. It exists to make one point the
+# prose can only assert — that the synthetic control's 2014-2017 pre-period
+# already contains three payment-reform programs, so 2018 is a change of regime
+# rather than the start of one.
+#
+# Two encodings carry the subject, not one. The all-payer model is the site's VT
+# accent AND the only filled bar; everything prior is outlined. The palette
+# validator puts #e04a42 against a warm comparator fill at protan dE 3.9, which
+# is unreadable for a red-blind reader, so the fill/outline difference is doing
+# the work that colour alone cannot. Every row is also directly labelled, so
+# identity never depends on colour at all.
+PROGRAMS = [
+    ("All-payer ACO model",       2018, 2026, True),
+    ("Medicaid Next Generation",  2017, 2026, False),
+    ("Commercial Shared Savings", 2014, 2017, False),
+    ("Medicaid Shared Savings",   2014, 2017, False),
+    ("Medicare Shared Savings",   2013, 2018, False),
+]
+
+fig = plt.figure(figsize=(FIG_W, 3.55))
+ax = fig.add_subplot(111)
+
+# The pre-period the synthetic control fits on. Drawn first and very faint: it is
+# the reason the figure exists, but it is background, not a sixth series.
+ax.axvspan(2014, 2018, color="#ffffff", alpha=0.035, zorder=0, lw=0)
+
+for i, (name, start, stop, subject) in enumerate(PROGRAMS):
+    if subject:
+        ax.barh(i, stop - start, left=start, height=0.46,
+                color=VT, edgecolor="none", zorder=3)
+    else:
+        ax.barh(i, stop - start, left=start, height=0.46,
+                facecolor="none", edgecolor=CMP, linewidth=1.3, zorder=3)
+
+ax.set_yticks(range(len(PROGRAMS)))
+ax.set_yticklabels([p[0] for p in PROGRAMS], fontsize=9.5, color=INK2)
+ax.set_ylim(-0.7, len(PROGRAMS) - 0.3)
+
+ax.set_xlim(2012.4, 2026.2)
+ax.set_xticks([2013, 2015, 2017, 2019, 2021, 2023, 2025])
+ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{int(v)}"))
+ax.annotate("synthetic control pre-period", (2014.15, 4.46), color=MUTED,
+            fontsize=8.5, va="center", parse_math=False)
+
+for side in ("top", "right", "left"):
+    ax.spines[side].set_visible(False)
+ax.spines["bottom"].set_color(BASE)
+style(ax, model_line=2018)
+# A timeline has no quantity to read off, so horizontal rules would be pure
+# decoration between five directly-labelled rows.
+ax.grid(axis="y", visible=False)
+
+panel_title(ax, "Vermont payment-reform programs by year of operation")
+suptitle(fig, "The pre-period was not a period without reform")
+fig.subplots_adjust(left=0.235, right=0.965, top=0.775, bottom=0.175)
+save(fig, "fig8_reform_timeline")

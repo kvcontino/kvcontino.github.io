@@ -12,28 +12,28 @@ the outcome data existed.</p>
 the <a href="/_resources/onecare/data/">data directory</a>.</p>
 
 <p>The rule for this project was that every claim should rest on public data and a stated procedure,
-so that an adversary could rerun it. This note records those procedures. It is organized by the
+so that anyone could rerun it. This note records those procedures. It is organized by the
 finding it supports; each section names the data, the method, and the caveats that would move the
 result. Nothing here is modeled away that ought to be logged instead.</p>
 
 <nav class="toc" aria-label="Contents">
 <p class="toc-head">Contents</p>
 <ol>
-  <li><a href="#synthetic-control">1. Spending and utilization — synthetic control</a></li>
-  <li><a href="#population-health">2. Population health</a></li>
-  <li><a href="#hospital-finance">3. Hospital finance and commercial prices</a></li>
-  <li><a href="#fixed-payment-share">4. The fixed-payment share</a></li>
-  <li><a href="#consolidation">5. Consolidation</a></li>
-  <li><a href="#ledger">6. Federal dollars and the ledger</a></li>
-  <li><a href="#preregistration">7. Pre-registration — the wind-down event study</a></li>
-  <li><a href="#data-and-reproduction">8. Data and reproduction</a></li>
-  <li><a href="#followups">9. Follow-ups, executed</a></li>
+  <li><a href="#synthetic-control">Spending and utilization: synthetic control</a></li>
+  <li><a href="#population-health">Population health</a></li>
+  <li><a href="#hospital-finance">Hospital finance and commercial prices</a></li>
+  <li><a href="#fixed-payment-share">The fixed-payment share</a></li>
+  <li><a href="#consolidation">Consolidation</a></li>
+  <li><a href="#ledger">Federal dollars and the ledger</a></li>
+  <li><a href="#preregistration">Pre-registration: the wind-down event study</a></li>
+  <li><a href="#data-and-reproduction">Data and reproduction</a></li>
+  <li><a href="#followups">Follow-ups, executed</a></li>
 </ol>
 </nav>
 
 <hr>
 
-<h2 id="synthetic-control">1. Spending and utilization — synthetic control</h2>
+<h2 id="synthetic-control">1. Spending and utilization: synthetic control</h2>
 
 <p><strong>Question.</strong> Did Vermont's Medicare spending and utilization diverge from what they
 would have been without the model?</p>
@@ -77,7 +77,7 @@ prediction the optimiser never saw:</p>
 
 <div class="tablewrap">
 <table class="data">
-  <caption>Pre-period holdout. The overconfidence factor is the ratio of out-of-sample to in-sample
+  <caption>Table A1. Pre-period holdout. The overconfidence factor is the ratio of out-of-sample to in-sample
   error — how far the fit understates its own uncertainty.</caption>
   <thead><tr><th>Outcome</th><th class="num">In-sample (2014–16)</th><th class="num">2017 holdout</th><th class="num">Overconfidence</th></tr></thead>
   <tbody>
@@ -192,7 +192,7 @@ apart.</p>
 <p><strong>Results and per-outcome diagnostics.</strong></p>
 <div class="tablewrap">
 <table class="data">
-  <caption>Synthetic-control diagnostics, all from the current intercept-shifted specification. Pre-RMSPE
+  <caption>Table A2. Synthetic-control diagnostics, all from the current intercept-shifted specification. Pre-RMSPE
   is in-sample; the leave-one-pre-year-out RMSE is the out-of-sample counterpart, and the gap between them
   is the overfitting read. Full detail in
   <a href="/_resources/onecare/data/results_manifest.json"><code>results_manifest.json</code></a>.</caption>
@@ -244,7 +244,7 @@ than assumed.</p>
 
 <div class="tablewrap">
 <table class="data">
-  <caption>Mean post-period gap and post-RMSPE rank with each covariate removed. The ED rank does not
+  <caption>Table A3. Mean post-period gap and post-RMSPE rank with each covariate removed. The ED rank does not
   move at all; the spending estimate moves by more than a third of its own size.</caption>
   <thead><tr><th>Dropped predictor</th><th class="num">Spending gap</th><th class="num">rank</th><th class="num">Inpatient gap</th><th class="num">rank</th><th class="num">ED gap</th><th class="num">rank</th></tr></thead>
   <tbody>
@@ -294,7 +294,7 @@ IA, KS, MS, ND, NE, NH, OK, WY.</p>
 
 <div class="tablewrap">
 <table class="data">
-  <caption>Medicare Advantage robustness, intercept-shifted specification throughout. The restricted
+  <caption>Table A4. Medicare Advantage robustness, intercept-shifted specification throughout. The restricted
   pool has 11 donors, so its finest achievable p is 1/12&nbsp;=&nbsp;0.083 and its p is not on the same
   scale as the full-pool figures.</caption>
   <thead><tr><th>Specification</th><th class="num">Spending gap</th><th class="num">vs. baseline</th><th class="num">rank</th><th class="num">ED gap</th><th class="num">vs. baseline</th><th class="num">rank</th></tr></thead>
@@ -352,7 +352,7 @@ population-pooled index but tells the same story.</p>
 
 <div class="tablewrap">
 <table class="data">
-  <caption>Vermont minus the peer mean, age-adjusted per 100,000, 2019–2024 (MIOV). The peer
+  <caption>Table A5. Vermont minus the peer mean, age-adjusted per 100,000, 2019–2024 (MIOV). The peer
   definition is a free choice, so it is reported as a sensitivity rather than fixed silently.</caption>
   <thead><tr><th>Peer definition</th><th class="num">Suicide</th><th class="num">Overdose</th></tr></thead>
   <tbody>
@@ -364,7 +364,7 @@ population-pooled index but tells the same story.</p>
 </div>
 
 <p>This matters enough to change how the suicide panel should be read. Vermont's apparent
-suicide-rate excess is <strong>almost entirely a comparison-set artefact</strong>: against the two
+suicide-rate excess is <strong>almost entirely a comparison-set artifact</strong>: against the two
 states that resemble it in rurality, density and firearm prevalence, the gap is half a point rather
 than six. It is not that Vermont is unusual among comparable states; it is that four of the six
 published comparators are substantially urban and have low suicide rates. The overdose comparison is
@@ -459,7 +459,7 @@ should be visible. The $250–290M is not a published figure; it is built as ~12
 Medicaid lives (taken as 48.6% of OneCare's 259,958 PY5 attributed total) × roughly $3,500–4,000 per
 enrollee × the 57.5% of Medicaid spend the FY24 order records as running through fixed payment. Only
 the last of those three is directly sourced (GMCB FY24 order, p.30). <strong>The 48.6% payer split is
-an assumption</strong> — a clean payer-by-year attribution table was never obtained, because the GMCB
+an assumption</strong>: a clean payer-by-year attribution table was never obtained, because the GMCB
 exhibits carrying it are images behind a CloudFront wall — and the per-enrollee cost is an estimate.
 Two of three factors are therefore soft, which is why the result is carried as a range and why the
 argument does not rest on it alone: the 2019 and FY2023 vintages in the essay's table are computed
@@ -482,7 +482,7 @@ administrative cost borne the same year and against the share of Medicaid patien
 covered — the same netting move this essay's ledger section makes on a longer window.</p>
 
 <p><strong>The rest of the hearing record.</strong> The essay quotes the two exchanges that bear on
-its argument. Three others are worth preserving because they characterise what the board was and was
+its argument. Three others are worth preserving because they characterize what the board was and was
 not able to obtain. The chair opened by telling OneCare that its previous year's presentation "was
 long on process and light on demonstrable results," asked for "quantifiable metrics and analysis
 that tie back to OneCare's work," and reminded the witnesses they were under oath. Later a board
@@ -502,7 +502,7 @@ program comfortable.</p>
 <p><strong>Hearing testimony.</strong> Quotations from the OneCare FY2023 budget hearing are taken
 from the official
 <a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/VGMCB00008_GMCB%20Board%20Meeting_20221109_TRANSCRIPT.pdf">GMCB
-transcript</a>, dated <strong>November 9, 2022</strong> — note that some secondary accounts date this
+transcript</a>, dated <strong>November 9, 2022</strong>: note that some secondary accounts date this
 hearing to November 16, which is the date of contemporaneous news coverage, not of the hearing. One
 attribution caveat: the "years, decades, generations" passage carries the speaker label "MS. HOLMES"
 (a board member) in the transcript, but its content is unambiguously OneCare's ("all levels of
@@ -605,7 +605,7 @@ on that inability, not on a refutation.</p>
 
 <hr>
 
-<h2 id="preregistration">7. Pre-registration — the wind-down event study</h2>
+<h2 id="preregistration">7. Pre-registration: the wind-down event study</h2>
 
 <p>VTAPM and OneCare ceased operations on 31 December 2025. If the model was causally active, its
 removal is a second natural experiment. These hypotheses, outcomes, and decision rules were frozen on
@@ -620,7 +620,7 @@ the amendment below records what changed and what it does to the design.</p>
 
 <div class="tablewrap">
 <table class="data">
-  <caption>Frozen hypotheses. Each is a directional prediction with a named data source.</caption>
+  <caption>Table A6. Frozen hypotheses. Each is a directional prediction with a named data source.</caption>
   <thead><tr><th>#</th><th>Hypothesis</th><th>Test</th></tr></thead>
   <tbody>
     <tr><td class="hi">H1</td><td>Spending reversion</td><td>If the model suppressed spending, the VT-vs-synthetic gap shrinks toward its pre-2018 level (~&minus;$300) in 2026. Persistence implies durable delivery-system or secular traits, not payment mechanics. <em>Geo Variation PUF 2026.</em></td></tr>
@@ -686,12 +686,12 @@ post-model year.</p>
 the RAND relative-price table) alongside the public inputs used in the figures.</p>
 
 <p><strong>What reproduces from this directory, and what does not.</strong> Stating this precisely,
-because "every figure is reproducible" and "an adversary could rerun the analysis" are different
+because "every figure is reproducible" and "anyone could rerun the analysis" are different
 claims and only the first is true here without a second download.</p>
 
 <div class="tablewrap">
 <table class="data">
-  <caption>Reproduction scope by layer.</caption>
+  <caption>Table A7. Reproduction scope by layer.</caption>
   <thead><tr><th>Layer</th><th>Command</th><th>Needs</th></tr></thead>
   <tbody>
     <tr><td>Figures from derived results</td><td><code>python3 build_figures.py</code></td><td>This directory only. Python, matplotlib, pandas.</td></tr>
@@ -748,7 +748,7 @@ Vermonters under the same statewide model, and cross-state variation is confound
 differs between states. It is a better answer to an adjacent question, not a better answer to this one.</p>
 
 <p><strong>Implementation and result.</strong> The two files do not share a key — the ACO PUF carries
-SSA state/county codes, the Geographic Variation PUF carries FIPS — so the join runs on normalised
+SSA state/county codes, the Geographic Variation PUF carries FIPS — so the join runs on normalized
 <code>STATE-County</code> names, which matches 99.8% of ACO county keys and is asserted at run time.
 Vermont's fourteen counties are excluded: OneCare left the Shared Savings Program in 2018 for the
 all-payer model's own Medicare track, so every Vermont county shows a fake collapse in penetration
@@ -759,7 +759,7 @@ errors clustered by state.</p>
 
 <div class="tablewrap">
 <table class="data">
-  <caption>Change in standardized Medicare spending per capita (2014–17 mean to 2018–24 mean),
+  <caption>Table A8. Change in standardized Medicare spending per capita (2014–17 mean to 2018–24 mean),
   regressed on the change in county ACO penetration, in dollars per percentage point.</caption>
   <thead><tr><th>Specification</th><th class="num">&beta; per pp</th><th class="num">SE</th><th class="num">t</th><th class="num">n</th></tr></thead>
   <tbody>
@@ -780,9 +780,9 @@ estimate and an endogenous observational one is as easily a statement about the 
 What survives is narrower and still useful: across the national variation that does exist, more ACO
 penetration is not associated with lower county spending. The placebo is
 null, so the identifying variation is not obviously picking up pre-existing divergence, and the
-suppression sensitivity shows the null is not an artefact of measurement error in the regressor
+suppression sensitivity shows the null is not an artifact of measurement error in the regressor
 attenuating the coefficient toward zero. <strong>What it does not license:</strong> a causal claim.
-ACO penetration is not randomly assigned within states, and selection on organised provider markets
+ACO penetration is not randomly assigned within states, and selection on organized provider markets
 is entirely plausible. And it still does not identify the Vermont wrapper.</p>
 
 <p><strong>VHCURES — pursued, and it changed the ED section.</strong> The essay's largest structural
@@ -808,11 +808,11 @@ adverse reading of the ED result.</p>
 <p>The remaining reports bear on claims this essay leaves open:</p>
 
 <ul>
-  <li><strong>All-Payer Total Cost of Care report</strong> — the all-payer denominator the essay
+  <li><strong>All-Payer Total Cost of Care report</strong>: the all-payer denominator the essay
   approximates from budget orders, from the claims data itself.</li>
   <li><strong>Reimbursement Variation</strong> and <strong>Reference-Based Pricing</strong> reports —
-  bear on the commercial-price section and on Act 167.</li>
-  <li><strong>OneCare ACO Network Provider Participation report</strong> — an independent check on
+  bear on the commercial-price section and on Act 68 reference-based pricing.</li>
+  <li><strong>OneCare ACO Network Provider Participation report</strong>: an independent check on
   the attribution and scale figures.</li>
 </ul>
 
