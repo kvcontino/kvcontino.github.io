@@ -22,7 +22,21 @@
        Preloaded because @font-face inside the stylesheet is otherwise only
        discovered after the CSS parses. -->
   <link rel="preload" href="/assets/fonts/SortsMillGoudy-Regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" type="text/css" href="/_stylesheets/lite.css">
+  {% comment %}
+    The `?v=` is a cache-buster and it is load-bearing. GitHub Pages serves the
+    stylesheet with `cache-control: max-age=600` at a URL that never changes, so
+    for up to ten minutes after a deploy a browser can pair NEW html with an OLD
+    lite.css. That is not a cosmetic wobble: on 2026-08-16 it made the front page
+    look broken rather than unstyled, because inline SVG degrades badly. With no
+    `.mark svg { width: 100% }` the marks rendered at 1024x649 instead of 160x101,
+    and with no `.cv-bar` rule the timeline's rects fell back to `fill: black` on
+    a black page and disappeared, leaving a blank gap under a heading.
+
+    `site.time` is the build timestamp, so the URL changes on every deploy and
+    can never resolve to a stale file. It is a query string, not a filename, so
+    the file itself stays at a stable path.
+  {% endcomment %}
+  <link rel="stylesheet" type="text/css" href="/_stylesheets/lite.css?v={{ site.time | date: '%s' }}">
   {% seo %}
   {% feed_meta %}
 </head>

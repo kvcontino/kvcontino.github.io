@@ -143,6 +143,27 @@ git commit -m "Publish \"My Post\""
 git push origin master          # master deploys; there is no staging
 ```
 
+> **"The deploy looks broken" is usually a stale stylesheet, not a bad build.**
+> Pages serves `lite.css` with `cache-control: max-age=600`, so for up to ten
+> minutes a browser or a CDN edge can pair **new HTML with the old CSS**. Inline
+> SVG degrades violently under that mismatch rather than merely looking
+> unstyled: on 2026-08-16 the front page's marks rendered at 1024×648 instead of
+> 160×101, and the career timeline's bars fell back to `fill: black` on a black
+> page and vanished, leaving a blank gap under a heading.
+>
+> `_layouts/default.html` now appends `?v={{ site.time | date: '%s' }}` to the
+> stylesheet URL, which changes every build, so this cannot recur. **Before
+> assuming a build is bad, diff the live files against local** — that is what
+> settles it in one step:
+>
+> ```fish
+> diff (curl -s https://kvcontino.github.io/_stylesheets/lite.css | psub) _stylesheets/lite.css
+> curl -sI https://kvcontino.github.io/_stylesheets/lite.css | grep -i cache-control
+> ```
+>
+> To reproduce what a reader with a stale cache sees, serve the previous
+> stylesheet against the live HTML with Playwright's `context.route()`.
+
 **A green `git push` does not mean the site updated.** Publishing is two stages:
 `build` (Jekyll → artifact) and `deploy` (artifact → CDN). Deploy can fail on
 its own, and when it does the *previous* version keeps serving — so the site
