@@ -91,7 +91,10 @@
         back.href = '#fnref' + n;
         back.className = 'fn-back';
         back.setAttribute('aria-label', 'back to reference ' + n);
-        back.textContent = '↩';
+        // A single guillemet, not the conventional U+21A9 hook arrow: Sorts Mill
+        // Goudy has no arrow glyphs at all, so the arrow would silently fall back
+        // to whatever fontconfig picks and render in a different face.
+        back.textContent = '‹';
         li.appendChild(document.createTextNode(' '));
         li.appendChild(back);
         list.appendChild(li);

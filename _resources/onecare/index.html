@@ -88,7 +88,7 @@ between one kind of ACO and a slightly different one. That is measurable, so I m
   Suppressed small cells count as zero, so each figure is a lower bound. Sources: CMS
   <a class="external" href="https://data.cms.gov/medicare-shared-savings-program/number-of-accountable-care-organization-assigned-beneficiaries-by-county">Number
   of ACO Assigned Beneficiaries by County</a>, CMS Shared Savings Program Performance Year results,
-  and the Medicare Geographic Variation PUF.</figcaption>
+  and the Medicare Geographic Variation PUF. <span class="prov">Rebuilt from <code>aco_penetration_states.csv</code>, <a href="/_resources/onecare/data/aco_penetration.json"><code>aco_penetration.json</code></a> and <code>aco_penetration_backcast.json</code>.</span></figcaption>
 </figure>
 
 <p>In 2017, 60,480 of Vermont’s 117,186 fee-for-service beneficiaries were already assigned to an ACO, second in the nation behind Delaware. Its synthetic control sat at about 25%, and the comparison is
@@ -137,7 +137,7 @@ accountable care organization. It changed the contract governing people already 
   is unremarkable: a permutation test puts it at p&nbsp;=&nbsp;0.32.
   A 2020 reference line marks the pandemic, which dominates five of the seven post-model years.
   Source: <a class="external" href="https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-geographic-comparisons/medicare-geographic-variation-by-national-state-county">CMS
-  Medicare Geographic Variation PUF</a>, price-standardized Original Medicare.</figcaption>
+  Medicare Geographic Variation PUF</a>, price-standardized Original Medicare. <span class="prov">Rebuilt from <a href="/_resources/onecare/data/results_manifest.json"><code>results_manifest.json</code></a> (<code>outcomes.TOT_MDCR_STDZD_PYMT_PC</code>) and <code>placebo_gaps_spending.csv</code>.</span></figcaption>
 </figure>
 
 <p>The savings replicate in direction but not in significance, and the estimate stays fragile. Held out
@@ -176,7 +176,7 @@ synthetic control. Put all three outcomes on one scale and the ED series is the 
   counterfactual, and 88% of the gap accrued from 2020 on.</strong> Vermont’s ED gap reached roughly
   +28% by 2024, averaging +16% across the post-period. Ranks under both discrepancy statistics are in
   the next figure. Source: CMS Geographic Variation PUF; outcome definitions in the
-  <a href="/_resources/onecare/methodology.html">methodology note</a>.</figcaption>
+  <a href="/_resources/onecare/methodology.html#synthetic-control">methodology note</a>. <span class="prov">Rebuilt from <a href="/_resources/onecare/data/results_manifest.json"><code>results_manifest.json</code></a> (<code>outcomes.*.gap</code>, all three outcomes).</span></figcaption>
 </figure>
 
 <p>Of the three outcomes, ED use is the only one that comes through every check the design can run. It
@@ -199,7 +199,7 @@ department; Vermont’s rate went the other way and kept going after the scale-u
   Vermont sits at an ordinary pre-period error with an unusually large post-period one, which is the
   pattern the raw statistic is built to detect and the ratio is built to discount. Both are reported
   because neither is disinterested. Source: CMS Geographic Variation PUF; construction in the
-  <a href="/_resources/onecare/methodology.html">methodology note</a>.</figcaption>
+  <a href="/_resources/onecare/methodology.html#synthetic-control">methodology note</a>. <span class="prov">Rebuilt from <a href="/_resources/onecare/data/results_manifest.json"><code>results_manifest.json</code></a> (<code>outcomes.*.placebo</code>) and <code>scm_placebo_statistics.csv</code>.</span></figcaption>
 </figure>
 
 <p>That establishes a divergence, not its cause. Three explanations are live and only one is the
@@ -367,7 +367,7 @@ operated in and refute crude claims in either direction. They cannot grade it.</
   <a class="external" href="https://data.cdc.gov/NCHS/VSRR-Provisional-Drug-Overdose-Death-Counts/xkb8-kh2a">CDC
   VSRR</a> overdose counts, <a class="external" href="https://wonder.cdc.gov/">CDC WONDER</a> age-adjusted
   suicide rates (1999–2020), and <a class="external" href="https://data.cdc.gov/Injury-Violence/Mapping-Injury-Overdose-and-Violence-State/fpsi-y8tj">CDC
-  MIOV</a> (2019–2024, seam marked); peers are the unweighted mean of NH, ME, MA, NY, CT, RI.</figcaption>
+  MIOV</a> (2019–2024, seam marked); peers are the unweighted mean of NH, ME, MA, NY, CT, RI. <span class="prov">Rebuilt from <code>overdose_state_year.csv</code>, <code>overdose_vt_index_ci.csv</code>, <code>miov_suicide_od_state.csv</code> and <code>suicide_vt_peer_gap.csv</code> in the <a href="/_resources/onecare/data/">data directory</a>.</span></figcaption>
 </figure>
 
 <p>Suicide is a <em>level</em> difference rather than a trend. Vermont has run above its peers since
@@ -460,7 +460,7 @@ all-time high, and OneCare’s emergency-department visits running “twenty-nin
 above those of comparison ACOs.” The figures were on the record the whole time; what the board wanted
 was somebody to connect them to the money. OneCare named three capabilities: contracting, analytics and payment reform. Asked whether she could rank them by effect on cost, the chief executive answered: “I don’t know that I could answer that question.” The model was hard to
 evaluate because of how it was built. The
-<a href="/_resources/onecare/methodology.html">methodology note</a> records the rest of the hearing,
+<a href="/_resources/onecare/methodology.html#fixed-payment-share">methodology note</a> records the rest of the hearing,
 including a speaker-attribution error in the official transcript.</p>
 
 <hr>
@@ -585,9 +585,9 @@ driven by labor and traveler costs, payer mix, and the price dynamics below.</p>
        alt="Two panels. Left: commercial prices as a percent of Medicare in 2022 as horizontal bars for the Northeast states: New York 310, Vermont highlighted at 283, New Jersey 267, then Connecticut, the US average and Maine at about 254, Pennsylvania 224, New Hampshire 216, Rhode Island 197, Massachusetts 193. Right: hospital-system outpatient prices rising from 2020 to 2022: UVM Health Network from 329 to 357 percent of Medicare, Rutland Regional to 351, Southwestern Vermont to 345.">
   <figcaption><strong>Vermont commercial prices, 14th highest in the nation and rising through the
   model’s mature years.</strong> All-services commercial price as a share of Medicare, 2022 (left);
-  outpatient price by Vermont hospital system, 2020&rarr;2022 (right). Source:
+  outpatient price by Vermont hospital system, 2020 to 2022 (right). Source:
   <a class="external" href="https://www.rand.org/pubs/research_reports/RRA1144-2-v2.html">RAND
-  Hospital Price Transparency Study 5.1</a> (recovered via the Internet Archive).</figcaption>
+  Hospital Price Transparency Study 5.1</a> (recovered via the Internet Archive). <span class="prov">Rebuilt from <code>rand51_state_relative_prices.csv</code> in the <a href="/_resources/onecare/data/">data directory</a>.</span></figcaption>
 </figure>
 
 <p>Vermont’s commercial prices ran 283% of Medicare in 2022, above the national average and the
@@ -648,7 +648,7 @@ began before the model, and Maine fell 23% with no all-payer model at all.</p>
   <figcaption><strong>Vermont’s physician offices thinned faster than its neighbors’, but so did Maine’s.</strong> New Hampshire, the clean no-model comparator, barely moved (&minus;2%); Maine
   fell nearly as far as Vermont (&minus;23%) with no all-payer model, the honesty guard on reading
   Vermont’s drop as model-caused. Offices got fewer and larger: the signature of consolidation, not mere attrition. Source: <a class="external" href="https://www.census.gov/programs-surveys/cbp.html">Census
-  County Business Patterns</a>, NAICS 6211.</figcaption>
+  County Business Patterns</a>, NAICS 6211. <span class="prov">Rebuilt from <code>cbp_6211_states.csv</code> in the <a href="/_resources/onecare/data/">data directory</a>.</span></figcaption>
 </figure>
 
 <p>The institutional history behind the curve is real: across exactly the model window Vermont’s
@@ -662,9 +662,9 @@ county grain sharpens the question further, and not in the direction the charge 
   <figcaption><strong>Vermont’s thinning was steepest away from the network, not at its
   center.</strong> If the network roll-up were the engine, the loss should concentrate where the
   network lives. Instead its home counties, Chittenden (UVM Medical Center), Washington (Central Vermont) and Addison (Porter), lost 18% of their physician offices while the rest of the state lost
-  35%. County counts are small (Orleans: 18&nbsp;→&nbsp;8), so the grouped series are the reliable
+  35%. County counts are small (Orleans: 18 down to 8), so the grouped series are the reliable
   read. Source: <a class="external" href="https://www.census.gov/programs-surveys/cbp.html">Census
-  County Business Patterns</a> county files, NAICS 6211; Grand Isle (≤2 offices) excluded.</figcaption>
+  County Business Patterns</a> county files, NAICS 6211; Grand Isle (2 or fewer offices) excluded. <span class="prov">Rebuilt from <code>cbp_6211_counties_vt_nh.csv</code> in the <a href="/_resources/onecare/data/">data directory</a>.</span></figcaption>
 </figure>
 
 <p>The losses fall in the wrong places for that story. The network’s home counties lost 18% of their
@@ -689,7 +689,7 @@ each row’s window, and keeps transfers (money moved within the system) separat
   <caption>The account by frame. Transfers redistribute dollars within the system; resource costs are
   real deadweight. No net societal point estimate is given: its sign rests entirely on the NORC
   Medicare estimate, which this essay’s statewide analogue does not corroborate. See the
-  <a href="/_resources/onecare/methodology.html">methodology note</a> for components and sources.</caption>
+  <a href="/_resources/onecare/methodology.html#ledger">methodology note</a> for components and sources.</caption>
   <thead>
     <tr><th>Line</th><th>Accounting stance</th><th>Window</th><th class="num">Amount</th><th>Kind</th></tr>
   </thead>
@@ -722,8 +722,8 @@ savings; a state cannot get rich running a successful ACO.</p>
 
 <p>Causality is a continuum, so the right form is a break-even. Let <em>f</em> be the fraction of
 NORC’s estimated savings that is genuinely causal. Vermont’s net position is extraction <em>E</em>
-(≈$150M, roughly independent of <em>f</em>) minus <em>f</em> × savings <em>S</em> (≈$186M). The
-break-even is <strong>f* ≈ 0.75–0.85</strong>. Nothing here bounds <em>f</em> away from that: the
+(about $150M, roughly independent of <em>f</em>) minus <em>f</em> × savings <em>S</em> (about $186M). The
+break-even is <strong>f* of about 0.75 to 0.85</strong>. Nothing here bounds <em>f</em> away from that: the
 statewide placebo test is a weak instrument on this outcome and cannot be turned around to cap
 <em>f</em>, and NORC’s estimate is the only direct evidence, pointing high. The break-even locates the
 question. The federal-dollar case requires a large <em>f</em>, and a large <em>f</em>
@@ -868,35 +868,58 @@ pre-registered wind-down hypotheses. The <a href="/_resources/onecare/data/">dat
 holds the generated result files and the public inputs used in the figures above;
 <code>build_figures.py</code> in that directory rebuilds the figures themselves.</p>
 
-<p class="src" style="font-size:0.85em;color:#9a9a9a;hyphens:none;text-align:left;">
-Primary sources:
-<a class="external" href="https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-geographic-comparisons/medicare-geographic-variation-by-national-state-county">CMS Medicare Geographic Variation PUF</a> &middot;
-<a class="external" href="https://data.cms.gov/medicare-shared-savings-program/number-of-accountable-care-organization-assigned-beneficiaries-by-county">CMS Number of ACO Assigned Beneficiaries by County (MSSP)</a> &middot;
-<a class="external" href="https://data.cms.gov/medicare-shared-savings-program/next-generation-accountable-care-organization-model-data">CMS Next Generation ACO Model Data</a> &middot;
-<a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/GMCB%20-%20Final%20PAU%20and%20Overuse%20Report%20%2812.29.23%29_0.pdf">Mathematica for GMCB, <em>Analysis of Overuse and Potentially Avoidable Use</em> (VHCURES, Dec 2023)</a> &middot;
-<a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/2024-12/VTAPM_FourthEvaluationReport.pdf">NORC Fourth Evaluation Report (2018–2022)</a> &middot;
-<a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/FY24%20ACO%20Budget%20Order%20OneCare%20Vermont%20Docket%20No.%2023-001-A%20_%20FINAL.pdf">GMCB FY24 OneCare Budget Order</a> &middot;
-<a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/VGMCB00008_GMCB%20Board%20Meeting_20221109_TRANSCRIPT.pdf">GMCB hearing transcript, OneCare FY2023 budget submission (November 9, 2022)</a> &middot;
-<a class="external" href="https://vtdigger.org/2021/04/16/all-payer-was-supposed-to-change-the-way-health-care-is-paid-for-four-years-later-it-hasnt/">Katie Jickling, <em>All-payer was supposed to change the way health care is paid for. Four years later, it hasn’t.</em> (VTDigger, April 2021)</a> &middot;
-<a class="external" href="https://www.onecarevt.org/results-archives/">OneCare settlement results archive</a> &middot;
-<a class="external" href="https://data.cdc.gov/NCHS/VSRR-Provisional-Drug-Overdose-Death-Counts/xkb8-kh2a">CDC VSRR overdose counts</a> &middot;
-<a class="external" href="https://wonder.cdc.gov/">CDC WONDER underlying cause of death</a> &middot;
-<a class="external" href="https://data.cdc.gov/Injury-Violence/Mapping-Injury-Overdose-and-Violence-State/fpsi-y8tj">CDC MIOV state rates</a> &middot;
-<a class="external" href="https://data.cdc.gov/Behavioral-Risk-Factors/Behavioral-Risk-Factor-Surveillance-System-BRFSS-P/dttw-5yxu">BRFSS prevalence</a> &middot;
-<a class="external" href="https://data.cms.gov/provider-compliance/cost-report/hospital-provider-cost-report">CMS Hospital Cost Reports</a> &middot;
-<a class="external" href="https://www.norc.org/content/dam/norc-org/pdf2024/next-generation-ACO-sixth-evaluation-report-1_10_24.pdf">NORC Next Generation ACO Sixth (final) Evaluation Report</a> &middot;
-<a class="external" href="https://www.nejm.org/doi/full/10.1056/NEJMsa1803388">McWilliams et al., <em>Medicare Spending after 3 Years of the MSSP</em> (NEJM 2018)</a> &middot;
-<a class="external" href="https://www.census.gov/programs-surveys/cbp.html">Census County Business Patterns</a> &middot;
-<a class="external" href="https://www.rand.org/pubs/research_reports/RRA1144-2-v2.html">RAND Hospital Price Transparency 5.1</a> &middot;
-<a class="external" href="https://manhattan.institute/article/when-government-sets-hospital-prices-marylands-experience">Manhattan Institute, <em>When Government Sets Hospital Prices: Maryland’s Experience</em></a> &middot;
-<a class="external" href="https://marylandmatters.org/2026/01/16/state-turns-to-private-insurers-to-help-fund-shift-to-new-hospital-rate-setting-framework/">Maryland Matters on the rate-setting framework (January 2026)</a> &middot;
-<a class="external" href="https://www.cms.gov/priorities/innovation/innovation-models/md-tccm">CMS Maryland Total Cost of Care Model</a> &middot;
-<a class="external" href="https://vtdigger.org/2026/03/13/vermonts-8-year-all-payer-health-care-experiment-sunset-at-the-end-of-2025-what-did-it-teach-us/">VTDigger post-mortem (March 2026)</a> &middot;
-<a class="external" href="https://www.uvmhealth.org/onecare-vermont-a-retrospective">OneCare retrospective (UVM Health Network)</a> &middot;
-<a class="external" href="https://vermontbiz.com/news/2026/july/24/vermont-withdraws-ahead-commits-rural-health-transformation">Vermont withdraws from AHEAD (Vermont Business Magazine, July 2026)</a> &middot;
-<a class="external" href="https://www.vermontpublic.org/local-news/2026-07-28/vermont-ends-another-healthcare-reform-experiment">Vermont ends another health care reform experiment (Vermont Public, July 2026)</a> &middot;
-<a class="external" href="https://healthcarereform.vermont.gov/hr1rural-health-transformation-fund">Vermont Rural Health Transformation Program (State of Vermont)</a>
-</p>
+<p class="src">Primary sources, grouped by the finding each one supports. Every figure in the
+essay is rebuilt from these; nothing is quoted at second hand except where the text says so.</p>
 
-<p class="pagenav"><a href="/_resources/onecare/methodology.html">Methodology &amp; pre-registration &rarr;</a>
-&emsp; <a href="/_resources/onecare/data/">Data &amp; code &rarr;</a></p>
+<h3>Spending, utilization and the synthetic control</h3>
+<ul class="sources">
+  <li><a class="external" href="https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-geographic-comparisons/medicare-geographic-variation-by-national-state-county">CMS Medicare Geographic Variation PUF</a>: The outcome data for all fifty units: price-standardized spending per beneficiary, ED visits and inpatient stays per 1,000, and the fee-for-service denominators behind every rate in the essay.</li>
+  <li><a class="external" href="https://data.cms.gov/medicare-shared-savings-program/number-of-accountable-care-organization-assigned-beneficiaries-by-county">CMS Number of ACO Assigned Beneficiaries by County (MSSP)</a>: County-level ACO assignment for 2016 and 2017, which is what makes the pre-treatment penetration figures measured rather than estimated.</li>
+  <li><a class="external" href="https://data.cms.gov/medicare-shared-savings-program/next-generation-accountable-care-organization-model-data">CMS Next Generation ACO Model Data</a>: The track OneCare moved to in 2018, reported separately from the Shared Savings Program. Putting the two on one denominator is what shows the count did not rise.</li>
+  <li><a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/2024-12/VTAPM_FourthEvaluationReport.pdf">NORC Fourth Evaluation Report (2018–2022)</a>: The federal evaluation. Source of the per-attributed-life estimate, the attributed-life counts, and the utilization measures the essay sets its own against.</li>
+  <li><a class="external" href="https://www.norc.org/content/dam/norc-org/pdf2024/next-generation-ACO-sixth-evaluation-report-1_10_24.pdf">NORC Next Generation ACO Sixth (final) Evaluation Report</a>: The benchmark that matters most: gross savings of $1.7bn against $1.8bn paid out, which is why a larger gross signal from a weaker mechanism is not reassuring.</li>
+  <li><a class="external" href="https://www.nejm.org/doi/full/10.1056/NEJMsa1803388">McWilliams et al., Medicare Spending after 3 Years of the MSSP (NEJM 2018)</a>: Hospital-integrated ACOs' savings offset entirely by their bonus payments. OneCare is a hospital-led ACO, so this is its comparison class.</li>
+</ul>
+
+<h3>Reach, budget orders and the hearing</h3>
+<ul class="sources">
+  <li><a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/FY24%20ACO%20Budget%20Order%20OneCare%20Vermont%20Docket%20No.%2023-001-A%20_%20FINAL.pdf">GMCB FY24 OneCare Budget Order</a>: Paragraph 51 is the four-cents finding in the regulator's own words, and the source of the FY24 fixed-payment share.</li>
+  <li><a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/VGMCB00008_GMCB%20Board%20Meeting_20221109_TRANSCRIPT.pdf">GMCB hearing transcript, OneCare FY2023 budget submission (November 9, 2022)</a>: The exchange in which the chief executive confirms one payer under oath. Note the date: some secondary accounts say November 16, which is the news coverage.</li>
+  <li><a class="external" href="https://vtdigger.org/2021/04/16/all-payer-was-supposed-to-change-the-way-health-care-is-paid-for-four-years-later-it-hasnt/">Katie Jickling, All-payer was supposed to change the way health care is paid for. Four years later, it hasn't. (VTDigger, April 2021)</a>: Ran the same division five years earlier and got under 2%. The four-cents finding is the latest point on a series, not a discovery.</li>
+  <li><a class="external" href="https://www.onecarevt.org/results-archives/">OneCare settlement results archive</a>: Published settlement outcomes by performance year, behind the shared-savings and risk figures.</li>
+  <li><a class="external" href="https://gmcboard.vermont.gov/sites/gmcb/files/documents/GMCB%20-%20Final%20PAU%20and%20Overuse%20Report%20%2812.29.23%29_0.pdf">Mathematica for GMCB, Analysis of Overuse and Potentially Avoidable Use (VHCURES, Dec 2023)</a>: The avoidable-ED classification that cuts against the headline ED result: the avoidable share fell for every payer, 2017 to 2021.</li>
+</ul>
+
+<h3>Population health</h3>
+<ul class="sources">
+  <li><a class="external" href="https://data.cdc.gov/NCHS/VSRR-Provisional-Drug-Overdose-Death-Counts/xkb8-kh2a">CDC VSRR overdose counts</a>: Provisional overdose counts for the indexed death panel and the Poisson band around it.</li>
+  <li><a class="external" href="https://wonder.cdc.gov/">CDC WONDER underlying cause of death</a>: Age-adjusted suicide rates back to 2005, which establish the peer gap as a level that predates the model.</li>
+  <li><a class="external" href="https://data.cdc.gov/Injury-Violence/Mapping-Injury-Overdose-and-Violence-State/fpsi-y8tj">CDC MIOV state rates</a>: The 2019–2024 continuation of the suicide and overdose series, spliced at a marked seam.</li>
+  <li><a class="external" href="https://data.cdc.gov/Behavioral-Risk-Factors/Behavioral-Risk-Factor-Surveillance-System-BRFSS-P/dttw-5yxu">BRFSS prevalence</a>: Chronic-disease and access measures, including the personal-doctor question whose 2021 redesign forces a comparison of gaps rather than levels.</li>
+</ul>
+
+<h3>Hospital finance and prices</h3>
+<ul class="sources">
+  <li><a class="external" href="https://data.cms.gov/provider-compliance/cost-report/hospital-provider-cost-report">CMS Hospital Cost Reports</a>: Aggregate hospital margins by state. Vermont's operating figures are distorted by inter-entity accounting, so they carry within-state trajectory only.</li>
+  <li><a class="external" href="https://www.rand.org/pubs/research_reports/RRA1144-2-v2.html">RAND Hospital Price Transparency 5.1</a>: Commercial prices as a share of Medicare, by state and by Vermont hospital system. Recovered through the Internet Archive.</li>
+  <li><a class="external" href="https://manhattan.institute/article/when-government-sets-hospital-prices-marylands-experience">Manhattan Institute, When Government Sets Hospital Prices: Maryland's Experience</a>: The older estimate of Maryland's above-standard-rate windfall, the low end of the $2–3bn range.</li>
+  <li><a class="external" href="https://marylandmatters.org/2026/01/16/state-turns-to-private-insurers-to-help-fund-shift-to-new-hospital-rate-setting-framework/">Maryland Matters on the rate-setting framework (January 2026)</a>: The current reporting behind the high end of that range.</li>
+  <li><a class="external" href="https://www.cms.gov/priorities/innovation/innovation-models/md-tccm">CMS Maryland Total Cost of Care Model</a>: The model itself, and the separate $2bn savings target that the windfall figure must not be confused with.</li>
+</ul>
+
+<h3>Consolidation</h3>
+<ul class="sources">
+  <li><a class="external" href="https://www.census.gov/programs-surveys/cbp.html">Census County Business Patterns</a>: Physician-office establishment counts and employees per office, national, state and county, NAICS 6211.</li>
+</ul>
+
+<h3>The wind-down and what followed</h3>
+<ul class="sources">
+  <li><a class="external" href="https://vtdigger.org/2026/03/13/vermonts-8-year-all-payer-health-care-experiment-sunset-at-the-end-of-2025-what-did-it-teach-us/">VTDigger post-mortem (March 2026)</a>: Contemporaneous accounting of what the eight years taught, written as the model closed.</li>
+  <li><a class="external" href="https://www.uvmhealth.org/onecare-vermont-a-retrospective">OneCare retrospective (UVM Health Network)</a>: The operator's own version, included because an accounting should carry the defence in its own words.</li>
+  <li><a class="external" href="https://vermontbiz.com/news/2026/july/24/vermont-withdraws-ahead-commits-rural-health-transformation">Vermont withdraws from AHEAD (Vermont Business Magazine, July 2026)</a>: The withdrawal, and the renegotiated terms that cut primary-care reinvestment from roughly $138M to about $10M.</li>
+  <li><a class="external" href="https://www.vermontpublic.org/local-news/2026-07-28/vermont-ends-another-healthcare-reform-experiment">Vermont ends another health care reform experiment (Vermont Public, July 2026)</a>: Second account of the same decision.</li>
+  <li><a class="external" href="https://healthcarereform.vermont.gov/hr1rural-health-transformation-fund">Vermont Rural Health Transformation Program (State of Vermont)</a>: Where the money went instead: a $195M first-year award, roughly $1bn over five years.</li>
+</ul>
+
+<p class="pagenav"><a href="/_resources/onecare/methodology.html">Methodology &amp; pre-registration &rsaquo;</a>
+&emsp; <a href="/_resources/onecare/data/">Data &amp; code &rsaquo;</a></p>

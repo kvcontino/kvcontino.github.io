@@ -127,6 +127,81 @@ if [ -n "$(
     done
   done)" ]; then fail=1; else note "ok"; fi
 
+# ------------------------------------------------------------- anchors resolve
+# A deep link to a heading that has no id fails silently: the browser just stays
+# put at the top of the page and the reader never learns the link was wrong.
+# Added when the methodology note grew section ids and the essay started aiming
+# at them.
+section "in-site anchors resolve"
+if python3 - <<'PY'
+import re, os, glob, sys
+ids = {}
+for f in glob.glob("_site/**/*.html", recursive=True):
+    html = open(f, encoding="utf-8", errors="replace").read()
+    ids["/" + os.path.relpath(f, "_site")] = set(re.findall(r'\bid="([^"]+)"', html))
+bad = []
+for f in glob.glob("_site/**/*.html", recursive=True):
+    src = "/" + os.path.relpath(f, "_site")
+    for href in re.findall(r'href="([^"]*#[^"]+)"', open(f, encoding="utf-8", errors="replace").read()):
+        page, frag = href.split("#", 1)
+        if page.startswith(("http://", "https://", "mailto:")):
+            continue
+        target = src if not page else (
+            page if page.startswith("/") else
+            os.path.normpath(os.path.join(os.path.dirname(src), page)))
+        if target.endswith("/"):
+            target += "index.html"
+        if target not in ids or frag not in ids[target]:
+            bad.append(f"{href}  <- {src.lstrip('/')}")
+for b in sorted(set(bad)):
+    print("  BROKEN ANCHOR: " + b)
+sys.exit(1 if bad else 0)
+PY
+then note "ok"; else fail=1; fi
+
+# ------------------------------------------------------------- glyph coverage
+# Sorts Mill Goudy carries 392 glyphs and no arrows, no math relations, no Greek.
+# A character it lacks does not error: it silently falls back to whatever
+# fontconfig picks, in a different face, at a different weight. That shipped
+# twice before this check existed (U+21A9 in a footnote back-link, U+2248 in a
+# figure caption). Scoped to pages that actually load lite.css.
+section "glyph coverage"
+if python3 - <<'PY'
+import re, os, glob, sys, unicodedata
+try:
+    from fontTools.ttLib import TTFont
+except ImportError:
+    print("  (fontTools not installed - skipped)"); sys.exit(0)
+cmaps = []
+for face in ("Regular", "Italic"):
+    p = f"assets/fonts/SortsMillGoudy-{face}.woff2"
+    if os.path.exists(p):
+        cmaps.append(set(TTFont(p).getBestCmap()))
+if not cmaps:
+    print("  (font not found - skipped)"); sys.exit(0)
+covered = set().union(*cmaps)
+bad = {}
+for f in glob.glob("_site/**/*.html", recursive=True):
+    html = open(f, encoding="utf-8", errors="replace").read()
+    if "lite.css" not in html:
+        continue                      # standalone pages ship their own fonts
+    # code/pre/samp/kbd carry a monospace stack in lite.css, so Goudy's coverage
+    # does not apply to them; .program and .rw are the inline monospace spans.
+    body = re.sub(r"<(script|style|svg|pre|code|samp|kbd)\b.*?</\1>", " ", html, flags=re.S | re.I)
+    body = re.sub(r'<span class="(?:program|rw)"[^>]*>.*?</span>', " ", body, flags=re.S)
+    body = re.sub(r"<[^>]+>", " ", body)
+    for ch in set(body):
+        if ord(ch) < 0x20 or ch.isspace() or ord(ch) in covered:
+            continue
+        bad.setdefault(ch, set()).add(os.path.relpath(f, "_site"))
+for ch, pages in sorted(bad.items()):
+    name = unicodedata.name(ch, "?")
+    where = ", ".join(sorted(pages)[:3]) + ("..." if len(pages) > 3 else "")
+    print(f"  MISSING GLYPH U+{ord(ch):04X} {ch!r} ({name}) - {where}")
+sys.exit(1 if bad else 0)
+PY
+then note "ok"; else fail=1; fi
+
 # ---------------------------------------------------------------- drafts build
 if [ "$DRAFTS" = 1 ]; then
   section "jekyll build --drafts"

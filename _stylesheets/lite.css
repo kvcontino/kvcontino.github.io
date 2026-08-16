@@ -632,6 +632,80 @@ figcaption strong {
 }
 .swipe-range:focus-visible { opacity: 1; }
 
+/* --- Figure provenance ----------------------------------------------------
+   The last line of a figcaption, naming the file (and where useful the key)
+   the numbers came from. Set a step below the caption so it reads as apparatus
+   rather than as part of the finding. */
+.prov {
+  display: block;
+  margin-top: 0.5em;
+  /* --ink-dim, not --ink-faint: this is text, and the palette note above is
+     explicit that --ink-faint is for rules and borders only. */
+  color: var(--ink-dim);
+  font-size: 0.92em;
+}
+
+.prov code {
+  font-size: 0.95em;
+  color: var(--ink);
+}
+
+.prov a { color: var(--ink-dim); }
+.prov a:hover { color: var(--ember); }
+
+/* --- Annotated source list ------------------------------------------------
+   A run of 26 bare links tells a reader nothing about which one answers their
+   question. Each entry names the source and then what it is FOR, so the list
+   works as an index into the argument rather than a bibliography. */
+.sources {
+  max-width: var(--measure);
+  padding-left: 1.2em;
+  color: var(--ink-dim);
+  font-size: 0.92em;
+  line-height: 1.6;
+}
+
+.sources li { margin-bottom: 0.75em; }
+.sources li::marker { color: var(--ink-dim); }
+/* The source's name carries the colour; the gloss after the colon stays dim. */
+.sources a { color: var(--ink); }
+.sources a:hover { color: var(--ember); }
+
+/* --- Contents list --------------------------------------------------------
+   Only on long reference pages (the methodology note), never on the essays:
+   an essay that needs a table of contents to be navigable has a structure
+   problem a nav cannot fix. Numbers come from the source order, so the list
+   cannot drift out of step with the headings it points at. */
+.toc {
+  max-width: var(--measure);
+  margin: 2em 0;
+  padding-left: 1.1em;
+  border-left: 1px solid var(--ink-faint);
+}
+
+.toc-head {
+  margin: 0 0 0.5em;
+  text-transform: uppercase;
+  letter-spacing: var(--track);
+  font-size: 0.78em;
+  color: var(--ink-dim);
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 1.3em;
+  font-size: 0.94em;
+}
+
+.toc li { margin-bottom: 0.25em; }
+.toc li::marker { color: var(--ink-dim); font-variant-numeric: lining-nums; }
+.toc a { color: var(--ink-dim); text-decoration: none; }
+.toc a:hover { color: var(--ember); }
+
+/* A deep link drops the reader at the heading's very top edge, hard against the
+   viewport. Give every anchorable heading room to breathe above it. */
+:is(h2, h3)[id] { scroll-margin-top: 1.5em; }
+
 /* --- Footnotes -------------------------------------------------------------
    One source of truth. The note is authored inline, next to the sentence it
    qualifies:
@@ -719,7 +793,7 @@ figcaption strong {
 
 .fn-back {
   text-decoration: none;
-  color: var(--ink-faint);
+  color: var(--ink-dim);
 }
 .fn-back:hover { color: var(--ember); }
 
