@@ -52,5 +52,58 @@
   {% endcomment %}
   <script data-goatcounter="https://kvcontino.goatcounter.com/count"
           async src="https://gc.zgo.at/count.js"></script>
+
+  {% comment %}
+    Footnote mirroring. Notes are authored once, inline, as
+    <span class="fn"><span class="fn-note">...</span></span>; lite.css draws the
+    numbered marker from a CSS counter and opens the note on hover or focus.
+    This copies each note into a list at the foot of the page so the set can be
+    read straight through, and makes each marker keyboard-reachable.
+
+    Progressive by design: with JS blocked the inline notes still open, because
+    that half is pure CSS. Only the mirrored list is lost. Nothing here runs on
+    a page that has no footnotes.
+  {% endcomment %}
+  <script>
+    (function () {
+      var content = document.querySelector('.content');
+      if (!content) return;
+      var marks = content.querySelectorAll('.fn');
+      if (!marks.length) return;
+
+      var list = document.createElement('ol');
+      list.className = 'footnotes';
+
+      marks.forEach(function (mark, i) {
+        var n = i + 1;
+        // Reachable by keyboard, and announced as a note rather than as bare text.
+        mark.setAttribute('tabindex', '0');
+        mark.setAttribute('role', 'note');
+        mark.id = 'fnref' + n;
+
+        var note = mark.querySelector('.fn-note');
+        if (!note) return;
+        var li = document.createElement('li');
+        li.id = 'fn' + n;
+        li.innerHTML = note.innerHTML;
+        // Back-link, so a reader who lands in the list can return to the sentence.
+        var back = document.createElement('a');
+        back.href = '#fnref' + n;
+        back.className = 'fn-back';
+        back.setAttribute('aria-label', 'back to reference ' + n);
+        back.textContent = '↩';
+        li.appendChild(document.createTextNode(' '));
+        li.appendChild(back);
+        list.appendChild(li);
+      });
+
+      if (!list.children.length) return;
+      var heading = document.createElement('h2');
+      heading.id = 'notes';
+      heading.textContent = 'Notes';
+      content.appendChild(heading);
+      content.appendChild(list);
+    }());
+  </script>
 </body>
 </html>

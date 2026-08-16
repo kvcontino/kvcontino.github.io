@@ -168,6 +168,7 @@ body {
   text-align: left;
   hyphens: none;
   word-spacing: 0.12em;
+  counter-reset: footnote;
 }
 
 /* First-line indents carry the paragraph break, so the paragraphs close up.
@@ -630,6 +631,97 @@ figcaption strong {
   cursor: ew-resize;
 }
 .swipe-range:focus-visible { opacity: 1; }
+
+/* --- Footnotes -------------------------------------------------------------
+   One source of truth. The note is authored inline, next to the sentence it
+   qualifies:
+
+     the 1985 Supreme Court decision<span class="fn"><span class="fn-note">
+     Metropolitan Life v. Massachusetts.</span></span> putting self-funded...
+
+   The marker number is a CSS counter, so notes renumber themselves when one is
+   added, moved or cut; there is nothing to keep in step by hand. Hover or focus
+   opens the note in place. A script in the layout mirrors every note into a
+   list at the foot of the page, so the set can be scanned without hunting
+   through the prose.
+
+   Why not title="": tooltips cannot be styled, appear on a delay the reader
+   does not control, and do not exist on touch. Why not <details>: it is a block
+   element and cannot sit inside a sentence.
+
+   The popup hangs from the marker and runs right, into the margin the 730px
+   measure leaves free, so it does not reflow the paragraph under it. Do not put
+   a footnote inside .tablewrap: that scroll container would clip the popup. */
+
+.fn {
+  position: relative;
+  counter-increment: footnote;
+  cursor: help;
+}
+
+.fn::before {
+  content: counter(footnote);
+  font-size: 0.68em;
+  vertical-align: super;
+  line-height: 0;
+  color: var(--ember);
+  font-variant-numeric: lining-nums;
+  /* The marker follows the punctuation it closes, per Chicago, and sits tight
+     against it. */
+  margin-left: 0.06em;
+}
+
+.fn:hover::before,
+.fn:focus::before { color: var(--bleed); }
+
+.fn-note {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 1.5em;
+  z-index: 30;
+  width: min(30em, 80vw);
+  padding: 0.7em 0.9em;
+  background: var(--void);
+  border: 1px solid var(--ink-faint);
+  border-left: 2px solid var(--ember);
+  color: var(--ink-dim);
+  font-size: 0.86em;
+  line-height: 1.55;
+  text-indent: 0;
+  word-spacing: normal;
+  cursor: auto;
+}
+
+.fn:hover .fn-note,
+.fn:focus .fn-note,
+.fn:focus-within .fn-note { display: block; }
+
+/* The mirrored list. Its numbers come from the same document order the counter
+   walks, so list item N is marker N. */
+.footnotes {
+  max-width: var(--measure);
+  margin-top: 1.2em;
+  padding-left: 1.4em;
+  color: var(--ink-dim);
+  font-size: 0.92em;
+}
+
+.footnotes li {
+  margin-bottom: 0.7em;
+  text-indent: 0;
+}
+
+.footnotes li::marker {
+  color: var(--ember);
+  font-variant-numeric: lining-nums;
+}
+
+.fn-back {
+  text-decoration: none;
+  color: var(--ink-faint);
+}
+.fn-back:hover { color: var(--ember); }
 
 @media (max-width: 600px) {
   .statrow { gap: 1.4em; }

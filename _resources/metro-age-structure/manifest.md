@@ -30,6 +30,7 @@ Paths given in the project spec that 404'd, and what was used instead. Each subs
 
 ## Cached files
 
+
 ### group: api
 
 | file | bytes | sha256 | retrieved (UTC) | source URL |
@@ -43,6 +44,7 @@ Paths given in the project spec that 404'd, and what was used instead. Each subs
 | `api/qwi_employment_county.csv` | 850,360 | `975f631462cc5d31…` | 2026-07-26T03:16:06+00:00 | (assembled from paginated API calls — see data/raw/fetch_log.jsonl for every request) |
 | `api/ssa_retired_workers_county.csv` | 92,061 | `ce575cec445b5fe5…` | 2026-07-26T04:19:25+00:00 | (assembled from paginated API calls — see data/raw/fetch_log.jsonl for every request) |
 | `api/usaleep_tract_lifetables.csv` | 60,931,904 | `8b12856193bb80e1…` | 2026-07-26T04:30:52+00:00 | (assembled from paginated API calls — see data/raw/fetch_log.jsonl for every request) |
+
 ### group: geo
 
 | file | bytes | sha256 | retrieved (UTC) | source URL |
@@ -51,6 +53,7 @@ Paths given in the project spec that 404'd, and what was used instead. Each subs
 | `geo/cb_2023_us_county_20m.zip` | 900,375 | `479956f6e3cb1573…` | 2026-07-25T19:54:11+00:00 | https://www2.census.gov/geo/tiger/GENZ2023/shp/cb_2023_us_county_20m.zip |
 | `geo/cb_2023_us_state_20m.zip` | 186,432 | `0fd2d6562708ff81…` | 2026-07-25T19:54:11+00:00 | https://www2.census.gov/geo/tiger/GENZ2023/shp/cb_2023_us_state_20m.zip |
 | `geo/list1_2023.xlsx` | 143,798 | `952c4b1e78acbb54…` | 2026-07-25T19:54:11+00:00 | https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2023/delineation-files/list1_2023.xlsx |
+
 ### group: layouts
 
 | file | bytes | sha256 | retrieved (UTC) | source URL |
@@ -63,6 +66,7 @@ Paths given in the project spec that 404'd, and what was used instead. Each subs
 | `layouts/CO-EST2025-ALLDATA.pdf` | 77,003 | `e4505092c49ce54a…` | 2026-07-25T19:53:40+00:00 | https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2020-2025/CO-EST2025-ALLDATA.pdf |
 | `layouts/NC-EST2025-AGESEX-RES.pdf` | 134,688 | `98a8e75c364ef428…` | 2026-07-25T19:54:11+00:00 | https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2020-2025/NC-EST2025-AGESEX-RES.pdf |
 | `layouts/SC-EST2025-ALLDATA6.pdf` | 141,943 | `c1579d41c92e9b12…` | 2026-07-25T19:54:11+00:00 | https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2020-2025/SC-EST2025-ALLDATA6.pdf |
+
 ### group: primary
 
 | file | bytes | sha256 | retrieved (UTC) | source URL |

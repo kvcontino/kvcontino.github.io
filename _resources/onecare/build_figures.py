@@ -10,6 +10,9 @@ Run:  python3 build_figures.py
 
 import json
 import os
+import tempfile
+import matplotlib
+import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import pandas as pd
@@ -17,6 +20,59 @@ import pandas as pd
 # Set ONECARE_PREVIEW=<dir> to render opaque PNGs on the site's black background
 # for eyeballing (the shipped SVGs are transparent to sit on the live page).
 PREVIEW = os.environ.get("ONECARE_PREVIEW")
+
+# ---- site typeface ----------------------------------------------------------
+# The page is set in Sorts Mill Goudy, so the figures are too. Two obstacles, both
+# handled here rather than by hand:
+#
+#   1. The repo ships the font as .woff2, a web-only container. FreeType — and so
+#      matplotlib — cannot read it. fontTools decompresses it to a plain TTF.
+#   2. The font's DEFAULT figures are old-style: varying height, with descenders
+#      on 3/4/5/7/9. That is correct in running prose and wrong on an axis, where
+#      digits should align on one baseline at one height. A lining set exists, but
+#      only behind the OpenType `lnum` feature, and matplotlib applies no OpenType
+#      features at all. So freeze the feature: read lnum's substitution map out of
+#      GSUB and repoint the cmap at the .lining glyphs, making lining figures this
+#      build's default. lite.css does the same job on the page with
+#      `font-variant-numeric: lining-nums` on tables and .num.
+#
+# If fontTools is missing the build still runs, in the previous sans-serif, and
+# says so — a figure rebuild should never be blocked by a font dependency.
+FONT_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                        "..", "..", "assets", "fonts", "SortsMillGoudy-Regular.woff2")
+FONT_FAMILY = "sans-serif"
+
+
+def _lining_ttf(src):
+    """woff2 -> TTF with the `lnum` feature frozen in. Cached in the temp dir."""
+    from fontTools.ttLib import TTFont
+
+    out = os.path.join(tempfile.gettempdir(), "SortsMillGoudy-Lining.ttf")
+    if os.path.exists(out) and os.path.getmtime(out) > os.path.getmtime(src):
+        return out
+    f = TTFont(src)
+    f.flavor = None                      # drop woff2 compression
+    sub = {}
+    gsub = f["GSUB"].table
+    for rec in gsub.FeatureList.FeatureRecord:
+        if rec.FeatureTag == "lnum":
+            for i in rec.Feature.LookupListIndex:
+                for st in gsub.LookupList.Lookup[i].SubTable:
+                    sub.update(getattr(st, "mapping", {}))
+    for table in f["cmap"].tables:       # repoint every cmap subtable
+        for cp, glyph in list(table.cmap.items()):
+            if glyph in sub:
+                table.cmap[cp] = sub[glyph]
+    f.save(out)
+    return out
+
+
+try:
+    _ttf = _lining_ttf(FONT_SRC)
+    fm.fontManager.addfont(_ttf)
+    FONT_FAMILY = fm.FontProperties(fname=_ttf).get_name()
+except Exception as exc:                 # noqa: BLE001 - any failure falls back
+    print(f"  (font: falling back to sans-serif — {type(exc).__name__}: {exc})")
 
 # ---- site-matched dark palette ----
 INK = "#ededed"; INK2 = "#c9c9c9"; MUTED = "#9a9a9a"
@@ -38,7 +94,7 @@ VT = "#cd9575"                        # the site's accent — Vermont, everywher
 CMP = "#7d7d7d"
 
 plt.rcParams.update({
-    "font.family": "sans-serif", "font.size": 10.5,
+    "font.family": FONT_FAMILY, "font.size": 10.5,
     "text.color": INK, "axes.edgecolor": BASE, "axes.labelcolor": INK2,
     "xtick.color": MUTED, "ytick.color": MUTED,
     "axes.grid": True, "grid.color": GRID, "grid.linewidth": 0.6,
@@ -69,6 +125,12 @@ TITLE_SIZE = 12.5
 def style(ax, model_line=2017.5):
     ax.grid(axis="x", visible=False)
     ax.tick_params(length=0)
+    # Years are integers. Without this the auto-locator is free to pick a 2.5-year
+    # step when the tick font gets wider, and label them "2017.5", which is not a
+    # year. A FixedLocator means the panel chose its own ticks with set_xticks();
+    # leave those alone, whichever order the two calls happen to be in.
+    if not isinstance(ax.xaxis.get_major_locator(), mticker.FixedLocator):
+        ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True, nbins="auto"))
     if model_line:
         ax.axvline(model_line, color=BASE, lw=0.8, ls=":", zorder=0)
 
@@ -182,7 +244,7 @@ fig.text(TITLE_X, 0.885,
          f"({r['mean_post_gap_pct']:.1f}%), intercept-shifted specification; "
          f"pre-period gap is zero by construction.\n"
          f"Vermont ranks {_post} of 50 on post-period RMSPE and {_ratio} on the post/pre "
-         f"ratio — the direction the federal evaluation found, not a settled causal estimate.",
+         f"ratio: the direction the federal evaluation found, not a settled causal estimate.",
          fontsize=9, color=INK2, parse_math=False, va="center", linespacing=1.5)
 save(fig, "fig1_spending")
 
@@ -206,12 +268,12 @@ for i, (ax, key, title) in enumerate(zip(axes, order, titles)):
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:+.0f}%"))
     ax.set_xlim(2014, 2024.3)
     covid_line(ax, label=(i == 0))
-fig.suptitle("Vermont vs. synthetic control — the gap as a share of the counterfactual",
+fig.suptitle("Vermont vs. synthetic control: the gap as a share of the counterfactual",
              x=TITLE_X, y=0.95, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 fig.text(TITLE_X, 0.875,
          "One scale across all three. Spending fell and ED visits rose against the "
          "counterfactual; inpatient stays never moved.\nRanks are Vermont's place among "
-         "50 states on post-period RMSPE / the post-to-pre RMSPE ratio — both from the "
+         "50 states on post-period RMSPE / the post-to-pre RMSPE ratio, both from the "
          "same fits, neither treated as a verdict.",
          fontsize=9, color=INK2, va="top", linespacing=1.5)
 save(fig, "fig2_outcomes")
@@ -277,7 +339,7 @@ fig.suptitle("What the emergency-department inference rests on",
 fig.text(TITLE_X, 0.90,
          "Left: the same intercept-shifted fits ranked two defensible ways. Right: the ratio "
          "statistic divides the vertical\naxis by the horizontal one, so units at the left edge "
-         "get large ratios from a small denominator — which is\nwhy both rankings are reported "
+         "get large ratios from a small denominator, which is\nwhy both rankings are reported "
          "rather than one being called honest.",
          fontsize=9, color=INK2, va="top", linespacing=1.5)
 save(fig, "fig2b_specification")
@@ -357,7 +419,7 @@ fig.suptitle("The overdose climb is real; the suicide gap is a level, not a mode
              x=TITLE_X, y=0.955, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 fig.text(TITLE_X, 0.855, "Overdose index carries a Poisson 95% band (small annual counts). Suicide is "
          "extended to 2005 (WONDER, age-adjusted); the pre-model\ngap (+5.2, 2014–17) and model-era "
-         "gap (+5.5, 2018–20) are statistically indistinguishable — this predates the model.",
+         "gap (+5.5, 2018–20) are statistically indistinguishable; this predates the model.",
          fontsize=9, color=INK2, va="center", linespacing=1.5)
 save(fig, "fig3_pophealth")
 
@@ -393,10 +455,10 @@ end(ax, 2023, per_nh[2023], "NH", CMP)
 style(ax); ax.set_ylim(0, max(per_vt.max(), per_nh.max()) * 1.12)
 ax.set_xlim(2014, 2025.2); ax.set_xticks(range(2014, 2024, 2))
 ax.set_title("Employees per office (fewer offices, but larger)", loc="left", fontsize=10.5, color=INK)
-fig.suptitle("Vermont's physician offices thinned faster than its neighbors' — but so did Maine's",
+fig.suptitle("Vermont's physician offices thinned faster than its neighbors', but so did Maine's",
              x=TITLE_X, y=0.955, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 fig.text(TITLE_X, 0.875, "NH is the clean no-model comparator; ME shows a like-sized decline with\n"
-         "no all-payer model — the honesty guard on reading VT's drop as model-caused.",
+         "no all-payer model: the honesty guard on reading VT's drop as model-caused.",
          fontsize=9, color=INK2, va="center", linespacing=1.5)
 save(fig, "fig4_consolidation")
 
@@ -456,7 +518,7 @@ ax.set_title("Change 2014 → 2023, by Vermont county (counts at right)", loc="l
 fig.suptitle("The thinning was steepest away from the network, not at its center",
              x=TITLE_X, y=0.955, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 fig.text(TITLE_X, 0.855, "UVMHN home counties (Chittenden · Washington · Addison) lost 18% of "
-         "physician offices; the rest of Vermont lost 35%.\nCounty counts are small — grouped "
+         "physician offices; the rest of Vermont lost 35%.\nCounty counts are small, so grouped "
          "series are the reliable read. Grand Isle (≤2 offices) excluded.",
          fontsize=9, color=INK2, va="center", linespacing=1.5, parse_math=False)
 save(fig, "fig5_county")
@@ -515,7 +577,7 @@ style(ax, model_line=None)
 ax.set_title("Hospital-system outpatient price, % of Medicare", loc="left",
              fontsize=10.5, color=INK)
 
-fig.suptitle("Commercial prices: highest in the Northeast after New York — and still climbing",
+fig.suptitle("Commercial prices: highest in the Northeast after New York, and still climbing",
              x=TITLE_X, y=0.955, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 fig.text(TITLE_X, 0.855, "Vermont's commercial prices ran 283% of Medicare in 2022, above the US "
          "average. Every major Vermont hospital system's\noutpatient price rose through the "
@@ -558,8 +620,12 @@ for name, color in LABEL.items():
     short = {"District of Columbia": "DC"}.get(name, name)
     left = name in LEFT_LABEL
     # Vermont sits one rank under Delaware, so drop its label clear of Delaware's dot.
+    # Delaware and Vermont are the top two dots and sit ~1.4 points apart on x,
+    # so a label hung off either one lands on the other. Delaware lifts above its
+    # row, Vermont drops below its own; the serif is wider than the sans this was
+    # first tuned for, and at the old offsets the two collided.
     ax.annotate(f"{short}  {x:.0f}%", (x, y),
-                xytext=(-11 if left else 11, -15 if is_vt else 0),
+                xytext=(-11 if left else 11, 11 if left else (-15 if is_vt else 0)),
                 textcoords="offset points",
                 color=color, va="center", ha="right" if left else "left",
                 fontsize=9.5 if is_vt else 9,
@@ -618,7 +684,7 @@ ax.set_title("The synthetic control's whole pre-period fit window", loc="left",
 fig.suptitle("Vermont entered the model already among the most ACO-saturated states in the country",
              x=TITLE_X, y=0.965, ha="left", fontsize=TITLE_SIZE, fontweight="bold", color=INK)
 fig.text(TITLE_X, 0.875,
-         "In 2017, 51.6% of Vermont's Medicare fee-for-service beneficiaries were already in a Shared Savings Program ACO — second only to Delaware,\n"
+         "In 2017, 51.6% of Vermont's Medicare fee-for-service beneficiaries were already in a Shared Savings Program ACO: second only to Delaware,\n"
          "and roughly twice its synthetic control. 2018 marks a change of ACO regime, not the arrival of one.",
          fontsize=9, color=INK2, va="center", linespacing=1.5, parse_math=False)
 save(fig, "fig7_aco_penetration")
