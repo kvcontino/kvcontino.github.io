@@ -218,7 +218,12 @@ covered = set().union(*cmaps)
 bad = {}
 for f in glob.glob("_site/**/*.html", recursive=True):
     html = open(f, encoding="utf-8", errors="replace").read()
-    if "lite.css" not in html:
+    # Scope by an actual stylesheet REFERENCE, not a bare substring: a page
+    # that merely mentions lite.css in prose or in a CSS comment was being
+    # scoped into this check and flagged for glyphs its own fonts cover.
+    # (Caught 2026-08-16 on the metro-relocation dashboard, which ships
+    # Cormorant/Spectral and names the shared stylesheet in a comment.)
+    if not re.search(r'(?:href\s*=\s*|@import\s+)["\'][^"\']*lite\.css', html):
         continue                      # standalone pages ship their own fonts
     # code/pre/samp/kbd carry a monospace stack in lite.css, so Goudy's coverage
     # does not apply to them; .program and .rw are the inline monospace spans.

@@ -286,6 +286,33 @@ h1, h2, h3 { max-width: var(--measure); }
 .term { font-style: italic; }
 .term.debut { color: var(--bleed); }
 
+/* .uline  a clause the essay wants the reader to leave with, marked by a rule
+   UNDER it rather than by red type. The type stays --ink; only the rule is red,
+   which is the same licence blockquote's border already takes — a graphic may
+   use the display red, readable text may not.
+
+   The essays carry no links in running prose — a source is a superscript note,
+   never an underlined phrase — so a rule under a clause can only mean emphasis.
+   That policy is what makes this device readable, and it is worth keeping.
+
+   The rule is nonetheless a BORDER rather than a text-decoration, so the two
+   never share a channel even where they do meet: a link is drawn with
+   text-decoration, and border and decoration stack instead of overwriting. On a
+   clause that is somehow both, the reader sees two rules — the link's thin one
+   tight under the baseline, the emphasis's thick red one below it — rather than
+   one ambiguous mark. `padding-bottom` sets that gap; on an inline box it moves
+   the border without moving the line, so nothing reflows.
+
+   Applied to an <a>, the visited colour is suppressed: an emphasised clause
+   should not go dim once read. */
+.uline {
+  border-bottom: 2px solid var(--bleed);
+  /* Low enough to read as a mark rather than as an underline, not so low that
+     the rule crowds the cap-height of the line beneath it. */
+  padding-bottom: 0.14em;
+}
+a.uline, a.uline:visited { color: var(--ink); }
+
 /* A run of full capitals set inline — a card-style name in body copy. */
 .caps {
   text-transform: uppercase;
@@ -358,7 +385,25 @@ span.rw { font-family: ui-monospace, monospace; font-style: italic; }
    TEXT measure and share the prose's left and right edges. Only tables still
    break out to --measure-wide, which reads as a deliberate exception rather
    than as everything being a different width. */
-figure { margin: 2.8em 0; max-width: var(--measure); }
+/* A figure or a table is an interruption in the reading, and whitespace alone
+   was not saying so: at this line-height the gap above a figure reads as a
+   slightly generous paragraph break rather than as a change of register.
+   A hairline above and below closes the block off, which is the book
+   convention for setting a table into running text.
+
+   The rules are --ink-faint, which the palette note reserves for rules and
+   borders and forbids for text. They are the quietest mark available, and that
+   is the point: they should register as structure, not as decoration competing
+   with the red the page spends elsewhere. Padding, not margin, so the rule sits
+   clear of the content it encloses. */
+:is(figure, .tablewrap) {
+  border-top: 1px solid var(--ink-faint);
+  border-bottom: 1px solid var(--ink-faint);
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+figure { margin: 2.4em 0; max-width: var(--measure); }
 figure img, figure svg { width: 100%; height: auto; display: block; }
 /* A caption carries three things and used to set each at its own size: a
    small-caps finding, a paragraph of method, and the provenance line. Three
@@ -383,7 +428,16 @@ figcaption strong {
   letter-spacing: var(--track);
 }
 
-.tablewrap { overflow-x: auto; margin: 2.2em 0; max-width: var(--measure-wide); -webkit-overflow-scrolling: touch; }
+/* Shrink-to-fit, not fill. `width: 100%` on the table made every table 1088px
+   wide whatever it held, so a three-column table of short values was spread
+   across the full breakout width and read as a layout accident. Now the table
+   sizes to its content between two bounds: never narrower than the prose
+   measure, so a small table shares the text column's edges, and never wider
+   than the breakout, past which the wrapper scrolls. */
+.tablewrap { overflow-x: auto; margin: 2.4em 0; width: fit-content; max-width: var(--measure-wide); -webkit-overflow-scrolling: touch; }
+/* The wrapper now draws the closing rule, so the last row must not draw one
+   too — two hairlines a few pixels apart read as a mistake, not a border. */
+:is(table.data, .tablewrap table) tbody tr:last-child td { border-bottom: 0; }
 /* Kramdown emits a bare <table> for a markdown table, so a post written in
    Obsidian has no class to hang styling on. Matching `.tablewrap table` as well
    as `table.data` means an ordinary markdown table inside a .tablewrap div gets
@@ -391,7 +445,7 @@ figcaption strong {
    writing a post and fighting one. */
 :is(table.data, .tablewrap table) {
   border-collapse: collapse;
-  width: 100%;
+  width: auto;
   font-size: 0.85em;
   line-height: 1.45;
   text-align: left;
@@ -400,6 +454,12 @@ figcaption strong {
 }
 :is(table.data, .tablewrap table) caption {
   text-align: left;
+  /* Held to the prose measure so a long caption cannot be the thing that widens
+     a narrow table. A `table-caption` box is then stretched back out to whatever
+     width the table settles at, which is what we want: a caption spans its own
+     table. Do NOT set `display: block` here — that makes the caption a normal
+     block, which fills the wrapper and defeats the table's fit-content sizing. */
+  max-width: var(--measure);
   color: var(--ink-2);
   font-size: 0.88em;
   line-height: 1.5;
@@ -742,15 +802,23 @@ figcaption strong {
    does not control, and do not exist on touch. Why not <details>: it is a block
    element and cannot sit inside a sentence.
 
-   The popup hangs from the marker and runs right, into the margin the 730px
-   measure leaves free, so it does not reflow the paragraph under it. Do not put
-   a footnote inside .tablewrap: that scroll container would clip the popup. */
+   The note's containing block is the PARAGRAPH, not the marker: `.fn` is
+   deliberately `position: static` so that `left` is measured from the text
+   column's edge and every note lands at the same x. Anchoring to the marker
+   instead put a note raised near the end of a line off the right of the
+   viewport. `top` stays `auto`, which resolves to the abspos static position —
+   the marker's own line — so the note still opens next to its sentence.
+
+   Do not put a footnote inside .tablewrap: that scroll container would clip it. */
 
 .fn {
-  position: relative;
   counter-increment: footnote;
   cursor: help;
 }
+
+/* The blocks a note can be raised from. Each becomes the note's containing
+   block; without this the note would position against the page. */
+.content :is(p, blockquote, figcaption, .note, ul, ol) { position: relative; }
 
 .fn::before {
   content: counter(footnote);
@@ -771,9 +839,12 @@ figcaption strong {
   display: none;
   position: absolute;
   left: 0;
-  top: 1.5em;
+  top: auto;
+  margin-top: 0.6em;   /* clear of the line the marker sits on */
   z-index: 30;
-  width: min(30em, 80vw);
+  /* Never wider than the measure it hangs under, so it cannot leave the column. */
+  width: 100%;
+  max-width: var(--measure);
   padding: 0.7em 0.9em;
   background: var(--void);
   border: 1px solid var(--ink-faint);
@@ -789,6 +860,36 @@ figcaption strong {
 .fn:hover .fn-note,
 .fn:focus .fn-note,
 .fn:focus-within .fn-note { display: block; }
+
+/* --- The same note, in the margin -----------------------------------------
+   Above 1500px there is room to the right of the 730px measure for the note to
+   open BESIDE the sentence it qualifies instead of on top of the paragraph
+   below it. Nothing about the markup changes; only where the box lands.
+
+   Only two properties change. `left` becomes the measure plus a gutter — stated
+   in px off the paragraph's own left edge, not as `100%`, because a
+   blockquote's paragraph is narrower than a plain one by its indent and the
+   notes would not line up. And the box loses its opaque backdrop and frame:
+   nothing is being covered out there, so a red left rule is enough, which is
+   what `.note` and blockquote already use for an aside.
+
+   The note is allowed to overhang the content column into the page's outer 10%
+   padding, the way a sidenote overhangs a book's trim. Nothing in the chain
+   sets `overflow: hidden`, so it is not clipped. Measured: at 1500px the note's
+   right edge lands 27px inside the viewport, and every wider viewport has more
+   room. Below the gate the note opens as a panel under its own line instead. */
+@media (min-width: 1500px) {
+  .fn-note {
+    left: calc(var(--measure) + 28px);
+    width: 300px;
+    max-width: none;
+    margin-top: 0;
+    background: none;
+    border: 0;
+    border-left: 2px solid var(--ember);
+    padding: 0 0 0 0.9em;
+  }
+}
 
 /* The mirrored list. Its numbers come from the same document order the counter
    walks, so list item N is marker N. */

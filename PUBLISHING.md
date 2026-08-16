@@ -216,8 +216,22 @@ grep -rL goatcounter _site --include=*.html
 **Posts vs Projects.** A post is short — a thought, a chart, a note. A project is
 larger, ongoing, curated, and lives in `_resources/`.
 
-**`_resources/metro-age-structure/` is generated** by `make site` upstream — do
-not hand-edit it; edits here are overwritten. Fix it in its pipeline.
+**`_resources/metro-age-structure/` is mixed**, per file, and the old blanket
+"this directory is generated" rule was wrong:
+
+| file | authored where |
+|---|---|
+| `report.md`, `manifest.md`, `figures/`, `interactive_map.html` | **generated** by `src/site.py` in `~/2_projects/metro_age_structure/` — edits here are overwritten |
+| `index.html` | **hand-written here.** `site.py` never writes it |
+
+Regenerate the report alone with `.venv/bin/python -m src.report` then
+`src.site.publish_report()`. **Not `make site`** unless you mean it: that
+re-renders all eight figures and dirties every SVG with a fresh timestamp and
+new random clip-path ids even when nothing changed.
+
+The GoatCounter injection guard belongs to `interactive_map.html` specifically —
+`site.py` inserts the snippet as it copies and refuses to publish if the file's
+shape changes or if it already carries one.
 
 **`_resources/onecare/` is mixed**, and the line matters:
 
