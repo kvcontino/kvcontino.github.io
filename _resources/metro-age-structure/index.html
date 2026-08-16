@@ -1,163 +1,140 @@
 ---
 layout: default
 title: "Metropolitan Age Structure in the United States"
-description: "Which American metros are young, which are only young-looking, and which ones actually attract working-age adults — built from the Census Bureau's Vintage 2025 estimates."
+description: "A typology of American age structures across 387 metropolitan statistical areas and 3,144 counties — separating the high-fertility exurb, the garrison, the college town and the working-age magnet, which median age cannot tell apart."
 ---
 
-<p class="dek">Median age is a bad way to find a young city. A garrison town, a college town, a
-high-fertility exurb and a genuine magnet for working-age adults all look alike on that one
-number, and they are entirely different places to live in or invest in. This is an attempt to
-tell them apart using single-year-of-age data for all 387 metropolitan statistical areas and
-3,144 counties.</p>
+<blockquote>
+  <p>We live for just these twenty years<br>
+  Do we have to die for the fifty more?</p>
+  <p>&mdash; <span class="sc">David Bowie</span>, &ldquo;Young Americans,&rdquo; 1975</p>
+</blockquote>
+
+<p class="dek">This is an attempt to build a typology of age structures throughout the United
+States, covering 387 metropolitan statistical areas and 3,144 counties. While median age is the
+usual population statistic used to assess whether an area is comparatively young or old, this is
+a poor way of distinguishing between places with radically different characteristics in terms of
+age distribution and aging-in-place. This analysis provides the tools for understanding what
+makes a high-fertility exurb, a garrison, a college town, and a working-age magnet economy
+different from one another.</p>
 
 <p class="meta">By Kevin Contino &middot; July 2026 &middot; Every figure is rebuilt from a cached
-source file by a <code>make all</code> pipeline; nothing here is quoted from memory. The
+source file by a <code>make all</code> pipeline. The
 <a href="/_resources/metro-age-structure/report.html">full technical report</a> and the
 <a href="/_resources/metro-age-structure/interactive_map.html">interactive metro map</a> carry
 the detail.</p>
 
-<p><a href="/_resources/metro-age-structure/interactive_map.html"><strong>Open the interactive
-map</strong></a> — all 387 metros, six switchable measures, per-metro hover and keyboard
-readout, and a sortable table of the same values. Self-contained HTML, no network access
-required.</p>
+<p>&rsaquo;&nbsp;<a href="/_resources/metro-age-structure/interactive_map.html"><strong>Open the
+interactive map</strong></a></p>
 
 <hr>
 
-<h2>What the data is, and what was wrong with the plan</h2>
+<h2>Data source</h2>
 
-<p>The source is the Census Bureau's Vintage 2025 population estimates, released June 2026,
-covering 4/1/2020 through 7/1/2025 — 80 files, 251 MB, each recorded with its source URL, byte
-size, SHA256 and retrieval timestamp. National median age on 7/1/2025 is <strong>39.38
-years</strong>, and 190 of the 387 metros sit below it.</p>
+<div class="statrow">
+  <div class="stat">
+    <span class="statvalue">39.38</span>
+    <span class="statlabel">national median age, years, 7/1/2025</span>
+  </div>
+  <div class="stat">
+    <span class="statvalue accent">190 / 387</span>
+    <span class="statlabel">metros below it</span>
+  </div>
+  <div class="stat">
+    <span class="statvalue">2020&ndash;2025</span>
+    <span class="statlabel">estimates covering 4/1/2020 to 7/1/2025</span>
+  </div>
+</div>
 
-<p>Every single-year-of-age aggregate was reconciled against the corresponding published Census
-total. All residuals are exactly zero, including the one most likely to fail silently — counties
-aggregated up through the 2023 delineation against published CBSA totals. Median age computed by
-interpolation lands within 0.050 years of the published value at both CBSA and county level,
-which is exactly the rounding bound of a figure published to one decimal; the interpolation
-reproduces the Census method rather than approximating it.</p>
-
-<p>Five assumptions in the original specification did not survive contact with the files. The
-<code>AGE=999</code> and <code>SEX=0</code> sentinels the plan filtered on <em>do not exist</em>
-in the metro and county files — filtering as specified would have discarded everything. Two
-specified paths 404. The national file runs to age 100 while the metro and county files are
-top-coded at 85+, which, left unaligned, injects spurious dissimilarity into every metro. Those
-corrections are recorded rather than quietly applied; the reconciliation table is what caught
-them.</p>
+<p class="statnote">Census Bureau Vintage 2025 population estimates, released June 2026. Every
+cached file is recorded with its source URL, byte size, SHA256 and retrieval timestamp in the
+<a href="/_resources/metro-age-structure/manifest.html">source manifest</a>.</p>
 
 <h2>Age structure has shapes, not just averages</h2>
 
 <figure>
   <img src="/_resources/metro-age-structure/figures/fig01_age_pyramids.svg"
        alt="Six single-year age pyramids, one per typology cluster: Oklahoma City, Watertown-Fort Drum, Naples-Marco Island, Ann Arbor, Morristown and Jefferson City.">
-  <figcaption><strong>The confounds are visible as shapes.</strong> Single-year age pyramids, one
-  exemplar per cluster. Watertown–Fort Drum's spike at 18–24 is a garrison; Ann Arbor's is a
-  student body; Naples–Marco Island is a retirement destination. All are drawn on a shared
-  x-scale as a share of each metro's population. Ages 0–84 are true single years; the top-coded
-  85-and-over bin is omitted from the bars because an open-ended interval is not comparable in
-  height to a single-year bar. Group quarters are <em>retained</em> here, because the
-  institutional bulge is the feature being shown.</figcaption>
+  <figcaption><strong>Figure 1. The confounds are visible as shapes.</strong> Single-year age
+  pyramids, one exemplar per cluster: Watertown&ndash;Fort Drum's spike at 18&ndash;24 is the
+  eponymous Fort Drum garrison; Ann Arbor's is a Big Ten college; Naples&ndash;Marco Island is a
+  real-life version of the &ldquo;Quietus&rdquo; from <em>Children of Men</em>. All figures are
+  drawn on a shared x-scale as a percentage of each metro's population. Ages 0&ndash;84 are true
+  single years; the top-coded 85-and-over bin is omitted from the bars. Group quarters are
+  retained here, because institutional bulges are among the population features that distinguish
+  the clusters from one another.</figcaption>
 </figure>
 
-<p>Clustering nine features per metro — modality count, a dissimilarity index, group-quarters
-share by type, sex ratio at 18–29, and the under-18 and 65+ shares — reproduces some expected
-types and refuses to separate others. College towns, retirement destinations and aged-in-place
-metros each come out cleanly. High-fertility metros, border and agricultural metros, and
-prime-age magnets all collapse into one large cluster. That is a real result about the limits of
-shape-based clustering, and it is why the magnet question needs a different instrument.</p>
+<p>Nine shape-based features per metro help to define their population types: modality count, a
+dissimilarity index, group-quarters share by type, sex ratio at 18&ndash;29, and the under-18 and
+65+ shares. College towns, retirement destinations and aged-in-place metros each come out
+cleanly.</p>
 
-<h2>Cohort progression, not net migration</h2>
+<p>However, high-fertility metros, border and agricultural metros, and prime-age magnets collapse
+into a single shape-based cluster, and require a separate instrument to recognize.</p>
 
-<p>The instrument is the cohort change ratio: follow one birth cohort between two dates and see
-whether the county still has it. <code>CCR = P(30–34, 7/1/2025) ÷ P(25–29, 7/1/2020)</code>.
-Above 1.0 the county gained that cohort; below 1.0 it lost it. It is age-specific and requires
-no assumption about where migrants came from, which net-migration totals cannot match.</p>
+<h2>Cohort progression</h2>
+
+<p>That separate instrument is the cohort change ratio: if we follow one birth cohort between two
+dates, we can see whether the county retains a cohort over time or churns through. This analysis
+looks at the cohort change ratio by comparing each area's 25&ndash;29 population as of 2020 to its
+30&ndash;34 population as of 2025: <code>CCR = P(30–34, 7/1/2025) ÷ P(25–29, 7/1/2020)</code>.</p>
+
+<p>Above 1.0 the county gained that cohort; below 1.0 it lost it. It is age-specific and requires
+no assumption about where migrants came from.</p>
 
 <figure>
   <img src="/_resources/metro-age-structure/figures/fig06_ccr_county_map.png"
        alt="Two US maps of the cohort change ratio for the 25-29 cohort of 2020: a county choropleth above, and below the same data as a dot cartogram with dot area proportional to county population.">
-  <figcaption><strong>The Sun Belt and the mountain west gained the cohort; much of the interior
-  did not.</strong> Diverging orange–blue scale centred at 1.0, both arms generated at matched
-  lightness so equal gains and losses read equally strongly. The span is the 90th percentile of
-  |CCR&nbsp;−&nbsp;1|, which clips the most extreme 10% of counties into the end steps; a
-  symmetric span taken from the 2nd/98th percentiles instead lets the right skew stretch the
-  range and leaves 60% of counties inside an indistinguishable pale core. The upper panel greys
-  counties under 20,000 population, whose ACS-derived inputs carry margins of error that do not
-  belong on the same footing as a large county. The lower panel is the population-weighted view,
-  because a raw choropleth of 3,144 counties over-weights empty land.</figcaption>
+  <figcaption><strong>Figure 2. The Sun Belt and the mountain west gained; much of the interior
+  did not.</strong> Diverging orange&ndash;blue scale centred at 1.0, both arms generated at
+  matched lightness so equal gains and losses read equally strongly. The span is the 90th
+  percentile of |CCR&nbsp;&minus;&nbsp;1|, which clips the most extreme 10% of counties into the
+  end steps. The upper panel greys counties under 20,000 population, whose ACS-derived inputs
+  carry larger margins of error. The lower panel is the population-weighted view.</figcaption>
 </figure>
 
-<h2>The sanity check that failed, and why that is the finding</h2>
+<h2>Composite magnet index</h2>
 
-<p>The specification expected Austin, Raleigh, Denver, Nashville, Charlotte, Salt Lake City,
-Boise, Washington DC and Seattle to all land in the top quintile of a composite magnet index.
-Two did not. Salt Lake City–Murray reaches the 68th percentile; Washington reaches the 45th.</p>
+<p>A metro can be young for reasons that have nothing to do with anybody choosing it. Births make
+a metro young. So does a barracks, or a campus, or a farm labour force. Only one of the four is a
+decision an adult made about where to live, and it is the only one most people mean when they
+call a place a magnet.</p>
 
-<p>Verified directly against <code>cbsa-est2025-alldata.csv</code>: over 7/1/2020–7/1/2025 the
-Washington metro lost <strong>208,058</strong> net domestic migrants while gaining
-<strong>262,675</strong> international. Salt Lake City lost 40,598 against +51,256. Seattle
-(−107,029) and Denver (−33,545) show the same pattern less severely.</p>
-
-<div class="tablewrap">
-<table class="data">
-  <caption>Magnet-index percentile under five weightings. Washington never reaches the top
-  quintile under any of them; Salt Lake City reaches it only when domestic migration is removed
-  entirely, which localises the cause precisely.</caption>
-  <thead>
-    <tr><th>metro</th><th class="num">spec weights</th><th class="num">equal</th>
-        <th class="num">CCR only</th><th class="num">no domestic migration</th>
-        <th class="num">migration-heavy</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Austin–Round Rock–San Marcos</td><td class="num">100.0%</td><td class="num">100.0%</td><td class="num">94.3%</td><td class="num">100.0%</td><td class="num">100.0%</td></tr>
-    <tr><td>Raleigh–Cary</td><td class="num">99.5%</td><td class="num">99.0%</td><td class="num">95.1%</td><td class="num">99.2%</td><td class="num">99.2%</td></tr>
-    <tr><td>Boise City</td><td class="num">98.4%</td><td class="num">97.9%</td><td class="num">93.0%</td><td class="num">98.2%</td><td class="num">98.7%</td></tr>
-    <tr><td>Salt Lake City–Murray</td><td class="num">68.2%</td><td class="num">79.8%</td><td class="num">28.9%</td><td class="num hi">81.1%</td><td class="num">43.2%</td></tr>
-    <tr><td>Washington–Arlington–Alexandria</td><td class="num">45.2%</td><td class="num">47.8%</td><td class="num">44.7%</td><td class="num">57.6%</td><td class="num">26.6%</td></tr>
-  </tbody>
-</table>
-</div>
-
-<p>The index is measuring domestic attraction, and these two metros did not have it over this
-window. The specification's expectation encodes a pre-2020 prior. An exclusion criterion written
-before any of this was known independently routes both into the international-led group, which is
-where the specification itself says such metros belong — so the framework disagreed with its own
-author's expectations and turned out to be right.</p>
+<p>The magnet index measures that directly, and it asks three questions of every metro. Does it
+keep the people who arrive in their late twenties and thirties, or do they leave again by their
+mid-thirties? Are jobs in that age band growing there? And when Americans move between metros, does
+the flow run toward this one or away from it? A metro scoring high is winning working-age adults
+from the rest of the country. A metro scoring low is losing them, whatever its median age
+says.</p>
 
 <figure>
   <img src="/_resources/metro-age-structure/figures/fig07_magnet_index.png"
        alt="A US metro map of the composite magnet index alongside a dot plot of the top 30 metros ranked, with excluded metros marked as diamonds.">
-  <figcaption><strong>The composite index, and the metros an exclusion criterion removes.</strong>
-  A weighted mean of percentile ranks: mean cohort change ratio across the 25–39 cohorts (0.35),
-  early-career share (0.15), net domestic migration rate (0.15), QWI employment growth in the
-  25–34 band (0.20), and inverted old-age dependency (0.15). Diamonds mark metros excluded by at
-  least one criterion — group quarters, a top-decile under-5 share, or international migration
-  exceeding half of net migration. They keep their index value rather than being deleted, so the
-  exclusion is auditable rather than invisible.</figcaption>
+  <figcaption><strong>Figure 3. The composite index, and the metros an exclusion criterion
+  removes.</strong> A weighted mean of percentile ranks: mean cohort change ratio across the
+  25&ndash;39 cohorts (0.35), early-career share (0.15), net domestic migration rate (0.15), QWI
+  employment growth in the 25&ndash;34 band (0.20), and inverted old-age dependency (0.15).
+  Diamonds mark metros excluded by at least one criterion &mdash; group quarters, a top-decile
+  under-5 share, or international migration exceeding half of net migration.</figcaption>
 </figure>
 
-<h2>Where a metro is young for a reason you can name</h2>
+<h2>Why some metros are young</h2>
 
 <figure>
   <img src="/_resources/metro-age-structure/figures/fig08_youth_decomposition.svg"
        alt="Stacked bars decomposing the cause of youth into fertility, institution, immigration and attraction for the 50 metros with the lowest median age.">
-  <figcaption><strong>Four causes of a low median age, separated.</strong> Each of the 190 metros
-  below the national median age is assigned a dominant cause; the 50 youngest are shown, youngest
-  at the top. Cause scores are means of percentile ranks computed <em>within</em> the
-  below-median set, then normalised to sum to one — so this reads as composition, not
-  magnitude.</figcaption>
+  <figcaption><strong>Figure 4. Four causes of a low median age, separated.</strong> Each of the
+  190 metros below the national median age is assigned a dominant cause; the 50 youngest are
+  shown, youngest at the top. Cause scores are means of percentile ranks computed <em>within</em>
+  the below-median set, then normalised to sum to one.</figcaption>
 </figure>
 
 <hr>
 
-<h2>Method and reproducibility</h2>
+<h2>Methods</h2>
 
 <p>Everything above is produced by <code>make all</code>: fetch (cached, with a manifest), build,
-analyse, validate, figures, interactive map, report. The validate stage is a gate — it exits
-non-zero if any reconciliation check fails, so a broken join cannot reach a figure. Mapping is
-Albers Equal Area (EPSG:5070) with Alaska (EPSG:3338) and Hawaii (EPSG:26962) reprojected,
-rescaled and inset rather than silently dropped.</p>
-
-<p>Known weaknesses, the group-quarters and student treatments, the argument for excluding
-children from the support measures, and a full data dictionary for every output table are in the
-<a href="/_resources/metro-age-structure/report.html">technical report</a>.</p>
+analyse, validate, figures, interactive map, report. Mapping is Albers Equal Area (EPSG:5070) with
+Alaska (EPSG:3338) and Hawaii (EPSG:26962) reprojected, rescaled and inset. Additional details are
+in the <a href="/_resources/metro-age-structure/report.html">technical report</a>.</p>
