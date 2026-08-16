@@ -4,14 +4,14 @@ title: "Metropolitan Age Structure — Technical Report"
 description: "Full pipeline report: sources, reconciliation, typology, magnet index, decomposition, and data dictionary."
 ---
 
-<p class="meta"><a href="/_resources/metro-age-structure/">&larr; back to the overview</a> &middot; <a href="/_resources/metro-age-structure/interactive_map.html">interactive metro map</a></p>
+<p class="meta"><a href="/_resources/metro-age-structure/">&lsaquo; back to the overview</a> &middot; <a href="/_resources/metro-age-structure/interactive_map.html">interactive metro map</a></p>
 
 
 **Census Bureau Vintage 2025 population estimates · OMB July 2023 delineations**
 
-Generated 2026-08-01 from a reproducible pipeline (`make all`). Every number below is computed from a cached source file; nothing is quoted from memory.
+Generated 2026-08-16 from a reproducible pipeline (`make all`). Every number below is computed from a cached source file; nothing is quoted from memory.
 
-> **[▶ Open the interactive metro map](interactive_map.html)** — all 387 metropolitan areas, six switchable measures, per-metro hover and keyboard readout with the four-way youth decomposition, and a sortable table of the same values. Self-contained HTML, no network access required.
+> **[Open the interactive metro map](interactive_map.html)** — all 387 metropolitan areas, six switchable measures, per-metro hover and keyboard readout with the four-way youth decomposition, and a sortable table of the same values. Self-contained HTML, no network access required.
 
 ---
 
@@ -45,7 +45,7 @@ Five assumptions in the project specification did not survive contact with the f
 1. **The `AGE=999` and `SEX=0` sentinels do not exist in the SYASEX files.** Age runs 0–85 with no all-ages row, and sex is carried in `TOT_MALE`/`TOT_FEMALE` columns rather than a `SEX` dimension. Filtering as specified would have discarded everything. The sentinels *do* apply to the national file `nc-est2025-agesex-res.csv`, where summing across `SEX` without filtering doubled the national population — caught by the state reconciliation.
 2. **Two specified paths 404.** `cc-est2025-agesex.csv` is published split per state (52 shards); `sc-est2025-syasex.csv` does not exist and state single-year-of-age lives inside `sc-est2025-alldata6.csv`. Both substitutions are recorded in `MANIFEST.md`.
 3. **The national file runs to age 100, the metro and county files are top-coded at 85+.** Left unaligned this injects spurious dissimilarity into every metro; the national reference is collapsed to a matching 85+ bin.
-4. **`YEAR` is an index 1–7, not a calendar year.** Cohort change ratios use YEAR 2 (7/1/2020) → YEAR 7 (7/1/2025), an exact five-year interval. YEAR 1 is an April base and would give a 5.25-year window, inflating every ratio.
+4. **`YEAR` is an index 1–7, not a calendar year.** Cohort change ratios use YEAR 2 (7/1/2020) to YEAR 7 (7/1/2025), an exact five-year interval. YEAR 1 is an April base and would give a 5.25-year window, inflating every ratio.
 5. **Connecticut breaks two joins.** The 2020 DHC is on the legacy eight-county geography while the estimates use the nine planning regions adopted in 2022. Group quarters were rebuilt from towns — planning regions are exact aggregations of whole towns, and the reallocated CT total reconciles exactly to the legacy total.
 
 The Puerto Rico shard of the county age-sex file also carries a different schema (`MUNICIPIO`/`NAME` rather than `STATE`/`COUNTY`/`STNAME`/`CTYNAME`); concatenated naively it yields 78 rows with a null FIPS.
@@ -165,7 +165,7 @@ k-means at k=6 scores highest (0.2174); Ward produced a singleton cluster at eve
 
 ![fig02_age_heatmap](/_resources/metro-age-structure/figures/fig02_age_heatmap.svg)
 
-<sub>Figure 2. Single-year age distribution of every metropolitan statistical area, one row per metro, sorted by the age-structure dissimilarity index (0.5·Σ|p−q| against the national distribution). Source: Census Bureau Vintage 2025 population estimates, cbsa-est2025-syasex, release June 2026; 7/1/2025 estimate; national reference from nc-est2025-agesex-res top-coded to 85+ to match. Geography: 387 MSAs, OMB July 2023 delineations. Sequential single-hue ramp; colour is capped at the 99.5th percentile so one extreme metro does not flatten the rest. Ages 0–84 are shown; the open-ended 85-and-over bin is omitted because it accumulates several single years and would paint a false dark stripe down the right edge of every row. The dark vertical band at ages 18–24 is the college and garrison population. Exclusions: group quarters retained; Puerto Rico and micropolitan areas excluded.</sub>
+<sub>Figure 2. Single-year age distribution of every metropolitan statistical area, one row per metro, sorted by the age-structure dissimilarity index (half the sum of |p − q| against the national distribution). Source: Census Bureau Vintage 2025 population estimates, cbsa-est2025-syasex, release June 2026; 7/1/2025 estimate; national reference from nc-est2025-agesex-res top-coded to 85+ to match. Geography: 387 MSAs, OMB July 2023 delineations. Sequential single-hue ramp; colour is capped at the 99.5th percentile so one extreme metro does not flatten the rest. Ages 0–84 are shown; the open-ended 85-and-over bin is omitted because it accumulates several single years and would paint a false dark stripe down the right edge of every row. The dark vertical band at ages 18–24 is the college and garrison population. Exclusions: group quarters retained; Puerto Rico and micropolitan areas excluded.</sub>
 
 ### What the data reproduces, and what it does not
 
@@ -265,13 +265,13 @@ None of these deletes a row. A metro that fails a criterion keeps its index valu
 | Total GQ share at or above the 75th percentile | 0.0376 | 97 |
 | College GQ share at or above 2% | 0.02 | 70 |
 | Under-5 share in the top decile | 0.0633 | 39 |
-| International ≥ 50% of net migration | 0.50 | 220 |
+| International 50% or more of net migration | 0.50 | 220 |
 
 **264 of 387** metros are excluded by at least one criterion, leaving **123** eligible domestic magnets. A further **124** are international-led and are reported as their own group rather than discarded. The international criterion is large by construction: domestic migration is close to zero-sum across metros while international inflow is positive almost everywhere.
 
 ![fig07_magnet_index](/_resources/metro-age-structure/figures/fig07_magnet_index.png)
 
-<sub>Figure 7. Composite prime-age magnet index by metro, and the top 30 ranked. The index is a weighted mean of percentile ranks: mean cohort change ratio across the 25–39 cohorts (0.35), early-career share (0.15), net domestic migration rate (0.15), QWI employment growth in the 25–34 band (0.20), and inverted OADR (0.15); weights are a config dict and sensitivity to them is reported in the text. Sources: Census Bureau Vintage 2025 population estimates (cbsa-est2025-syasex and cbsa-est2025-alldata, release June 2026, 7/1/2020→7/1/2025); LEHD QWI 2020Q1 and 2025Q1. Geography: 387 MSAs, OMB July 2023 delineations, cb_2023_us_cbsa_20m, Albers Equal Area EPSG:5070 with Alaska and Hawaii inset. Diamonds mark metros excluded by at least one criterion (total or college group-quarters share, top-decile under-5 share, or international migration exceeding 50% of net migration); they keep their index value rather than being deleted. 17 metros have a partial index where QWI is suppressed, with weights renormalised over the available components. Puerto Rico excluded.</sub>
+<sub>Figure 7. Composite prime-age magnet index by metro, and the top 30 ranked. The index is a weighted mean of percentile ranks: mean cohort change ratio across the 25–39 cohorts (0.35), early-career share (0.15), net domestic migration rate (0.15), QWI employment growth in the 25–34 band (0.20), and inverted OADR (0.15); weights are a config dict and sensitivity to them is reported in the text. Sources: Census Bureau Vintage 2025 population estimates (cbsa-est2025-syasex and cbsa-est2025-alldata, release June 2026, 7/1/2020 to 7/1/2025); LEHD QWI 2020Q1 and 2025Q1. Geography: 387 MSAs, OMB July 2023 delineations, cb_2023_us_cbsa_20m, Albers Equal Area EPSG:5070 with Alaska and Hawaii inset. Diamonds mark metros excluded by at least one criterion (total or college group-quarters share, top-decile under-5 share, or international migration exceeding 50% of net migration); they keep their index value rather than being deleted. 17 metros have a partial index where QWI is suppressed, with weights renormalised over the available components. Puerto Rico excluded.</sub>
 
 ### Top 20 eligible domestic magnets
 
@@ -328,14 +328,14 @@ Each of the 190 metros below the national median age is assigned a dominant caus
 
 | cause | metros | population | diagnostic |
 |---|---:|---:|---|
-| fertility | 37 | 15.3M | High under-18 share, low CCR(15–19→20–24), low net domestic migration |
-| institution | 66 | 16.1M | High college+military GQ, sharp 18–24 mode, low CCR(20–24→25–29) |
+| fertility | 37 | 15.3M | High under-18 share, low CCR(15–19 to 20–24), low net domestic migration |
+| institution | 66 | 16.1M | High college+military GQ, sharp 18–24 mode, low CCR(20–24 to 25–29) |
 | immigration | 29 | 70.0M | International dominant in net migration, broad 25–49 slab |
 | attraction | 58 | 73.6M | High 25–39 CCRs, positive net domestic migration, low GQ share |
 
 ![fig08_youth_decomposition](/_resources/metro-age-structure/figures/fig08_youth_decomposition.svg)
 
-<sub>Figure 8. Four-way decomposition of the causes of youth for the 50 metros with the lowest median age, ordered youngest at the top. Each cause score is the mean of the percentile ranks of its diagnostics, computed within the 190 metros below the national median age, then normalised across the four causes to sum to 1. Fertility: high under-18 share, low CCR(15–19→20–24), low net domestic migration. Institution: high college plus military group-quarters share, sharp 18–24 mode, low CCR(20–24→25–29). Immigration: international share of net migration, broad 25–49 slab. Attraction: high 25–39 CCRs, high net domestic migration, low group-quarters share. Because the fertility diagnostic is a conjunction requiring the ABSENCE of the other causes, a metro that is high-fertility AND attractive (Provo–Orem–Lehi) does not score as fertility-dominant; only 18% of metros have a dominant share above 0.45. Sources: Census Bureau Vintage 2025 population estimates (7/1/2025 and the 7/1/2020→7/1/2025 cohort window); 2020 Decennial DHC table P18 for group quarters by type. Geography: MSAs, OMB July 2023 delineations. Puerto Rico excluded.</sub>
+<sub>Figure 8. Four-way decomposition of the causes of youth for the 50 metros with the lowest median age, ordered youngest at the top. Each cause score is the mean of the percentile ranks of its diagnostics, computed within the 190 metros below the national median age, then normalised across the four causes to sum to 1. Fertility: high under-18 share, low CCR(15–19 to 20–24), low net domestic migration. Institution: high college plus military group-quarters share, sharp 18–24 mode, low CCR(20–24 to 25–29). Immigration: international share of net migration, broad 25–49 slab. Attraction: high 25–39 CCRs, high net domestic migration, low group-quarters share. Because the fertility diagnostic is a conjunction requiring the ABSENCE of the other causes, a metro that is high-fertility AND attractive (Provo–Orem–Lehi) does not score as fertility-dominant; only 18% of metros have a dominant share above 0.45. Sources: Census Bureau Vintage 2025 population estimates (7/1/2025 and the 7/1/2020 to 7/1/2025 cohort window); 2020 Decennial DHC table P18 for group quarters by type. Geography: MSAs, OMB July 2023 delineations. Puerto Rico excluded.</sub>
 
 **A caveat that changes how the table should be read.** The fertility diagnostic is a *conjunction*: it requires a high under-18 share **and** a low 18–24 cohort ratio **and** low net domestic migration. The last two conditions demand the *absence* of the other causes, so a metro that is genuinely high-fertility and also attracts people cannot score as fertility-dominant.
 
@@ -397,7 +397,7 @@ This is stated here rather than left for the metric to assert silently. A review
 
 ### Group quarters
 
-Group-quarters population is subtracted by age using 2020 Decennial DHC table P18 counts by type, **held constant as a share and scaled by county population growth 2020→2025**. Nationally this is 2.47% of population. The assumption is wrong in specific, knowable ways: a prison that closed or a dormitory that opened between 2020 and 2025 is invisible to it, and the 2020 census GQ count was itself disrupted by the pandemic, which sent a large share of dormitory residents to their family homes on Census Day. That last point biases college-town GQ *downward* in the base year, so the college adjustment here is if anything conservative.
+Group-quarters population is subtracted by age using 2020 Decennial DHC table P18 counts by type, **held constant as a share and scaled by county population growth 2020 to 2025**. Nationally this is 2.47% of population. The assumption is wrong in specific, knowable ways: a prison that closed or a dormitory that opened between 2020 and 2025 is invisible to it, and the 2020 census GQ count was itself disrupted by the pandemic, which sent a large share of dormitory residents to their family homes on Census Day. That last point biases college-town GQ *downward* in the base year, so the college adjustment here is if anything conservative.
 
 P18 resolves group quarters to three broad age groups only (under 18, 18–64, 65+), so within a group the subtraction is distributed in proportion to the local age distribution rather than assumed uniform.
 
@@ -449,7 +449,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `total_pop` | float64 | Total resident population, 7/1/2025 estimate. |
 | `total_pop_2020` | float64 | Total resident population, 7/1/2020 estimate (YEAR index 2). |
 | `median_age` | float64 | Median age of all ages, linear interpolation within the median single year. |
-| `dissimilarity` | float64 | Age-structure dissimilarity index, 0.5·Σ|p−q| over single-year shares against the nation. |
+| `dissimilarity` | float64 | Age-structure dissimilarity index: half the sum of |p − q| over single-year shares against the nation. |
 | `share_0_17` | float64 | Population aged 0–17 ÷ total population. |
 | `share_18_24` | float64 | Population aged 18–24 ÷ total population. |
 | `share_25_39` | float64 | Population aged 25–39 ÷ total population. |
@@ -478,11 +478,11 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `ccr_65_69__70_74` | float64 | Cohort change ratio: population aged 70–74 on 7/1/2025 ÷ population aged 65–69 on 7/1/2020. |
 | `ccr_70_74__75_79` | float64 | Cohort change ratio: population aged 75–79 on 7/1/2025 ÷ population aged 70–74 on 7/1/2020. |
 | `ccr_75_79__80_84` | float64 | Cohort change ratio: population aged 80–84 on 7/1/2025 ÷ population aged 75–79 on 7/1/2020. |
-| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 → 25–29 (stable alias of the generated column). |
-| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 → 30–34 (stable alias of the generated column). |
-| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 → 35–39 (stable alias of the generated column). |
-| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 → 65–69 (stable alias of the generated column). |
-| `ccr_prime_mean` | float64 | Mean of CCR(25–29→30–34) and CCR(30–34→35–39); the magnet signature. |
+| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 to 25–29 (stable alias of the generated column). |
+| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 to 30–34 (stable alias of the generated column). |
+| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 to 35–39 (stable alias of the generated column). |
+| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 to 65–69 (stable alias of the generated column). |
+| `ccr_prime_mean` | float64 | Mean of CCR(25–29 to 30–34) and CCR(30–34 to 35–39); the magnet signature. |
 | `sex_ratio_18_29` | float64 | Males per 100 females aged 18–29. |
 | `gq_total_2020` | float64 | Total group-quarters population, 2020 Decennial DHC table P18. |
 | `gq_correctional_u18` | float64 | Group-quarters population of type 'correctional' in age group u18, scaled to 2025. |
@@ -544,7 +544,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `qwi_emp_25_34_growth` | float64 | Ratio of the two preceding columns. |
 | `admin_support_available` | bool | True where admin_support_ratio could be computed. |
 | `seasonal_flag` | bool | True where the county is in the top decile of at least two available seasonality signals. |
-| `net_domestic_mig_2020_2025` | int64 | Sum of DOMESTICMIG2021…2025 (7/1/2020 → 7/1/2025). |
+| `net_domestic_mig_2020_2025` | int64 | Sum of DOMESTICMIG2021…2025 (7/1/2020 to 7/1/2025). |
 | `net_international_mig_2020_2025` | int64 | Sum of INTERNATIONALMIG2021…2025. |
 | `net_domestic_mig_rate` | float64 | Net domestic migration ÷ 7/1/2020 population. |
 | `net_international_mig_rate` | float64 | Net international migration ÷ 7/1/2020 population. |
@@ -582,7 +582,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `total_pop` | float64 | Total resident population, 7/1/2025 estimate. |
 | `total_pop_2020` | float64 | Total resident population, 7/1/2020 estimate (YEAR index 2). |
 | `median_age` | float64 | Median age of all ages, linear interpolation within the median single year. |
-| `dissimilarity` | float64 | Age-structure dissimilarity index, 0.5·Σ|p−q| over single-year shares against the nation. |
+| `dissimilarity` | float64 | Age-structure dissimilarity index: half the sum of |p − q| over single-year shares against the nation. |
 | `share_0_17` | float64 | Population aged 0–17 ÷ total population. |
 | `share_18_24` | float64 | Population aged 18–24 ÷ total population. |
 | `share_25_39` | float64 | Population aged 25–39 ÷ total population. |
@@ -611,11 +611,11 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `ccr_65_69__70_74` | float64 | Cohort change ratio: population aged 70–74 on 7/1/2025 ÷ population aged 65–69 on 7/1/2020. |
 | `ccr_70_74__75_79` | float64 | Cohort change ratio: population aged 75–79 on 7/1/2025 ÷ population aged 70–74 on 7/1/2020. |
 | `ccr_75_79__80_84` | float64 | Cohort change ratio: population aged 80–84 on 7/1/2025 ÷ population aged 75–79 on 7/1/2020. |
-| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 → 25–29 (stable alias of the generated column). |
-| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 → 30–34 (stable alias of the generated column). |
-| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 → 35–39 (stable alias of the generated column). |
-| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 → 65–69 (stable alias of the generated column). |
-| `ccr_prime_mean` | float64 | Mean of CCR(25–29→30–34) and CCR(30–34→35–39); the magnet signature. |
+| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 to 25–29 (stable alias of the generated column). |
+| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 to 30–34 (stable alias of the generated column). |
+| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 to 35–39 (stable alias of the generated column). |
+| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 to 65–69 (stable alias of the generated column). |
+| `ccr_prime_mean` | float64 | Mean of CCR(25–29 to 30–34) and CCR(30–34 to 35–39); the magnet signature. |
 | `sex_ratio_18_29` | float64 | Males per 100 females aged 18–29. |
 | `gq_total_2020` | float64 | Total group-quarters population, 2020 Decennial DHC table P18. |
 | `gq_correctional_u18` | float64 | Group-quarters population of type 'correctional' in age group u18, scaled to 2025. |
@@ -677,7 +677,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `qwi_emp_25_34_growth` | float64 | Ratio of the two preceding columns. |
 | `admin_support_available` | bool | True where admin_support_ratio could be computed. |
 | `seasonal_flag` | bool | True where the county is in the top decile of at least two available seasonality signals. |
-| `net_domestic_mig_2020_2025` | int64 | Sum of DOMESTICMIG2021…2025 (7/1/2020 → 7/1/2025). |
+| `net_domestic_mig_2020_2025` | int64 | Sum of DOMESTICMIG2021…2025 (7/1/2020 to 7/1/2025). |
 | `net_international_mig_2020_2025` | int64 | Sum of INTERNATIONALMIG2021…2025. |
 | `net_domestic_mig_rate` | float64 | Net domestic migration ÷ 7/1/2020 population. |
 | `net_international_mig_rate` | float64 | Net international migration ÷ 7/1/2020 population. |
@@ -696,7 +696,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `total_pop` | float64 | Total resident population, 7/1/2025 estimate. |
 | `total_pop_2020` | float64 | Total resident population, 7/1/2020 estimate (YEAR index 2). |
 | `median_age` | float64 | Median age of all ages, linear interpolation within the median single year. |
-| `dissimilarity` | float64 | Age-structure dissimilarity index, 0.5·Σ|p−q| over single-year shares against the nation. |
+| `dissimilarity` | float64 | Age-structure dissimilarity index: half the sum of |p − q| over single-year shares against the nation. |
 | `share_0_17` | float64 | Population aged 0–17 ÷ total population. |
 | `share_18_24` | float64 | Population aged 18–24 ÷ total population. |
 | `share_25_39` | float64 | Population aged 25–39 ÷ total population. |
@@ -725,11 +725,11 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `ccr_65_69__70_74` | float64 | Cohort change ratio: population aged 70–74 on 7/1/2025 ÷ population aged 65–69 on 7/1/2020. |
 | `ccr_70_74__75_79` | float64 | Cohort change ratio: population aged 75–79 on 7/1/2025 ÷ population aged 70–74 on 7/1/2020. |
 | `ccr_75_79__80_84` | float64 | Cohort change ratio: population aged 80–84 on 7/1/2025 ÷ population aged 75–79 on 7/1/2020. |
-| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 → 25–29 (stable alias of the generated column). |
-| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 → 30–34 (stable alias of the generated column). |
-| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 → 35–39 (stable alias of the generated column). |
-| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 → 65–69 (stable alias of the generated column). |
-| `ccr_prime_mean` | float64 | Mean of CCR(25–29→30–34) and CCR(30–34→35–39); the magnet signature. |
+| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 to 25–29 (stable alias of the generated column). |
+| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 to 30–34 (stable alias of the generated column). |
+| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 to 35–39 (stable alias of the generated column). |
+| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 to 65–69 (stable alias of the generated column). |
+| `ccr_prime_mean` | float64 | Mean of CCR(25–29 to 30–34) and CCR(30–34 to 35–39); the magnet signature. |
 | `sex_ratio_18_29` | float64 | Males per 100 females aged 18–29. |
 | `gq_imputed` | bool | True where the county had no DHC GQ record and GQ was treated as zero. |
 | `gq_total_2020` | float64 | Total group-quarters population, 2020 Decennial DHC table P18. |
@@ -764,7 +764,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `gq_college_total` | float64 | Group-quarters population of type 'college', all ages, scaled to 2025. |
 | `gq_military_total` | float64 | Group-quarters population of type 'military', all ages, scaled to 2025. |
 | `gq_other_noninst_total` | float64 | Group-quarters population of type 'other noninst', all ages, scaled to 2025. |
-| `gq_scale_factor` | float64 | 2020→2025 population growth factor applied to the GQ counts. |
+| `gq_scale_factor` | float64 | 2020 to 2025 population growth factor applied to the GQ counts. |
 | `gq_scale_clipped` | bool | True where the growth factor was clipped to [0.5, 2.0]. |
 | `hh_pop` | float64 | Household population 7/1/2025: total less group quarters scaled to 2025. |
 | `median_age_hh` | float64 | Median age of the household population (group quarters subtracted). |
@@ -802,7 +802,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `n_seasonal_signals` | int64 | Count of available signals on which the county is in the top decile. |
 | `seasonal_flag` | bool | True where the county is in the top decile of at least two available seasonality signals. |
 | `n_signals_available` | int64 | How many of the three seasonality signals were available (2 of 3; H-2A/H-2B not ingested). |
-| `carceral_flag` | bool | Correctional GQ ≥ 5% of population AND sex ratio 18–29 above 110. |
+| `carceral_flag` | bool | Correctional GQ of 5% or more of population AND sex ratio 18–29 above 110. |
 | `snowbird_flag` | bool | Seasonal flag set AND 65+ share in the national top decile. |
 
 ### `measures_state.parquet`
@@ -816,7 +816,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `total_pop` | float64 | Total resident population, 7/1/2025 estimate. |
 | `total_pop_2020` | float64 | Total resident population, 7/1/2020 estimate (YEAR index 2). |
 | `median_age` | float64 | Median age of all ages, linear interpolation within the median single year. |
-| `dissimilarity` | float64 | Age-structure dissimilarity index, 0.5·Σ|p−q| over single-year shares against the nation. |
+| `dissimilarity` | float64 | Age-structure dissimilarity index: half the sum of |p − q| over single-year shares against the nation. |
 | `share_0_17` | float64 | Population aged 0–17 ÷ total population. |
 | `share_18_24` | float64 | Population aged 18–24 ÷ total population. |
 | `share_25_39` | float64 | Population aged 25–39 ÷ total population. |
@@ -845,11 +845,11 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `ccr_65_69__70_74` | float64 | Cohort change ratio: population aged 70–74 on 7/1/2025 ÷ population aged 65–69 on 7/1/2020. |
 | `ccr_70_74__75_79` | float64 | Cohort change ratio: population aged 75–79 on 7/1/2025 ÷ population aged 70–74 on 7/1/2020. |
 | `ccr_75_79__80_84` | float64 | Cohort change ratio: population aged 80–84 on 7/1/2025 ÷ population aged 75–79 on 7/1/2020. |
-| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 → 25–29 (stable alias of the generated column). |
-| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 → 30–34 (stable alias of the generated column). |
-| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 → 35–39 (stable alias of the generated column). |
-| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 → 65–69 (stable alias of the generated column). |
-| `ccr_prime_mean` | float64 | Mean of CCR(25–29→30–34) and CCR(30–34→35–39); the magnet signature. |
+| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 to 25–29 (stable alias of the generated column). |
+| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 to 30–34 (stable alias of the generated column). |
+| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 to 35–39 (stable alias of the generated column). |
+| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 to 65–69 (stable alias of the generated column). |
+| `ccr_prime_mean` | float64 | Mean of CCR(25–29 to 30–34) and CCR(30–34 to 35–39); the magnet signature. |
 | `sex_ratio_18_29` | float64 | Males per 100 females aged 18–29. |
 | `median_age_county_p25` | float64 | Within-state median age percentile p25 across the state's counties. |
 | `median_age_county_p75` | float64 | Within-state median age percentile p75 across the state's counties. |
@@ -871,7 +871,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `total_pop` | float64 | Total resident population, 7/1/2025 estimate. |
 | `median_age` | float64 | Median age of all ages, linear interpolation within the median single year. |
 | `modality_count` | int64 | Local maxima in the 3-year-smoothed single-year age distribution, prominence 0.12× the mean single-year share. |
-| `dissimilarity` | float64 | Age-structure dissimilarity index, 0.5·Σ|p−q| over single-year shares against the nation. |
+| `dissimilarity` | float64 | Age-structure dissimilarity index: half the sum of |p − q| over single-year shares against the nation. |
 | `gq_college_share` | float64 | Group-quarters population of type 'college' ÷ total population. |
 | `gq_military_share` | float64 | Group-quarters population of type 'military' ÷ total population. |
 | `gq_correctional_share` | float64 | Group-quarters population of type 'correctional' ÷ total population. |
@@ -895,7 +895,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `total_pop` | float64 | Total resident population, 7/1/2025 estimate. |
 | `total_pop_2020` | float64 | Total resident population, 7/1/2020 estimate (YEAR index 2). |
 | `median_age` | float64 | Median age of all ages, linear interpolation within the median single year. |
-| `dissimilarity` | float64 | Age-structure dissimilarity index, 0.5·Σ|p−q| over single-year shares against the nation. |
+| `dissimilarity` | float64 | Age-structure dissimilarity index: half the sum of |p − q| over single-year shares against the nation. |
 | `share_0_17` | float64 | Population aged 0–17 ÷ total population. |
 | `share_18_24` | float64 | Population aged 18–24 ÷ total population. |
 | `share_25_39` | float64 | Population aged 25–39 ÷ total population. |
@@ -924,11 +924,11 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `ccr_65_69__70_74` | float64 | Cohort change ratio: population aged 70–74 on 7/1/2025 ÷ population aged 65–69 on 7/1/2020. |
 | `ccr_70_74__75_79` | float64 | Cohort change ratio: population aged 75–79 on 7/1/2025 ÷ population aged 70–74 on 7/1/2020. |
 | `ccr_75_79__80_84` | float64 | Cohort change ratio: population aged 80–84 on 7/1/2025 ÷ population aged 75–79 on 7/1/2020. |
-| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 → 25–29 (stable alias of the generated column). |
-| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 → 30–34 (stable alias of the generated column). |
-| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 → 35–39 (stable alias of the generated column). |
-| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 → 65–69 (stable alias of the generated column). |
-| `ccr_prime_mean` | float64 | Mean of CCR(25–29→30–34) and CCR(30–34→35–39); the magnet signature. |
+| `ccr_20_24_to_25_29` | float64 | Cohort change ratio 20–24 to 25–29 (stable alias of the generated column). |
+| `ccr_25_29_to_30_34` | float64 | Cohort change ratio 25–29 to 30–34 (stable alias of the generated column). |
+| `ccr_30_34_to_35_39` | float64 | Cohort change ratio 30–34 to 35–39 (stable alias of the generated column). |
+| `ccr_60_64_to_65_69` | float64 | Cohort change ratio 60–64 to 65–69 (stable alias of the generated column). |
+| `ccr_prime_mean` | float64 | Mean of CCR(25–29 to 30–34) and CCR(30–34 to 35–39); the magnet signature. |
 | `sex_ratio_18_29` | float64 | Males per 100 females aged 18–29. |
 | `gq_total_2020` | float64 | Total group-quarters population, 2020 Decennial DHC table P18. |
 | `gq_correctional_u18` | float64 | Group-quarters population of type 'correctional' in age group u18, scaled to 2025. |
@@ -990,7 +990,7 @@ Every column in `data/processed/`. Descriptions are generated from a registry; a
 | `qwi_emp_25_34_growth` | float64 | Ratio of the two preceding columns. |
 | `admin_support_available` | bool | True where admin_support_ratio could be computed. |
 | `seasonal_flag` | bool | True where the county is in the top decile of at least two available seasonality signals. |
-| `net_domestic_mig_2020_2025` | int64 | Sum of DOMESTICMIG2021…2025 (7/1/2020 → 7/1/2025). |
+| `net_domestic_mig_2020_2025` | int64 | Sum of DOMESTICMIG2021…2025 (7/1/2020 to 7/1/2025). |
 | `net_international_mig_2020_2025` | int64 | Sum of INTERNATIONALMIG2021…2025. |
 | `net_domestic_mig_rate` | float64 | Net domestic migration ÷ 7/1/2020 population. |
 | `net_international_mig_rate` | float64 | Net international migration ÷ 7/1/2020 population. |

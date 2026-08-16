@@ -28,7 +28,7 @@ State-level dashboard for monitoring Medicaid enrollment, managed care penetrati
 ## Deployment to GitHub Pages
 
 1. Copy this directory to the root of your GitHub repo (or a `/docs` folder)
-2. In **Settings → Pages**, set source to `main` branch, `/root` (or `/docs`)
+2. In **Settings, then Pages**, set source to `main` branch, `/root` (or `/docs`)
 3. No build step required — pure static HTML/CSS/JS with ES modules
 
 ```

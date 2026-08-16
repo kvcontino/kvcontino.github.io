@@ -4,7 +4,7 @@ title: "Metropolitan Age Structure — Source Manifest"
 description: "Every cached source file with its URL, byte size, SHA256 and retrieval timestamp."
 ---
 
-<p class="meta"><a href="/_resources/metro-age-structure/report.html">&larr; back to the technical report</a></p>
+<p class="meta"><a href="/_resources/metro-age-structure/report.html">&lsaquo; back to the technical report</a></p>
 
 
 Generated 2026-07-26T04:33:53+00:00
@@ -16,13 +16,13 @@ Total bytes: **251,284,649**
 
 Paths given in the project spec that 404'd, and what was used instead. Each substitution was verified against the Census directory listing, not guessed.
 
-### `cc-est2025-agesex.csv` → `cc-est2025-agesex-01.csv` (+51 more)
+### `cc-est2025-agesex.csv` becomes `cc-est2025-agesex-01.csv` (+51 more)
 
 - **Spec URL (404):** https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/counties/asrh/cc-est2025-agesex.csv
 - **Used instead:** https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/counties/asrh/cc-est2025-agesex-01.csv _and 51 sibling files_
 - **Reason:** Spec path returns 404. Census publishes county agesex split per-state as cc-est2025-agesex-<STATEFIPS>.csv (52 files: 50 states + DC + PR). Verified against directory listing.
 
-### `sc-est2025-syasex.csv` → `sc-est2025-alldata6.csv`
+### `sc-est2025-syasex.csv` becomes `sc-est2025-alldata6.csv`
 
 - **Spec URL (404):** https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/state/asrh/sc-est2025-syasex.csv
 - **Used instead:** https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/state/asrh/sc-est2025-alldata6.csv
