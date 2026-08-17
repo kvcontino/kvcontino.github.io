@@ -1,0 +1,88 @@
+# Projects index. Rendered by _pages/presentations.html.
+#
+# Order here is display order, newest first. Nothing sorts this file, so a new
+# entry goes where it belongs by hand.
+#
+# `mark` names a drawing in _includes/project-mark.html. It is deliberately a
+# key and not a filename, so a form can be shared: two projects that ARE the
+# same kind of thing get the same mark. Adding a project with no new form means
+# reusing a key and drawing nothing. The valid keys are listed at the top of
+# that include; an unrecognised one renders no mark rather than failing loudly,
+# so check the page after adding one.
+#
+# `blurb` is one sentence, plain text, no markup. Keep it to what the thing IS.
+
+- title: Metropolitan Age Structure in the United States
+  url: /_resources/metro-age-structure/
+  date: 2026-08-01
+  mark: pyramid
+  blurb: >-
+    A typology of age structures across 387 metropolitan areas and 3,144
+    counties, separating the high-fertility exurb, the garrison, the college
+    town and the working-age magnet.
+
+- title: "Metro Relocation: A Tunable Neighborhood Screen"
+  url: /_resources/metro-relocation/
+  date: 2026-07-08
+  mark: catchment
+  blurb: >-
+    A tunable two-level model for screening where to live: metros first, then
+    neighborhoods.
+
+- title: "OneCare Vermont: A Post-Mortem"
+  url: /_resources/onecare/
+  date: 2026-07-08
+  mark: diverge
+  blurb: >-
+    What the public data says about Vermont's eight-year all-payer ACO
+    experiment.
+
+- title: Federal Medicaid Data Catalog
+  url: https://kvcontino.github.io/medicaid-data-catalog/
+  date: 2026-04-11
+  mark: catalog
+  blurb: >-
+    163 federal Medicaid and CHIP datasets, sorted by subject and refresh
+    cadence, each with a direct download link.
+
+- title: Medicaid Enrollment Monitor
+  url: /_resources/mcaid/
+  date: 2026-03-21
+  mark: series
+  blurb: >-
+    Medicaid and CHIP enrollment by state.
+
+- title: North Country / Adirondack Town Toponyms
+  url: /_resources/nny-toponyms.html
+  date: 2026-03-20
+  mark: toponym
+  blurb: >-
+    Where the town names of the North Country came from.
+
+- title: North Country / Adirondack Town Population Change
+  url: /_resources/nny-population-map.html
+  date: 2026-03-20
+  mark: choropleth
+  blurb: >-
+    Town-level population change across the North Country and the Adirondacks,
+    2000 to 2020.
+
+- title: Vermont Town Population Change
+  url: /_resources/vermont-population-map.html
+  date: 2026-03-15
+  mark: choropleth
+  blurb: >-
+    Town-level population change across Vermont, 2000 to 2020.
+
+- title: Personal Media Audit
+  url: /_pages/media.html
+  date: 2026-03-15
+  mark: shelf
+  blurb: >-
+    Staving off infobesity.
+
+- title: Data-Driven Culture
+  url: /_resources/data-driven-culture/
+  date: 2018-03-16
+  mark: deck
+  blurb: Five principles for using data wisely.

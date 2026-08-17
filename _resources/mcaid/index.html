@@ -8,6 +8,20 @@ layout: null
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Medicaid & CHIP Program Monitor</title>
+<!-- Open Graph. This page has its own <head> and never passes through
+     _layouts/default.html, so jekyll-seo-tag never runs here and
+     these are written out by hand. Absolute urls are required: link scrapers do
+     not resolve relative paths. Card art: script/build-og-cards.py -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Kevin V. Contino">
+<meta property="og:title" content="Medicaid Enrollment Monitor">
+<meta property="og:description" content="Medicaid and CHIP enrollment by state.">
+<meta property="og:url" content="https://kvcontino.github.io/_resources/mcaid/">
+<meta property="og:image" content="https://kvcontino.github.io/assets/og/mcaid.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="Medicaid Enrollment Monitor — Medicaid and CHIP enrollment by state.">
+<meta name="twitter:card" content="summary_large_image">
   <meta name="description" content="State-level Medicaid enrollment, managed care penetration, and expenditure trends. Data from data.medicaid.gov.">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -23,6 +37,12 @@ layout: null
       <div class="header-meta">
         <span id="data-currency">Loading…</span>
         <a href="https://data.medicaid.gov" target="_blank" rel="noopener" class="data-source-tag">data.medicaid.gov</a>
+        <!-- Route back into the site. This page is `layout: null` with its own
+             <head> and its own dark theme, so it inherits no sidebar from the
+             Jekyll layout and a reader arriving from the feed would otherwise
+             have nowhere to go. Reuses .data-source-tag rather than adding a
+             rule, so it takes this page's palette and needs no new CSS. -->
+        <a href="/_pages/presentations.html" class="data-source-tag">Kevin V. Contino</a>
       </div>
     </div>
   </header>

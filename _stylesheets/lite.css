@@ -154,14 +154,61 @@ body {
 .sidebar { margin-right: calc(-1 * var(--track)); }
 
 .sidebar a {
-  display: block;
+  /* Flex, not block, so the word and its mark are one row that ends flush
+     right. The word is an anonymous flex item; it stays ragged-left while the
+     marks form a true column down the right edge. */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.55em;
   margin-bottom: 1.4em;
+  /* Cancels the sidebar's optical pull, for these rows only. That pull
+     compensates for tracking added after the final LETTER; a row ending in a
+     mark has no trailing track to absorb, so without this the icon column
+     would hang 0.14em past the edge the site name aligns to. */
+  margin-right: var(--track);
   text-transform: uppercase;
   letter-spacing: var(--track);
   color: var(--ink-2);
   text-decoration: none;
 }
 .sidebar a:hover { color: var(--ink); }
+
+/* You-are-here. --ember, not --bleed: this is 15px text, and only --ember
+   clears AA at reading size (5.23:1 against the void; the display red is
+   3.15:1 and is reserved for the h1 and for rules). It travels to --bleed on
+   hover, the same direction the subscribe label and the footnote marker take.
+
+   The mark inherits it for free -- every stroke in these drawings is
+   currentColor -- so the whole row changes state as one object.
+
+   Selecting on the attribute rather than a class means the visual state and
+   the state announced to a screen reader cannot drift apart: there is only one
+   thing to set. It outranks the :hover rule above on specificity, so a hover
+   over the current page does not knock it back to plain ink. */
+.sidebar a[aria-current="page"] { color: var(--ember); }
+.sidebar a[aria-current="page"]:hover,
+.sidebar a[aria-current="page"]:focus { color: var(--bleed); }
+
+/* Nav marks. Drawn, not typed: Sorts Mill Goudy has no geometric shapes, so a
+   glyph would silently fall back to a different face -- the same reason the
+   subscribe block draws its own RSS mark rather than setting one.
+
+   Every stroke is `currentColor`, so a mark takes its link's colour and travels
+   with it on hover. There is no second hover rule to keep in sync.
+
+   Sized in `em`, so they scale with the sidebar's 0.8em type rather than being
+   pinned to a pixel size that only looks right at one zoom level. */
+.navicon {
+  flex: 0 0 auto;
+  width: 1.15em;
+  height: 1.15em;
+  /* Optical centring. `align-items: center` centres the mark on the LINE BOX,
+     but the visual mass of tracked capitals sits above that centre, so the mark
+     reads a hair low without this. */
+  position: relative;
+  top: -0.05em;
+}
 
 /* --- The crawl ------------------------------------------------------------
    Set like a book. Ragged right, not justified: the crawl in the film is
@@ -533,6 +580,68 @@ figcaption strong {
   color: var(--ink-2);
   margin-top: 0.15em;
 }
+
+/* A dateline for a page rather than for an item. Italic and small so it reads
+   as apparatus rather than as the first sentence of the page — it is the kind
+   of thing a reader consults, not something they read on the way in. */
+.updated {
+  font-style: italic;
+  font-size: 0.82em;
+  color: var(--ink-2);
+  max-width: var(--measure);
+  margin-top: -0.4em;
+}
+
+/* --- Project list ---------------------------------------------------------
+   The posts index in a wider register: same date/title/blurb stack, plus a
+   mark in a left gutter. The gutter is what makes it a different object rather
+   than a longer version of the same one — ten rows of pure type read as a
+   directory, and these are finished pieces of work.
+
+   Grid, not float or flex: the marks need to hold ONE column whatever the
+   titles do, and only a grid track guarantees that when a title wraps to two
+   lines. 40px is the drawing's natural size, so the SVG is never resampled. */
+.projectlist {
+  list-style: none;
+  padding: 0;
+  margin: 2em 0 0 0;
+  max-width: var(--measure);
+}
+.projectlist li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  column-gap: 1.4em;
+  align-items: start;
+  margin: 0 0 2.1em 0;
+  word-spacing: normal;
+}
+/* Nudged to sit against the date rather than the top of the line box, which is
+   taller than the tracked capitals inside it. */
+.projectmark { display: block; padding-top: 0.15em; }
+.projectmark svg {
+  display: block;
+  width: 40px;
+  height: 40px;
+  /* Quieter than the title at rest: the title is what you are choosing
+     between, and ten marks at full ink would read as the loudest thing on the
+     page. Same subordination the home page marks use. */
+  color: var(--ink-2);
+}
+/* The mark is aria-hidden and sits outside the anchor, so it cannot inherit
+   the link's own :hover. Driving it from the row restores the connection --
+   :focus-within as well as :hover, or the mark would stay dim for anyone
+   arriving by keyboard, which is precisely when a "you are here" cue helps. */
+.projectlist li:hover .projectmark svg,
+.projectlist li:focus-within .projectmark svg { color: var(--ember); }
+.projectlist time {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: 0.2em;
+}
+.projectlist a { font-size: 1.05em; }
 
 /* --- Stat row -------------------------------------------------------------
    A handful of headline numbers is a KPI row, not a bar chart — and when the
@@ -1142,8 +1251,17 @@ h3 + .cvfig { margin-top: 1.2em; }
 
   .site-name { margin-bottom: 0.8em; }
 
+  /* Here the nav is a wrapped horizontal row, so vertical space between the
+     lines is the CONTAINER's line-height -- vertical margins on an inline-level
+     box do not open up a line box. 1.9 rather than the inherited value because
+     each link now carries a mark as well as a word, and at the default the two
+     wrapped lines met with no gap at all. */
+  .sidebar { line-height: 1.9; }
+
+  /* inline-FLEX, not inline: the desktop rule above makes each link a flex row
+     of word + mark, and plain `inline` would drop the mark to its own line. */
   .sidebar a {
-    display: inline;
+    display: inline-flex;
     margin-right: 1.4em;
     margin-bottom: 0;
   }

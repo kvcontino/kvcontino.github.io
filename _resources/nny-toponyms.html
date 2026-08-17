@@ -4,6 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>North Country & Adirondack Town Toponyms v2</title>
+<!-- Open Graph. This page has its own <head> and never passes through
+     _layouts/default.html, so jekyll-seo-tag never runs here and
+     these are written out by hand. Absolute urls are required: link scrapers do
+     not resolve relative paths. Card art: script/build-og-cards.py -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Kevin V. Contino">
+<meta property="og:title" content="North Country / Adirondack Town Toponyms">
+<meta property="og:description" content="Where the town names of the North Country came from.">
+<meta property="og:url" content="https://kvcontino.github.io/_resources/nny-toponyms.html">
+<meta property="og:image" content="https://kvcontino.github.io/assets/og/nny-toponyms.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="North Country / Adirondack Town Toponyms — Where the town names of the North Country came from.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Where the town names of the North Country came from.">
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
@@ -11,6 +26,15 @@
   :root { --ink: #1a1916; --paper: #f5f2ec; --rule: #c8c4ba; --muted: #7a7670; }
   html, body { min-height: 100%; background: var(--paper); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; line-height: 1.5; }
   .page { max-width: 820px; margin: 0 auto; padding: 48px 32px 64px; }
+  /* Link back into the site. These three pages are standalone HTML with their
+     own theme and their own <head>, so they inherit nothing from the Jekyll
+     layout -- including its sidebar. Without this a reader who arrives from the
+     feed or from a shared link has no route anywhere else on the site. Styled
+     from THIS page's tokens, not the main site's, because the two do not share
+     a palette. */
+  .sitelink { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .sitelink a { color: var(--muted); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .sitelink a:hover { color: var(--ink); }
   header { border-top: 2px solid var(--ink); padding-top: 18px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
   h1 { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }
   .byline { font-size: 12px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; line-height: 1.8; text-align: right; }
@@ -36,6 +60,7 @@
 </head>
 <body>
 <div class="page">
+  <nav class="sitelink"><a href="/">Kevin V. Contino</a> &middot; <a href="/_pages/presentations.html">Projects</a></nav>
   <header>
     <h1>North Country &amp;<br>Adirondack toponyms</h1>
     <div class="byline">

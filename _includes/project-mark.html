@@ -1,0 +1,187 @@
+{% comment %}
+  Project marks. Called as {% raw %}{% include project-mark.html mark=p.mark %}{% endraw %}
+  -- Jekyll 3's include tag takes `param=value`, and `param: value` is a hard
+  build error, not a silently empty parameter.
+
+  Valid keys: pyramid, catchment, diverge, series, catalog, toponym,
+  choropleth, shelf, deck. An unknown key renders nothing.
+
+  THE RULE: a mark is a miniature of the FORM the project's own figures take,
+  not a logo for its subject. That is why two projects can share one — the two
+  town-population maps ARE the same object with different geography, and
+  `choropleth` says so. Give a project its own mark when its form is its own,
+  not because it feels important.
+
+  Drawn on a 40x40 viewBox, rendered at about 40px, so one unit is roughly one
+  pixel and stroke widths mean what they say. This is the site's THIRD mark
+  scale and each has its own grid: the nav icons are 24x24 at ~17px, and the
+  home page's figure marks are 120x76 at 160px. Do not scale a drawing between
+  them — the four marks here that also appear on the home page were redrawn at
+  this size, because the age pyramid's sixteen bars and the relocation grid both
+  turn to mud under about 80px. Same form, different drawing.
+
+  Every stroke is currentColor or var(--ink-faint), so the row's link colour
+  drives the whole mark and hover needs no separate rule. Structure (axes,
+  baselines) is ink-faint; the thing being shown is currentColor. The faint
+  baseline at y=35.5 is the same device the home page marks use.
+{% endcomment %}
+{% case include.mark %}
+
+{% when "pyramid" %}
+{% comment %}Age pyramid. Six bands a side, not the home mark's eight: below
+  4px of pitch the gaps close and it reads as a solid arrowhead.{% endcomment %}
+<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <g fill="currentColor">
+    <rect x="13" y="8"  width="6"  height="3"/><rect x="21" y="8"  width="5"  height="3"/>
+    <rect x="11" y="12" width="8"  height="3"/><rect x="21" y="12" width="7"  height="3"/>
+    <rect x="8"  y="16" width="11" height="3"/><rect x="21" y="16" width="10" height="3"/>
+    <rect x="4"  y="20" width="15" height="3"/><rect x="21" y="20" width="15" height="3"/>
+    <rect x="6"  y="24" width="13" height="3"/><rect x="21" y="24" width="14" height="3"/>
+    <rect x="10" y="28" width="9"  height="3"/><rect x="21" y="28" width="10" height="3"/>
+  </g>
+  <line x1="4" y1="35.5" x2="36" y2="35.5" stroke="var(--ink-faint)" stroke-width="1"/>
+</svg>
+
+{% when "catchment" %}
+{% comment %}Street grid, one address, and the area reachable from it. The
+  catchment turns in right angles along the grid rather than being a circle:
+  the screen measures what the network reaches, never a Euclidean radius, and a
+  round blob would state the opposite.
+
+  No baseline rule on this one. The grid already supplies four horizontals and
+  verticals; a fifth line along the bottom reads as one more street rather than
+  as the ground the other marks sit on. The drawing also runs to the edges of
+  the box where the home page's version has room to breathe — at 40px the same
+  proportions closed into an undifferentiated blob.{% endcomment %}
+<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <g stroke="var(--ink-faint)" stroke-width="1">
+    <line x1="13" y1="3" x2="13" y2="37"/>
+    <line x1="27" y1="3" x2="27" y2="37"/>
+    <line x1="3" y1="13" x2="37" y2="13"/>
+    <line x1="3" y1="27" x2="37" y2="27"/>
+  </g>
+  <path d="M20 6 H27 V13 H34 V27 H27 V34 H13 V27 H6 V13 H13 V6 Z"
+        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="20" cy="20" r="2.4" fill="currentColor"/>
+</svg>
+
+{% when "diverge" %}
+{% comment %}Two paths from a common origin, one dashed: what was projected
+  against what happened. The dash is the counterfactual, which is the whole
+  argument of a post-mortem.{% endcomment %}
+<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <line x1="20" y1="5" x2="20" y2="31" stroke="var(--ink-faint)" stroke-width="1"/>
+  <path d="M5 24 L13 22 L20 20 L27 14 L35 7" fill="none" stroke="currentColor"
+        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M5 26 L13 24 L20 22 L27 24 L35 28" fill="none" stroke="currentColor"
+        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+        stroke-dasharray="3.5 2.5"/>
+  <line x1="4" y1="35.5" x2="36" y2="35.5" stroke="var(--ink-faint)" stroke-width="1"/>
+</svg>
+
+{% when "series" %}
+{% comment %}One series over time with a run-up and a fall — the shape an
+  enrollment monitor exists to show.{% endcomment %}
+<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <path d="M5 30 L11 27 L16 25 L19 12 L24 9 L28 11 L32 24 L35 28" fill="none"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round"/>
+  <line x1="4" y1="35.5" x2="36" y2="35.5" stroke="var(--ink-faint)" stroke-width="1"/>
+</svg>
+
+{% when "catalog" %}
+{% comment %}Index entries: a row per record, each with its own tick. The
+  general-purpose mark for a catalogue, register or inventory.{% endcomment %}
+<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <g fill="none" stroke="currentColor" stroke-width="1.4">
+    <rect x="6" y="7"  width="28" height="8" rx="1"/>
+    <rect x="6" y="18" width="28" height="8" rx="1"/>
+    <rect x="6" y="29" width="28" height="8" rx="1"/>
+  </g>
+  <g fill="currentColor">
+    <rect x="9" y="10" width="3" height="2"/>
+    <rect x="9" y="21" width="3" height="2"/>
+    <rect x="9" y="32" width="3" height="2"/>
+  </g>
+</svg>
+
+{% when "toponym" %}
+{% comment %}Three located dots, each with its name set beside it, inside a
+  territory. Two earlier attempts failed for opposite reasons. A single dot
+  with a leader and a label read as a fishing rod -- one instance of a thing is
+  a picture of that thing, where three in a scatter is a picture of the
+  PRACTICE, which is what a study of place names is about. But the three dots
+  ALONE then read as a bulleted list, because a left-aligned column of
+  dot-plus-rule is the universal icon for one. The faint boundary is what makes
+  them places rather than bullets, and it is the only element here doing that
+  work -- do not drop it as clutter.{% endcomment %}
+<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <path d="M4 8 L13 4 L27 6 L36 14 L34 28 L22 36 L9 32 L3 19 Z" fill="none"
+        stroke="var(--ink-faint)" stroke-width="1" stroke-linejoin="round"/>
+  <g fill="currentColor">
+    <circle cx="11" cy="13" r="1.8"/>
+    <circle cx="20" cy="23" r="1.8"/>
+    <circle cx="13" cy="31" r="1.8"/>
+  </g>
+  <g stroke-linecap="round">
+    <line x1="14.5" y1="13" x2="27" y2="13" stroke="currentColor" stroke-width="1.6"/>
+    <line x1="23.5" y1="23" x2="30" y2="23" stroke="var(--ink-faint)" stroke-width="1.6"/>
+    <line x1="16.5" y1="31" x2="25" y2="31" stroke="currentColor" stroke-width="1.6"/>
+  </g>
+</svg>
+
+{% when "choropleth" %}
+{% comment %}Parcels of an irregular territory, shaded by value. The
+  general-purpose mark for any town-, county- or tract-level map — reused
+  deliberately, because two such maps of different places are the same
+  object.
+
+  Six parcels in two ragged rows. Three cells were drawn first and were worse,
+  not simpler: with all three meeting at one interior point and shaded light on
+  top, dark below, the eye assembled an isometric CUBE and the map vanished.
+  The defence against that is division lines that stay roughly parallel to the
+  box edges and more cells than a solid has faces. Three shades — unfilled,
+  faint, full — because that is a choropleth's actual structure, a legend of
+  classes rather than an outline with decoration.{% endcomment %}
+<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <g stroke="currentColor" stroke-width="1.3" stroke-linejoin="round">
+    <path d="M5 13 L13 6 L15 19 L6 21 Z"    fill="none"/>
+    <path d="M13 6 L25 5 L27 18 L15 19 Z"   fill="var(--ink-faint)"/>
+    <path d="M25 5 L35 12 L34 20 L27 18 Z"  fill="none"/>
+    <path d="M6 21 L15 19 L17 33 L9 30 Z"   fill="currentColor"/>
+    <path d="M15 19 L27 18 L28 32 L17 33 Z" fill="none"/>
+    <path d="M27 18 L34 20 L33 28 L28 32 Z" fill="currentColor"/>
+  </g>
+</svg>
+
+{% when "shelf" %}
+{% comment %}Spines on a shelf. Four, not six: below about 6 units of width the
+  stroke eats the interior and they read as a picket fence.{% endcomment %}
+<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <g stroke="currentColor" stroke-width="1.4">
+    <rect x="6.5"  y="16" width="6" height="16" fill="none"/>
+    <rect x="14"   y="11" width="6" height="21" fill="currentColor"/>
+    <rect x="21.5" y="19" width="6" height="13" fill="none"/>
+    <rect x="29"   y="14" width="6" height="18" fill="none"/>
+  </g>
+  <line x1="4" y1="33.5" x2="36" y2="33.5" stroke="currentColor" stroke-width="1.6"
+        stroke-linecap="round"/>
+</svg>
+
+{% when "deck" %}
+{% comment %}A screen on a stand: a talk rather than a document. The
+  general-purpose mark for slides and presentations.{% endcomment %}
+<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <rect x="6" y="7" width="28" height="19" rx="1" fill="none" stroke="currentColor"
+        stroke-width="1.5"/>
+  <g stroke="var(--ink-faint)" stroke-width="1.5" stroke-linecap="round">
+    <line x1="10" y1="14" x2="26" y2="14"/>
+    <line x1="10" y1="19.5" x2="21" y2="19.5"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <line x1="20" y1="26" x2="20" y2="33"/>
+    <line x1="14" y1="33.5" x2="26" y2="33.5"/>
+  </g>
+</svg>
+
+{% endcase %}

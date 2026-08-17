@@ -28,6 +28,124 @@ refreshes the browser on every save.
 
 ---
 
+## Adding a project
+
+The Projects index is generated from **`_data/projects.yml`**. Do not edit
+`_pages/presentations.html` to add one — that file is now only the loop.
+
+```yaml
+- title: Vermont Town Population Change
+  url: /_resources/vermont-population-map.html
+  date: 2026-03-15
+  mark: choropleth          # a key from _includes/project-mark.html
+  blurb: >-
+    Town-level population change across Vermont, 2000 to 2020.
+```
+
+Put the entry where it belongs in the file: **the file's order is the display
+order** and nothing sorts it. Sorting on `date` was tried and dropped, because
+several projects share a date and Liquid's sort is not stable, so tied rows
+would reshuffle between builds for no reason a reader could see.
+
+`mark` names a drawing, not a file, so **a form can be shared**. The two
+town-population maps are the same object with different geography, and both say
+`choropleth`. Reach for an existing key first; draw a new one only when the
+project's *form* is its own, not because it feels important. An unrecognised key
+renders no mark and does not fail the build, so look at the page after adding
+one.
+
+> **The site has three mark scales and they are not interchangeable.** Nav icons
+> are 24×24 rendered at ~17px, project marks are 40×40 at 40px, and the home
+> page's figure marks are 120×76 at 160px. The four marks that appear at two
+> scales were *redrawn*, not scaled: the age pyramid loses its bands and the
+> relocation grid closes into a blob below about 80px. Detail budgets differ by
+> a lot — three or four elements at 17px, six or seven at 40px.
+>
+> Draw a new mark on a scratch page and **render it at 3–6× before believing
+> it**, because the failures are recognition failures, not geometry ones, and
+> they are invisible in the source. Rejected drawings so far: a pen that read as
+> a scalpel, a dividers pair whose symmetric arc closed into a tent, a set of
+> labelled dots that read as a bulleted list, and a three-cell choropleth whose
+> shading assembled into an isometric cube. Each was geometrically fine.
+
+A new entry goes out **on the site's one feed**, alongside posts — see below.
+The index's "last updated" line comes from the newest `date:` in the YAML, so
+it maintains itself.
+
+### The feed carries posts *and* projects
+
+`feed.xml` in the repo root is **ours**, not jekyll-feed's. The plugin's
+generator does `next if file_exists?(path)`, so a source file at that path
+switches it off; the plugin stays in `_config.yml` because `{% raw %}{% feed_meta %}{% endraw %}`
+is a separate tag and still emits the autodiscovery `<link>`.
+
+The alternative — jekyll-feed's `collections:` option — only ever produces a
+*second* feed at `/feed/<name>.xml`. One address is the point.
+
+> **Never change an entry's `<id>`.** It is how a reader decides whether it has
+> seen an item before, so a new scheme re-notifies every subscriber about every
+> old post. Posts use jekyll-feed's exact expression, `post.id | absolute_url`
+> — note that this is the URL *without* the `.html`, and is deliberately not
+> the same string as the entry's `<link href>`. After touching this file,
+> diff the built feed's post entries against the previous build before pushing.
+
+Two things to know when editing the template:
+
+- The `<?xml …?>` declaration must be the **first byte** of output, so it sits
+  immediately after the front matter and ahead of the explanatory comment.
+- Posts and projects are different types and Liquid cannot sort across them.
+  The template builds one array of `DATE|kind|RANK|INDEX` strings, sorts that,
+  and uses `INDEX` to reach back into the right source array.
+
+### Share cards (og:image)
+
+Pasting a URL into Slack, Signal, iMessage, Discord, LinkedIn or Mastodon makes
+the app fetch the page and look for `<meta property="og:image">`. Without one it
+renders a bare link. Cards live in `assets/og/` and are **generated**:
+
+```fish
+bundle exec jekyll build          # cards are cut from the built site
+uv run script/build-og-cards.py
+```
+
+The art is the project's own mark and its own blurb, read from
+`_data/projects.yml` and lifted out of the built projects page, so a card cannot
+drift from the page it advertises. **Re-run it after changing a mark, a title or
+a blurb**, and commit the PNGs.
+
+Wiring differs by page, and the difference is the thing to get right:
+
+| page kind | how it gets the tag |
+|---|---|
+| anything on `layout: default` | `image:` in front matter; jekyll-seo-tag renders the tags |
+| everything, by default | the `defaults:` block in `_config.yml` → `site.png` |
+| raw HTML or `layout: null` | full `<meta>` tags written by hand in its own `<head>` |
+
+> **jekyll-seo-tag has no site-level image fallback.** It reads `page["image"]`
+> and nothing else, so a top-level `image:` key in `_config.yml` is a silent
+> no-op. It has to go through `defaults:`, which actually populates `page`.
+
+> **Do not write a Liquid tag name literally, even inside an HTML comment.** A
+> page with front matter *is* a Liquid template, comments included. A comment
+> explaining that `{{ "{% seo %}" }}` does not run on a given page caused that
+> exact tag to run, injecting a whole second SEO block into the middle of the
+> comment and breaking it open. Name the plugin, not the tag.
+
+Verify after any change to this — one image per page, the file present, the real
+pixel size matching what the tag declares:
+
+```fish
+# every built page: which card, and how many og:image tags (want exactly 1)
+for f in (find _site -name '*.html')
+    echo (grep -c 'property="og:image"' $f) $f
+end | sort -rn | head
+```
+
+The Medicaid Data Catalog has no card: it is served from a separate repository,
+so its `<head>` is not ours to edit.
+
+---
+
 ## Writing a post
 
 ```fish
@@ -110,8 +228,27 @@ for t in ('div','p','figure'):
 | wide table or figure | wrap in `<div class="tablewrap">` | see the warning below about `markdown="1"` |
 | link out to a project | `<a class="mark">` + inline SVG inside `<div class="marks">` | four-up grid, two-up under 600px |
 | subscribe block | `<p class="subscribe">` | one per page at most; the nav already carries **Feed** |
+| nav mark | `<svg class="navicon">` in `_layouts/default.html` | one per sidebar link; `aria-hidden`, `currentColor` only |
+| project row | an entry in `_data/projects.yml` | see **Adding a project** above |
+| current nav item | `aria-current="page"`, set in the layout | red; the attribute *is* the styling hook — do not add a class |
 
 Never letterspace lowercase. Full rationale is in `_stylesheets/lite.css`.
+
+> **A nav mark is drawn on a 24×24 viewBox and renders at about 17px.** That is
+> the whole design constraint. Three or four elements is the ceiling: a globe
+> takes a sphere, a meridian and an equator and no second latitude line; the
+> **Posts** nib gets a lighter 1.55 stroke than its neighbours purely so its slit
+> and vent hole stay open. Two earlier drawings were discarded for failing at
+> size rather than on taste — a tapered sliver that read as a scalpel, and a
+> dividers mark whose symmetric arc closed the legs into a triangle and read as
+> a tent. Render any new mark at 3× before believing it; `_ideas/` is the place
+> for the scratch page.
+>
+> The marks are the reason `.sidebar a` is `display: flex` and carries
+> `margin-right: var(--track)`. The sidebar as a whole is pulled left by one
+> track so that tracked capitals align optically rather than metrically; a row
+> that ends in a mark has no trailing letter-space to absorb, so it needs that
+> pull cancelled or the icon column hangs past the text column's right edge.
 
 > **Inline SVG inherits the page's CSS, including the parts you did not want.**
 > The career figure on `index.html` is hand-written SVG so that it picks up

@@ -1,14 +1,50 @@
 ---
 layout: default
 title: Projects
+description: "Longer work: maps, models and data tools."
 ---
-<time datetime="2026-08-01">2026-08-01</time>: <a href="/_resources/metro-age-structure/">Metropolitan Age Structure in the United States</a><br>
-<time datetime="2026-07-08">2026-07-08</time>: <a href="/_resources/metro-relocation/">Metro Relocation: A Tunable Neighborhood Screen</a><br>
-<time datetime="2026-07-08">2026-07-08</time>: <a href="/_resources/onecare/">OneCare Vermont: A Post-Mortem</a><br>
-<time datetime="2026-04-11">2026-04-11</time>: <a href="https://kvcontino.github.io/medicaid-data-catalog/">Federal Medicaid Data Catalog</a><br>
-<time datetime="2026-03-21">2026-03-21</time>: <a href= "/_resources/mcaid/">Medicaid Enrollment Monitor</a><br>
-<time datetime="2026-03-20">2026-03-20</time>: <a href="/_resources/nny-toponyms.html">North Country / Adirondack Town Toponyms</a><br>
-<time datetime="2026-03-20">2026-03-20</time>: <a href="/_resources/nny-population-map.html">North Country / Adirondack Town Population Change</a><br>
-<time datetime="2026-03-15">2026-03-15</time>: <a href="/_resources/vermont-population-map.html">Vermont Town Population Change</a><br>
-<time datetime="2026-03-15">2026-03-15</time>: <a href="/_pages/media.html">Personal Media Audit</a><br>
-<time datetime="2018-03-16">2018-03-16</time>: <a href="/_resources/data-driven-culture/">Data-Driven Culture</a><br>
+
+<p class="dek">Longer and more curated work. Shorter pieces and stray charts are on <a href="/posts/">Posts</a>.</p>
+
+{% comment %}
+  The newest project's date, not `site.time`. A build stamp would change every
+  time anything on the site is touched, which would say "updated" on a day when
+  nothing here moved — worse than no line at all, because it is a claim rather
+  than a blank.
+
+  Computed with `sort | last` rather than taken from the first entry, because
+  the YAML file's order is manual and this must stay true if an entry is ever
+  filed in the wrong place.
+{% endcomment %}
+{% assign latest = site.data.projects | sort: "date" | last %}
+<p class="updated">Last updated {{ latest.date | date: "%-d %B %Y" }}. New work is announced on the <a href="/feed.xml">feed</a>, which carries projects as well as posts.</p>
+
+{% comment %}
+  Content lives in _data/projects.yml, not here. Two reasons. It keeps the
+  blurbs and dates in one readable file rather than threaded through markup,
+  and it makes the marks reusable by NAME — a project that is the same kind of
+  thing as an existing one names the same key and no new drawing is made. See
+  _includes/project-mark.html for the key list and the rule.
+
+  This page does not sort. The YAML file's order IS the display order, so a new
+  entry goes in the right place by hand. Sorting on `date` was considered and
+  dropped: several of these share a date, and Liquid's sort is not stable, so
+  the tie order would shuffle between builds for no reason a reader could see.
+{% endcomment %}
+<ul class="projectlist">
+  {% for p in site.data.projects %}
+  <li>
+    {% comment %}
+      The mark is aria-hidden and sits OUTSIDE the link. It repeats what the
+      title already says, so inside the link it would only pad the accessible
+      name; outside it, the row still has exactly one link and one name.
+    {% endcomment %}
+    <span class="projectmark">{% include project-mark.html mark=p.mark %}</span>
+    <span class="projectbody">
+      <time datetime="{{ p.date | date: '%Y-%m-%d' }}">{{ p.date | date: "%Y-%m-%d" }}</time>
+      <a href="{{ p.url }}">{{ p.title }}</a>
+      {% if p.blurb %}<span class="postnote">{{ p.blurb }}</span>{% endif %}
+    </span>
+  </li>
+  {% endfor %}
+</ul>

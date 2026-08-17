@@ -4,6 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>North Country & Adirondack Population Change v2</title>
+<!-- Open Graph. This page has its own <head> and never passes through
+     _layouts/default.html, so jekyll-seo-tag never runs here and
+     these are written out by hand. Absolute urls are required: link scrapers do
+     not resolve relative paths. Card art: script/build-og-cards.py -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Kevin V. Contino">
+<meta property="og:title" content="North Country / Adirondack Town Population Change">
+<meta property="og:description" content="Town-level population change across the North Country and the Adirondacks, 2000 to 2020.">
+<meta property="og:url" content="https://kvcontino.github.io/_resources/nny-population-map.html">
+<meta property="og:image" content="https://kvcontino.github.io/assets/og/nny-population-map.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="North Country / Adirondack Town Population Change — Town-level population change across the North Country and the Adirondacks, 2000 to 2020.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Town-level population change across the North Country and the Adirondacks, 2000 to 2020.">
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
@@ -27,6 +42,15 @@
   }
 
   .page { max-width: 1120px; margin: 0 auto; padding: 48px 32px 64px; }
+  /* Link back into the site. These three pages are standalone HTML with their
+     own theme and their own <head>, so they inherit nothing from the Jekyll
+     layout -- including its sidebar. Without this a reader who arrives from the
+     feed or from a shared link has no route anywhere else on the site. Styled
+     from THIS page's tokens, not the main site's, because the two do not share
+     a palette. */
+  .sitelink { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .sitelink a { color: var(--muted); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .sitelink a:hover { color: var(--ink); }
 
   header {
     border-top: 2px solid var(--ink);
@@ -151,6 +175,7 @@
 </head>
 <body>
 <div class="page">
+  <nav class="sitelink"><a href="/">Kevin V. Contino</a> &middot; <a href="/_pages/presentations.html">Projects</a></nav>
   <header>
     <h1>North Country &amp; Adirondack<br>town population change</h1>
     <div class="byline">

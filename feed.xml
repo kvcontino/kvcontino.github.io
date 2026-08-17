@@ -1,0 +1,123 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="utf-8"?>
+{% comment %}
+  ===========================================================================
+  ONE feed for posts AND projects.
+  ===========================================================================
+
+  This file overrides jekyll-feed. The plugin's generator does
+  `next if file_exists?(path)`, so the moment a source `feed.xml` exists the
+  plugin stops generating one and this template wins. The plugin stays in
+  `_config.yml` on purpose: `{% raw %}{% feed_meta %}{% endraw %}` in the layout is a separate tag
+  and still emits the autodiscovery <link>.
+
+  Why override rather than add a second feed: jekyll-feed CAN publish extra
+  feeds per collection, but only at `/feed/<name>.xml` — a second address to
+  advertise, subscribe to and keep alive. Projects are infrequent enough that
+  splitting them off would mostly produce a feed nobody subscribes to.
+
+  WHAT MUST NOT CHANGE: the entry <id>. It is the key a reader uses to decide
+  whether it has seen an item before, so altering the scheme re-notifies every
+  subscriber about every old post. Posts keep jekyll-feed's exact scheme,
+  `post.id | absolute_url`, which is the URL WITHOUT the .html extension and is
+  not the same string as the <link href>. Verified byte-identical against the
+  pre-override feed. Projects key on their own absolute URL.
+
+  Merging two different types in Liquid, which has no way to sort across them:
+  build one array of sortable strings, `DATE|kind|RANK|INDEX`, sort THAT, then
+  use INDEX to reach back into the right source array. RANK is `999 - index` so
+  that the reverse sort leaves same-date items in their authored order rather
+  than flipping them; it stays three digits up to 899 projects.
+{% endcomment %}
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <generator uri="https://jekyllrb.com/" version="{{ jekyll.version }}">Jekyll</generator>
+  <link href="{{ '/feed.xml' | absolute_url }}" rel="self" type="application/atom+xml" />
+  <link href="{{ '/' | absolute_url }}" rel="alternate" type="text/html" />
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>{{ '/feed.xml' | absolute_url | xml_escape }}</id>
+  <title type="html">{{ site.title | smartify | xml_escape }}</title>
+  <subtitle>{{ site.description | xml_escape }}</subtitle>
+  {% comment %}
+    Feed-level author. jekyll-feed emitted `<author><name></name></author>` on
+    every entry because `site.author` is unset, and an empty name is not valid
+    Atom — a feed needs an author somewhere. Declaring it once here covers
+    every entry by inheritance and drops the empty per-entry elements.
+  {% endcomment %}
+  <author><name>{{ site.title | xml_escape }}</name></author>
+
+  {% comment %}
+    Same rule as /posts/ and as jekyll-feed before it: `draft: true` withholds a
+    post from the feed. "Draft" means exactly one thing site-wide.
+  {% endcomment %}
+  {% assign published = site.posts | where_exp: "post", "post.draft != true" | sort: "date" | reverse %}
+
+  {% assign rows = "" | split: "" %}
+  {% for post in published %}
+    {% capture row %}{{ post.date | date: "%Y%m%d%H%M%S" }}|p|{{ 999 | minus: forloop.index0 }}|{{ forloop.index0 }}{% endcapture %}
+    {% assign one = row | split: "~" %}
+    {% assign rows = rows | concat: one %}
+  {% endfor %}
+  {% for pr in site.data.projects %}
+    {% capture row %}{{ pr.date | date: "%Y%m%d%H%M%S" }}|r|{{ 999 | minus: forloop.index0 }}|{{ forloop.index0 }}{% endcapture %}
+    {% assign one = row | split: "~" %}
+    {% assign rows = rows | concat: one %}
+  {% endfor %}
+  {% assign rows = rows | sort | reverse %}
+
+  {% comment %}
+    20, not jekyll-feed's 10: the limit now has to cover two streams, and at 10
+    a burst of posts would silently push every project out of the feed.
+  {% endcomment %}
+  {% for row in rows limit: 20 %}
+  {% assign parts = row | split: "|" %}
+  {% assign idx = parts[3] | plus: 0 %}
+
+  {% if parts[1] == "p" %}
+  {% assign post = published[idx] %}
+  {% assign post_title = post.title | smartify | strip_html | normalize_whitespace | xml_escape %}
+    <entry>
+      <title type="html">{{ post_title }}</title>
+      <link href="{{ post.url | absolute_url }}" rel="alternate" type="text/html" title="{{ post_title }}" />
+      <published>{{ post.date | date_to_xmlschema }}</published>
+      <updated>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</updated>
+      <id>{{ post.id | absolute_url | xml_escape }}</id>
+      <content type="html" xml:base="{{ post.url | absolute_url | xml_escape }}"><![CDATA[{{ post.content | strip }}]]></content>
+      {% for category in post.categories %}<category term="{{ category | xml_escape }}" />
+      {% endfor %}<category term="post" />
+      {% assign post_summary = post.description | default: post.excerpt %}
+      {% if post_summary and post_summary != empty %}
+      <summary type="html"><![CDATA[{{ post_summary | strip_html | normalize_whitespace }}]]></summary>
+      {% endif %}
+    </entry>
+
+  {% else %}
+  {% assign pr = site.data.projects[idx] %}
+  {% comment %}
+    An entry's URL may already be absolute — the Medicaid catalogue lives in its
+    own repository — and `absolute_url` would happily prefix the site root onto
+    it and produce a dead link. Test before converting.
+  {% endcomment %}
+  {% if pr.url contains "://" %}{% assign pr_url = pr.url %}{% else %}{% assign pr_url = pr.url | absolute_url %}{% endif %}
+  {% assign pr_title = pr.title | smartify | strip_html | normalize_whitespace | xml_escape %}
+    <entry>
+      <title type="html">{{ pr_title }}</title>
+      <link href="{{ pr_url | xml_escape }}" rel="alternate" type="text/html" title="{{ pr_title }}" />
+      <published>{{ pr.date | date_to_xmlschema }}</published>
+      <updated>{{ pr.date | date_to_xmlschema }}</updated>
+      <id>{{ pr_url | xml_escape }}</id>
+      {% comment %}
+        Projects carry no inline content: they are standalone pages with their
+        own scripts and stylesheets, and pasting one into a reader would give a
+        broken copy rather than the thing itself. The blurb plus a link is the
+        honest payload. Both <content> and <summary> are set, because readers
+        differ in which one they show and neither is guaranteed.
+      {% endcomment %}
+      <content type="html"><![CDATA[<p>{{ pr.blurb | strip_html | normalize_whitespace }}</p><p><a href="{{ pr_url }}">Open the project</a></p>]]></content>
+      <category term="project" />
+      <summary type="html"><![CDATA[{{ pr.blurb | strip_html | normalize_whitespace }}]]></summary>
+    </entry>
+  {% endif %}
+  {% endfor %}
+</feed>

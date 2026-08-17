@@ -44,16 +44,96 @@
   <div class="site-wrapper">
     <nav class="sidebar">
       <p class="site-name">K.V. Contino</p>
-      <a href="/index.html">About</a>
-      <a href="/posts/">Posts</a>
-      <a href="/_pages/presentations.html">Projects</a>
+      {% comment %}
+        Nav marks. Each is `aria-hidden` with `focusable="false"`: the mark
+        restates the word beside it, so announcing it would make a screen reader
+        say every nav item twice, and `focusable="false"` keeps IE/Edge legacy
+        from putting a tab stop inside the link. Sizing and colour live in
+        lite.css under `.navicon`; the strokes are `currentColor` throughout so
+        each mark inherits its link's hover state for free.
+      {% endcomment %}
+      {% comment %}
+        Current-page state. `aria-current="page"` rather than a class: it is the
+        attribute assistive technology already listens for, and it doubles as
+        the styling hook, so there is no class and attribute pair to keep in
+        step. lite.css turns it red.
+
+        The values compared against are what Jekyll actually emits, which is not
+        always what the href says -- `index.html` builds to `/`, not to
+        `/index.html`, so the href and the test differ on purpose here.
+
+        Exact matches only. A reader on a post or on a project page sees no
+        item lit; to light **Posts** while reading a post, the test becomes
+        `or page.url contains "/20"`, and for projects, `page.url contains
+        "/_resources/"`.
+      {% endcomment %}
+      <a href="/index.html"{% if page.url == "/" %} aria-current="page"{% endif %}>About
+        {% comment %}Globe: sphere, equator, one meridian. Three elements is
+        the ceiling at this size -- a second latitude line turns to mud.{% endcomment %}
+        <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+             fill="none" stroke="currentColor" stroke-width="1.7">
+          <circle cx="12" cy="12" r="8.6"/>
+          <ellipse cx="12" cy="12" rx="4.3" ry="8.6"/>
+          <line x1="3.4" y1="12" x2="20.6" y2="12"/>
+        </svg></a>
+      <a href="/posts/"{% if page.url == "/posts/" %} aria-current="page"{% endif %}>Posts
+        {% comment %}A dip-pen nib: shoulders, tapering point, slit, vent hole.
+        The notepad half of "pen and notepad" is deliberately absent -- a ruled
+        page behind a pen needs about 24px of real estate to stay legible and
+        this mark renders at ~17. The nib alone is also the period-correct
+        instrument for a page set in Goudy.
+
+        The vent hole is r=1.15, not the 1.5 drawn first: at 1.5 it closed up
+        into a blob against the slit at rendered size. Stroke is 1.55 rather
+        than the 1.7 the other marks use, for the same reason -- this is the
+        one mark with interior detail, so it needs the lighter line to keep its
+        counters open.{% endcomment %}
+        <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+             fill="none" stroke="currentColor" stroke-width="1.55"
+             stroke-linejoin="round" stroke-linecap="round">
+          <path d="M12 21.4 L7 12 L9 4.6 L15 4.6 L17 12 Z"/>
+          <line x1="12" y1="21.4" x2="12" y2="14"/>
+          <circle cx="12" cy="11.8" r="1.15"/>
+        </svg></a>
+      <a href="/_pages/presentations.html"{% if page.url == "/_pages/presentations.html" %} aria-current="page"{% endif %}>Projects
+        {% comment %}Dividers -- the drawing compass: hinge, two legs, and the
+        arc the pencil leg sweeps. A measuring instrument for a page of
+        measurement, and the one tool here that is also cartographic.
+
+        The arc is a SEGMENT trailing off to the right, not a full sweep under
+        both legs. A symmetric arc joining the two tips closes the figure into
+        a triangle and the whole thing reads as a tent; running it out past one
+        leg only reads as a stroke being drawn. Its radius (15) is roughly the
+        hinge-to-tip distance, so the geometry is honest as well as legible,
+        and it is drawn at 1.05 -- lighter than the instrument, because it is
+        the mark the instrument leaves rather than part of it.{% endcomment %}
+        <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+             fill="none" stroke="currentColor" stroke-width="1.7"
+             stroke-linecap="round">
+          <circle cx="12" cy="4.8" r="1.85"/>
+          <line x1="11.1" y1="6.6" x2="6.8" y2="18.8"/>
+          <line x1="12.9" y1="6.6" x2="17.2" y2="18.8"/>
+          <path d="M10.6 21 A 15 15 0 0 0 21.6 15.4" stroke-width="1.05"/>
+        </svg></a>
       {% comment %}
         The feed has existed since the first build, but until now the only way
         to find it was the autodiscovery <link> in <head>, which browsers
         stopped surfacing years ago, plus one line on /posts/. A nav entry is
         the one place it is visible from every page.
+
+        The mark is the same drawing as the index page's subscribe block, so
+        the two read as one affordance. It keeps the heavier 2.2 stroke: it is
+        three marks where the others are four or five, and at a lighter weight
+        it would read as a different family.
       {% endcomment %}
-      <a class="feedlink" href="/feed.xml">Feed</a>
+      <a class="feedlink" href="/feed.xml">Feed
+        <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="5" cy="19" r="2.2" fill="currentColor"/>
+          <path d="M3 13.5a7.5 7.5 0 0 1 7.5 7.5" fill="none" stroke="currentColor"
+                stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M3 7a14 14 0 0 1 14 14" fill="none" stroke="currentColor"
+                stroke-width="2.2" stroke-linecap="round"/>
+        </svg></a>
     </nav>
     <main class="content">
       <h1>{{ page.title }}</h1>
