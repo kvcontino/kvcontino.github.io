@@ -12,6 +12,14 @@
 #
 # `blurb` is one sentence, plain text, no markup. Keep it to what the thing IS.
 
+- title: NoVA Walksheds
+  url: /_resources/nova-walksheds/
+  date: 2026-08-29
+  mark: catchment
+  blurb: >-
+    Pedestrian travel time isolines for Washington Metro stations in Northern
+    Virginia.
+
 - title: Metropolitan Age Structure in the United States
   url: /_resources/metro-age-structure/
   date: 2026-08-01

@@ -1,0 +1,140 @@
+---
+layout: default
+title: "Northern Virginia Walksheds"
+description: "Pedestrian travel time isolines for Washington Metro stations in Northern Virginia, routed over the OpenStreetMap walking network."
+image:
+  path: /assets/og/nova-walksheds.png
+  width: 2400
+  height: 1260
+  alt: "NoVA Walksheds — pedestrian travel time isolines for Washington Metro stations in Northern Virginia."
+---
+
+<!-- Scoped to this page rather than added to lite.css: the embed is one
+     component on one page, and the shared stylesheet is loaded by every page on
+     the site. Move it into lite.css if a second project ever embeds something.
+
+     The 4:3 aspect-ratio box keeps the map from collapsing before the iframe
+     loads and from pushing the rest of the page off-screen on a phone. The
+     fullscreen button is added by script and stays hidden without JS, so the
+     "open the interactive map" link above is always the working path. -->
+<style>
+  .embed {
+    position: relative;
+    margin: 1.6rem 0 0.4rem;
+    border: 1px solid var(--ink-faint);
+    background: var(--void);
+  }
+  .embed iframe {
+    display: block;
+    width: 100%;
+    /* 4:3, chosen by measurement rather than by the data's own 1.8:1 shape.
+       Leaflet holds centre and zoom, so a shorter box does not fit the bbox to
+       the frame -- it crops latitude. Counted, at the page's embed width:
+
+           16/9  20 of 30 stations visible, 6 behind the title panel
+           1.7   30 visible, 2 behind
+           3/2   30 visible, 1 behind
+           4/3   30 visible, 0 behind
+
+       Every ratio tighter than 4:3 buys vertical space by hiding stations
+       behind the floating title panel, which is the opposite of the point. The
+       leftover height below the data costs nothing now that the map's ground is
+       the same black as the page: there is no visible letterbox to remove. */
+    aspect-ratio: 4 / 3;
+    min-height: 20rem;
+    border: 0;
+  }
+  /* In fullscreen the box is the viewport, so the ratio has to give way. */
+  .embed:fullscreen { border: 0; }
+  .embed:fullscreen iframe { height: 100vh; aspect-ratio: auto; }
+  .embed-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font: inherit;
+    font-size: 0.72rem;
+    letter-spacing: var(--track);
+    text-transform: uppercase;
+    color: var(--ink-2);
+    background: var(--void);
+    border: 1px solid var(--ink-faint);
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+  }
+  .embed-btn:hover { color: var(--ember); border-color: var(--ember); }
+</style>
+
+<p class="meta">By Kevin Contino &middot; July 2026 &middot; Travel times computed from the
+OpenStreetMap walking network.</p>
+
+<p>&rsaquo;&nbsp;<a href="/_resources/nova-walksheds/map/"><strong>Open the interactive
+map</strong></a></p>
+
+<div class="embed" id="mapbox">
+  <iframe src="/_resources/nova-walksheds/map/" loading="lazy"
+          title="Interactive travel-time map of thirty Washington Metro stations in Northern Virginia"></iframe>
+</div>
+
+<!-- Not "Notes": _layouts/default.html appends its own <h2>Notes</h2> at the
+     foot of any page carrying a footnote, so that heading is spoken for. -->
+<h2>Method</h2>
+
+<p>Walking speed is a flat 3.0&nbsp;mph. Barriers are modeled based on OpenStreetMap&rsquo;s
+walking network, which excludes highways, and account for water and rail-yard polygons.</p>
+
+<h2>WMATA stations by walk reach</h2>
+
+<p>For each station, an open circle marks the area reachable on foot within 60 minutes and a
+filled red circle marks the area reachable by walking plus Metro. The open circles range from
+about 3 to 18 square miles; the red circles cluster between about 33 and 84. The gap is widest
+for the stations with the smallest walk-only reach and narrowest for the Arlington corridor
+stations.</p>
+
+<figure>
+  <img src="/_resources/nova-walksheds/figures/fig01_reach.svg"
+       alt="Dumbbell chart of thirty Washington Metro stations sorted by walk-only reach, comparing area reachable on foot with area reachable by walking plus Metro.">
+  <figcaption><strong>Figure 1.</strong> Area reachable within sixty minutes from each station,
+  on foot and by walking plus Metro. Stations are sorted by walk-only reach. Walk-only reach
+  varies 5.5&times; across these stations.</figcaption>
+</figure>
+
+<p>The rail times are modeled averages and do not account for train
+schedules.<span class="fn"><span class="fn-note">Station-to-station times come from a
+hand-verified line model &mdash; distance over speed, plus a dwell at each stop, with transfers
+free at shared stations &mdash; rather than from WMATA&rsquo;s published timetable feed. Waiting
+time is a schedule average and there is no penalty for transferring, so a trip requiring a change
+is timed a little optimistically. The model checks out against published end-to-end times where
+those exist: Wiehle&ndash;Reston East to Rosslyn at 33 minutes, Ashburn to Pentagon at 61. Each
+cell takes the faster of walking the whole way or walking, riding, and walking
+again.</span></span> Walking speed is flat, and doesn&rsquo;t account for hindrances such as
+terrain or stoplights.</p>
+
+<script>
+  // Progressive enhancement: no button unless the browser will honor it.
+  (function () {
+    var box = document.getElementById('mapbox');
+    if (!box || !box.requestFullscreen) return;
+    var btn = document.createElement('button');
+    btn.className = 'embed-btn';
+    btn.type = 'button';
+    btn.textContent = 'Full screen';
+    btn.addEventListener('click', function () {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else box.requestFullscreen();
+    });
+    // The map docks its legend beside the canvas while embedded and floats it
+    // when there is room. It cannot see this change for itself: fullscreen is
+    // requested on THIS div, so `document.fullscreenElement` inside the iframe
+    // stays null throughout. Tell it.
+    document.addEventListener('fullscreenchange', function () {
+      var on = document.fullscreenElement === box;
+      btn.textContent = on ? 'Exit full screen' : 'Full screen';
+      var f = box.querySelector('iframe');
+      if (f && f.contentWindow) {
+        f.contentWindow.postMessage(
+          { type: 'walksheds:fullscreen', on: on }, window.location.origin);
+      }
+    });
+    box.appendChild(btn);
+  })();
+</script>

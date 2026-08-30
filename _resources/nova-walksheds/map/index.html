@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NoVA Walksheds</title>
+<link rel="stylesheet" href="vendor/leaflet.css"/>
+<script src="vendor/leaflet.js"></script>
+<script src="context.js"></script>
+<script src="isolines.js"></script>
+<style>
+  /* Themed to kvcontino.github.io (2026-08-29): black ground, warm apparatus,
+     one red, square corners, no shadows. The tokens below are copied from the
+     site's lite.css rather than imported, because this page is deliberately
+     self-contained and must still open from file:// with no server.
+
+     The font is loaded by absolute path for the same reason: served from the
+     site it resolves and the map matches the page around it; opened straight
+     off disk it simply fails and falls back to Georgia, which is the stack the
+     site itself falls back to. A relative path would have inverted that. */
+  @font-face{font-family:'Sorts Mill Goudy';
+    src:url('/assets/fonts/SortsMillGoudy-Regular.woff2') format('woff2');
+    font-weight:400;font-style:normal;font-display:swap}
+  :root{
+    --void:#000; --ink:#e8e8e8; --ink-2:#cbb8a9; --ink-faint:#4a4038;
+    --bleed:#b81419; --ember:#e04a42; --track:0.14em;
+    --serif:'Sorts Mill Goudy','Iowan Old Style',Georgia,serif;
+  }
+  html,body,#map{height:100%;margin:0}
+  #map{background:var(--void)}
+  /* Square, unshadowed, hairline-ruled: the site uses no rounded corners and no
+     drop shadows anywhere, and a floating card would read as a different site. */
+  .panel{position:absolute;z-index:1000;background:var(--void);padding:11px 13px;
+    border:1px solid var(--ink-faint);border-radius:0;box-shadow:none;
+    color:var(--ink-2);font:14px/1.5 var(--serif)}
+  #title{top:10px;left:52px;max-width:340px} #legend{bottom:20px;right:10px}
+  /* Tracked caps, the site's one tracking token, and it is only ever on caps. */
+  #title h1{font-size:13px;margin:0 0 6px;color:var(--ink);font-weight:400;
+    text-transform:uppercase;letter-spacing:var(--track)}
+  #title p{margin:0 0 8px;color:var(--ink-2)}
+  .lg-row{display:flex;align-items:center;gap:7px;margin:3px 0}
+  .sw{width:16px;height:12px;display:inline-block;border:1px solid var(--ink-faint)}
+  .modebar{display:flex;gap:14px;margin:8px 0 2px}
+  .modebar label{cursor:pointer;color:var(--ink)}
+  .modebar input{accent-color:var(--ember)}
+  #sel{color:var(--ember);margin:0}
+  #legend b{color:var(--ink);font-weight:400;
+    text-transform:uppercase;letter-spacing:var(--track);font-size:11px}
+  /* Labels sit on the dark ground, so the halo that keeps them legible has to
+     be the ground colour, not white. */
+  .placelabel,.stlabel{font:12px/1.3 var(--serif);background:none;border:none;
+    box-shadow:none;white-space:nowrap;
+    text-shadow:0 0 3px var(--void),0 0 3px var(--void),0 0 6px var(--void)}
+  .placelabel{color:var(--ink-2)}
+  .stlabel{color:var(--ink)}
+  /* Leaflet's own chrome is light by default and would be the one bright thing
+     on the page. */
+  .leaflet-container{background:var(--void)}
+  .leaflet-control-zoom a{background:var(--void);color:var(--ink-2);
+    border:1px solid var(--ink-faint);border-radius:0}
+  .leaflet-control-zoom a:hover{color:var(--ember);border-color:var(--ember)}
+  /* `.leaflet-container .leaflet-control-attribution` (0-2-0) sets the white,
+     so a bare class selector here loses however late it is declared. Matching
+     the same two classes wins on source order. */
+  .leaflet-container .leaflet-control-attribution{background:rgba(0,0,0,.72);
+    color:var(--ink-faint);font:11px/1.4 var(--serif)}
+  .leaflet-control-attribution a{color:var(--ink-2)}
+  /* The Leaflet credit ships a small multicolour flag icon, and on a black map
+     it is the brightest thing on the page. Leaflet sets `display:inline
+     !important` on it specifically so it cannot be hidden -- that is their
+     call and it is not ours to override, so this desaturates rather than
+     removes: the flag is still there, still linked, just no longer the loudest
+     object on a dark map. Filter needs no !important because it is not
+     competing with anything. */
+  .leaflet-attribution-flag{filter:grayscale(1) opacity(0.5)}
+  /* Station tooltips. Leaflet's default is a white rounded card with a drop
+     shadow and a matching arrow drawn from border colours on a :before -- the
+     one bright object left on the map once everything else went dark. The
+     arrow has to be recoloured for each of the four directions or it stays
+     white and floats detached from the box it belongs to. */
+  .leaflet-tooltip{background:var(--void);border:1px solid var(--ink-faint);
+    border-radius:0;box-shadow:none;color:var(--ink);
+    font:13px/1.3 var(--serif);padding:4px 8px}
+  .leaflet-tooltip-top:before{border-top-color:var(--ink-faint)}
+  .leaflet-tooltip-bottom:before{border-bottom-color:var(--ink-faint)}
+  .leaflet-tooltip-left:before{border-left-color:var(--ink-faint)}
+  .leaflet-tooltip-right:before{border-right-color:var(--ink-faint)}
+  .lg-foot{margin-top:6px;color:var(--ink-faint)}
+
+  /* --- Docked legend, for the embedded (not expanded) case ----------------
+     Floating panels are right when the map has the whole viewport: they sit
+     over dead space at the edges. Inside the page's 4:3 embed there is no dead
+     space, and the legend covered a quarter of Northern Virginia -- including
+     Alexandria and the whole southern half of the Blue Line.
+
+     So when the map knows it is embedded, body becomes a flex row and the
+     legend leaves the map canvas entirely: no overlap, and the map keeps every
+     pixel it still has. Expanding puts it back to floating, which is what the
+     extra room is for.
+
+     Default is UNDOCKED. A map opened on its own -- /map/ directly, or from
+     file:// -- has the window to itself and should float, and that is also the
+     state this file had before the page existed. Docking is the exception the
+     embed asks for, not the new normal.
+
+     The title panel stays floating either way: it is small, it sits in the
+     top-left where the data bbox has margin anyway, and it carries the mode
+     toggle, which wants to be over the map rather than beside it. */
+  body.docked{display:flex;align-items:stretch}
+  body.docked #map{flex:1 1 auto;height:100%;min-width:0}
+  body.docked #legend{position:static;flex:0 0 auto;width:172px;
+    border:0;border-left:1px solid var(--ink-faint);
+    /* Top padding clears the page's "Full screen" button, which the PARENT
+       positions over this corner of the embed. Only the docked case needs it:
+       when expanded the legend floats bottom-right and the button is nowhere
+       near it. */
+    padding:46px 14px 12px;overflow-y:auto}
+</style></head><body>
+<div id="map"></div>
+<div id="title" class="panel">
+  <h1>NoVA Walksheds</h1>
+  <p>Click a station: colors + isolines show travel times.</p>
+  <div class="modebar">
+    <label><input type="radio" name="mode" value="walk" checked> Walk only</label>
+    <label id="mmlabel"><input type="radio" name="mode" value="mm"> Walk + Metro</label>
+  </div>
+  <p id="sel"></p>
+</div>
+<div id="legend" class="panel"><b>Travel time</b><div class="lg-row"><span class="sw" style="background:rgb(68,1,84)"></span>0–5 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(72,33,114)"></span>5–10 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(66,61,132)"></span>10–15 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(56,87,140)"></span>15–20 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(45,111,142)"></span>20–25 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(36,133,141)"></span>25–30 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(30,154,137)"></span>30–35 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(42,176,126)"></span>35–40 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(81,196,104)"></span>40–45 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(134,212,73)"></span>45–50 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(194,223,34)"></span>50–55 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(253,231,36)"></span>55–60 min</div>
+  <div class="lg-foot">lines = 15/30/45/60 min</div>
+</div>
+<script>
+const STATIONS = [{"station_id": "arlington-cemetery", "name": "Arlington Cemetery", "lat": 38.88459, "lng": -77.06308, "modes": {"walk": {"png": "overlays/walk/arlington-cemetery.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/arlington-cemetery.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "ashburn", "name": "Ashburn", "lat": 38.99597, "lng": -77.5341, "modes": {"walk": {"png": "overlays/walk/ashburn.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/ashburn.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "ballston-mu", "name": "Ballston-MU", "lat": 38.88202, "lng": -77.11152, "modes": {"walk": {"png": "overlays/walk/ballston-mu.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/ballston-mu.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "braddock-road", "name": "Braddock Road", "lat": 38.81398, "lng": -77.05379, "modes": {"walk": {"png": "overlays/walk/braddock-road.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/braddock-road.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "clarendon", "name": "Clarendon", "lat": 38.88671, "lng": -77.09525, "modes": {"walk": {"png": "overlays/walk/clarendon.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/clarendon.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "court-house", "name": "Court House", "lat": 38.89117, "lng": -77.08558, "modes": {"walk": {"png": "overlays/walk/court-house.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/court-house.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "crystal-city", "name": "Crystal City", "lat": 38.85779, "lng": -77.05087, "modes": {"walk": {"png": "overlays/walk/crystal-city.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/crystal-city.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "dunn-loring-merrifield", "name": "Dunn Loring-Merrifield", "lat": 38.8833, "lng": -77.22872, "modes": {"walk": {"png": "overlays/walk/dunn-loring-merrifield.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/dunn-loring-merrifield.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "east-falls-church", "name": "East Falls Church", "lat": 38.88588, "lng": -77.15718, "modes": {"walk": {"png": "overlays/walk/east-falls-church.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/east-falls-church.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "eisenhower-avenue", "name": "Eisenhower Avenue", "lat": 38.8, "lng": -77.07044, "modes": {"walk": {"png": "overlays/walk/eisenhower-avenue.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/eisenhower-avenue.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "franconia-springfield", "name": "Franconia-Springfield", "lat": 38.76648, "lng": -77.16849, "modes": {"walk": {"png": "overlays/walk/franconia-springfield.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/franconia-springfield.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "greensboro", "name": "Greensboro", "lat": 38.92005, "lng": -77.23496, "modes": {"walk": {"png": "overlays/walk/greensboro.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/greensboro.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "herndon", "name": "Herndon", "lat": 38.9603, "lng": -77.3858, "modes": {"walk": {"png": "overlays/walk/herndon.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/herndon.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "innovation-center", "name": "Innovation Center", "lat": 38.95375, "lng": -77.42066, "modes": {"walk": {"png": "overlays/walk/innovation-center.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/innovation-center.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "king-st-old-town", "name": "King St-Old Town", "lat": 38.80648, "lng": -77.06056, "modes": {"walk": {"png": "overlays/walk/king-st-old-town.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/king-st-old-town.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "loudoun-gateway", "name": "Loudoun Gateway", "lat": 38.9903, "lng": -77.52073, "modes": {"walk": {"png": "overlays/walk/loudoun-gateway.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/loudoun-gateway.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "mclean", "name": "McLean", "lat": 38.9243, "lng": -77.20943, "modes": {"walk": {"png": "overlays/walk/mclean.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/mclean.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "pentagon", "name": "Pentagon", "lat": 38.86933, "lng": -77.05441, "modes": {"walk": {"png": "overlays/walk/pentagon.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/pentagon.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "pentagon-city", "name": "Pentagon City", "lat": 38.86254, "lng": -77.05908, "modes": {"walk": {"png": "overlays/walk/pentagon-city.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/pentagon-city.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "reston-town-center", "name": "Reston Town Center", "lat": 38.95287, "lng": -77.3591, "modes": {"walk": {"png": "overlays/walk/reston-town-center.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/reston-town-center.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "ronald-reagan-washington-national-airport", "name": "Ronald Reagan Washington National Airport", "lat": 38.85315, "lng": -77.04375, "modes": {"walk": {"png": "overlays/walk/ronald-reagan-washington-national-airport.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/ronald-reagan-washington-national-airport.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "rosslyn", "name": "Rosslyn", "lat": 38.8966, "lng": -77.0716, "modes": {"walk": {"png": "overlays/walk/rosslyn.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/rosslyn.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "spring-hill", "name": "Spring Hill", "lat": 38.92913, "lng": -77.24202, "modes": {"walk": {"png": "overlays/walk/spring-hill.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/spring-hill.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "tysons", "name": "Tysons", "lat": 38.92016, "lng": -77.2233, "modes": {"walk": {"png": "overlays/walk/tysons.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/tysons.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "van-dorn-street", "name": "Van Dorn Street", "lat": 38.79911, "lng": -77.1292, "modes": {"walk": {"png": "overlays/walk/van-dorn-street.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/van-dorn-street.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "viennafairfax-gmu", "name": "Vienna/Fairfax-GMU", "lat": 38.87765, "lng": -77.27129, "modes": {"walk": {"png": "overlays/walk/viennafairfax-gmu.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/viennafairfax-gmu.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "virginia-square-gmu", "name": "Virginia Square-GMU", "lat": 38.88318, "lng": -77.10432, "modes": {"walk": {"png": "overlays/walk/virginia-square-gmu.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/virginia-square-gmu.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "washington-dulles-international-airport", "name": "Washington Dulles International Airport", "lat": 38.95247, "lng": -77.44786, "modes": {"walk": {"png": "overlays/walk/washington-dulles-international-airport.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/washington-dulles-international-airport.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "west-falls-church", "name": "West Falls Church", "lat": 38.90067, "lng": -77.18927, "modes": {"walk": {"png": "overlays/walk/west-falls-church.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/west-falls-church.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}, {"station_id": "wiehle-reston-east", "name": "Wiehle-Reston East", "lat": 38.94766, "lng": -77.34062, "modes": {"walk": {"png": "overlays/walk/wiehle-reston-east.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}, "mm": {"png": "overlays/mm/wiehle-reston-east.png", "bounds": [[38.737942601083176, -77.56971691481446], [39.0221219001932, -76.94745415808633]]}}}];
+const ISO = window.ISO || {walk:{},mm:{}};
+const C = window.CONTEXT || {};
+const HAVE_MM = true;
+const map = L.map('map', {center: [38.89158633333333, -77.19956599999999], zoom: 11});
+
+map.createPane('ctx');      map.getPane('ctx').style.zIndex = 350;
+map.createPane('roadsTop'); map.getPane('roadsTop').style.zIndex = 450;
+map.createPane('iso');      map.getPane('iso').style.zIndex = 470;
+map.createPane('labels');   map.getPane('labels').style.zIndex = 600;
+map.createPane('stations'); map.getPane('stations').style.zIndex = 620;
+const stationRenderer = L.svg({pane:'stations'});
+const isoRenderer = L.svg({pane:'iso'});
+
+function gj(feats, style, pane){ return L.geoJSON({type:'FeatureCollection',features:feats||[]},
+  {style:style, pane:pane, interactive:false}); }
+
+gj(C.water, {weight:0, fillColor:'#16232b', fillOpacity:1}, 'ctx').addTo(map);
+gj(C.roads_secondary, {color:'#3a332c', weight:0.7}, 'ctx').addTo(map);
+gj(C.places, {color:'#4a4038', weight:0.6, dashArray:'2,3', fill:false}, 'ctx').addTo(map);
+gj(C.counties, {color:'#5f5449', weight:1.3, fill:false}, 'ctx').addTo(map);
+gj(C.roads_primary, {color:'#cbb8a9', weight:1.6, opacity:0.85}, 'roadsTop').addTo(map);
+(C.labels||[]).forEach(l => L.marker([l.lat,l.lng], {pane:'labels', interactive:false,
+  icon:L.divIcon({className:'placelabel', html:l.name, iconSize:null})}).addTo(map));
+
+let mode = 'walk', curId = null, ovl = null, isoLayer = null;
+const markers = {};
+
+function draw(){
+  const s = STATIONS.find(x => x.station_id === curId);
+  if(!s) return;
+  const m = s.modes[mode] || s.modes.walk;
+  if(ovl) map.removeLayer(ovl);
+  ovl = L.imageOverlay(m.png, m.bounds, {opacity:0.65}).addTo(map);
+  if(isoLayer) map.removeLayer(isoLayer);
+  isoLayer = L.geoJSON((ISO[mode]||{})[s.station_id], {pane:'iso', renderer:isoRenderer,
+    interactive:false, style:f => ({color:'#333', weight:f.properties.min<=30?1.4:1.0,
+      opacity:0.75, dashArray: f.properties.min%30===0?null:'4,3'})}).addTo(map);
+  const label = mode==='mm' ? 'walk + Metro' : 'walk';
+  document.getElementById('sel').innerHTML = 'Showing '+label+' time <b>from '+s.name+'</b>';
+  Object.entries(markers).forEach(([id,mk]) =>
+    mk.setStyle({fillColor:id===curId?'#e04a42':'#000', color:id===curId?'#b81419':'#cbb8a9'}));
+}
+function select(s){ curId = s.station_id; draw(); }
+
+STATIONS.forEach(s => {
+  const mk = L.circleMarker([s.lat,s.lng], {renderer:stationRenderer, pane:'stations',
+    radius:6, weight:1.6, color:'#cbb8a9', fillColor:'#000', fillOpacity:1}).addTo(map);
+  mk.bindTooltip(s.name); mk.on('click', () => select(s));
+  markers[s.station_id] = mk;
+});
+
+document.querySelectorAll('input[name=mode]').forEach(r => r.addEventListener('change', e => {
+  mode = e.target.value; draw(); }));
+if(!HAVE_MM){ document.getElementById('mmlabel').style.opacity=0.4;
+  document.querySelector('input[value=mm]').disabled=true; }
+
+map.fitBounds(L.latLngBounds(STATIONS.map(s=>[s.lat,s.lng])).pad(0.08));
+if(STATIONS.length) select(STATIONS[0]);
+
+// --- Dock the legend when embedded, float it when expanded ----------------
+// Two signals, because neither alone is enough:
+//
+//   embedded?   window.self !== window.top. Cheap, same-origin-safe, and true
+//               for the page's iframe and false for /map/ opened directly.
+//   expanded?   the parent owns the Fullscreen API here -- it calls
+//               requestFullscreen() on the wrapper DIV, not on the iframe, so
+//               `document.fullscreenElement` inside THIS document stays null
+//               the whole time. The map cannot detect the change on its own;
+//               the parent posts it. Falling back to a size heuristic was
+//               tried in the head and rejected: it guesses, and it guesses
+//               wrong on a small laptop in fullscreen.
+(function () {
+  var embedded = false;
+  try { embedded = window.self !== window.top; } catch (e) { embedded = true; }
+  if (!embedded) return;                    // standalone: leave it floating
+  document.body.classList.add('docked');
+  window.addEventListener('message', function (ev) {
+    // Same-origin only, and only the one message this page understands.
+    if (ev.origin !== window.location.origin) return;
+    if (!ev.data || ev.data.type !== 'walksheds:fullscreen') return;
+    document.body.classList.toggle('docked', !ev.data.on);
+    // Leaflet sizes its panes from the container; the flex change resizes it
+    // without a window resize event, so it has to be told.
+    // `const map = L.map(...)` is a top-level const, which does NOT become a
+    // property of window -- `window.map` is undefined here even though the
+    // binding is in scope. Testing window.map would have silently skipped the
+    // resize forever, leaving Leaflet's panes sized for the old box.
+    if (typeof map !== 'undefined' && map.invalidateSize) {
+      setTimeout(function () { map.invalidateSize(); }, 60);
+    }
+  });
+}());
+</script></body></html>
