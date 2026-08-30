@@ -63,7 +63,10 @@ one.
 >
 > Draw a new mark on a scratch page and **render it at 3–6× before believing
 > it**, because the failures are recognition failures, not geometry ones, and
-> they are invisible in the source. Rejected drawings so far: a pen that read as
+> they are invisible in the source. `script/mark-sheet.py` does exactly that in
+> one command — every mark, at 17px, 40px and a 6× blow-up, on the site's black
+> — so the habit does not depend on rebuilding the scaffolding by hand each
+> time. `--light` checks the same drawings survive a white ground. Rejected drawings so far: a pen that read as
 > a scalpel, a dividers pair whose symmetric arc closed into a tent, a set of
 > labelled dots that read as a bulleted list, and a three-cell choropleth whose
 > shading assembled into an isometric cube. Each was geometrically fine.
