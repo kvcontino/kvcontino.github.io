@@ -984,13 +984,34 @@ figcaption strong {
 
    The note is allowed to overhang the content column into the page's outer 10%
    padding, the way a sidenote overhangs a book's trim. Nothing in the chain
-   sets `overflow: hidden`, so it is not clipped. Measured: at 1500px the note's
-   right edge lands 27px inside the viewport, and every wider viewport has more
-   room. Below the gate the note opens as a panel under its own line instead. */
-@media (min-width: 1500px) {
+   sets `overflow: hidden`, so it is not clipped. Below the gate the note opens
+   as a panel under its own line instead.
+
+   GATE LOWERED 1500 -> 1440 (2026-08-29), and the note narrowed 300 -> 280 to
+   pay for it. Reason: this laptop's panel is 1920x1200 at scale 1.25, so its
+   CSS viewport is 1536px — it cleared the old gate by 36px, which meant the
+   margin note appeared only in a maximized window and silently fell back to the
+   inline panel if the window was narrowed at all or the page zoomed. That reads
+   as a bug rather than as a threshold.
+
+   Measured in a headless browser against the longest note on the OneCare page,
+   which is the worst case on the site (clearance = viewport minus the note's
+   right edge, at clientWidth so the scrollbar is already excluded):
+
+       width/gutter    1366px   1400px   1440px   1500px
+       300 / 28         -45      -20      +10      +54     <- old
+       280 / 24         -21       +4      +34      +78     <- now
+       260 / 24          -1      +24      +54      +98
+
+   280/24 at a 1440 gate keeps 34px of clearance where the old pair had 10, and
+   costs 31px of note height on that worst-case note. 260px was rejected: it
+   buys another 20px of clearance and makes the tallest note 729px, most of a
+   laptop screen. Re-measure before changing either number — the two trade
+   against each other and the gate is only correct for the pair below it. */
+@media (min-width: 1440px) {
   .fn-note {
-    left: calc(var(--measure) + 28px);
-    width: 300px;
+    left: calc(var(--measure) + 24px);
+    width: 280px;
     max-width: none;
     margin-top: 0;
     background: none;
