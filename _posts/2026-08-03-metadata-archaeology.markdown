@@ -26,7 +26,7 @@ What I learned from this exercise is that audio files are less a single metadata
 | 1   | Tag container (ID3v2, MP4 `ilst`, Vorbis comments) | 6,278                                          |
 | 2   | Legacy shadow tags (ID3v1, APEv2)                  | 4,146                                          |
 | 3   | Metadata **inside embedded cover art**             | EXIF 291, XMP 223, IPTC 293, JPEG comments 160 |
-| 4   | Codec/stream headers (Xing/LAME)                   | 1,393 files                                    |
+| 4   | Codec/stream headers (Xing/LAME)                   | 485 files                                      |
 | 5   | Container padding (`free`/`skip` atoms)            | 1,282 B of residue                             |
 | 6   | Filesystem (xattrs)                                | SELinux labels only                            |
 | 7   | The audio signal itself                            | —                                              |

@@ -1,5 +1,6 @@
 ---
 title:  "Reflections on Population Health"
+description: Why most of the modern gain in human lifespan came from nutrition rather than medicine
 date:   2018-04-05 14:50:00 -0500
 layout: default
 categories: health

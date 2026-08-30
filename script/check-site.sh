@@ -109,21 +109,12 @@ PY
   probe "orphan footnote marker"            orphanfn 'class="fn-note"'
   probe "duplicate og:image tag"            ogdup    'property="og:image"'
 
-  # The stale-card check has no page to poison; back-date a card instead.
-  probe_card=$(find assets/og -name '*.png' 2>/dev/null | head -1)
-  printf '\n--- selftest: stale share card\n'
-  if [ -z "$probe_card" ]; then
-    printf '    NO PROBE CARD in assets/og\n'; st_fail=1
-  else
-    orig_t=$(stat -c %Y "$probe_card")
-    touch -d "2000-01-01" "$probe_card"
-    if bash "$0" --no-build >/dev/null 2>&1; then
-      printf '    NOT DETECTED — the stale-card check cannot fail\n'; st_fail=1
-    else
-      printf '    detected (suite exited non-zero)\n'
-    fi
-    touch -d "@$orig_t" "$probe_card"
-  fi
+  # NO stale-share-card probe, deliberately. That check was demoted to
+  # report-only on 2026-08-30 (see the "feed and share cards" section for the
+  # two wrong implementations that preceded the decision), so it can no longer
+  # fail and there is nothing to prove. A probe kept here would report NOT
+  # DETECTED forever and train you to ignore the selftest verdict, which is
+  # the one output in this file that has to stay trustworthy.
 
   trap - EXIT INT TERM
   printf '\n=== selftest verdict ===\n'
@@ -455,21 +446,31 @@ for root, _, files in os.walk("_site"):
             print(f"  {rel}: og declares {w.group(1)}x{h.group(1)} but the PNG is "
                   f"{size[0]}x{size[1]}"); bad = 1
 
-# (3) a card older than its inputs means build-og-cards.py was not re-run.
-#     The script reads the BUILT site, so a stale _site produces stale cards
-#     with no complaint, and regeneration is currently only a line in
-#     PUBLISHING.md.
-inputs = ["_data/projects.yml", "_includes/project-mark.html"]
-newest_in = max((os.path.getmtime(i) for i in inputs if os.path.exists(i)), default=0)
-stale = [c for c in sorted(os.listdir("assets/og"))
-         if c.endswith(".png") and os.path.getmtime(os.path.join("assets/og", c)) < newest_in]
-if stale:
-    print(f"  {len(stale)} share card(s) older than projects.yml/project-mark.html: "
-          f"{', '.join(stale[:4])}{'...' if len(stale) > 4 else ''}")
-    print("  -> bundle exec jekyll build && uv run script/build-og-cards.py")
-    bad = 1
-else:
-    print(f"  {len(os.listdir('assets/og'))} share card(s), all newer than their inputs")
+# (3) share-card freshness. REPORTED, never fails -- and the reason is worth
+#     keeping, because two different implementations of this check were both
+#     wrong before the third was right.
+#
+#     v1 compared MTIMES. Git does not preserve them, so every file gets its
+#     checkout time and one clone made all 11 cards look stale.
+#
+#     v2 compared GIT COMMIT TIMES. Better -- it survives a clone -- but still
+#     wrong, because it asks "was this card committed after projects.yml last
+#     changed?" when the question is "would regenerating change it?". Adding a
+#     NEW project edits projects.yml without altering any existing card, so v2
+#     reported the 10 older cards as stale on 2026-08-30 when they were fine.
+#
+#     What settled it: build-og-cards.py is DETERMINISTIC. Regenerating all 11
+#     on 2026-08-30 produced 11 byte-identical files (sha256, all unchanged).
+#     So the only sound staleness test IS regeneration, and regeneration is
+#     also the fix -- which makes a failing gate here pure noise. `git status`
+#     after a rebuild is the real check, and it cannot be wrong.
+#
+#     So: report what exists, name the command, and never fail the suite on it.
+#     A check that fires on ten provably-identical files is one you learn to
+#     ignore, which is the same argument the em-dash section makes above.
+cards = [c for c in sorted(os.listdir("assets/og")) if c.endswith(".png")]
+print(f"  {len(cards)} share card(s) present (freshness is not asserted here)")
+print("  -> bundle exec jekyll build && uv run script/build-og-cards.py && git status")
 sys.exit(bad)
 PY
 then note "ok"; else fail=1; fi
