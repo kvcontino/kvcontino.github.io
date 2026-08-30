@@ -62,10 +62,22 @@
         always what the href says -- `index.html` builds to `/`, not to
         `/index.html`, so the href and the test differ on purpose here.
 
-        Exact matches only. A reader on a post or on a project page sees no
-        item lit; to light **Posts** while reading a post, the test becomes
-        `or page.url contains "/20"`, and for projects, `page.url contains
-        "/_resources/"`.
+        SECTION matches, not just exact ones (changed 2026-08-30). A reader
+        inside a post lights **Posts**; a reader on a project page lights
+        **Projects**. Before this the tests were `page.url == …` only, so a
+        reader anywhere except the three index pages saw nothing lit at all.
+
+        Posts are dated URLs -- `/health/2018/04/05/populationhealth.html` --
+        so `contains "/20"` is what identifies one. It is deliberately not
+        `contains "/posts"`: the index lives at /posts/ but the posts
+        themselves do not live under it.
+
+        Projects are served out of `/_resources/`. That directory is also the
+        data dump for several projects, but every page a reader can navigate
+        to from the Projects index is under it, which is what matters here.
+
+        About stays EXACT. `/` is a prefix of every URL on the site, so a
+        `contains` test there would light About on every page.
       {% endcomment %}
       <a href="/index.html"{% if page.url == "/" %} aria-current="page"{% endif %}>About
         {% comment %}Globe: sphere, equator, one meridian. Three elements is
@@ -76,7 +88,7 @@
           <ellipse cx="12" cy="12" rx="4.3" ry="8.6"/>
           <line x1="3.4" y1="12" x2="20.6" y2="12"/>
         </svg></a>
-      <a href="/posts/"{% if page.url == "/posts/" %} aria-current="page"{% endif %}>Posts
+      <a href="/posts/"{% if page.url == "/posts/" or page.url contains "/20" %} aria-current="page"{% endif %}>Posts
         {% comment %}A dip-pen nib: shoulders, tapering point, slit, vent hole.
         The notepad half of "pen and notepad" is deliberately absent -- a ruled
         page behind a pen needs about 24px of real estate to stay legible and
@@ -95,7 +107,7 @@
           <line x1="12" y1="21.4" x2="12" y2="14"/>
           <circle cx="12" cy="11.8" r="1.15"/>
         </svg></a>
-      <a href="/_pages/presentations.html"{% if page.url == "/_pages/presentations.html" %} aria-current="page"{% endif %}>Projects
+      <a href="/_pages/presentations.html"{% if page.url == "/_pages/presentations.html" or page.url contains "/_resources/" %} aria-current="page"{% endif %}>Projects
         {% comment %}Dividers -- the drawing compass: hinge, two legs, and the
         arc the pencil leg sweeps. A measuring instrument for a page of
         measurement, and the one tool here that is also cartographic.
