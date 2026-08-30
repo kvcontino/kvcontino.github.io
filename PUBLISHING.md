@@ -97,6 +97,26 @@ Two things to know when editing the template:
   The template builds one array of `DATE|kind|RANK|INDEX` strings, sorts that,
   and uses `INDEX` to reach back into the right source array.
 
+### Checking the built site
+
+```fish
+script/check-site.sh              # build, then check
+script/check-site.sh --selftest   # prove the checks can still FAIL
+```
+
+`--selftest` poisons a page in `_site/` per check, asserts the suite exits
+non-zero, and reverts. Run it after touching `check-site.sh`: the reason it
+exists is that a tightened glyph check once matched **zero pages while still
+reporting `ok`**, and a check that cannot fail looks exactly like one that
+passes. Each probe picks its own page — the first version used one page for all
+of them and declared two checks broken that were merely being run somewhere
+they did not apply.
+
+The em-dash count **reports and never fails**: the standing preference is
+em-dashes out of authored prose and kept in verbatim quotes, but the
+methodology page's 72 are a decided exception, and a check that fails on a
+decided exception only teaches you to ignore it.
+
 ### Share cards (og:image)
 
 Pasting a URL into Slack, Signal, iMessage, Discord, LinkedIn or Mastodon makes

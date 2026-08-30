@@ -14,6 +14,7 @@
 #   script/check-site.sh              # builds, then checks
 #   script/check-site.sh --no-build   # check an existing _site/
 #   script/check-site.sh --drafts     # ALSO build with --drafts and check that
+#   script/check-site.sh --selftest   # prove the checks can FAIL, then exit
 #
 # Exit 0 = clean, 1 = findings. Intended for CI as well as by hand.
 #
@@ -25,11 +26,12 @@
 set -uo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 2
-BUILD=1; DRAFTS=0
+BUILD=1; DRAFTS=0; SELFTEST=0
 for a in "$@"; do
   case "$a" in
     --no-build) BUILD=0 ;;
     --drafts)   DRAFTS=1 ;;
+    --selftest) SELFTEST=1 ;;
     *) echo "unknown flag: $a" >&2; exit 64 ;;
   esac
 done
@@ -44,6 +46,93 @@ if [ "$BUILD" = 1 ]; then
   note "ok"
 fi
 [ -d _site ] || { echo "no _site/ — run without --no-build"; exit 2; }
+
+# ------------------------------------------------------------------- selftest
+# WHY THIS EXISTS. The glyph check was scoped by the bare substring "lite.css",
+# and a first attempt at tightening that scope MATCHED ZERO PAGES WHILE STILL
+# REPORTING "ok" -- a check that cannot fail is indistinguishable from a check
+# that passes, and it was caught only by injecting a U+2192 by hand. So the
+# hand-injection became the flag.
+#
+# EACH PROBE PICKS ITS OWN PAGE, and that is the whole lesson repeating itself.
+# The first version of this flag poisoned one page for all four probes and
+# reported that the glyph and orphan-footnote checks "cannot fail" -- because
+# the page it happened to pick (_resources/mcaid/) references no lite.css and
+# carries no footnotes, so both checks correctly skipped it. A probe run
+# somewhere the check does not apply proves nothing, and says so in exactly the
+# words that mean a real defect. So: select a page that satisfies the check's
+# own precondition, and if none exists, say NO PROBE PAGE rather than "not
+# detected". The two are not the same finding.
+#
+# Reverting is in a trap, not at the end of the loop, so an interrupted
+# selftest cannot leave a poisoned page behind. Only _site/ is ever written to,
+# never a source file.
+if [ "$SELFTEST" = 1 ]; then
+  [ -d _site ] || { echo "no _site/ — build first"; exit 2; }
+  st_fail=0
+  probe_page=""; backup=""
+  restore() { [ -n "$backup" ] && [ -n "$probe_page" ] && cp "$backup" "$probe_page"; rm -f "$backup"; }
+  trap restore EXIT INT TERM
+
+  # $1 label, $2 mode, $3 grep pattern the page must contain
+  probe() {
+    printf '\n--- selftest: %s\n' "$1"
+    probe_page=$(grep -rl "$3" _site --include='*.html' 2>/dev/null | head -1)
+    if [ -z "$probe_page" ]; then
+      printf '    NO PROBE PAGE matches %s — cannot exercise this check\n' "$3"
+      st_fail=1; return
+    fi
+    printf '    poisoning %s\n' "${probe_page#_site/}"
+    backup=$(mktemp); cp "$probe_page" "$backup"
+    python3 - "$probe_page" "$2" <<'PY'
+import sys
+f, mode = sys.argv[1], sys.argv[2]
+h = open(f, encoding="utf-8").read()
+if mode == "glyph":      h = h.replace("</p>", " →</p>", 1)
+elif mode == "tag":      h = h.replace("</div>", "", 1)
+elif mode == "orphanfn": h = h.replace('<span class="fn-note"', '<span class="fn-NOTE"', 1)
+elif mode == "ogdup":
+    h = h.replace('<meta property="og:image"',
+                  '<meta property="og:image" content="x"><meta property="og:image"', 1)
+open(f, "w", encoding="utf-8").write(h)
+PY
+    if bash "$0" --no-build >/dev/null 2>&1; then
+      printf '    NOT DETECTED — this check cannot fail\n'; st_fail=1
+    else
+      printf '    detected (suite exited non-zero)\n'
+    fi
+    cp "$backup" "$probe_page"; rm -f "$backup"; backup=""; probe_page=""
+  }
+
+  probe "missing glyph (U+2192 into prose)" glyph    'lite\.css'
+  probe "unbalanced tag (drop one </div>)"  tag      '</div>'
+  probe "orphan footnote marker"            orphanfn 'class="fn-note"'
+  probe "duplicate og:image tag"            ogdup    'property="og:image"'
+
+  # The stale-card check has no page to poison; back-date a card instead.
+  probe_card=$(find assets/og -name '*.png' 2>/dev/null | head -1)
+  printf '\n--- selftest: stale share card\n'
+  if [ -z "$probe_card" ]; then
+    printf '    NO PROBE CARD in assets/og\n'; st_fail=1
+  else
+    orig_t=$(stat -c %Y "$probe_card")
+    touch -d "2000-01-01" "$probe_card"
+    if bash "$0" --no-build >/dev/null 2>&1; then
+      printf '    NOT DETECTED — the stale-card check cannot fail\n'; st_fail=1
+    else
+      printf '    detected (suite exited non-zero)\n'
+    fi
+    touch -d "@$orig_t" "$probe_card"
+  fi
+
+  trap - EXIT INT TERM
+  printf '\n=== selftest verdict ===\n'
+  if [ "$st_fail" = 0 ]; then
+    note "every probe was detected — the checks can fail"; exit 0
+  else
+    note "a probe went UNDETECTED or had no page — see above"; exit 1
+  fi
+fi
 
 # Every .html file Jekyll produced. -print0/read -d '' so paths with spaces
 # survive; an unquoted for-loop over find output has bitten this setup before.
@@ -239,6 +328,149 @@ for ch, pages in sorted(bad.items()):
     where = ", ".join(sorted(pages)[:3]) + ("..." if len(pages) > 3 else "")
     print(f"  MISSING GLYPH U+{ord(ch):04X} {ch!r} ({name}) - {where}")
 sys.exit(1 if bad else 0)
+PY
+then note "ok"; else fail=1; fi
+
+# ------------------------------------------------------------------- em-dashes
+# REPORTS, never fails. The standing preference is em-dashes out of authored
+# prose and kept inside verbatim quotes, so <blockquote> is excluded -- but the
+# methodology page carries 72 the user has explicitly declined to convert, and
+# a check that fails on a decided exception just teaches you to ignore it.
+# Enforcement was a manual `grep -c` roughly six times in one editing session;
+# this makes the number visible without making it a gate.
+section "em-dashes outside blockquote (report only)"
+python3 - "${PAGES[@]}" <<'PY'
+import re, sys, os
+rows = []
+for f in sys.argv[1:]:
+    html = open(f, encoding="utf-8", errors="replace").read()
+    body = re.sub(r"<(script|style|blockquote)\b.*?</\1>", " ", html, flags=re.S | re.I)
+    body = re.sub(r"<[^>]+>", " ", body)
+    n = body.count("—")
+    if n:
+        rows.append((n, os.path.relpath(f, "_site")))
+for n, f in sorted(rows, reverse=True)[:12]:
+    print(f"  {n:>4}  {f}")
+print(f"  ({sum(n for n, _ in rows)} total across {len(rows)} page(s); reported, not enforced)")
+PY
+
+# ------------------------------------------------------------- footnote integrity
+# Two hazards, one check. An orphan `<span class="fn">` with no `.fn-note`
+# inside it renders a bare superscript number pointing at nothing. And the
+# user's editor strips superscripts when prose is pasted out to edit, so a
+# footnote that vanishes between commits is ambiguous between a deliberate cut
+# and a paste artifact -- the throwaway version of this found 5 apparent losses,
+# 4 of which were rewrites and 1 carried more fully elsewhere. Orphans FAIL;
+# a drop in count against HEAD is reported for a human to read.
+section "footnote integrity"
+if python3 - "${PAGES[@]}" <<'PY'
+import re, sys, os, subprocess
+bad = 0
+per_page = {}
+for f in sys.argv[1:]:
+    html = open(f, encoding="utf-8", errors="replace").read()
+    marks = re.findall(r'<span class="fn"[^>]*>(.*?)</span>\s*</span>', html, flags=re.S)
+    total = len(re.findall(r'<span class="fn"[^>]*>', html))
+    notes = len(re.findall(r'<span class="fn-note"[^>]*>', html))
+    rel = os.path.relpath(f, "_site")
+    if total:
+        per_page[rel] = total
+    if total != notes:
+        print(f"  ORPHAN MARKER {rel}: {total} fn marker(s) but {notes} fn-note(s)")
+        bad = 1
+if per_page:
+    for k, v in sorted(per_page.items()):
+        print(f"  {v:>4} footnote(s)  {k}")
+# Compare against the previous commit's built count where the source is tracked.
+try:
+    prev = subprocess.run(["git", "show", "HEAD:_resources/onecare/index.html"],
+                          capture_output=True, text=True, timeout=20)
+    if prev.returncode == 0:
+        was = len(re.findall(r'<span class="fn"[^>]*>', prev.stdout))
+        now_src = open("_resources/onecare/index.html", encoding="utf-8").read()
+        now = len(re.findall(r'<span class="fn"[^>]*>', now_src))
+        if now < was:
+            print(f"  NOTE: onecare/index.html footnotes {was} -> {now}. A drop is not")
+            print( "        automatically wrong, but the editor strips superscripts on paste,")
+            print( "        so confirm each loss was meant. (reported, not a failure)")
+except Exception:
+    pass
+sys.exit(bad)
+PY
+then note "ok"; else fail=1; fi
+
+# ------------------------------------------------------------------ feed + cards
+section "feed and share cards"
+if python3 - <<'PY'
+import os, re, struct, sys, xml.etree.ElementTree as ET
+bad = 0
+
+# (1) feed.xml is hand-maintained and nothing validates it.
+try:
+    tree = ET.parse("_site/feed.xml")
+    entries = tree.getroot().findall("{http://www.w3.org/2005/Atom}entry")
+    ids = [e.find("{http://www.w3.org/2005/Atom}id").text for e in entries]
+    print(f"  feed.xml parses, {len(entries)} entries")
+    dupes = {i for i in ids if ids.count(i) > 1}
+    if dupes:
+        print(f"  DUPLICATE FEED ID(S): {sorted(dupes)}")
+        bad = 1
+    if not entries:
+        print("  feed.xml has NO entries"); bad = 1
+except Exception as e:
+    print(f"  feed.xml FAILED to parse: {e}"); bad = 1
+
+def png_size(path):
+    """Width/height from the IHDR header -- no image library needed."""
+    with open(path, "rb") as fh:
+        head = fh.read(24)
+    if head[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    return struct.unpack(">II", head[16:24])
+
+# (2) exactly one og:image per page, the file exists, and the declared
+#     dimensions match the PNG header. The duplicate-tag and wrong-card bugs
+#     were both found only by a throwaway loop.
+for root, _, files in os.walk("_site"):
+    for fn in files:
+        if not fn.endswith(".html"):
+            continue
+        f = os.path.join(root, fn)
+        html = open(f, encoding="utf-8", errors="replace").read()
+        imgs = re.findall(r'<meta property="og:image" content="([^"]+)"', html)
+        rel = os.path.relpath(f, "_site")
+        if len(imgs) > 1:
+            print(f"  {rel}: {len(imgs)} og:image tags, expected 1"); bad = 1
+        if not imgs:
+            continue
+        local = imgs[0].split("kvcontino.github.io", 1)[-1].lstrip("/")
+        path = os.path.join("_site", local)
+        if not os.path.exists(path):
+            print(f"  {rel}: og:image missing on disk -> {local}"); bad = 1
+            continue
+        size = png_size(path)
+        w = re.search(r'<meta property="og:image:width" content="(\d+)"', html)
+        h = re.search(r'<meta property="og:image:height" content="(\d+)"', html)
+        if size and w and h and (int(w.group(1)), int(h.group(1))) != size:
+            print(f"  {rel}: og declares {w.group(1)}x{h.group(1)} but the PNG is "
+                  f"{size[0]}x{size[1]}"); bad = 1
+
+# (3) a card older than its inputs means build-og-cards.py was not re-run.
+#     The script reads the BUILT site, so a stale _site produces stale cards
+#     with no complaint, and regeneration is currently only a line in
+#     PUBLISHING.md.
+inputs = ["_data/projects.yml", "_includes/project-mark.html"]
+newest_in = max((os.path.getmtime(i) for i in inputs if os.path.exists(i)), default=0)
+stale = [c for c in sorted(os.listdir("assets/og"))
+         if c.endswith(".png") and os.path.getmtime(os.path.join("assets/og", c)) < newest_in]
+if stale:
+    print(f"  {len(stale)} share card(s) older than projects.yml/project-mark.html: "
+          f"{', '.join(stale[:4])}{'...' if len(stale) > 4 else ''}")
+    print("  -> bundle exec jekyll build && uv run script/build-og-cards.py")
+    bad = 1
+else:
+    print(f"  {len(os.listdir('assets/og'))} share card(s), all newer than their inputs")
+sys.exit(bad)
 PY
 then note "ok"; else fail=1; fi
 
