@@ -26,19 +26,57 @@
 set -uo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 2
-BUILD=1; DRAFTS=0; SELFTEST=0
+BUILD=1; DRAFTS=0; SELFTEST=0; LIVE=0
 for a in "$@"; do
   case "$a" in
     --no-build) BUILD=0 ;;
     --drafts)   DRAFTS=1 ;;
     --selftest) SELFTEST=1 ;;
+    --live)     LIVE=1; BUILD=0 ;;
     *) echo "unknown flag: $a" >&2; exit 64 ;;
   esac
 done
 
+
 fail=0
 note() { printf '  %s\n' "$1"; }
 section() { printf '\n=== %s ===\n' "$1"; }
+
+# ---------------------------------------------------------------------- live
+# Everything else in this file reads _site/, which answers "did Jekyll produce
+# the right thing". It cannot answer "can a reader reach it" -- a green build
+# still does not guarantee a publish (memory reference-pages-deploy-vs-build),
+# and the two failures look identical from here.
+#
+# --live HEADs the deployed URLs instead. It implies --no-build: rebuilding
+# locally is irrelevant to what the server is serving, and doing it anyway would
+# make a stale deploy look fresh.
+if [ "$LIVE" = 1 ]; then
+  ORIGIN=https://kvcontino.github.io
+  section "live site — $ORIGIN"
+  live_fail=0
+  # Pages the site must always serve, plus every share card referenced by the
+  # projects data. A card that 404s is the specific failure that made the
+  # Federal Medicaid Data Catalog's og:image dead on arrival for two hours on
+  # 2026-08-31, and nothing in the built-tree checks could see it.
+  urls=(/ /posts/ /feed.xml /_pages/presentations.html)
+  while IFS= read -r c; do urls+=("/assets/og/$c"); done     < <(ls assets/og/*.png 2>/dev/null | xargs -r -n1 basename)
+  for u in "${urls[@]}"; do
+    code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 25 -I "$ORIGIN$u")
+    if [ "$code" = "200" ]; then
+      note "ok    $u"
+    else
+      note "FAIL  $u -> HTTP $code"; live_fail=$((live_fail+1)); fail=1
+    fi
+  done
+  printf '\n=== live verdict ===\n'
+  if [ "$live_fail" = 0 ]; then
+    note "all ${#urls[@]} URLs serve 200"
+  else
+    note "$live_fail of ${#urls[@]} URLs are not being served"
+  fi
+  exit $fail
+fi
 
 if [ "$BUILD" = 1 ]; then
   section "jekyll build"
