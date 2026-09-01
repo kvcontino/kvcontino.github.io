@@ -166,12 +166,21 @@ def main() -> None:
     )["description"].strip()
 
     jobs = [("site", site_card(hero_marks, dek))]
+    external = []
     for pr, mark in zip(projects, row_marks):
-        if "://" in pr["url"]:
-            print(f"  skip  {pr['title']} — lives in another repository")
-            continue
         jobs.append((slug(pr["url"]),
                      project_card(mark, pr["title"], pr["blurb"].strip(), str(pr["date"]))))
+        if "://" in pr["url"]:
+            # A project served from ANOTHER repository still deserves a card:
+            # the art is this site's mark and this site's blurb, both read from
+            # _data/projects.yml, so it belongs here and stays in sync here.
+            # What this repo cannot do is inject the <meta> tag into a page it
+            # does not own -- so the card is built and the other repo points at
+            # it by absolute URL. Previously these were skipped outright, which
+            # left the Federal Medicaid Data Catalog with no card at all, and
+            # the reason ("lives in another repository") described the tag, not
+            # the image.
+            external.append((pr["title"], slug(pr["url"]), pr["url"]))
 
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -198,6 +207,13 @@ def main() -> None:
     tmp.unlink()
     print(f"\n{len(jobs)} cards at {W * SCALE}x{H * SCALE}. "
           f"Reference them with `image:` front matter (jekyll-seo-tag emits the tags).")
+    if external:
+        print("\nCards for pages this repo does not serve — these need the tag")
+        print("added by hand IN THE OTHER REPO, pointing at the absolute URL:")
+        for title, name, url in external:
+            print(f"  {title}\n    page: {url}\n"
+                  f'    tag : <meta property="og:image" '
+                  f'content="https://kvcontino.github.io/assets/og/{name}.png">')
 
 
 if __name__ == "__main__":
