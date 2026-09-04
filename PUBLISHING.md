@@ -411,6 +411,30 @@ grep -rL goatcounter _site --include=*.html
 **Posts vs Projects.** A post is short — a thought, a chart, a note. A project is
 larger, ongoing, curated, and lives in `_resources/`.
 
+**What belongs in `_resources/` — settled 2026-09-03, because the question kept
+recurring.** `_resources` is in `include:`, so **everything in it is published
+and web-reachable whether or not a page links to it.** There is no "private
+corner" of this directory; an unlinked file is unlisted, not unpublished. The
+rule actually in force, read off what is already here:
+
+> A file belongs in `_resources/` when a published page **cites it as
+> provenance** — the script that built the chart above it, the JSON the page
+> fetches. It is part of the argument, not a byproduct of making it.
+
+Checked against reality rather than assumed, and the recurring version of this
+question had it backwards: `build-nny-population.py` and
+`build-vermont-population.py` are **not** unlinked — each is cited by the map it
+builds (`nny-population-map.html`, `vermont-population-map.html`), which is the
+pattern working exactly as intended. The genuinely unlinked files are
+**`update-towns-format.py`** and **`mcaid/convert_mc.py`**, one-off conversion
+utilities no page cites. They are published to nobody and belong in the project
+repo instead — harmless where they are, so this is a tidy-up, not a defect.
+
+The distinction worth holding: *published* and *linked* are independent here.
+`exclude:` controls the first, a page's own markup controls the second, and
+conflating them is how a directory becomes both a publishing surface and a data
+dump without anyone deciding it should be.
+
 **`_resources/metro-age-structure/` is mixed**, per file, and the old blanket
 "this directory is generated" rule was wrong:
 
