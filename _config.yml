@@ -65,6 +65,15 @@ exclude:
   # copied verbatim into _site and would otherwise be served at its own URL.
   - PUBLISHING.md
   - script
+  # BACKLOG.md is WORSE than the case above, which is why it needs its own line.
+  # It HAS front matter, so Jekyll does not merely copy it -- it RENDERS it as a
+  # page, with the site layout, looking like something published on purpose.
+  # Verified 2026-09-06 by building before committing: _site/BACKLOG.html existed.
+  # It arrived when the session backlog was split and each project got its own
+  # BACKLOG.md; a peer session flagged the untracked file, which is what prompted
+  # the build. THE GENERAL RULE: a working file added to a PUBLISHING repo is
+  # public by default. Check the built output, not the intent.
+  - BACKLOG.md
 
 include:
 - _stylesheets

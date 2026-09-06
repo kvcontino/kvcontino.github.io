@@ -13,3 +13,7 @@ _resources/update-towns-format.py
 # Obsidian vault config — this repo is opened as a vault for writing posts.
 # Workspace layout, plugin state and cache; none of it belongs on the site.
 .obsidian/
+
+# Symlink to the private sessions repo — see backlog/site.md there.
+# This repo is PUBLIC; an internal backlog must not be committed to it.
+BACKLOG.md
