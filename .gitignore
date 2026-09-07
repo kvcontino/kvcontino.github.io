@@ -18,14 +18,20 @@ _resources/update-towns-format.py
 # This repo is PUBLIC; an internal backlog must not be committed to it.
 BACKLOG.md
 
-# Post drafts. This repo is PUBLIC, and _ideas/ is otherwise tracked, so a draft
-# committed here is published on github.com even though Jekyll never builds it —
-# working notes, inferences about intent, and TODO comments addressed to me,
-# under my own name, attached to a post I may never run. Same reasoning as
-# BACKLOG.md above: the pattern is the risk, not any one file's content.
+# _ideas/ is SCRATCH, and this repo is PUBLIC. Anything in there — half-formed
+# posts, working notes, TODO comments addressed to me by name — is published on
+# github.com the moment it is committed, even though Jekyll never builds the
+# directory. The narrow `*-draft.md` rule this replaces was a half-measure: it
+# depended on naming discipline, and a name-based rule goes silently inert the
+# moment a file is named differently.
 #
-# TWO rules, because a name-based rule is silently inert the moment someone
-# names a file differently. `drafts/` is the safe drawer: anything put there is
-# ignored by construction, no naming discipline required.
-_ideas/*-draft.md
-_ideas/drafts/
+# `_ideas/*` and NOT `_ideas/`. Excluding the directory itself stops git
+# descending into it, which makes every negation below unreachable — the classic
+# silently-inert gitignore. Excluding its CONTENTS keeps the door open so an
+# exception can be carved out.
+_ideas/*
+# The one exception, because PUBLISHING.md documents a workflow that names this
+# file (`cp _ideas/typography-specimen.html _site/` after each build) and it is
+# the canonical demonstration of the site's marks. It is a reference artifact,
+# not scratch.
+!_ideas/typography-specimen.html
