@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated": "2026-08-02",
+  "generated": "2026-09-06",
   "family_wise": {
     "vermont_best_rank": 2,
     "outcome": "ER_VISITS_PER_1000_BENES",

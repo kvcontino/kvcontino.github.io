@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-08-15T23:15:08.197801</dc:date>
+    <dc:date>2026-09-06T21:11:40.754094</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -40,1534 +40,108 @@ z
    <g id="line2d_1">
     <path d="M 232.706118 133.166512 
 L 314.011059 133.166512 
-" clip-path="url(#pe76f26a6ac)" style="fill: none; stroke: #7d6b5e; stroke-width: 2; stroke-linecap: round"/>
+" clip-path="url(#padeebbb198)" style="fill: none; stroke: #7d6b5e; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_2">
     <path d="M 368.214353 202.487442 
 L 512.756471 202.487442 
-" clip-path="url(#pe76f26a6ac)" style="fill: none; stroke: #7d6b5e; stroke-width: 2; stroke-linecap: round"/>
+" clip-path="url(#padeebbb198)" style="fill: none; stroke: #7d6b5e; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_3">
     <path d="M 106.231765 271.808372 
 L 178.502824 271.808372 
-" clip-path="url(#pe76f26a6ac)" style="fill: none; stroke: #7d6b5e; stroke-width: 2; stroke-linecap: round"/>
+" clip-path="url(#padeebbb198)" style="fill: none; stroke: #7d6b5e; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="matplotlib.axis_1">
     <g id="xtick_1">
      <g id="line2d_4">
       <path d="M 97.197882 303.002791 
 L 97.197882 95.04 
-" clip-path="url(#pe76f26a6ac)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#padeebbb198)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_5"/>
      <g id="text_1">
-      <!-- 1 -->
-      <g style="fill: #cbb8a9" transform="translate(94.430968 314.440134) scale(0.105 -0.105)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-31" d="M 1837 6 
-L 1094 -13 
-Q 915 -13 915 90 
-Q 915 211 1120 211 
-L 1190 211 
-Q 1517 211 1517 467 
-Q 1587 1011 1587 2214 
-L 1587 3514 
-Q 1587 3718 1545 3814 
-Q 1504 3910 1389 3910 
-Q 1274 3910 1120 3862 
-Q 966 3814 950 3814 
-Q 934 3814 922 3827 
-Q 870 3853 870 3910 
-Q 870 4006 1056 4083 
-Q 1094 4096 1267 4147 
-Q 1440 4198 1584 4275 
-Q 1728 4352 1818 4429 
-Q 2016 4608 2061 4608 
-Q 2163 4608 2163 4461 
-L 2106 4134 
-Q 2067 3328 2067 2010 
-L 2048 755 
-Q 2048 518 2125 387 
-Q 2202 256 2314 230 
-Q 2426 205 2538 205 
-Q 2650 205 2726 189 
-Q 2803 173 2803 89 
-Q 2803 6 2592 6 
-L 1837 6 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-31"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="97.197882" y="314.440134" transform="rotate(-0 97.197882 314.440134)">1</text>
      </g>
     </g>
     <g id="xtick_2">
      <g id="line2d_6">
       <path d="M 178.502824 303.002791 
 L 178.502824 95.04 
-" clip-path="url(#pe76f26a6ac)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#padeebbb198)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_7"/>
      <g id="text_2">
-      <!-- 10 -->
-      <g style="fill: #cbb8a9" transform="translate(172.968995 314.440134) scale(0.105 -0.105)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-30" d="M 269 2067 
-Q 269 3194 710 3875 
-Q 1152 4557 1785 4557 
-Q 2419 4557 2761 3923 
-Q 3104 3290 3104 2291 
-Q 3104 1293 2726 601 
-Q 2349 -90 1658 -90 
-Q 1344 -90 1097 32 
-Q 851 154 697 352 
-Q 544 550 448 832 
-Q 269 1338 269 2067 
-z
-M 1600 4173 
-Q 1126 4173 889 3693 
-Q 653 3213 653 2573 
-Q 653 1933 790 1408 
-Q 928 883 1203 528 
-Q 1478 173 1824 173 
-Q 2266 173 2509 704 
-Q 2752 1235 2752 1888 
-Q 2752 2541 2627 3027 
-Q 2502 3514 2233 3843 
-Q 1965 4173 1600 4173 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-31"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="178.502824" y="314.440134" transform="rotate(-0 178.502824 314.440134)">10</text>
      </g>
     </g>
     <g id="xtick_3">
      <g id="line2d_8">
       <path d="M 268.841647 303.002791 
 L 268.841647 95.04 
-" clip-path="url(#pe76f26a6ac)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#padeebbb198)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_9"/>
      <g id="text_3">
-      <!-- 20 -->
-      <g style="fill: #cbb8a9" transform="translate(263.307819 314.440134) scale(0.105 -0.105)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-32" d="M 1382 13 
-L 634 0 
-Q 493 0 457 19 
-Q 422 38 422 64 
-L 422 102 
-Q 422 173 608 384 
-Q 794 595 1158 1123 
-Q 1523 1651 1827 2320 
-Q 2131 2989 2131 3552 
-Q 2131 3821 1948 3993 
-Q 1766 4166 1510 4166 
-Q 1254 4166 1075 4102 
-Q 896 4038 806 3962 
-Q 582 3757 531 3757 
-Q 480 3757 480 3814 
-Q 480 3872 521 3949 
-Q 563 4026 662 4138 
-Q 762 4250 896 4352 
-Q 1210 4602 1638 4602 
-Q 2067 4602 2368 4365 
-Q 2669 4128 2669 3715 
-Q 2669 3302 2425 2745 
-Q 2182 2189 1888 1750 
-Q 1594 1312 1350 960 
-Q 1107 608 1107 576 
-Q 1107 499 1498 499 
-L 2061 499 
-Q 2221 499 2329 512 
-Q 2438 525 2454 525 
-Q 2470 525 2524 553 
-Q 2579 582 2633 608 
-Q 2688 634 2825 787 
-Q 2963 941 3008 941 
-Q 3078 941 3078 877 
-Q 3078 813 2739 288 
-L 2630 109 
-Q 2554 0 2445 0 
-L 1382 13 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-32"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="268.841647" y="314.440134" transform="rotate(-0 268.841647 314.440134)">20</text>
      </g>
     </g>
     <g id="xtick_4">
      <g id="line2d_10">
       <path d="M 359.180471 303.002791 
 L 359.180471 95.04 
-" clip-path="url(#pe76f26a6ac)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#padeebbb198)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_11"/>
      <g id="text_4">
-      <!-- 30 -->
-      <g style="fill: #cbb8a9" transform="translate(353.646642 314.440134) scale(0.105 -0.105)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-33" d="M 384 301 
-Q 384 403 518 403 
-Q 544 403 627 333 
-Q 896 102 1251 102 
-Q 1606 102 1840 240 
-Q 2074 378 2202 589 
-Q 2458 1011 2458 1404 
-Q 2458 1798 2250 2067 
-Q 2042 2336 1555 2336 
-Q 1453 2336 1408 2323 
-Q 1363 2310 1357 2310 
-Q 1267 2310 1267 2406 
-Q 1267 2451 1318 2480 
-Q 1370 2509 1421 2541 
-Q 1562 2630 1798 2803 
-Q 2202 3117 2202 3558 
-Q 2202 3808 2032 3987 
-Q 1862 4166 1644 4166 
-Q 1427 4166 1241 4070 
-Q 1056 3974 928 3878 
-Q 800 3782 752 3782 
-Q 704 3782 704 3840 
-Q 704 4070 1069 4307 
-Q 1434 4544 1789 4544 
-Q 2144 4544 2419 4352 
-Q 2694 4160 2694 3795 
-Q 2694 3578 2604 3389 
-Q 2515 3200 2444 3123 
-Q 2374 3046 2227 2899 
-Q 2080 2752 2080 2726 
-Q 2080 2714 2150 2701 
-Q 2432 2630 2586 2502 
-Q 2995 2176 2995 1651 
-Q 2995 890 2518 374 
-Q 2042 -141 1382 -141 
-Q 1024 -141 704 0 
-Q 384 141 384 301 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-33"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="359.180471" y="314.440134" transform="rotate(-0 359.180471 314.440134)">30</text>
      </g>
     </g>
     <g id="xtick_5">
      <g id="line2d_12">
       <path d="M 449.519294 303.002791 
 L 449.519294 95.04 
-" clip-path="url(#pe76f26a6ac)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#padeebbb198)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_13"/>
      <g id="text_5">
-      <!-- 40 -->
-      <g style="fill: #cbb8a9" transform="translate(443.985466 314.440134) scale(0.105 -0.105)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-34" d="M 1152 1344 
-L 454 1331 
-Q 326 1331 297 1360 
-Q 269 1389 269 1434 
-Q 269 1549 486 1869 
-Q 704 2189 1360 3097 
-Q 2016 4006 2083 4108 
-Q 2150 4211 2195 4275 
-Q 2240 4339 2291 4410 
-Q 2400 4544 2477 4544 
-Q 2586 4544 2586 4416 
-L 2509 1952 
-Q 2509 1830 2528 1811 
-Q 2547 1792 2643 1792 
-Q 2739 1792 2841 1824 
-Q 2944 1856 2982 1894 
-Q 3085 1997 3155 1997 
-Q 3226 1997 3226 1907 
-Q 3226 1882 3190 1750 
-Q 3155 1619 3145 1577 
-Q 3136 1536 3126 1501 
-Q 3117 1466 3098 1421 
-Q 3066 1331 2989 1331 
-L 2611 1350 
-Q 2496 1350 2496 1222 
-L 2509 371 
-L 2515 -192 
-L 2509 -403 
-Q 2509 -442 2480 -458 
-Q 2451 -474 2445 -486 
-Q 2432 -499 2288 -534 
-Q 2144 -570 2070 -570 
-Q 1997 -570 1961 -509 
-Q 1926 -448 1926 -416 
-Q 1926 -384 1939 -336 
-Q 1952 -288 1968 -179 
-Q 1984 -70 1997 102 
-Q 2035 621 2035 1306 
-Q 2035 1344 1965 1344 
-L 1152 1344 
-z
-M 2042 1907 
-L 2067 3392 
-Q 2067 3578 2032 3578 
-Q 1997 3578 1414 2755 
-Q 832 1933 832 1830 
-Q 832 1773 1011 1773 
-L 1856 1773 
-Q 1984 1773 2013 1795 
-Q 2042 1818 2042 1907 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-34"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="449.519294" y="314.440134" transform="rotate(-0 449.519294 314.440134)">40</text>
      </g>
     </g>
     <g id="xtick_6">
      <g id="line2d_14">
       <path d="M 539.858118 303.002791 
 L 539.858118 95.04 
-" clip-path="url(#pe76f26a6ac)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#padeebbb198)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_15"/>
      <g id="text_6">
-      <!-- 50 -->
-      <g style="fill: #cbb8a9" transform="translate(534.32429 314.440134) scale(0.105 -0.105)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-35" d="M 2496 3917 
-L 2074 3923 
-Q 1632 3923 1443 3881 
-Q 1254 3840 1242 3821 
-Q 1203 3725 1145 3385 
-Q 1088 3046 1088 2937 
-Q 1088 2829 1133 2829 
-Q 1139 2829 1155 2835 
-Q 1171 2842 1209 2848 
-Q 1248 2854 1306 2861 
-Q 1478 2880 1721 2880 
-Q 1965 2880 2221 2774 
-Q 2477 2669 2630 2496 
-Q 2963 2125 2963 1670 
-Q 2963 1216 2812 851 
-Q 2662 486 2419 269 
-Q 1920 -186 1312 -186 
-Q 1011 -186 713 -112 
-Q 416 -38 416 102 
-Q 416 198 506 198 
-Q 525 198 723 124 
-Q 922 51 1222 51 
-Q 1760 51 2099 454 
-Q 2438 858 2438 1427 
-Q 2438 1843 2195 2121 
-Q 1952 2400 1478 2400 
-Q 1235 2400 1081 2371 
-Q 928 2342 915 2342 
-Q 768 2342 768 2502 
-Q 768 2566 806 2797 
-Q 966 3661 1043 4224 
-Q 1069 4390 1248 4390 
-Q 2419 4403 2496 4419 
-Q 2573 4435 2621 4473 
-Q 2669 4512 2714 4557 
-Q 2790 4646 2842 4646 
-Q 2918 4646 2918 4576 
-Q 2918 4544 2893 4480 
-Q 2656 3994 2614 3955 
-Q 2573 3917 2496 3917 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-35"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="539.858118" y="314.440134" transform="rotate(-0 539.858118 314.440134)">50</text>
      </g>
     </g>
     <g id="text_7">
-     <!-- rank among 50 states (1 = most discrepant) -->
-     <g style="fill: #cbb8a9" transform="translate(236.959172 327.488416) scale(0.09 -0.09)">
-      <defs>
-       <path id="SortsMillGoudy-Regular-72" d="M 333 2323 
-L 262 2330 
-Q 141 2330 141 2432 
-Q 141 2502 227 2537 
-Q 314 2573 547 2646 
-Q 781 2720 915 2781 
-Q 1050 2842 1075 2842 
-Q 1158 2842 1158 2714 
-L 1152 2541 
-Q 1152 2310 1168 2288 
-Q 1184 2266 1200 2266 
-Q 1216 2266 1299 2394 
-Q 1382 2522 1536 2653 
-Q 1690 2784 1840 2784 
-Q 1990 2784 2150 2678 
-Q 2310 2573 2310 2467 
-Q 2310 2362 2259 2272 
-Q 2170 2118 2093 2118 
-Q 2042 2118 1910 2195 
-Q 1779 2272 1606 2272 
-Q 1434 2272 1283 2131 
-Q 1133 1990 1133 1875 
-L 1133 1210 
-L 1139 653 
-L 1146 538 
-Q 1146 403 1235 307 
-Q 1325 211 1405 198 
-Q 1485 186 1542 179 
-Q 1600 173 1632 169 
-Q 1664 166 1702 154 
-Q 1773 141 1773 61 
-Q 1773 -19 1696 -19 
-L 1152 13 
-L 486 -19 
-Q 371 -19 358 6 
-Q 346 32 346 58 
-Q 346 141 429 166 
-Q 595 205 630 329 
-Q 666 454 666 864 
-L 659 1894 
-L 653 2086 
-Q 653 2157 634 2202 
-Q 582 2323 333 2323 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-61" d="M 1062 -96 
-Q 307 -96 307 544 
-Q 307 1005 691 1178 
-Q 1011 1312 1670 1421 
-Q 1690 1427 1722 1430 
-Q 1754 1434 1789 1440 
-Q 1824 1446 1843 1453 
-Q 1888 1472 1888 1542 
-L 1901 1875 
-Q 1901 2240 1689 2403 
-Q 1478 2566 1280 2566 
-Q 819 2566 819 2182 
-L 845 1952 
-Q 845 1824 730 1824 
-Q 640 1824 531 1856 
-Q 333 1920 333 2074 
-Q 333 2323 669 2550 
-Q 1005 2778 1344 2778 
-Q 1683 2778 1875 2714 
-Q 2067 2650 2160 2570 
-Q 2253 2490 2304 2355 
-Q 2368 2195 2368 1852 
-Q 2368 1510 2352 1244 
-Q 2336 979 2336 761 
-Q 2336 544 2387 406 
-Q 2438 269 2508 230 
-Q 2579 192 2650 186 
-Q 2822 173 2822 83 
-Q 2822 -51 2419 -51 
-Q 2253 -51 2134 38 
-Q 2016 128 1965 214 
-Q 1914 301 1907 301 
-Q 1901 301 1856 259 
-Q 1811 218 1731 160 
-Q 1651 102 1549 45 
-Q 1312 -96 1062 -96 
-z
-M 1843 1331 
-L 1779 1318 
-Q 1632 1293 1593 1286 
-Q 1555 1280 1414 1248 
-Q 1274 1216 1219 1190 
-Q 1165 1165 1065 1110 
-Q 966 1056 922 998 
-Q 806 819 806 620 
-Q 806 422 934 291 
-Q 1062 160 1264 160 
-Q 1466 160 1584 211 
-Q 1702 262 1760 326 
-Q 1818 390 1850 499 
-Q 1888 621 1888 813 
-L 1888 1274 
-Q 1888 1331 1843 1331 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-6e" d="M 1587 0 
-L 1120 26 
-Q 954 26 678 13 
-L 403 0 
-Q 307 0 307 57 
-Q 307 115 339 128 
-Q 371 141 419 147 
-Q 467 154 512 186 
-Q 634 262 646 649 
-Q 659 1037 659 1158 
-L 659 2080 
-Q 659 2285 585 2355 
-Q 512 2426 384 2426 
-L 320 2426 
-Q 198 2426 198 2496 
-Q 198 2560 336 2579 
-Q 474 2598 554 2620 
-Q 634 2643 765 2697 
-Q 896 2752 976 2790 
-Q 1056 2829 1082 2829 
-L 1094 2829 
-Q 1152 2829 1152 2752 
-L 1139 2477 
-Q 1139 2310 1164 2310 
-Q 1190 2310 1216 2342 
-Q 1312 2477 1472 2573 
-Q 1760 2752 2022 2752 
-Q 2285 2752 2489 2672 
-Q 2694 2592 2809 2473 
-Q 2925 2355 3002 2202 
-Q 3130 1946 3130 1677 
-L 3130 1613 
-L 3136 1274 
-L 3136 621 
-Q 3136 378 3203 285 
-Q 3270 192 3526 154 
-Q 3654 134 3654 58 
-Q 3654 -6 3526 -6 
-L 3002 26 
-L 2509 0 
-Q 2381 0 2381 83 
-Q 2381 141 2458 160 
-L 2541 179 
-Q 2682 224 2682 608 
-L 2682 1472 
-Q 2682 1965 2438 2217 
-Q 2195 2470 1888 2470 
-Q 1581 2470 1376 2323 
-Q 1171 2176 1126 2048 
-Q 1082 1920 1082 1069 
-L 1082 826 
-Q 1082 506 1149 352 
-Q 1216 198 1446 179 
-Q 1510 179 1609 156 
-Q 1709 134 1709 83 
-Q 1709 0 1587 0 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-6b" d="M 256 4346 
-L 128 4339 
-Q 0 4339 0 4409 
-Q 0 4480 314 4576 
-Q 358 4589 419 4608 
-Q 480 4627 493 4630 
-Q 506 4634 541 4646 
-Q 576 4659 579 4662 
-Q 582 4666 611 4678 
-Q 640 4691 653 4700 
-Q 666 4710 704 4732 
-Q 742 4755 828 4809 
-Q 915 4864 998 4864 
-Q 1082 4864 1082 4742 
-Q 1082 4730 1075 4669 
-Q 1069 4608 1059 4489 
-Q 1050 4371 1043 4198 
-Q 1024 3693 1024 3123 
-Q 1024 3123 1005 1811 
-L 1005 1677 
-Q 1005 1408 1030 1408 
-Q 1088 1408 1149 1472 
-Q 1210 1536 1235 1555 
-Q 2131 2272 2131 2361 
-Q 2131 2451 1987 2508 
-Q 1843 2566 1843 2618 
-Q 1843 2682 1920 2682 
-L 2035 2675 
-L 2976 2707 
-Q 3142 2707 3142 2656 
-Q 3142 2605 3104 2585 
-Q 3066 2566 3002 2560 
-Q 2790 2528 2528 2349 
-Q 2509 2336 2486 2317 
-Q 2464 2298 2403 2253 
-Q 2342 2208 2259 2144 
-Q 2176 2080 1952 1910 
-Q 1728 1741 1677 1696 
-Q 1626 1651 1626 1600 
-Q 1626 1549 1696 1453 
-Q 2278 742 2694 378 
-Q 2867 224 3043 179 
-Q 3219 134 3296 134 
-Q 3373 134 3373 77 
-Q 3373 0 3318 -16 
-Q 3264 -32 3110 -32 
-L 2445 -26 
-Q 2285 -26 1440 1018 
-Q 1274 1222 1258 1248 
-Q 1242 1274 1187 1274 
-Q 1133 1274 1065 1184 
-Q 998 1094 998 979 
-L 1005 870 
-Q 1005 410 1056 346 
-Q 1062 339 1116 265 
-Q 1171 192 1385 153 
-Q 1600 115 1600 58 
-Q 1600 -45 1402 -45 
-L 781 -6 
-L 314 -32 
-Q 160 -32 160 45 
-Q 160 109 320 154 
-Q 467 211 505 320 
-Q 544 429 544 742 
-L 550 1024 
-L 557 3866 
-Q 557 4346 256 4346 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-20" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-6d" d="M 634 1331 
-L 627 2112 
-Q 627 2266 560 2330 
-Q 493 2394 410 2394 
-Q 198 2381 198 2483 
-Q 198 2541 275 2569 
-Q 352 2598 505 2630 
-Q 659 2662 729 2691 
-Q 800 2720 845 2745 
-Q 890 2771 909 2778 
-Q 966 2803 1043 2803 
-Q 1120 2803 1120 2618 
-L 1088 2349 
-Q 1088 2272 1126 2272 
-Q 1133 2272 1168 2320 
-Q 1203 2368 1264 2435 
-Q 1325 2502 1414 2573 
-Q 1632 2733 1929 2733 
-Q 2227 2733 2400 2653 
-Q 2573 2573 2640 2480 
-Q 2707 2387 2752 2307 
-Q 2797 2227 2806 2227 
-Q 2816 2227 2928 2358 
-Q 3040 2490 3248 2621 
-Q 3456 2752 3686 2752 
-Q 4154 2752 4406 2477 
-Q 4659 2202 4700 1808 
-Q 4742 1414 4742 979 
-L 4742 774 
-Q 4742 486 4774 358 
-Q 4806 230 4922 192 
-Q 4928 192 4979 182 
-Q 5030 173 5069 166 
-Q 5165 147 5165 70 
-Q 5165 -26 4954 -26 
-L 4531 0 
-L 4070 -26 
-Q 3917 -26 3917 41 
-Q 3917 109 4051 160 
-Q 4186 211 4211 269 
-Q 4237 339 4237 563 
-L 4237 666 
-L 4230 1344 
-L 4211 1766 
-Q 4211 1837 4192 1897 
-Q 4173 1958 4169 1990 
-Q 4166 2022 4134 2067 
-Q 4102 2112 4096 2125 
-Q 4070 2176 3994 2253 
-Q 3827 2451 3514 2451 
-Q 3366 2451 3206 2374 
-Q 3046 2298 2950 2218 
-Q 2854 2138 2854 2112 
-Q 2854 2086 2867 2016 
-Q 2893 1805 2893 1293 
-L 2893 749 
-Q 2893 454 2976 316 
-Q 3059 179 3334 141 
-Q 3398 134 3424 99 
-Q 3450 64 3450 38 
-Q 3450 -32 3328 -32 
-L 2861 0 
-L 2278 -32 
-Q 2138 -32 2138 51 
-Q 2138 96 2163 118 
-Q 2189 141 2256 166 
-Q 2323 192 2345 205 
-Q 2368 218 2400 314 
-Q 2432 410 2432 506 
-L 2432 627 
-L 2438 883 
-L 2438 1274 
-L 2432 1613 
-L 2426 1677 
-Q 2426 2016 2253 2221 
-Q 2080 2426 1792 2426 
-Q 1504 2426 1293 2285 
-Q 1082 2144 1082 1958 
-L 1082 666 
-Q 1082 435 1165 313 
-Q 1248 192 1350 176 
-Q 1453 160 1536 141 
-Q 1619 122 1619 77 
-Q 1619 19 1600 0 
-Q 1581 -19 1485 -19 
-L 947 0 
-L 442 -19 
-Q 288 -19 288 77 
-Q 288 147 403 166 
-Q 448 173 499 221 
-Q 550 269 592 403 
-Q 634 538 634 1331 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-6f" d="M 1680 -115 
-Q 1024 -115 637 304 
-Q 250 723 250 1305 
-Q 250 1888 650 2323 
-Q 1050 2758 1706 2758 
-Q 2362 2758 2806 2380 
-Q 3251 2003 3251 1331 
-Q 3251 659 2793 272 
-Q 2336 -115 1680 -115 
-z
-M 1606 2586 
-Q 1274 2586 1014 2323 
-Q 755 2061 755 1459 
-Q 755 858 1107 467 
-Q 1459 77 1865 77 
-Q 2272 77 2521 355 
-Q 2771 634 2771 1171 
-Q 2771 1709 2464 2147 
-Q 2157 2586 1606 2586 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-67" d="M 902 -1270 
-Q 653 -1216 451 -1049 
-Q 250 -883 250 -665 
-Q 250 -448 365 -329 
-Q 480 -211 595 -153 
-Q 710 -96 710 -80 
-Q 710 -64 678 -38 
-Q 646 -13 602 19 
-Q 499 102 499 297 
-Q 499 493 582 633 
-Q 666 774 749 844 
-Q 832 915 832 937 
-Q 832 960 765 1017 
-Q 698 1075 614 1148 
-Q 531 1222 464 1392 
-Q 397 1562 397 1750 
-Q 397 1939 445 2089 
-Q 493 2240 605 2403 
-Q 717 2566 950 2668 
-Q 1184 2771 1469 2771 
-Q 1754 2771 1933 2707 
-Q 2112 2643 2198 2579 
-Q 2285 2515 2323 2515 
-Q 2362 2515 2637 2630 
-Q 2726 2669 2771 2803 
-Q 2816 2938 2867 2938 
-Q 2950 2938 2950 2886 
-Q 2950 2733 2905 2557 
-Q 2861 2381 2797 2281 
-Q 2733 2182 2547 2106 
-Q 2618 1914 2618 1786 
-Q 2618 1376 2310 1094 
-Q 2003 813 1562 813 
-Q 1395 813 1244 841 
-Q 1094 870 1065 870 
-Q 1037 870 985 857 
-Q 934 845 857 768 
-Q 781 691 781 557 
-Q 781 339 979 281 
-Q 1178 224 1638 224 
-L 1933 224 
-Q 2861 224 2861 -339 
-Q 2861 -538 2816 -640 
-Q 2694 -954 2316 -1139 
-Q 1939 -1325 1440 -1325 
-Q 1152 -1325 902 -1270 
-z
-M 621 -582 
-Q 621 -864 857 -1008 
-Q 1094 -1152 1465 -1152 
-Q 1837 -1152 2153 -989 
-Q 2470 -826 2470 -570 
-Q 2470 -339 2246 -282 
-Q 2074 -243 1760 -243 
-L 1702 -243 
-Q 1498 -243 1203 -198 
-L 915 -154 
-Q 851 -154 736 -282 
-Q 621 -410 621 -582 
-z
-M 1488 2630 
-Q 1216 2630 1049 2428 
-Q 883 2227 883 1849 
-Q 883 1472 1065 1216 
-Q 1248 960 1529 960 
-Q 1811 960 1964 1181 
-Q 2118 1402 2118 1741 
-Q 2118 2080 1939 2355 
-Q 1760 2630 1488 2630 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-73" d="M 2099 2566 
-L 2125 2182 
-Q 2125 2074 2099 2035 
-Q 2074 1997 2026 1997 
-Q 1978 1997 1923 2089 
-Q 1869 2182 1801 2291 
-Q 1734 2400 1584 2493 
-Q 1434 2586 1242 2586 
-Q 1050 2586 928 2493 
-Q 806 2400 806 2291 
-Q 806 2182 825 2115 
-Q 845 2048 893 1997 
-Q 941 1946 976 1910 
-Q 1011 1875 1094 1836 
-Q 1178 1798 1219 1782 
-Q 1261 1766 1357 1728 
-Q 1939 1523 2105 1328 
-Q 2272 1133 2272 768 
-Q 2272 403 1933 96 
-Q 1702 -102 1299 -102 
-Q 1024 -102 685 32 
-Q 589 70 573 73 
-Q 557 77 521 89 
-Q 486 102 470 105 
-Q 454 109 428 121 
-Q 403 134 393 144 
-Q 384 154 371 173 
-Q 352 205 352 275 
-L 352 832 
-Q 352 902 381 950 
-Q 410 998 461 998 
-Q 512 998 534 969 
-Q 557 941 576 851 
-Q 595 762 614 723 
-Q 851 134 1280 134 
-Q 1478 134 1657 240 
-Q 1837 346 1837 573 
-Q 1837 800 1689 941 
-Q 1542 1082 1331 1162 
-Q 1120 1242 909 1328 
-Q 698 1414 550 1584 
-Q 403 1754 403 2010 
-Q 403 2368 691 2585 
-Q 979 2803 1324 2803 
-Q 1670 2803 1849 2748 
-Q 2029 2694 2064 2649 
-Q 2099 2605 2099 2566 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-74" d="M 403 2374 
-L 282 2368 
-Q 173 2368 173 2458 
-Q 173 2522 230 2566 
-Q 474 2726 717 3046 
-Q 819 3194 880 3261 
-Q 941 3328 1005 3328 
-Q 1069 3328 1069 3181 
-Q 1069 3181 1043 2816 
-Q 1043 2726 1078 2707 
-Q 1114 2688 1306 2688 
-L 1530 2688 
-Q 1818 2688 1882 2720 
-Q 1997 2778 2022 2778 
-Q 2086 2778 2086 2707 
-Q 2086 2656 2003 2505 
-Q 1920 2355 1882 2355 
-Q 1594 2355 1478 2368 
-Q 1363 2381 1324 2384 
-Q 1286 2387 1257 2390 
-Q 1229 2394 1216 2394 
-L 1203 2400 
-Q 1082 2400 1046 2361 
-Q 1011 2323 1011 2189 
-L 986 998 
-Q 986 582 1091 419 
-Q 1197 256 1536 256 
-Q 1670 256 1833 317 
-Q 1997 378 2010 378 
-Q 2074 378 2074 294 
-Q 2074 211 1853 73 
-Q 1632 -64 1376 -64 
-Q 512 -64 512 685 
-L 512 781 
-L 538 2272 
-Q 538 2336 512 2355 
-Q 486 2374 403 2374 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-65" d="M 1600 -122 
-Q 1037 -122 643 224 
-Q 250 570 250 1226 
-Q 250 1882 611 2323 
-Q 973 2765 1549 2765 
-Q 1818 2765 2038 2669 
-Q 2259 2573 2380 2435 
-Q 2502 2298 2586 2144 
-Q 2726 1882 2726 1747 
-Q 2726 1632 2464 1632 
-L 819 1632 
-Q 768 1632 758 1622 
-Q 749 1613 749 1562 
-Q 749 960 1072 614 
-Q 1395 269 1830 269 
-Q 2099 269 2377 413 
-Q 2656 557 2669 557 
-Q 2733 557 2733 499 
-Q 2733 422 2592 291 
-Q 2451 160 2323 77 
-Q 2016 -122 1600 -122 
-z
-M 870 1786 
-L 1997 1824 
-Q 2086 1824 2108 1840 
-Q 2131 1856 2131 1901 
-Q 2131 2093 1952 2349 
-Q 1773 2605 1453 2605 
-Q 1133 2605 960 2352 
-Q 787 2099 787 1875 
-Q 787 1786 870 1786 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-28" d="M 902 -102 
-Q 717 269 592 771 
-Q 467 1274 467 1811 
-Q 467 2349 601 2880 
-Q 736 3411 928 3769 
-Q 1120 4128 1328 4403 
-Q 1536 4678 1686 4809 
-Q 1837 4941 1888 4941 
-Q 2022 4941 2022 4806 
-Q 2022 4768 1891 4640 
-Q 1760 4512 1574 4288 
-Q 1389 4064 1203 3750 
-Q 1018 3437 886 2915 
-Q 755 2394 755 1798 
-Q 755 1203 883 700 
-Q 1011 198 1193 -125 
-Q 1376 -448 1561 -688 
-Q 1747 -928 1875 -1069 
-Q 2003 -1210 2003 -1258 
-Q 2003 -1306 1958 -1338 
-Q 1914 -1370 1859 -1370 
-Q 1805 -1370 1648 -1216 
-Q 1491 -1062 1289 -768 
-Q 1088 -474 902 -102 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-3d" d="M 205 640 
-Q 198 659 198 720 
-Q 198 781 205 806 
-Q 211 864 314 864 
-L 3072 864 
-Q 3162 864 3174 806 
-Q 3174 787 3174 710 
-Q 3174 634 3155 605 
-Q 3136 576 3040 576 
-L 307 576 
-Q 211 576 205 640 
-z
-M 205 1907 
-Q 198 1926 198 1987 
-Q 198 2048 205 2074 
-Q 211 2125 314 2125 
-L 3072 2125 
-Q 3162 2125 3174 2074 
-Q 3174 2048 3174 1974 
-Q 3174 1901 3155 1872 
-Q 3136 1843 3040 1843 
-L 307 1843 
-Q 211 1843 205 1907 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-64" d="M 2522 -19 
-L 2502 218 
-Q 2502 326 2445 326 
-Q 2426 326 2352 262 
-Q 2278 198 2182 118 
-Q 2086 38 1904 -26 
-Q 1722 -90 1510 -90 
-Q 915 -90 582 304 
-Q 250 698 250 1283 
-Q 250 1869 662 2336 
-Q 1075 2803 1805 2803 
-Q 1971 2803 2243 2710 
-Q 2515 2618 2540 2618 
-Q 2566 2618 2566 2848 
-L 2579 3674 
-Q 2579 4019 2544 4160 
-Q 2509 4301 2435 4345 
-Q 2362 4390 2240 4390 
-L 2170 4390 
-Q 2074 4390 2054 4396 
-Q 2035 4403 2035 4442 
-L 2035 4448 
-Q 2035 4493 2099 4515 
-Q 2163 4538 2358 4598 
-Q 2554 4659 2666 4710 
-Q 2778 4762 2835 4787 
-Q 2957 4851 3008 4851 
-Q 3085 4851 3085 4723 
-Q 3085 4704 3043 4179 
-Q 3002 3654 3002 3334 
-L 2989 998 
-Q 2989 563 3030 416 
-Q 3072 269 3213 224 
-Q 3232 218 3321 202 
-Q 3411 186 3449 163 
-Q 3488 141 3488 90 
-Q 3488 13 2995 -26 
-Q 2893 -32 2758 -61 
-Q 2624 -90 2592 -90 
-Q 2522 -90 2522 -19 
-z
-M 1600 2618 
-Q 1184 2618 947 2314 
-Q 710 2010 710 1536 
-Q 710 1062 1008 652 
-Q 1306 243 1773 243 
-Q 2061 243 2297 390 
-Q 2534 538 2534 749 
-L 2541 1843 
-Q 2541 2234 2362 2336 
-Q 1888 2618 1600 2618 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-69" d="M 1018 -26 
-L 563 -38 
-Q 307 -38 307 48 
-Q 307 134 403 166 
-Q 410 166 429 173 
-Q 576 224 621 326 
-Q 666 429 666 1318 
-L 666 1882 
-Q 666 2067 621 2176 
-Q 576 2285 537 2310 
-Q 499 2336 406 2352 
-Q 314 2368 272 2384 
-Q 230 2400 230 2435 
-Q 230 2470 246 2489 
-Q 262 2509 310 2531 
-Q 358 2554 410 2573 
-Q 589 2624 704 2675 
-Q 819 2726 880 2752 
-Q 941 2778 960 2790 
-Q 1005 2810 1069 2810 
-Q 1165 2810 1165 2688 
-L 1126 2381 
-L 1126 627 
-Q 1126 435 1187 326 
-Q 1248 218 1315 192 
-Q 1382 166 1472 160 
-Q 1562 154 1587 154 
-Q 1677 141 1677 64 
-Q 1677 -45 1568 -45 
-L 1472 -38 
-L 1018 -26 
-z
-M 909 3411 
-Q 781 3411 688 3545 
-Q 595 3680 595 3766 
-Q 595 3853 707 3990 
-Q 819 4128 918 4128 
-Q 1018 4128 1114 3997 
-Q 1210 3866 1210 3763 
-Q 1210 3661 1088 3536 
-Q 966 3411 909 3411 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-63" d="M 1574 -134 
-Q 973 -134 611 230 
-Q 250 595 250 1219 
-Q 250 1843 662 2294 
-Q 1075 2746 1734 2746 
-Q 1958 2746 2217 2682 
-Q 2477 2618 2483 2534 
-Q 2496 2381 2496 2166 
-Q 2496 1952 2426 1952 
-Q 2362 1952 2310 2035 
-Q 2202 2221 1898 2358 
-Q 1594 2496 1363 2496 
-Q 1235 2496 1113 2400 
-Q 992 2304 915 2189 
-Q 730 1920 730 1427 
-Q 730 934 1046 566 
-Q 1363 198 1824 198 
-Q 2048 198 2240 281 
-Q 2432 365 2537 448 
-Q 2643 531 2669 531 
-Q 2739 531 2739 467 
-Q 2739 403 2604 272 
-Q 2470 141 2342 64 
-Q 2029 -134 1574 -134 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-70" d="M 640 -397 
-L 659 1370 
-L 659 1510 
-Q 659 2042 611 2218 
-Q 563 2394 358 2394 
-Q 250 2394 224 2410 
-Q 198 2426 198 2461 
-Q 198 2496 252 2515 
-Q 307 2534 473 2585 
-Q 640 2637 857 2742 
-Q 1075 2848 1094 2848 
-Q 1178 2848 1178 2765 
-L 1152 2387 
-Q 1152 2336 1165 2336 
-Q 1178 2336 1226 2381 
-Q 1274 2426 1350 2493 
-Q 1427 2560 1536 2624 
-Q 1786 2778 2131 2778 
-Q 2701 2778 3001 2403 
-Q 3302 2029 3302 1462 
-Q 3302 896 2928 419 
-Q 2554 -58 1926 -58 
-Q 1632 -58 1449 3 
-Q 1267 64 1196 125 
-Q 1126 186 1104 186 
-Q 1082 186 1082 134 
-L 1082 -653 
-Q 1082 -774 1190 -954 
-Q 1261 -1069 1405 -1088 
-Q 1549 -1107 1648 -1113 
-Q 1747 -1120 1747 -1200 
-Q 1747 -1280 1530 -1280 
-Q 1491 -1280 1324 -1267 
-Q 1158 -1254 864 -1254 
-L 461 -1274 
-Q 320 -1274 281 -1261 
-Q 243 -1248 243 -1200 
-Q 243 -1152 304 -1126 
-Q 365 -1101 441 -1081 
-Q 518 -1062 579 -924 
-Q 640 -787 640 -525 
-L 640 -397 
-z
-M 1082 1229 
-L 1088 909 
-Q 1088 685 1184 525 
-Q 1280 365 1434 282 
-Q 1715 134 2029 134 
-Q 2445 134 2665 438 
-Q 2886 742 2886 1216 
-Q 2886 1690 2614 2074 
-Q 2342 2458 1882 2458 
-Q 1555 2458 1299 2253 
-Q 1165 2150 1123 1974 
-Q 1082 1798 1082 1229 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-29" d="M 64 -1229 
-Q 64 -1190 195 -1062 
-Q 326 -934 512 -713 
-Q 698 -493 883 -179 
-Q 1069 134 1200 656 
-Q 1331 1178 1331 1773 
-Q 1331 2368 1203 2870 
-Q 1075 3373 892 3696 
-Q 710 4019 524 4259 
-Q 339 4499 211 4640 
-Q 83 4781 83 4829 
-Q 83 4877 128 4909 
-Q 173 4941 227 4941 
-Q 282 4941 438 4787 
-Q 595 4634 796 4339 
-Q 998 4045 1184 3673 
-Q 1370 3302 1494 2800 
-Q 1619 2298 1619 1760 
-Q 1619 1222 1484 691 
-Q 1350 160 1158 -198 
-Q 966 -557 758 -832 
-Q 550 -1107 400 -1238 
-Q 250 -1370 198 -1370 
-Q 64 -1370 64 -1229 
-z
-" transform="scale(0.015625)"/>
-      </defs>
-      <use xlink:href="#SortsMillGoudy-Regular-72"/>
-      <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(37.499985 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(83.599976 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6b" transform="translate(142.699966 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(197.199951 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(218.499939 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6d" transform="translate(264.59993 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(347.299911 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(401.999908 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-67" transform="translate(461.099899 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(509.899887 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-35" transform="translate(531.199875 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(583.899872 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(636.599869 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(657.899857 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(697.199844 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(731.399841 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(777.499832 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(811.699829 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(858.29982 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(897.599808 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-28" transform="translate(918.899796 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(951.499786 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(1004.199783 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-3d" transform="translate(1025.499771 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(1078.199768 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6d" transform="translate(1099.499756 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(1182.199738 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(1236.899734 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(1276.199722 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(1310.399719 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-64" transform="translate(1331.699707 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(1388.199692 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(1416.599686 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-63" transform="translate(1455.899673 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(1501.09967 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(1538.599655 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(1585.199646 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(1640.699631 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(1686.799622 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(1745.899612 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-29" transform="translate(1780.099609 0)"/>
-     </g>
+     <text style="font-size: 9px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="318.528" y="327.488416" transform="rotate(-0 318.528 327.488416)">rank among 50 states (1 = most discrepant)</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
     <g id="ytick_1">
      <g id="line2d_16"/>
      <g id="text_8">
-      <!-- Spending -->
-      <g style="fill: #cbb8a9" transform="translate(45.374078 132.192762) scale(0.095 -0.095)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-53" d="M 2912 4410 
-L 3059 4461 
-Q 3142 4461 3155 4410 
-Q 3290 3635 3290 3497 
-Q 3290 3360 3200 3360 
-Q 3142 3360 3088 3497 
-Q 3034 3635 2960 3750 
-Q 2886 3866 2854 3898 
-Q 2822 3930 2688 4051 
-Q 2342 4358 1897 4358 
-Q 1453 4358 1184 4166 
-Q 915 3974 915 3667 
-Q 915 3360 1072 3174 
-Q 1229 2989 1491 2886 
-Q 1754 2784 2042 2694 
-Q 2816 2451 3187 2061 
-Q 3443 1786 3443 1376 
-Q 3443 704 3014 310 
-Q 2586 -83 1952 -83 
-Q 1510 -83 1241 -35 
-Q 973 13 691 160 
-Q 608 211 493 659 
-Q 378 1107 378 1219 
-Q 378 1331 464 1331 
-Q 550 1331 570 1267 
-Q 806 698 1126 461 
-Q 1472 198 1961 198 
-Q 2451 198 2742 451 
-Q 3034 704 3034 1114 
-Q 3034 1414 2835 1616 
-Q 2637 1818 2381 1907 
-Q 1427 2227 1088 2426 
-Q 506 2771 506 3353 
-Q 506 3936 918 4278 
-Q 1331 4621 1990 4621 
-Q 2234 4621 2570 4515 
-Q 2906 4410 2912 4410 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-53"/>
-       <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(59.599991 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(115.099976 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(161.699966 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-64" transform="translate(220.799957 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(277.299942 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(305.699936 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-67" transform="translate(364.799927 0)"/>
-      </g>
-      <!-- per capita -->
-      <g style="fill: #cbb8a9" transform="translate(45.106891 142.777246) scale(0.095 -0.095)">
-       <use xlink:href="#SortsMillGoudy-Regular-70"/>
-       <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(55.499985 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(102.099976 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(139.59996 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-63" transform="translate(160.899948 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(206.099945 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(252.199936 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(307.699921 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(336.099915 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(370.299911 0)"/>
-      </g>
+      <text style="font-size: 9.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9" transform="translate(45.374078 132.192762)">Spending</text>
+      <text style="font-size: 9.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9" transform="translate(45.106891 142.777246)">per capita</text>
      </g>
     </g>
     <g id="ytick_2">
      <g id="line2d_17"/>
      <g id="text_9">
-      <!-- Inpatient -->
-      <g style="fill: #cbb8a9" transform="translate(47.045484 201.537442) scale(0.095 -0.095)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-49" d="M 762 2573 
-L 768 3264 
-L 768 3558 
-Q 768 3840 745 4009 
-Q 723 4179 572 4262 
-Q 422 4346 275 4352 
-Q 128 4358 128 4451 
-Q 128 4544 307 4544 
-L 1030 4518 
-L 1594 4531 
-Q 1766 4531 1766 4442 
-Q 1766 4390 1472 4269 
-Q 1267 4186 1267 3533 
-L 1248 1165 
-Q 1248 627 1398 409 
-Q 1549 192 1715 192 
-L 1843 186 
-Q 1888 186 1933 163 
-Q 1978 141 1978 90 
-Q 1978 0 1818 0 
-L 1210 26 
-L 506 -6 
-Q 218 -6 218 90 
-Q 218 179 416 205 
-Q 493 211 576 284 
-Q 659 358 681 451 
-Q 704 544 733 1225 
-Q 762 1907 762 2208 
-L 762 2573 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-49"/>
-       <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(32.799988 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(91.899979 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(147.399963 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(193.499954 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(227.699951 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(256.099945 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(302.699936 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(361.799927 0)"/>
-      </g>
-      <!-- stays -->
-      <g style="fill: #cbb8a9" transform="translate(64.838688 212.055129) scale(0.095 -0.095)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-79" d="M 1306 -1216 
-L 1030 -1222 
-Q 909 -1222 909 -1139 
-Q 909 -1120 1053 -941 
-Q 1197 -762 1344 -499 
-Q 1491 -237 1491 -35 
-Q 1491 166 1126 960 
-Q 762 1754 493 2259 
-Q 422 2387 348 2457 
-Q 275 2528 230 2534 
-Q 128 2547 128 2630 
-Q 128 2714 256 2714 
-L 941 2701 
-L 1306 2714 
-Q 1350 2714 1385 2691 
-Q 1421 2669 1421 2643 
-Q 1421 2528 1267 2528 
-L 1171 2528 
-Q 1069 2528 1069 2368 
-Q 1069 2176 1408 1446 
-Q 1459 1338 1562 1101 
-Q 1754 666 1792 666 
-Q 1830 666 2089 1402 
-Q 2349 2138 2349 2278 
-Q 2349 2419 2288 2476 
-Q 2227 2534 2150 2534 
-Q 1952 2522 1952 2643 
-Q 1952 2720 2074 2720 
-L 2534 2714 
-L 2931 2720 
-Q 3066 2720 3066 2637 
-Q 3066 2573 2954 2544 
-Q 2842 2515 2803 2464 
-Q 2701 2317 2458 1658 
-L 1888 141 
-Q 1818 -45 1747 -240 
-Q 1677 -435 1632 -556 
-Q 1587 -678 1542 -800 
-Q 1498 -922 1472 -989 
-Q 1446 -1056 1421 -1114 
-Q 1370 -1216 1325 -1216 
-L 1306 -1216 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-73"/>
-       <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(39.299988 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(73.499985 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-79" transform="translate(119.599976 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(169.399963 0)"/>
-      </g>
+      <text style="font-size: 9.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9" transform="translate(47.045484 201.537442)">Inpatient</text>
+      <text style="font-size: 9.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9" transform="translate(64.838688 212.055129)">stays</text>
      </g>
     </g>
     <g id="ytick_3">
      <g id="line2d_18"/>
      <g id="text_10">
-      <!-- ED visits -->
-      <g style="fill: #cbb8a9" transform="translate(48.296813 275.399075) scale(0.095 -0.095)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-45" d="M 742 2272 
-L 762 3379 
-Q 762 3552 749 3962 
-Q 742 4147 588 4249 
-Q 435 4352 230 4358 
-Q 128 4358 128 4474 
-Q 128 4563 307 4563 
-L 480 4550 
-L 2042 4518 
-L 3322 4544 
-Q 3443 4544 3443 4397 
-Q 3443 4358 3404 4144 
-Q 3366 3930 3366 3808 
-Q 3366 3603 3267 3603 
-Q 3168 3603 3168 3756 
-Q 3168 3910 3059 4051 
-Q 2950 4192 2790 4198 
-Q 2214 4243 1907 4243 
-L 1741 4243 
-Q 1408 4243 1357 4198 
-Q 1261 4115 1261 2784 
-Q 1261 2464 1382 2458 
-L 2010 2458 
-Q 2394 2458 2522 2483 
-Q 2854 2547 2899 2816 
-Q 2918 2925 2982 2925 
-Q 3046 2925 3059 2905 
-Q 3072 2886 3072 2822 
-L 3021 2150 
-L 3040 1760 
-Q 3040 1600 2995 1600 
-Q 2899 1600 2854 1754 
-Q 2765 2022 2694 2067 
-Q 2560 2157 2227 2157 
-L 1766 2157 
-L 1562 2163 
-L 1517 2163 
-Q 1254 2163 1254 2042 
-L 1242 1120 
-L 1242 864 
-Q 1242 403 1398 355 
-Q 1555 307 1670 307 
-Q 2630 307 3059 461 
-Q 3437 602 3520 755 
-Q 3597 915 3661 915 
-Q 3738 915 3738 806 
-Q 3738 531 3462 249 
-Q 3187 -32 2982 -32 
-Q 2522 -32 1942 0 
-Q 1363 32 1222 32 
-L 352 -26 
-Q 218 -26 218 38 
-L 218 115 
-Q 218 154 282 166 
-Q 352 173 499 243 
-Q 646 314 694 538 
-Q 742 762 742 1478 
-L 742 2272 
-z
-" transform="scale(0.015625)"/>
-        <path id="SortsMillGoudy-Regular-44" d="M 730 2362 
-L 723 3987 
-Q 723 4096 617 4208 
-Q 512 4320 403 4326 
-Q 294 4333 252 4339 
-Q 211 4346 169 4381 
-Q 128 4416 128 4477 
-Q 128 4538 182 4547 
-Q 237 4557 454 4557 
-L 1011 4557 
-L 2259 4582 
-Q 3187 4582 3955 4058 
-Q 4326 3808 4556 3401 
-Q 4787 2995 4787 2521 
-Q 4787 2048 4726 1718 
-Q 4666 1389 4525 1149 
-Q 4384 909 4243 758 
-Q 4102 608 3884 429 
-Q 3667 250 3302 115 
-Q 2938 -19 2554 -19 
-L 1018 13 
-Q 794 13 602 -3 
-Q 410 -19 378 -19 
-Q 224 -19 224 64 
-Q 224 115 246 137 
-Q 269 160 342 179 
-Q 416 198 448 211 
-Q 550 256 636 381 
-Q 723 506 723 627 
-Q 723 627 730 2362 
-z
-M 1267 2266 
-L 1261 902 
-Q 1261 602 1325 474 
-Q 1357 416 1446 390 
-Q 1536 365 1651 333 
-Q 1766 301 1916 259 
-Q 2067 218 2310 218 
-L 2438 218 
-Q 2874 218 3181 342 
-Q 3488 467 3770 736 
-Q 4243 1190 4243 2208 
-Q 4243 2720 4041 3136 
-Q 3840 3552 3514 3802 
-Q 2842 4307 2048 4307 
-L 1792 4307 
-Q 1485 4307 1382 4198 
-Q 1331 4147 1321 4108 
-Q 1312 4070 1296 3958 
-Q 1280 3846 1280 3763 
-L 1280 3494 
-L 1267 2266 
-z
-" transform="scale(0.015625)"/>
-        <path id="SortsMillGoudy-Regular-76" d="M 2752 2714 
-L 3046 2720 
-Q 3155 2720 3190 2701 
-Q 3226 2682 3226 2637 
-Q 3226 2592 3194 2573 
-Q 3040 2483 2976 2394 
-Q 2816 2176 2515 1536 
-Q 2214 896 1964 403 
-Q 1715 -90 1619 -90 
-Q 1555 -90 1516 -22 
-Q 1478 45 1264 544 
-Q 1050 1043 826 1542 
-Q 602 2042 467 2256 
-Q 333 2470 265 2515 
-Q 198 2560 163 2589 
-Q 128 2618 128 2662 
-Q 128 2733 250 2733 
-L 704 2707 
-L 1075 2701 
-L 1325 2720 
-Q 1440 2720 1440 2650 
-Q 1440 2541 1286 2541 
-Q 1018 2541 1018 2362 
-Q 1018 2259 1120 2038 
-Q 1222 1818 1305 1642 
-Q 1389 1466 1443 1347 
-Q 1498 1229 1587 1018 
-Q 1760 608 1805 608 
-Q 1869 608 2195 1382 
-Q 2522 2157 2522 2294 
-Q 2522 2432 2461 2486 
-Q 2400 2541 2323 2534 
-Q 2125 2509 2125 2637 
-Q 2125 2720 2323 2720 
-L 2752 2714 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-45"/>
-       <use xlink:href="#SortsMillGoudy-Regular-44" transform="translate(60.399994 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(139.599976 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-76" transform="translate(160.899963 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(213.199951 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(241.599945 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(280.899933 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(309.299927 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(343.499924 0)"/>
-      </g>
+      <text style="font-size: 9.5px; font-family: 'Sorts Mill Goudy'; text-anchor: end; fill: #cbb8a9" x="84.664" y="275.399075" transform="rotate(-0 84.664 275.399075)">ED visits</text>
      </g>
     </g>
    </g>
@@ -1582,126 +156,26 @@ L 548.892 303.002791
 " style="fill: none; stroke: #5c5048; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_11">
-    <!-- 16 -->
-    <g style="fill: #e04a42" transform="translate(228.226352 124.166512) scale(0.085 -0.085)">
-     <defs>
-      <path id="SortsMillGoudy-Regular-36" d="M 301 1594 
-Q 301 2214 521 2748 
-Q 742 3283 1062 3616 
-Q 1382 3949 1750 4189 
-Q 2118 4429 2396 4528 
-Q 2675 4627 2803 4627 
-Q 2931 4627 2931 4518 
-Q 2931 4448 2816 4422 
-Q 2701 4397 2422 4281 
-Q 2144 4166 1789 3865 
-Q 1434 3565 1194 3129 
-Q 954 2694 954 2483 
-Q 954 2419 973 2419 
-Q 992 2419 1091 2531 
-Q 1190 2643 1404 2755 
-Q 1619 2867 1914 2867 
-Q 2406 2867 2739 2476 
-Q 3072 2086 3072 1440 
-Q 3072 794 2681 330 
-Q 2291 -134 1728 -134 
-Q 1299 -134 1005 96 
-Q 301 653 301 1594 
-z
-M 1638 2579 
-Q 1421 2579 1171 2406 
-Q 922 2234 877 1994 
-Q 832 1754 832 1581 
-Q 832 1408 857 1245 
-Q 883 1082 956 880 
-Q 1030 678 1142 515 
-Q 1254 352 1446 240 
-Q 1638 128 1875 128 
-Q 2240 128 2432 435 
-Q 2624 742 2624 1238 
-Q 2624 1734 2358 2156 
-Q 2093 2579 1638 2579 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#SortsMillGoudy-Regular-31"/>
-     <use xlink:href="#SortsMillGoudy-Regular-36" transform="translate(52.699997 0)"/>
-    </g>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #e04a42" x="232.706118" y="124.166512" transform="rotate(-0 232.706118 124.166512)">16</text>
    </g>
    <g id="text_12">
-    <!-- 25 -->
-    <g style="fill: #cbb8a9" transform="translate(309.531293 124.166512) scale(0.085 -0.085)">
-     <use xlink:href="#SortsMillGoudy-Regular-32"/>
-     <use xlink:href="#SortsMillGoudy-Regular-35" transform="translate(52.699997 0)"/>
-    </g>
+    <text style="font-size: 8.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="314.011059" y="124.166512" transform="rotate(-0 314.011059 124.166512)">25</text>
    </g>
    <g id="text_13">
-    <!-- 31 -->
-    <g style="fill: #e04a42" transform="translate(363.734587 193.487442) scale(0.085 -0.085)">
-     <use xlink:href="#SortsMillGoudy-Regular-33"/>
-     <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(52.699997 0)"/>
-    </g>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #e04a42" x="368.214353" y="193.487442" transform="rotate(-0 368.214353 193.487442)">31</text>
    </g>
    <g id="text_14">
-    <!-- 47 -->
-    <g style="fill: #cbb8a9" transform="translate(508.276705 193.487442) scale(0.085 -0.085)">
-     <defs>
-      <path id="SortsMillGoudy-Regular-37" d="M 1536 3930 
-L 1344 3936 
-Q 1018 3936 886 3840 
-Q 755 3744 694 3542 
-Q 634 3341 576 3341 
-Q 493 3341 493 3539 
-Q 493 3738 560 4010 
-Q 627 4282 640 4346 
-Q 646 4422 742 4422 
-Q 768 4422 1027 4409 
-Q 1286 4397 1779 4397 
-L 1978 4397 
-Q 2317 4397 2515 4403 
-L 2714 4410 
-Q 2784 4410 2832 4371 
-Q 2880 4333 2880 4275 
-Q 2880 3968 2710 3433 
-Q 2541 2899 2333 2406 
-Q 2125 1914 1955 1357 
-Q 1786 800 1786 473 
-Q 1786 147 1856 -64 
-L 1920 -269 
-Q 1920 -365 1766 -416 
-Q 1613 -467 1491 -467 
-Q 1370 -467 1286 -358 
-Q 1203 -250 1203 144 
-Q 1203 538 1430 1136 
-Q 1658 1734 1984 2387 
-Q 2541 3501 2541 3853 
-Q 2541 3878 2505 3907 
-Q 2470 3936 2413 3936 
-L 2291 3942 
-Q 2291 3942 1536 3930 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#SortsMillGoudy-Regular-34"/>
-     <use xlink:href="#SortsMillGoudy-Regular-37" transform="translate(52.699997 0)"/>
-    </g>
+    <text style="font-size: 8.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="512.756471" y="193.487442" transform="rotate(-0 512.756471 193.487442)">47</text>
    </g>
    <g id="text_15">
-    <!-- 2 -->
-    <g style="fill: #e04a42" transform="translate(103.991882 262.808372) scale(0.085 -0.085)">
-     <use xlink:href="#SortsMillGoudy-Regular-32"/>
-    </g>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #e04a42" x="106.231765" y="262.808372" transform="rotate(-0 106.231765 262.808372)">2</text>
    </g>
    <g id="text_16">
-    <!-- 10 -->
-    <g style="fill: #cbb8a9" transform="translate(174.023058 262.808372) scale(0.085 -0.085)">
-     <use xlink:href="#SortsMillGoudy-Regular-31"/>
-     <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-    </g>
+    <text style="font-size: 8.5px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="178.502824" y="262.808372" transform="rotate(-0 178.502824 262.808372)">10</text>
    </g>
    <g id="PathCollection_1">
     <defs>
-     <path id="ma6b3327bed" d="M 0 3.708099 
+     <path id="m2e249dae14" d="M 0 3.708099 
 C 0.983399 3.708099 1.926654 3.317391 2.622022 2.622022 
 C 3.317391 1.926654 3.708099 0.983399 3.708099 0 
 C 3.708099 -0.983399 3.317391 -1.926654 2.622022 -2.622022 
@@ -1713,15 +187,15 @@ C -1.926654 3.317391 -0.983399 3.708099 0 3.708099
 z
 " style="stroke: #e04a42"/>
     </defs>
-    <g clip-path="url(#pe76f26a6ac)">
-     <use xlink:href="#ma6b3327bed" x="232.706118" y="133.166512" style="fill: #e04a42; stroke: #e04a42"/>
-     <use xlink:href="#ma6b3327bed" x="368.214353" y="202.487442" style="fill: #e04a42; stroke: #e04a42"/>
-     <use xlink:href="#ma6b3327bed" x="106.231765" y="271.808372" style="fill: #e04a42; stroke: #e04a42"/>
+    <g clip-path="url(#padeebbb198)">
+     <use xlink:href="#m2e249dae14" x="232.706118" y="133.166512" style="fill: #e04a42; stroke: #e04a42"/>
+     <use xlink:href="#m2e249dae14" x="368.214353" y="202.487442" style="fill: #e04a42; stroke: #e04a42"/>
+     <use xlink:href="#m2e249dae14" x="106.231765" y="271.808372" style="fill: #e04a42; stroke: #e04a42"/>
     </g>
    </g>
    <g id="PathCollection_2">
     <defs>
-     <path id="C0_0_f99deb18ee" d="M 0 3.807887 
+     <path id="C0_0_6f5bca02ab" d="M 0 3.807887 
 C 1.009863 3.807887 1.978501 3.406664 2.692582 2.692582 
 C 3.406664 1.978501 3.807887 1.009863 3.807887 -0 
 C 3.807887 -1.009863 3.406664 -1.978501 2.692582 -2.692582 
@@ -1733,424 +207,27 @@ C -1.978501 3.406664 -1.009863 3.807887 0 3.807887
 z
 "/>
     </defs>
-    <g clip-path="url(#pe76f26a6ac)">
-     <use xlink:href="#C0_0_f99deb18ee" x="314.011059" y="133.166512" style="fill: none; stroke: #ececec; stroke-width: 1.6"/>
+    <g clip-path="url(#padeebbb198)">
+     <use xlink:href="#C0_0_6f5bca02ab" x="314.011059" y="133.166512" style="fill: none; stroke: #ececec; stroke-width: 1.6"/>
     </g>
-    <g clip-path="url(#pe76f26a6ac)">
-     <use xlink:href="#C0_0_f99deb18ee" x="512.756471" y="202.487442" style="fill: none; stroke: #ececec; stroke-width: 1.6"/>
+    <g clip-path="url(#padeebbb198)">
+     <use xlink:href="#C0_0_6f5bca02ab" x="512.756471" y="202.487442" style="fill: none; stroke: #ececec; stroke-width: 1.6"/>
     </g>
-    <g clip-path="url(#pe76f26a6ac)">
-     <use xlink:href="#C0_0_f99deb18ee" x="178.502824" y="271.808372" style="fill: none; stroke: #ececec; stroke-width: 1.6"/>
+    <g clip-path="url(#padeebbb198)">
+     <use xlink:href="#C0_0_6f5bca02ab" x="178.502824" y="271.808372" style="fill: none; stroke: #ececec; stroke-width: 1.6"/>
     </g>
    </g>
    <g id="text_17">
-    <!-- Rank moves with the statistic -->
-    <g style="fill: #cbb8a9" transform="translate(0 88.04) scale(0.105 -0.105)">
-     <defs>
-      <path id="SortsMillGoudy-Regular-52" d="M 755 2739 
-L 749 3821 
-Q 749 4058 653 4182 
-Q 557 4307 438 4323 
-Q 320 4339 224 4364 
-Q 128 4390 128 4454 
-Q 128 4557 314 4557 
-L 1376 4557 
-L 2016 4576 
-Q 2592 4576 3001 4285 
-Q 3411 3994 3411 3501 
-Q 3411 3174 3286 2928 
-Q 3162 2682 3011 2573 
-Q 2861 2464 2736 2384 
-Q 2611 2304 2611 2278 
-Q 2611 2202 3148 1450 
-Q 3686 698 3885 486 
-Q 4128 186 4474 186 
-Q 4563 186 4563 109 
-Q 4563 13 4486 -19 
-Q 4410 -51 4099 -51 
-Q 3789 -51 3539 96 
-Q 3194 294 2394 1632 
-Q 2086 2131 1920 2131 
-L 1395 2131 
-Q 1318 2131 1302 2067 
-Q 1286 2003 1286 1690 
-Q 1286 1690 1286 1171 
-L 1293 832 
-Q 1293 832 1293 774 
-Q 1293 512 1414 368 
-Q 1536 224 1686 201 
-Q 1837 179 1958 150 
-Q 2080 122 2080 58 
-Q 2080 -45 1965 -45 
-Q 1965 -45 1050 0 
-L 346 -26 
-Q 211 -26 211 77 
-Q 211 186 480 218 
-Q 582 230 665 358 
-Q 749 486 749 723 
-L 755 2739 
-z
-M 1286 3430 
-Q 1286 2771 1292 2614 
-Q 1299 2458 1338 2432 
-Q 1434 2374 1613 2374 
-L 1862 2374 
-Q 2406 2374 2640 2624 
-Q 2874 2874 2874 3267 
-Q 2874 3661 2563 3987 
-Q 2253 4314 1626 4314 
-Q 1389 4314 1337 4189 
-Q 1286 4064 1286 3610 
-L 1286 3430 
-z
-" transform="scale(0.015625)"/>
-      <path id="SortsMillGoudy-Regular-77" d="M 2624 2701 
-L 2822 2707 
-Q 2963 2707 2963 2618 
-Q 2963 2573 2944 2566 
-Q 2906 2554 2867 2554 
-Q 2675 2541 2675 2374 
-Q 2675 2138 3053 1306 
-Q 3104 1203 3174 1024 
-Q 3315 659 3354 659 
-Q 3418 659 3690 1360 
-Q 3962 2061 3962 2227 
-Q 3962 2394 3907 2454 
-Q 3853 2515 3789 2522 
-Q 3610 2547 3610 2650 
-Q 3610 2701 3744 2701 
-L 4480 2701 
-Q 4602 2701 4634 2688 
-Q 4666 2675 4666 2617 
-Q 4666 2560 4560 2518 
-Q 4454 2477 4390 2387 
-Q 4326 2298 4275 2192 
-Q 4224 2086 4160 1933 
-Q 3968 1453 3680 845 
-Q 3392 237 3363 179 
-Q 3334 122 3290 45 
-Q 3226 -83 3168 -83 
-Q 3059 -83 2758 745 
-Q 2458 1574 2406 1574 
-Q 2387 1574 1996 755 
-Q 1606 -64 1485 -64 
-Q 1434 -64 1389 25 
-Q 1344 115 1142 640 
-Q 941 1165 813 1481 
-Q 685 1798 630 1955 
-Q 576 2112 550 2176 
-Q 461 2355 250 2534 
-Q 224 2560 192 2576 
-Q 160 2592 147 2598 
-Q 128 2618 128 2662 
-Q 128 2733 250 2733 
-L 704 2707 
-L 1018 2714 
-Q 1210 2714 1264 2704 
-Q 1318 2694 1318 2643 
-Q 1318 2592 1248 2573 
-Q 1037 2528 1037 2320 
-Q 1037 2112 1395 1306 
-Q 1440 1216 1517 1027 
-Q 1594 838 1638 752 
-Q 1683 666 1708 666 
-Q 1734 666 1872 925 
-Q 2010 1184 2058 1280 
-Q 2106 1376 2131 1424 
-Q 2157 1472 2189 1533 
-Q 2221 1594 2233 1622 
-Q 2246 1651 2262 1689 
-Q 2278 1728 2284 1744 
-Q 2291 1760 2297 1789 
-Q 2304 1818 2304 1837 
-L 2304 1882 
-Q 2304 1926 2243 2073 
-Q 2182 2221 2115 2320 
-Q 2048 2419 1971 2483 
-Q 1894 2547 1856 2560 
-Q 1754 2598 1754 2656 
-Q 1754 2714 1850 2714 
-L 2624 2701 
-z
-" transform="scale(0.015625)"/>
-      <path id="SortsMillGoudy-Regular-68" d="M 845 32 
-L 390 0 
-Q 230 0 224 19 
-Q 218 38 218 64 
-Q 218 128 294 147 
-Q 480 198 534 310 
-Q 589 422 589 640 
-L 614 2822 
-L 614 3136 
-Q 614 4006 576 4198 
-Q 538 4390 346 4390 
-L 262 4390 
-L 237 4397 
-Q 128 4397 128 4454 
-Q 128 4512 195 4547 
-Q 262 4582 387 4614 
-Q 512 4646 742 4748 
-Q 973 4851 1030 4851 
-Q 1114 4851 1114 4704 
-Q 1114 4672 1091 4550 
-Q 1069 4429 1065 4080 
-Q 1062 3731 1052 3331 
-Q 1043 2931 1037 2790 
-Q 1024 2522 1024 2413 
-Q 1024 2304 1075 2304 
-Q 1088 2304 1206 2422 
-Q 1325 2541 1533 2659 
-Q 1741 2778 1978 2778 
-Q 2496 2778 2784 2470 
-Q 3072 2163 3072 1517 
-L 3072 589 
-Q 3072 416 3136 320 
-Q 3200 224 3283 218 
-Q 3629 186 3629 83 
-Q 3629 -19 3430 -19 
-L 2893 13 
-L 2400 -6 
-Q 2253 -6 2253 58 
-Q 2253 173 2426 173 
-Q 2490 173 2544 243 
-Q 2598 314 2598 461 
-L 2605 627 
-L 2611 1523 
-Q 2611 1914 2374 2198 
-Q 2138 2483 1827 2483 
-Q 1517 2483 1197 2234 
-Q 1082 2144 1050 1942 
-Q 1018 1741 1018 1050 
-L 1018 902 
-Q 1018 614 1062 435 
-Q 1133 186 1414 166 
-Q 1504 160 1552 144 
-Q 1600 128 1600 77 
-Q 1600 0 1530 0 
-L 1363 6 
-Q 1197 13 1027 22 
-Q 858 32 845 32 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#SortsMillGoudy-Regular-52"/>
-     <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(71.799988 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(117.899979 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6b" transform="translate(176.999969 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(231.499954 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6d" transform="translate(252.799942 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(335.499924 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-76" transform="translate(390.199921 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(442.499908 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(489.099899 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(528.399887 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-77" transform="translate(549.699875 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(624.499863 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(652.899857 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-68" transform="translate(687.099854 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(745.79985 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(767.099838 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-68" transform="translate(801.299835 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(859.999832 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(906.599823 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(927.899811 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(967.199799 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(1001.399796 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(1047.499786 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(1081.699783 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(1110.099777 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(1149.399765 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(1183.599762 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-63" transform="translate(1211.999756 0)"/>
-    </g>
+    <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: start; fill: #cbb8a9" x="0" y="88.04" transform="rotate(-0 0 88.04)">Rank moves with the statistic</text>
    </g>
    <g id="legend_1">
     <g id="PathCollection_3">
      <g>
-      <use xlink:href="#ma6b3327bed" x="450.4195" y="280.746072" style="fill: #e04a42; stroke: #e04a42"/>
+      <use xlink:href="#m2e249dae14" x="450.4195" y="280.746072" style="fill: #e04a42; stroke: #e04a42"/>
      </g>
     </g>
     <g id="text_18">
-     <!-- post-period RMSPE -->
-     <g style="fill: #cbb8a9" transform="translate(462.3195 282.977322) scale(0.085 -0.085)">
-      <defs>
-       <path id="SortsMillGoudy-Regular-2d" d="M 282 928 
-L 282 998 
-Q 282 1184 342 1235 
-Q 403 1286 694 1372 
-Q 986 1459 1248 1552 
-Q 1510 1645 1603 1680 
-Q 1696 1715 1754 1715 
-Q 1894 1715 1894 1498 
-L 1894 1459 
-Q 1894 1312 1830 1261 
-Q 1773 1222 1683 1197 
-Q 1306 1094 1024 992 
-Q 742 890 666 858 
-Q 474 794 378 794 
-Q 282 794 282 928 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-4d" d="M 403 -13 
-Q 269 -13 269 90 
-Q 269 173 461 179 
-Q 531 186 620 285 
-Q 710 384 748 550 
-Q 787 717 832 1689 
-Q 877 2662 877 3216 
-Q 877 3770 752 4013 
-Q 627 4256 211 4352 
-Q 128 4371 128 4448 
-Q 128 4544 243 4544 
-L 582 4518 
-L 1062 4531 
-Q 1184 4531 1216 4442 
-Q 1293 4275 1491 3843 
-Q 1690 3411 1808 3155 
-Q 1926 2899 2112 2502 
-Q 2298 2106 2413 1859 
-Q 2528 1613 2653 1363 
-Q 2778 1114 2845 995 
-Q 2912 877 2931 877 
-Q 2950 877 2972 899 
-Q 2995 922 3017 960 
-Q 3040 998 3056 1036 
-Q 3072 1075 3101 1136 
-Q 3130 1197 3142 1229 
-L 3968 2931 
-Q 4307 3622 4422 3898 
-L 4570 4218 
-Q 4589 4269 4598 4297 
-Q 4608 4326 4614 4342 
-Q 4621 4358 4627 4371 
-Q 4634 4384 4650 4429 
-Q 4666 4474 4685 4493 
-Q 4736 4544 4870 4544 
-L 5421 4531 
-Q 5530 4531 5530 4448 
-Q 5530 4384 5488 4355 
-Q 5446 4326 5302 4307 
-Q 5158 4288 5094 4147 
-Q 5030 4006 5030 3376 
-Q 5030 2746 5068 2045 
-Q 5107 1344 5107 1165 
-Q 5107 525 5209 349 
-Q 5312 173 5638 173 
-Q 5683 173 5718 141 
-Q 5754 109 5754 83 
-Q 5754 -19 5683 -19 
-L 5613 -19 
-L 4960 6 
-Q 4960 6 4294 -26 
-Q 4179 -26 4179 64 
-Q 4179 160 4352 179 
-Q 4416 186 4489 259 
-Q 4563 333 4592 470 
-Q 4621 608 4621 851 
-Q 4621 1094 4611 1382 
-Q 4602 1670 4589 1942 
-Q 4576 2214 4563 2454 
-Q 4550 2694 4544 2848 
-L 4531 3002 
-Q 4531 3277 4474 3277 
-Q 4454 3277 4438 3257 
-Q 4422 3238 4409 3225 
-Q 4397 3213 4384 3184 
-Q 4371 3155 4358 3136 
-Q 4346 3117 4326 3081 
-Q 4307 3046 4294 3021 
-L 4262 2950 
-Q 4237 2906 4224 2874 
-L 3334 1075 
-Q 3181 762 3037 461 
-Q 2893 160 2867 118 
-Q 2842 77 2794 77 
-Q 2746 77 2707 131 
-Q 2669 186 2592 371 
-Q 2515 557 2458 678 
-Q 1286 3059 1260 3094 
-Q 1235 3130 1216 3130 
-Q 1165 3130 1165 2874 
-L 1107 1184 
-L 1107 896 
-Q 1107 371 1318 250 
-Q 1427 186 1530 179 
-Q 1690 160 1690 93 
-Q 1690 26 1670 3 
-Q 1651 -19 1594 -19 
-L 928 6 
-L 403 -13 
-z
-" transform="scale(0.015625)"/>
-       <path id="SortsMillGoudy-Regular-50" d="M 730 2758 
-L 723 3846 
-Q 723 4019 614 4188 
-Q 506 4358 256 4358 
-Q 128 4358 128 4442 
-Q 128 4544 275 4544 
-L 512 4550 
-L 896 4531 
-L 1952 4550 
-Q 2554 4550 2989 4246 
-Q 3424 3942 3424 3373 
-Q 3424 3059 3309 2812 
-Q 3194 2566 3030 2425 
-Q 2867 2285 2662 2189 
-Q 2336 2042 2080 2042 
-Q 1824 2042 1613 2090 
-Q 1402 2138 1402 2189 
-Q 1402 2285 1485 2285 
-Q 1517 2285 1616 2259 
-Q 1715 2234 1836 2234 
-Q 1958 2234 2124 2275 
-Q 2291 2317 2470 2409 
-Q 2650 2502 2765 2691 
-Q 2880 2880 2880 3130 
-Q 2880 3558 2534 3926 
-Q 2189 4294 1581 4294 
-Q 1382 4294 1312 4176 
-Q 1242 4058 1242 3642 
-L 1229 998 
-Q 1229 256 1664 205 
-Q 1773 192 1843 192 
-Q 2022 205 2022 64 
-Q 2022 -45 1875 -45 
-L 960 -13 
-L 365 -38 
-Q 166 -38 166 32 
-Q 166 141 237 166 
-Q 269 179 281 185 
-Q 294 192 342 201 
-Q 390 211 406 217 
-Q 422 224 448 227 
-Q 474 230 483 233 
-Q 493 237 515 253 
-Q 538 269 550 297 
-Q 563 326 585 374 
-Q 608 422 643 521 
-Q 678 621 704 1459 
-Q 730 2298 730 2758 
-z
-" transform="scale(0.015625)"/>
-      </defs>
-      <use xlink:href="#SortsMillGoudy-Regular-70"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(55.499985 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(110.199982 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(149.499969 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-2d" transform="translate(183.699966 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(217.699951 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(273.199936 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(319.799927 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(357.299911 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(385.699905 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-64" transform="translate(440.399902 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(496.899887 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-52" transform="translate(518.199875 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-4d" transform="translate(589.999863 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-53" transform="translate(681.899857 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-50" transform="translate(741.499847 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-45" transform="translate(797.899841 0)"/>
-     </g>
+     <text style="font-size: 8.5px; font-family: 'Sorts Mill Goudy'; text-anchor: start; fill: #cbb8a9" x="462.3195" y="282.977322" transform="rotate(-0 462.3195 282.977322)">post-period RMSPE</text>
     </g>
     <g id="PathCollection_4">
      <path d="M 450.4195 296.929427 
@@ -2167,44 +244,7 @@ z
 " style="fill: none; stroke: #ececec; stroke-width: 1.6"/>
     </g>
     <g id="text_19">
-     <!-- post/pre RMSPE ratio -->
-     <g style="fill: #cbb8a9" transform="translate(462.3195 295.352791) scale(0.085 -0.085)">
-      <defs>
-       <path id="SortsMillGoudy-Regular-2f" d="M 128 -1088 
-Q 128 -1075 250 -723 
-Q 2202 4544 2221 4601 
-Q 2240 4659 2275 4681 
-Q 2310 4704 2422 4704 
-Q 2534 4704 2534 4627 
-Q 2534 4576 2445 4346 
-L 499 -973 
-Q 448 -1114 413 -1142 
-Q 378 -1171 253 -1171 
-Q 128 -1171 128 -1088 
-z
-" transform="scale(0.015625)"/>
-      </defs>
-      <use xlink:href="#SortsMillGoudy-Regular-70"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(55.499985 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(110.199982 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(149.499969 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-2f" transform="translate(183.699966 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(225.299957 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(280.799942 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(318.299927 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(364.899918 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-52" transform="translate(386.199905 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-4d" transform="translate(457.999893 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-53" transform="translate(549.899887 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-50" transform="translate(609.499878 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-45" transform="translate(665.899872 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(726.299866 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(747.599854 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(785.099838 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(831.199829 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(865.399826 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(893.79982 0)"/>
-     </g>
+     <text style="font-size: 8.5px; font-family: 'Sorts Mill Goudy'; text-anchor: start; fill: #cbb8a9" x="462.3195" y="295.352791" transform="rotate(-0 462.3195 295.352791)">post/pre RMSPE ratio</text>
     </g>
    </g>
   </g>
@@ -2219,7 +259,7 @@ z
    </g>
    <g id="PathCollection_5">
     <defs>
-     <path id="m07c5f83e27" d="M 0 1.936492 
+     <path id="m0f68c37c94" d="M 0 1.936492 
 C 0.513564 1.936492 1.006162 1.732451 1.369306 1.369306 
 C 1.732451 1.006162 1.936492 0.513564 1.936492 0 
 C 1.936492 -0.513564 1.732451 -1.006162 1.369306 -1.369306 
@@ -2231,55 +271,55 @@ C -1.006162 1.732451 -0.513564 1.936492 0 1.936492
 z
 "/>
     </defs>
-    <g clip-path="url(#p8b9a348d4a)">
-     <use xlink:href="#m07c5f83e27" x="469.240684" y="514.915776" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="500.341092" y="547.403024" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="109.106182" y="544.700657" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="443.755091" y="528.821972" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="488.134375" y="543.272338" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="445.155578" y="543.953512" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="455.287799" y="486.791258" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="485.128592" y="391.862664" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="450.845883" y="534.971554" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="420.484255" y="542.250478" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="392.146116" y="529.133123" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="481.160585" y="522.909155" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="432.038259" y="524.715909" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="458.565273" y="545.822965" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="470.713849" y="546.37395" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="428.056245" y="555.999274" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="461.5141" y="522.914646" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="457.885337" y="486.970167" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="396.038216" y="535.191084" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="444.789386" y="498.448445" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="382.849014" y="556.260127" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="461.65865" y="532.565082" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="458.515039" y="514.670621" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="477.547925" y="491.418675" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="457.158876" y="533.612072" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="109.106182" y="498.145803" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="451.992213" y="551.981873" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="458.226296" y="524.599944" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="458.299837" y="539.781124" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="438.570536" y="533.136536" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="453.529021" y="543.871414" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="471.711699" y="523.979713" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="445.072313" y="544.342956" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="495.625705" y="541.609351" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="109.106182" y="546.110058" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="463.589626" y="522.226949" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="434.009902" y="542.976977" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="527.949818" y="519.96345" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="419.880264" y="543.938853" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="125.883371" y="516.394973" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="109.106182" y="498.608137" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="452.434712" y="535.994059" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="463.791703" y="522.050312" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="431.151912" y="533.178638" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="109.106182" y="551.164064" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="461.343829" y="498.84845" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="480.266112" y="522.117868" style="fill: #ececec; fill-opacity: 0.75"/>
-     <use xlink:href="#m07c5f83e27" x="469.209014" y="538.133177" style="fill: #ececec; fill-opacity: 0.75"/>
+    <g clip-path="url(#p796ca1208d)">
+     <use xlink:href="#m0f68c37c94" x="469.240684" y="514.915776" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="500.341092" y="547.403024" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="109.106182" y="544.700657" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="443.755091" y="528.821972" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="488.134375" y="543.272338" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="445.155578" y="543.953512" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="455.287799" y="486.791258" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="485.128592" y="391.862664" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="450.845883" y="534.971554" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="420.484255" y="542.250478" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="392.146116" y="529.133123" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="481.160585" y="522.909155" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="432.038259" y="524.715909" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="458.565273" y="545.822965" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="470.713849" y="546.37395" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="428.056245" y="555.999274" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="461.5141" y="522.914646" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="457.885337" y="486.970167" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="396.038216" y="535.191084" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="444.789386" y="498.448445" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="382.849014" y="556.260127" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="461.65865" y="532.565082" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="458.515039" y="514.670621" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="477.547925" y="491.418675" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="457.158876" y="533.612072" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="109.106182" y="498.145803" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="451.992213" y="551.981873" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="458.226296" y="524.599944" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="458.299837" y="539.781124" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="438.570536" y="533.136536" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="453.529021" y="543.871414" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="471.711699" y="523.979713" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="445.072313" y="544.342956" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="495.625705" y="541.609351" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="109.106182" y="546.110058" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="463.589626" y="522.226949" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="434.009902" y="542.976977" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="527.949818" y="519.96345" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="419.880264" y="543.938853" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="125.883371" y="516.394973" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="109.106182" y="498.608137" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="452.434712" y="535.994059" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="463.791703" y="522.050312" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="431.151912" y="533.178638" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="109.106182" y="551.164064" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="461.343829" y="498.84845" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="480.266112" y="522.117868" style="fill: #ececec; fill-opacity: 0.75"/>
+     <use xlink:href="#m0f68c37c94" x="469.209014" y="538.133177" style="fill: #ececec; fill-opacity: 0.75"/>
     </g>
    </g>
    <g id="matplotlib.axis_3">
@@ -2287,31 +327,18 @@ z
      <g id="line2d_19">
       <path d="M 109.106182 564.48 
 L 109.106182 383.642791 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_20"/>
      <g id="text_20">
       <!-- $\mathdefault{10^{-6}}$ -->
-      <g style="fill: #cbb8a9" transform="translate(99.498682 575.917344) scale(0.105 -0.105)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-2212" d="M 205 1267 
-Q 198 1286 198 1347 
-Q 198 1408 205 1434 
-Q 211 1485 314 1485 
-L 3072 1485 
-Q 3162 1485 3174 1434 
-Q 3174 1408 3174 1334 
-Q 3174 1261 3155 1232 
-Q 3136 1203 3040 1203 
-L 307 1203 
-Q 211 1203 205 1267 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(0 0.642188)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0.642188)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-2212" transform="translate(106.143744 30.392188) scale(0.7)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-36" transform="translate(143.033742 30.392188) scale(0.7)"/>
+      <g style="fill: #cbb8a9" transform="translate(99.498682 575.917344)">
+       <text>
+        <tspan x="0" y="-0.1625" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+        <tspan x="5.533493" y="-0.1625" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">0</tspan>
+        <tspan x="11.148744" y="-3.432813" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">−</tspan>
+        <tspan x="15.022189" y="-3.432813" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">6</tspan>
+       </text>
       </g>
      </g>
     </g>
@@ -2319,16 +346,18 @@ z
      <g id="line2d_21">
       <path d="M 164.838799 564.48 
 L 164.838799 383.642791 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_22"/>
      <g id="text_21">
       <!-- $\mathdefault{10^{-5}}$ -->
-      <g style="fill: #cbb8a9" transform="translate(155.231299 575.917344) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(0 0.434375)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0.434375)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-2212" transform="translate(106.143744 30.184375) scale(0.7)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-35" transform="translate(143.033742 30.184375) scale(0.7)"/>
+      <g style="fill: #cbb8a9" transform="translate(155.231299 575.917344)">
+       <text>
+        <tspan x="0" y="-0.140625" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+        <tspan x="5.533493" y="-0.140625" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">0</tspan>
+        <tspan x="11.148744" y="-3.410937" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">−</tspan>
+        <tspan x="15.022189" y="-3.410937" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">5</tspan>
+       </text>
       </g>
      </g>
     </g>
@@ -2336,16 +365,18 @@ L 164.838799 383.642791
      <g id="line2d_23">
       <path d="M 220.571417 564.48 
 L 220.571417 383.642791 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_24"/>
      <g id="text_22">
       <!-- $\mathdefault{10^{-4}}$ -->
-      <g style="fill: #cbb8a9" transform="translate(210.963917 575.917344) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(0 0.55)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0.55)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-2212" transform="translate(106.143744 30.3) scale(0.7)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-34" transform="translate(143.033742 30.3) scale(0.7)"/>
+      <g style="fill: #cbb8a9" transform="translate(210.963917 575.917344)">
+       <text>
+        <tspan x="0" y="-0.260938" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+        <tspan x="5.533493" y="-0.260938" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">0</tspan>
+        <tspan x="11.148744" y="-3.53125" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">−</tspan>
+        <tspan x="15.022189" y="-3.53125" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">4</tspan>
+       </text>
       </g>
      </g>
     </g>
@@ -2353,16 +384,18 @@ L 220.571417 383.642791
      <g id="line2d_25">
       <path d="M 276.304035 564.48 
 L 276.304035 383.642791 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_26"/>
      <g id="text_23">
       <!-- $\mathdefault{10^{-3}}$ -->
-      <g style="fill: #cbb8a9" transform="translate(266.696535 575.917344) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(0 0.55)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0.55)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-2212" transform="translate(106.143744 30.3) scale(0.7)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-33" transform="translate(143.033742 30.3) scale(0.7)"/>
+      <g style="fill: #cbb8a9" transform="translate(266.696535 575.917344)">
+       <text>
+        <tspan x="0" y="-0.260938" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+        <tspan x="5.533493" y="-0.260938" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">0</tspan>
+        <tspan x="11.148744" y="-3.53125" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">−</tspan>
+        <tspan x="15.022189" y="-3.53125" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">3</tspan>
+       </text>
       </g>
      </g>
     </g>
@@ -2370,16 +403,18 @@ L 276.304035 383.642791
      <g id="line2d_27">
       <path d="M 332.036652 564.48 
 L 332.036652 383.642791 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_28"/>
      <g id="text_24">
       <!-- $\mathdefault{10^{-2}}$ -->
-      <g style="fill: #cbb8a9" transform="translate(322.429152 575.917344) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(0 0.915625)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0.915625)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-2212" transform="translate(106.143744 30.665625) scale(0.7)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-32" transform="translate(143.033742 30.665625) scale(0.7)"/>
+      <g style="fill: #cbb8a9" transform="translate(322.429152 575.917344)">
+       <text>
+        <tspan x="0" y="-0.195312" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+        <tspan x="5.533493" y="-0.195312" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">0</tspan>
+        <tspan x="11.148744" y="-3.465625" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">−</tspan>
+        <tspan x="15.022189" y="-3.465625" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">2</tspan>
+       </text>
       </g>
      </g>
     </g>
@@ -2387,16 +422,18 @@ L 332.036652 383.642791
      <g id="line2d_29">
       <path d="M 387.76927 564.48 
 L 387.76927 383.642791 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_30"/>
      <g id="text_25">
       <!-- $\mathdefault{10^{-1}}$ -->
-      <g style="fill: #cbb8a9" transform="translate(378.16177 575.917344) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(0 0.85)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0.85)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-2212" transform="translate(106.143744 30.6) scale(0.7)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(143.033742 30.6) scale(0.7)"/>
+      <g style="fill: #cbb8a9" transform="translate(378.16177 575.917344)">
+       <text>
+        <tspan x="0" y="-0.184375" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+        <tspan x="5.533493" y="-0.184375" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">0</tspan>
+        <tspan x="11.148744" y="-3.454688" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">−</tspan>
+        <tspan x="15.022189" y="-3.454688" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+       </text>
       </g>
      </g>
     </g>
@@ -2404,15 +441,17 @@ L 387.76927 383.642791
      <g id="line2d_31">
       <path d="M 443.501887 564.48 
 L 443.501887 383.642791 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_32"/>
      <g id="text_26">
       <!-- $\mathdefault{10^{0}}$ -->
-      <g style="fill: #cbb8a9" transform="translate(435.836887 575.917344) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(0 0.407813)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0.407813)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(106.143744 30.157813) scale(0.7)"/>
+      <g style="fill: #cbb8a9" transform="translate(435.836887 575.917344)">
+       <text>
+        <tspan x="0" y="-0.25" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+        <tspan x="5.533493" y="-0.25" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">0</tspan>
+        <tspan x="11.148744" y="-3.520312" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">0</tspan>
+       </text>
       </g>
      </g>
     </g>
@@ -2420,562 +459,496 @@ L 443.501887 383.642791
      <g id="line2d_33">
       <path d="M 499.234505 564.48 
 L 499.234505 383.642791 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_34"/>
      <g id="text_27">
       <!-- $\mathdefault{10^{1}}$ -->
-      <g style="fill: #cbb8a9" transform="translate(491.569505 575.917344) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(0 0.85)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0.85)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-31" transform="translate(106.143744 30.6) scale(0.7)"/>
+      <g style="fill: #cbb8a9" transform="translate(491.569505 575.917344)">
+       <text>
+        <tspan x="0" y="-0.184375" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+        <tspan x="5.533493" y="-0.184375" style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">0</tspan>
+        <tspan x="11.148744" y="-3.454688" style="font-size: 7.35px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9">1</tspan>
+       </text>
       </g>
      </g>
     </g>
     <g id="xtick_15">
      <g id="line2d_35">
       <defs>
-       <path id="mc62f55d7f2" d="M 0 0 
+       <path id="m62ca73823e" d="M 0 0 
 L 0 2 
 " style="stroke: #cbb8a9; stroke-width: 0.6"/>
       </defs>
       <g>
-       <use xlink:href="#mc62f55d7f2" x="92.328992" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="92.328992" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_16">
      <g id="line2d_36">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="96.74197" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="96.74197" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_17">
      <g id="line2d_37">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="100.47309" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="100.47309" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_18">
      <g id="line2d_38">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="103.705133" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="103.705133" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_19">
      <g id="line2d_39">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="106.555997" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="106.555997" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_20">
      <g id="line2d_40">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="125.883371" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="125.883371" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_21">
      <g id="line2d_41">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="135.697398" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="135.697398" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_22">
      <g id="line2d_42">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="142.660561" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="142.660561" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_23">
      <g id="line2d_43">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="148.06161" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="148.06161" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_24">
      <g id="line2d_44">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="152.474588" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="152.474588" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_25">
      <g id="line2d_45">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="156.205708" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="156.205708" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_26">
      <g id="line2d_46">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="159.437751" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="159.437751" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_27">
      <g id="line2d_47">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="162.288615" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="162.288615" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_28">
      <g id="line2d_48">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="181.615989" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="181.615989" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_29">
      <g id="line2d_49">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="191.430016" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="191.430016" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_30">
      <g id="line2d_50">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="198.393179" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="198.393179" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_31">
      <g id="line2d_51">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="203.794227" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="203.794227" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_32">
      <g id="line2d_52">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="208.207205" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="208.207205" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_33">
      <g id="line2d_53">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="211.938325" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="211.938325" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_34">
      <g id="line2d_54">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="215.170368" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="215.170368" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_35">
      <g id="line2d_55">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="218.021232" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="218.021232" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_36">
      <g id="line2d_56">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="237.348607" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="237.348607" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_37">
      <g id="line2d_57">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="247.162633" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="247.162633" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_38">
      <g id="line2d_58">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="254.125796" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="254.125796" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_39">
      <g id="line2d_59">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="259.526845" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="259.526845" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_40">
      <g id="line2d_60">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="263.939823" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="263.939823" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_41">
      <g id="line2d_61">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="267.670943" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="267.670943" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_42">
      <g id="line2d_62">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="270.902986" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="270.902986" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_43">
      <g id="line2d_63">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="273.75385" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="273.75385" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_44">
      <g id="line2d_64">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="293.081224" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="293.081224" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_45">
      <g id="line2d_65">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="302.895251" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="302.895251" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_46">
      <g id="line2d_66">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="309.858414" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="309.858414" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_47">
      <g id="line2d_67">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="315.259463" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="315.259463" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_48">
      <g id="line2d_68">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="319.672441" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="319.672441" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_49">
      <g id="line2d_69">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="323.40356" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="323.40356" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_50">
      <g id="line2d_70">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="326.635603" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="326.635603" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_51">
      <g id="line2d_71">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="329.486467" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="329.486467" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_52">
      <g id="line2d_72">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="348.813842" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="348.813842" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_53">
      <g id="line2d_73">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="358.627869" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="358.627869" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_54">
      <g id="line2d_74">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="365.591031" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="365.591031" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_55">
      <g id="line2d_75">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="370.99208" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="370.99208" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_56">
      <g id="line2d_76">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="375.405058" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="375.405058" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_57">
      <g id="line2d_77">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="379.136178" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="379.136178" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_58">
      <g id="line2d_78">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="382.368221" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="382.368221" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_59">
      <g id="line2d_79">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="385.219085" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="385.219085" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_60">
      <g id="line2d_80">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="404.546459" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="404.546459" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_61">
      <g id="line2d_81">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="414.360486" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="414.360486" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_62">
      <g id="line2d_82">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="421.323649" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="421.323649" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_63">
      <g id="line2d_83">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="426.724698" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="426.724698" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_64">
      <g id="line2d_84">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="431.137676" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="431.137676" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_65">
      <g id="line2d_85">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="434.868796" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="434.868796" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_66">
      <g id="line2d_86">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="438.100839" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="438.100839" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_67">
      <g id="line2d_87">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="440.951703" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="440.951703" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_68">
      <g id="line2d_88">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="460.279077" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="460.279077" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_69">
      <g id="line2d_89">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="470.093104" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="470.093104" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_70">
      <g id="line2d_90">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="477.056267" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="477.056267" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_71">
      <g id="line2d_91">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="482.457315" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="482.457315" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_72">
      <g id="line2d_92">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="486.870293" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="486.870293" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_73">
      <g id="line2d_93">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="490.601413" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="490.601413" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_74">
      <g id="line2d_94">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="493.833456" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="493.833456" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_75">
      <g id="line2d_95">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="496.68432" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="496.68432" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_76">
      <g id="line2d_96">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="516.011695" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="516.011695" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_77">
      <g id="line2d_97">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="525.825721" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="525.825721" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_78">
      <g id="line2d_98">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="532.788884" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="532.788884" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_79">
      <g id="line2d_99">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="538.189933" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="538.189933" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_80">
      <g id="line2d_100">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="542.602911" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="542.602911" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_81">
      <g id="line2d_101">
       <g>
-       <use xlink:href="#mc62f55d7f2" x="546.334031" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
+       <use xlink:href="#m62ca73823e" x="546.334031" y="564.48" style="fill: #cbb8a9; stroke: #cbb8a9; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="text_28">
-     <!-- pre-period RMSPE (log scale) -->
-     <g style="fill: #cbb8a9" transform="translate(261.896203 588.965625) scale(0.09 -0.09)">
-      <defs>
-       <path id="SortsMillGoudy-Regular-6c" d="M 582 1229 
-L 608 3949 
-Q 608 4096 560 4214 
-Q 512 4333 454 4358 
-Q 397 4384 198 4384 
-Q 128 4384 128 4429 
-Q 128 4474 137 4493 
-Q 147 4512 179 4528 
-Q 211 4544 256 4557 
-Q 442 4595 640 4691 
-Q 954 4838 1050 4838 
-Q 1126 4838 1126 4717 
-Q 1126 4691 1114 4570 
-Q 1075 4192 1075 3744 
-L 1075 3386 
-L 1062 2534 
-L 1062 627 
-Q 1062 493 1084 406 
-Q 1107 320 1232 240 
-Q 1357 160 1581 160 
-Q 1613 160 1638 128 
-Q 1664 96 1664 64 
-Q 1664 -26 1466 -26 
-L 819 19 
-Q 653 19 502 -6 
-Q 352 -32 304 -32 
-Q 256 -32 227 -9 
-Q 198 13 198 48 
-Q 198 83 227 105 
-Q 256 128 320 141 
-Q 512 192 550 297 
-Q 589 403 589 589 
-L 582 755 
-L 582 1229 
-z
-" transform="scale(0.015625)"/>
-      </defs>
-      <use xlink:href="#SortsMillGoudy-Regular-70"/>
-      <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(55.499985 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(92.999969 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-2d" transform="translate(139.59996 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(173.599945 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(229.09993 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(275.699921 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(313.199905 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(341.599899 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-64" transform="translate(396.299896 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(452.799881 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-52" transform="translate(474.099869 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-4d" transform="translate(545.899857 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-53" transform="translate(637.79985 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-50" transform="translate(697.399841 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-45" transform="translate(753.799835 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(814.199829 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-28" transform="translate(835.499817 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6c" transform="translate(868.099808 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(895.999802 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-67" transform="translate(950.699799 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(999.499786 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(1020.799774 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-63" transform="translate(1060.099762 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(1105.299759 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6c" transform="translate(1151.39975 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(1179.299744 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-29" transform="translate(1225.899734 0)"/>
-     </g>
+     <text style="font-size: 9px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="318.528" y="588.965625" transform="rotate(-0 318.528 588.965625)">pre-period RMSPE (log scale)</text>
     </g>
    </g>
    <g id="matplotlib.axis_4">
@@ -2983,186 +956,81 @@ z
      <g id="line2d_102">
       <path d="M 88.164 560.937196 
 L 548.892 560.937196 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_103"/>
      <g id="text_29">
-      <!-- 0 -->
-      <g style="fill: #cbb8a9" transform="translate(79.130172 564.905868) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-30"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: end; fill: #cbb8a9" x="84.664" y="564.905868" transform="rotate(-0 84.664 564.905868)">0</text>
      </g>
     </g>
     <g id="ytick_5">
      <g id="line2d_104">
       <path d="M 88.164 532.583048 
 L 548.892 532.583048 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_105"/>
      <g id="text_30">
-      <!-- 20 -->
-      <g style="fill: #cbb8a9" transform="translate(73.596344 536.55172) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-32"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: end; fill: #cbb8a9" x="84.664" y="536.55172" transform="rotate(-0 84.664 536.55172)">20</text>
      </g>
     </g>
     <g id="ytick_6">
      <g id="line2d_106">
       <path d="M 88.164 504.228899 
 L 548.892 504.228899 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_107"/>
      <g id="text_31">
-      <!-- 40 -->
-      <g style="fill: #cbb8a9" transform="translate(73.596344 508.197571) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-34"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: end; fill: #cbb8a9" x="84.664" y="508.197571" transform="rotate(-0 84.664 508.197571)">40</text>
      </g>
     </g>
     <g id="ytick_7">
      <g id="line2d_108">
       <path d="M 88.164 475.874751 
 L 548.892 475.874751 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_109"/>
      <g id="text_32">
-      <!-- 60 -->
-      <g style="fill: #cbb8a9" transform="translate(73.596344 479.843423) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-36"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: end; fill: #cbb8a9" x="84.664" y="479.843423" transform="rotate(-0 84.664 479.843423)">60</text>
      </g>
     </g>
     <g id="ytick_8">
      <g id="line2d_110">
       <path d="M 88.164 447.520602 
 L 548.892 447.520602 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_111"/>
      <g id="text_33">
-      <!-- 80 -->
-      <g style="fill: #cbb8a9" transform="translate(73.596344 451.489274) scale(0.105 -0.105)">
-       <defs>
-        <path id="SortsMillGoudy-Regular-38" d="M 326 1165 
-Q 326 1427 409 1648 
-Q 493 1869 614 1997 
-Q 736 2125 854 2214 
-Q 973 2304 1056 2345 
-Q 1139 2387 1139 2396 
-Q 1139 2406 1043 2470 
-Q 947 2534 832 2624 
-Q 717 2714 621 2909 
-Q 525 3104 525 3354 
-Q 525 3904 886 4224 
-Q 1248 4544 1754 4544 
-Q 2080 4544 2317 4445 
-Q 2554 4346 2675 4186 
-Q 2893 3878 2893 3571 
-Q 2893 3264 2816 3078 
-Q 2739 2893 2627 2800 
-Q 2515 2707 2403 2656 
-Q 2291 2605 2214 2582 
-Q 2138 2560 2138 2544 
-Q 2138 2528 2230 2477 
-Q 2323 2426 2457 2333 
-Q 2592 2240 2726 2109 
-Q 2861 1978 2953 1754 
-Q 3046 1530 3046 1283 
-Q 3046 1037 2982 816 
-Q 2918 595 2774 371 
-Q 2630 147 2342 9 
-Q 2054 -128 1664 -128 
-Q 1088 -128 707 211 
-Q 326 550 326 1165 
-z
-M 691 1350 
-Q 691 787 1024 451 
-Q 1357 115 1750 115 
-Q 2144 115 2387 374 
-Q 2630 634 2630 1114 
-Q 2630 1299 2541 1478 
-Q 2355 1856 1766 2118 
-Q 1472 2253 1350 2253 
-Q 1146 2253 918 1981 
-Q 691 1709 691 1350 
-z
-M 934 3514 
-Q 934 3277 1068 3097 
-Q 1203 2918 1389 2835 
-Q 1747 2675 1942 2675 
-Q 2138 2675 2330 2880 
-Q 2522 3085 2522 3475 
-Q 2522 3878 2189 4147 
-Q 1997 4301 1699 4301 
-Q 1402 4301 1168 4121 
-Q 934 3942 934 3514 
-z
-" transform="scale(0.015625)"/>
-       </defs>
-       <use xlink:href="#SortsMillGoudy-Regular-38"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: end; fill: #cbb8a9" x="84.664" y="451.489274" transform="rotate(-0 84.664 451.489274)">80</text>
      </g>
     </g>
     <g id="ytick_9">
      <g id="line2d_112">
       <path d="M 88.164 419.166454 
 L 548.892 419.166454 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_113"/>
      <g id="text_34">
-      <!-- 100 -->
-      <g style="fill: #cbb8a9" transform="translate(68.062516 423.135126) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-31"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(52.699997 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(105.399994 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: end; fill: #cbb8a9" x="84.664" y="423.135126" transform="rotate(-0 84.664 423.135126)">100</text>
      </g>
     </g>
     <g id="ytick_10">
      <g id="line2d_114">
       <path d="M 88.164 390.812306 
 L 548.892 390.812306 
-" clip-path="url(#p8b9a348d4a)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p796ca1208d)" style="fill: none; stroke: #3a322c; stroke-width: 0.6; stroke-linecap: square"/>
      </g>
      <g id="line2d_115"/>
      <g id="text_35">
-      <!-- 120 -->
-      <g style="fill: #cbb8a9" transform="translate(68.062516 394.780978) scale(0.105 -0.105)">
-       <use xlink:href="#SortsMillGoudy-Regular-31"/>
-       <use xlink:href="#SortsMillGoudy-Regular-32" transform="translate(52.699997 0)"/>
-       <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(105.399994 0)"/>
-      </g>
+      <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: end; fill: #cbb8a9" x="84.664" y="394.780978" transform="rotate(-0 84.664 394.780978)">120</text>
      </g>
     </g>
     <g id="text_36">
-     <!-- post-period RMSPE -->
-     <g style="fill: #cbb8a9" transform="translate(62.262516 512.685458) rotate(-90) scale(0.09 -0.09)">
-      <use xlink:href="#SortsMillGoudy-Regular-70"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(55.499985 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(110.199982 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(149.499969 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-2d" transform="translate(183.699966 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(217.699951 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(273.199936 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(319.799927 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(357.299911 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(385.699905 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-64" transform="translate(440.399902 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(496.899887 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-52" transform="translate(518.199875 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-4d" transform="translate(589.999863 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-53" transform="translate(681.899857 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-50" transform="translate(741.499847 0)"/>
-      <use xlink:href="#SortsMillGoudy-Regular-45" transform="translate(797.899841 0)"/>
-     </g>
+     <text style="font-size: 9px; font-family: 'Sorts Mill Goudy'; text-anchor: middle; fill: #cbb8a9" x="62.262516" y="474.061395" transform="rotate(-90 62.262516 474.061395)">post-period RMSPE</text>
     </g>
    </g>
    <g id="patch_6">
@@ -3177,7 +1045,7 @@ L 548.892 564.48
    </g>
    <g id="PathCollection_6">
     <defs>
-     <path id="m98766494b2" d="M 0 4.1833 
+     <path id="m49fee010f7" d="M 0 4.1833 
 C 1.109424 4.1833 2.173559 3.742521 2.95804 2.95804 
 C 3.742521 2.173559 4.1833 1.109424 4.1833 0 
 C 4.1833 -1.109424 3.742521 -2.173559 2.95804 -2.95804 
@@ -3189,480 +1057,30 @@ C -2.173559 3.742521 -1.109424 4.1833 0 4.1833
 z
 " style="stroke: #e04a42"/>
     </defs>
-    <g clip-path="url(#p8b9a348d4a)">
-     <use xlink:href="#m98766494b2" x="443.52608" y="424.760728" style="fill: #e04a42; stroke: #e04a42"/>
+    <g clip-path="url(#p796ca1208d)">
+     <use xlink:href="#m49fee010f7" x="443.52608" y="424.760728" style="fill: #e04a42; stroke: #e04a42"/>
     </g>
    </g>
    <g id="text_37">
-    <!-- Vermont -->
-    <g style="fill: #e04a42" transform="translate(452.52608 426.760728) scale(0.09 -0.09)">
-     <defs>
-      <path id="SortsMillGoudy-Regular-56" d="M 4346 4538 
-L 4915 4550 
-Q 5037 4550 5037 4461 
-Q 5037 4390 4896 4326 
-Q 4838 4301 4761 4217 
-Q 4685 4134 4627 4000 
-L 3200 749 
-Q 3046 403 2937 137 
-Q 2829 -128 2809 -160 
-Q 2790 -192 2758 -192 
-Q 2643 -192 2473 237 
-Q 2304 666 1936 1466 
-Q 1568 2266 1369 2714 
-Q 1171 3162 1084 3373 
-Q 998 3584 922 3750 
-Q 806 4026 710 4131 
-Q 614 4237 496 4288 
-Q 378 4339 307 4339 
-Q 128 4326 128 4454 
-Q 128 4544 307 4544 
-L 1011 4518 
-L 1427 4531 
-Q 1574 4531 1606 4518 
-Q 1638 4506 1638 4464 
-Q 1638 4422 1574 4390 
-Q 1376 4288 1376 4182 
-Q 1376 4077 1398 3990 
-Q 1421 3904 1497 3725 
-Q 1574 3546 1654 3366 
-Q 1734 3187 1916 2787 
-Q 2099 2387 2272 1997 
-Q 2810 762 2912 762 
-Q 2944 762 3280 1536 
-Q 3616 2310 3942 3155 
-Q 4269 4000 4269 4128 
-Q 4269 4256 4195 4310 
-Q 4122 4365 4038 4378 
-Q 3808 4403 3808 4480 
-Q 3808 4525 3830 4534 
-Q 3853 4544 3942 4544 
-L 4346 4538 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#SortsMillGoudy-Regular-56"/>
-     <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(80.699982 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(127.299973 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6d" transform="translate(164.799957 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(247.499939 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(302.199936 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(361.299927 0)"/>
-    </g>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Sorts Mill Goudy'; text-anchor: start; fill: #e04a42" x="452.52608" y="426.760728" transform="rotate(-0 452.52608 426.760728)">Vermont</text>
    </g>
    <g id="text_38">
-    <!-- 7 degenerate fits -->
-    <g style="fill: #cbb8a9" transform="translate(131.883371 473.842803) scale(0.08 -0.08)">
-     <defs>
-      <path id="SortsMillGoudy-Regular-66" d="M 582 2400 
-L 326 2381 
-Q 186 2381 186 2464 
-Q 186 2579 240 2617 
-Q 294 2656 454 2656 
-L 589 2656 
-Q 666 2656 685 2691 
-Q 704 2726 704 2803 
-Q 704 3270 857 3664 
-Q 1011 4058 1242 4288 
-Q 1715 4781 2112 4781 
-Q 2259 4781 2352 4733 
-Q 2445 4685 2445 4602 
-Q 2445 4576 2422 4489 
-Q 2400 4403 2393 4377 
-Q 2387 4352 2380 4336 
-Q 2374 4320 2368 4301 
-Q 2362 4282 2355 4272 
-Q 2349 4262 2339 4249 
-Q 2330 4237 2317 4230 
-Q 2298 4218 2266 4218 
-Q 2234 4218 2202 4262 
-Q 2106 4384 1859 4384 
-Q 1613 4384 1475 4249 
-Q 1338 4115 1267 3891 
-Q 1133 3456 1133 2931 
-L 1133 2771 
-Q 1133 2650 1210 2650 
-Q 1773 2650 1894 2739 
-Q 1939 2765 1964 2765 
-Q 1990 2765 1990 2697 
-Q 1990 2630 1901 2470 
-Q 1862 2413 1741 2413 
-L 1242 2406 
-Q 1139 2406 1139 2342 
-L 1139 1971 
-L 1171 704 
-Q 1171 365 1261 256 
-Q 1363 122 1574 122 
-Q 1683 122 1683 26 
-Q 1683 -38 1613 -38 
-L 973 -6 
-L 499 -38 
-Q 403 -38 403 51 
-Q 403 83 483 115 
-Q 563 147 640 233 
-Q 717 320 717 429 
-Q 717 538 710 742 
-Q 691 1370 691 2298 
-Q 691 2368 668 2384 
-Q 646 2400 582 2400 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#SortsMillGoudy-Regular-37"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(52.699997 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-64" transform="translate(73.999985 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(130.499969 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-67" transform="translate(177.09996 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(225.899948 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(272.499939 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(331.59993 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(378.199921 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(415.699905 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(461.799896 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(495.999893 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(542.599884 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-66" transform="translate(563.899872 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(598.399857 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(626.79985 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(660.999847 0)"/>
-    </g>
-    <!-- (ratio denominator ~0) -->
-    <g style="fill: #cbb8a9" transform="translate(131.883371 484.145803) scale(0.08 -0.08)">
-     <defs>
-      <path id="SortsMillGoudy-Regular-7e" d="M 186 1101 
-Q 186 1126 275 1264 
-Q 365 1402 531 1549 
-Q 698 1696 851 1696 
-Q 1005 1696 1232 1552 
-Q 1459 1408 1600 1408 
-Q 1741 1408 1853 1485 
-Q 1965 1562 2029 1642 
-Q 2093 1722 2118 1722 
-Q 2246 1722 2246 1626 
-Q 2246 1594 2150 1462 
-Q 2054 1331 1868 1190 
-Q 1683 1050 1500 1050 
-Q 1318 1050 1110 1197 
-Q 902 1344 774 1344 
-Q 646 1344 544 1257 
-Q 442 1171 387 1084 
-Q 333 998 314 998 
-Q 186 998 186 1101 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#SortsMillGoudy-Regular-28"/>
-     <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(32.599991 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(70.099976 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(116.199966 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(150.399963 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(178.799957 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(233.499954 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-64" transform="translate(254.799942 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(311.299927 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(357.899918 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(416.999908 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6d" transform="translate(471.699905 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(554.399887 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(582.799881 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(641.899872 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(687.999863 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(722.19986 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(776.899857 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(814.399841 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-7e" transform="translate(835.699829 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(873.699814 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-29" transform="translate(926.399811 0)"/>
-    </g>
+    <text style="font-size: 8px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9" transform="translate(131.883371 473.842803)">7 degenerate fits</text>
+    <text style="font-size: 8px; font-family: 'Sorts Mill Goudy'; fill: #cbb8a9" transform="translate(131.883371 484.145803)">(ratio denominator ~0)</text>
    </g>
    <g id="text_39">
-    <!-- ED visits: pre-fit vs. post-fit, all 50 -->
-    <g style="fill: #cbb8a9" transform="translate(0 376.642791) scale(0.105 -0.105)">
-     <defs>
-      <path id="SortsMillGoudy-Regular-3a" d="M 570 134 
-Q 378 269 378 336 
-Q 378 403 602 602 
-Q 621 621 678 685 
-Q 781 813 870 813 
-Q 896 813 931 774 
-Q 966 736 988 713 
-Q 1011 691 1043 646 
-Q 1075 602 1097 579 
-Q 1120 557 1178 512 
-Q 1293 403 1293 361 
-Q 1293 320 1261 285 
-Q 1229 250 1165 198 
-L 1069 122 
-Q 1043 96 998 32 
-Q 902 -102 844 -102 
-Q 787 -102 742 -57 
-Q 698 -13 650 48 
-Q 602 109 570 134 
-z
-M 614 2387 
-Q 640 2413 681 2470 
-Q 723 2528 764 2563 
-Q 806 2598 857 2598 
-Q 909 2598 1088 2362 
-Q 1101 2342 1152 2304 
-Q 1254 2208 1254 2163 
-Q 1254 2118 1235 2089 
-Q 1216 2061 1190 2042 
-L 1126 1984 
-Q 1050 1920 1002 1853 
-Q 954 1786 915 1750 
-Q 877 1715 832 1715 
-Q 787 1715 745 1756 
-Q 704 1798 669 1859 
-Q 634 1920 611 1942 
-Q 589 1965 547 2000 
-Q 506 2035 486 2061 
-Q 422 2118 422 2169 
-Q 422 2221 614 2387 
-z
-" transform="scale(0.015625)"/>
-      <path id="SortsMillGoudy-Regular-2e" d="M 544 134 
-Q 346 275 346 352 
-Q 346 429 544 602 
-Q 570 627 618 691 
-Q 666 755 714 790 
-Q 762 826 813 826 
-Q 864 826 1075 576 
-Q 1094 557 1152 512 
-Q 1267 403 1267 361 
-Q 1267 320 1235 285 
-Q 1203 250 1139 198 
-Q 1139 198 1043 122 
-Q 1018 96 973 32 
-Q 870 -102 806 -102 
-Q 742 -102 652 10 
-Q 563 122 544 134 
-z
-" transform="scale(0.015625)"/>
-      <path id="SortsMillGoudy-Regular-2c" d="M 486 185 
-Q 371 269 358 285 
-Q 346 301 346 339 
-Q 346 378 365 410 
-Q 384 442 406 464 
-Q 429 486 473 528 
-Q 518 570 540 592 
-Q 563 614 595 659 
-Q 627 704 653 730 
-Q 723 800 784 800 
-Q 845 800 941 723 
-Q 1037 646 1145 448 
-Q 1254 250 1254 0 
-Q 1254 -403 969 -732 
-Q 685 -1062 512 -1062 
-Q 416 -1062 416 -979 
-Q 416 -915 614 -755 
-Q 691 -698 752 -579 
-Q 813 -461 813 -320 
-Q 813 -179 755 -80 
-Q 698 19 650 60 
-Q 602 102 486 185 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#SortsMillGoudy-Regular-45"/>
-     <use xlink:href="#SortsMillGoudy-Regular-44" transform="translate(60.399994 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(139.599976 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-76" transform="translate(160.899963 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(213.199951 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(241.599945 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(280.899933 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(309.299927 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(343.499924 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-3a" transform="translate(382.799911 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(408.799896 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(430.099884 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(485.599869 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(523.099854 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-2d" transform="translate(569.699844 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-66" transform="translate(603.699829 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(638.199814 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(666.599808 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(700.799805 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-76" transform="translate(722.099792 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(774.39978 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-2e" transform="translate(813.699768 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(838.899765 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(860.199753 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(915.699738 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(970.399734 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(1009.699722 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-2d" transform="translate(1043.899719 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-66" transform="translate(1077.899704 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(1112.399689 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(1140.799683 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-2c" transform="translate(1174.99968 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(1199.999664 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(1221.299652 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6c" transform="translate(1267.399643 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-6c" transform="translate(1295.299637 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(1323.199631 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-35" transform="translate(1344.499619 0)"/>
-     <use xlink:href="#SortsMillGoudy-Regular-30" transform="translate(1397.199615 0)"/>
-    </g>
+    <text style="font-size: 10.5px; font-family: 'Sorts Mill Goudy'; text-anchor: start; fill: #cbb8a9" x="0" y="376.642791" transform="rotate(-0 0 376.642791)">ED visits: pre-fit vs. post-fit, all 50</text>
    </g>
   </g>
   <g id="text_40">
-   <!-- What the emergency-department inference rests on -->
-   <g style="fill: #f2e9e2" transform="translate(0 31.832578) scale(0.135 -0.135)">
-    <defs>
-     <path id="SortsMillGoudy-Regular-57" d="M 6285 4538 
-L 6854 4550 
-Q 6982 4550 6982 4461 
-Q 6982 4416 6947 4390 
-Q 6912 4365 6841 4326 
-Q 6771 4288 6729 4246 
-Q 6688 4205 6665 4173 
-Q 6643 4141 6617 4093 
-Q 6592 4045 6579 4013 
-Q 6534 3930 5708 2064 
-Q 4883 198 4793 12 
-Q 4704 -173 4653 -173 
-Q 4589 -173 4358 397 
-Q 4294 538 4188 787 
-Q 4083 1037 4009 1209 
-Q 3936 1382 3859 1562 
-Q 3706 1926 3661 1926 
-Q 3597 1926 3229 1043 
-Q 2861 160 2845 96 
-Q 2829 32 2819 6 
-Q 2810 -19 2803 -38 
-Q 2797 -58 2790 -77 
-Q 2784 -96 2777 -109 
-Q 2771 -122 2768 -134 
-Q 2765 -147 2758 -156 
-Q 2752 -166 2745 -172 
-Q 2739 -179 2733 -179 
-Q 2714 -192 2701 -192 
-Q 2643 -192 2560 -9 
-Q 2477 173 2259 707 
-Q 2042 1242 1744 1894 
-Q 1446 2547 1030 3571 
-Q 909 3878 768 4054 
-Q 627 4230 518 4275 
-Q 410 4320 320 4326 
-Q 230 4333 179 4352 
-Q 128 4371 128 4454 
-Q 128 4538 301 4538 
-L 1005 4518 
-L 1555 4538 
-Q 1613 4538 1629 4522 
-Q 1645 4506 1645 4464 
-Q 1645 4422 1507 4352 
-Q 1370 4282 1370 4160 
-Q 1370 4032 1562 3616 
-Q 2202 2182 2403 1708 
-Q 2605 1235 2669 1088 
-Q 2797 806 2835 806 
-Q 2861 806 3040 1203 
-Q 3219 1600 3302 1805 
-Q 3386 2010 3418 2080 
-Q 3488 2214 3488 2294 
-Q 3488 2374 3104 3238 
-Q 2682 4173 2560 4269 
-Q 2458 4346 2394 4346 
-L 2323 4352 
-Q 2144 4371 2105 4387 
-Q 2067 4403 2067 4454 
-Q 2067 4544 2253 4544 
-L 2957 4518 
-L 3379 4544 
-Q 3571 4544 3571 4499 
-Q 3571 4454 3501 4416 
-Q 3296 4307 3296 4176 
-Q 3296 4045 3494 3597 
-Q 3507 3571 3584 3386 
-Q 3750 2950 3798 2950 
-Q 3846 2950 4051 3510 
-Q 4256 4070 4256 4179 
-Q 4256 4288 4160 4336 
-Q 4064 4384 3968 4406 
-Q 3872 4429 3872 4480 
-Q 3872 4550 4013 4550 
-L 4422 4538 
-L 4531 4538 
-Q 4621 4538 4870 4557 
-L 4928 4557 
-Q 5011 4557 5011 4493 
-Q 5011 4429 4889 4390 
-Q 4768 4352 4694 4278 
-Q 4621 4205 4515 3945 
-Q 4410 3686 4221 3244 
-Q 4032 2803 4000 2713 
-Q 3968 2624 3968 2563 
-Q 3968 2502 4358 1632 
-Q 4749 762 4822 762 
-Q 4896 762 5565 2378 
-Q 6234 3994 6234 4125 
-Q 6234 4256 6160 4310 
-Q 6086 4365 5997 4378 
-Q 5760 4397 5760 4480 
-Q 5760 4525 5779 4534 
-Q 5798 4544 5882 4544 
-L 6285 4538 
-z
-" transform="scale(0.015625)"/>
-    </defs>
-    <use xlink:href="#SortsMillGoudy-Regular-57"/>
-    <use xlink:href="#SortsMillGoudy-Regular-68" transform="translate(110.999985 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(169.699982 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(215.799973 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(249.999969 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(271.299957 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-68" transform="translate(305.499954 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(364.199951 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(410.799942 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(432.09993 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-6d" transform="translate(478.699921 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(561.399902 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(607.999893 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-67" transform="translate(645.499878 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(694.299866 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(740.899857 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-63" transform="translate(799.999847 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-79" transform="translate(845.199844 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-2d" transform="translate(894.999832 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-64" transform="translate(928.999817 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(985.499802 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-70" transform="translate(1032.099792 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-61" transform="translate(1087.599777 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(1133.699768 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(1171.199753 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-6d" transform="translate(1205.39975 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(1288.099731 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(1334.699722 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(1393.799713 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(1427.99971 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-69" transform="translate(1449.299698 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(1477.699692 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-66" transform="translate(1536.799683 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(1571.299667 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(1617.899658 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(1655.399643 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(1701.999634 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-63" transform="translate(1761.099625 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(1806.299622 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(1852.899612 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-72" transform="translate(1874.1996 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-65" transform="translate(1911.699585 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(1958.299576 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-74" transform="translate(1997.599564 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-73" transform="translate(2031.799561 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-20" transform="translate(2071.099548 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-6f" transform="translate(2092.399536 0)"/>
-    <use xlink:href="#SortsMillGoudy-Regular-6e" transform="translate(2147.099533 0)"/>
-   </g>
+   <text style="font-weight: 700; font-size: 13.5px; font-family: 'Sorts Mill Goudy'; text-anchor: start; fill: #f2e9e2" x="0" y="31.832578" transform="rotate(-0 0 31.832578)">What the emergency-department inference rests on</text>
   </g>
  </g>
  <defs>
-  <clipPath id="pe76f26a6ac">
+  <clipPath id="padeebbb198">
    <rect x="88.164" y="95.04" width="460.728" height="207.962791"/>
   </clipPath>
-  <clipPath id="p8b9a348d4a">
+  <clipPath id="p796ca1208d">
    <rect x="88.164" y="383.642791" width="460.728" height="180.837209"/>
   </clipPath>
  </defs>
