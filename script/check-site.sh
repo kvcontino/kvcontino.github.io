@@ -129,6 +129,7 @@ h = open(f, encoding="utf-8").read()
 if mode == "glyph":      h = h.replace("</p>", " →</p>", 1)
 elif mode == "tag":      h = h.replace("</div>", "", 1)
 elif mode == "orphanfn": h = h.replace('<span class="fn-note"', '<span class="fn-NOTE"', 1)
+elif mode == "todo":     h = h.replace("</p>", "</p><!-- TODO(kevin): leaked -->", 1)
 elif mode == "ogdup":
     h = h.replace('<meta property="og:image"',
                   '<meta property="og:image" content="x"><meta property="og:image"', 1)
@@ -146,6 +147,7 @@ PY
   probe "unbalanced tag (drop one </div>)"  tag      '</div>'
   probe "orphan footnote marker"            orphanfn 'class="fn-note"'
   probe "duplicate og:image tag"            ogdup    'property="og:image"'
+  probe "leaked draft TODO comment"         todo     '</p>'
 
   # NO stale-share-card probe, deliberately. That check was demoted to
   # report-only on 2026-08-30 (see the "feed and share cards" section for the
@@ -203,6 +205,24 @@ for f in "${PAGES[@]}"; do
   fi
   if grep -q 'markdown="1"' "$f"; then
     note "markdown=\"1\" survived into output (inert in .html) — ${f#_site/}"; fail=1
+  fi
+done
+
+# ------------------------------------------------------- leaked draft comments
+# GATE. An HTML comment SURVIVES the build and is readable by anyone who views
+# source -- so a `<!-- TODO(kevin): ... -->` left in a draft is not a private
+# note once that draft becomes a post, it is published text. Drafts in _ideas/
+# are written with many of them on purpose, and the instruction "delete them
+# before publishing" is exactly the kind of instruction that gets followed four
+# times and forgotten the fifth. This makes forgetting impossible instead.
+#
+# Deliberately matches the marker, not the word TODO: a post may legitimately
+# discuss a to-do list, and a check that fires on ordinary prose gets disabled.
+section "leaked draft comments"
+for f in "${PAGES[@]}"; do
+  n=$(grep -c 'TODO(kevin)' "$f" 2>/dev/null || true)
+  if [ "${n:-0}" -gt 0 ]; then
+    note "$n draft TODO comment(s) survived into the built page — ${f#_site/}"; fail=1
   fi
 done
 
