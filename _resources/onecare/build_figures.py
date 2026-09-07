@@ -138,6 +138,12 @@ plt.rcParams.update({
     # page it sits on is black either way, so nothing is lost on-page.
     "figure.facecolor": "#000000", "axes.facecolor": "#000000",
     "savefig.facecolor": "#000000", "savefig.transparent": False,
+    # Keep caption/title text as real <text> elements rather than glyph-outline
+    # paths. Lets a rendering-based check grep captions for staleness (the SVG
+    # source can't be grepped either way -- matplotlib emits <use> refs to font
+    # glyphs, not characters). Safe here specifically because the site already
+    # self-hosts this exact family via @font-face for the surrounding page.
+    "svg.fonttype": "none",
 })
 if PREVIEW:
     plt.rcParams.update({"figure.facecolor": "#000000", "axes.facecolor": "#000000",
