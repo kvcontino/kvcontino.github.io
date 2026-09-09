@@ -44,11 +44,12 @@ layout: null
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--void)}
-  body{color:var(--ink-2);font:16px/1.55 var(--serif);padding:0 0 4rem}
+  body{color:var(--ink);font:16px/1.55 var(--serif);padding:0 0 4rem}
   .wrap{max-width:920px;margin:0 auto;padding:0 20px}
   .wrap.wide{max-width:1180px}
-  a{color:var(--ink-2)}
-  a:hover{color:var(--ember)}
+  a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--ink-2);text-decoration-thickness:1px;text-underline-offset:0.18em}
+  a:visited{color:var(--ink-2)}
+  a:hover,a:focus{color:var(--ember);text-decoration-color:var(--ember)}
   h1,h2{font-weight:400;color:var(--ink);text-transform:uppercase;letter-spacing:var(--track)}
   h1{font-size:1.15rem;margin:0}
   h2{font-size:0.95rem;margin:2.2rem 0 0.6rem}
@@ -62,29 +63,31 @@ layout: null
   .back-link{font-size:0.72rem;letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-2);
               text-decoration:none;border:1px solid var(--ink-faint);padding:0.3rem 0.6rem}
   .back-link:hover{color:var(--ember);border-color:var(--ember)}
-  .dek{color:var(--ink-2);font-size:1.02rem;font-style:italic;max-width:760px}
-  .meta{font-size:0.82rem;color:var(--ink-faint);margin:0.2rem 0 0}
+  .dek{color:var(--ink);font-size:1.02rem;font-style:italic;max-width:760px}
+  .meta{font-size:0.82rem;color:var(--ink-2);margin:0.2rem 0 0}
 
   .stat-row{display:flex;gap:0;border:1px solid var(--ink-faint);margin-bottom:1.8rem}
   .stat-tile{flex:1 1 0;padding:0.9rem 1.1rem;border-left:1px solid var(--ink-faint)}
   .stat-tile:first-child{border-left:0}
-  .stat-tile .label{font-size:0.68rem;letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-faint);margin-bottom:0.35rem}
+  .stat-tile .label{font-size:0.68rem;letter-spacing:var(--track);text-transform:uppercase;color:var(--ink-2);margin-bottom:0.35rem}
   .stat-tile .value{font-size:1.5rem;color:var(--ink);font-variant-numeric:tabular-nums}
   .stat-tile .value.pos{color:var(--ember)}
   .stat-tile .note{font-size:0.78rem;color:var(--ink-2);margin-top:0.3rem;line-height:1.4}
 
   .legend{display:flex;align-items:center;gap:0.8rem;font-size:0.75rem;color:var(--ink-2);margin-bottom:0.9rem;flex-wrap:wrap}
   .legend .sw{width:12px;height:12px;display:inline-block;border:1px solid var(--ink-faint);vertical-align:-1px;margin-right:0.3rem}
-  .legend .sw.neg{background:none}
-  .legend .sw.mod{background:rgba(224,74,66,0.38)}
-  .legend .sw.high{background:var(--ember)}
+  .legend .sw.far-low{background:var(--ink)}
+  .legend .sw.low{background:rgba(203,184,169,0.45)}
+  .legend .sw.mid{background:none}
+  .legend .sw.high{background:rgba(224,74,66,0.42)}
+  .legend .sw.far-high{background:var(--bleed)}
 
   .heatmap-scroll{overflow-x:auto;padding-bottom:6px;border:1px solid var(--ink-faint)}
   table.heatmap{border-collapse:collapse;font-size:0.68rem}
   table.heatmap th,table.heatmap td{padding:0}
   table.heatmap th.drug-label{text-align:right;padding:0 8px 0 6px;font-weight:400;color:var(--ink-2);
     white-space:nowrap;position:sticky;left:0;background:var(--void);font-size:0.7rem;font-style:italic}
-  table.heatmap th.state-label{font-weight:400;color:var(--ink-faint);font-size:0.6rem;padding-bottom:4px;text-align:center}
+  table.heatmap th.state-label{font-weight:400;color:var(--ink-2);font-size:0.6rem;padding-bottom:4px;text-align:center}
   td.cell{width:15px;height:15px;border:1px solid var(--void);cursor:pointer;position:relative}
   td.cell.low-volume{opacity:0.4}
   td.cell:hover,td.cell:focus{outline:1px solid var(--ink);outline-offset:-1px;z-index:2}
@@ -92,7 +95,8 @@ layout: null
   .tooltip{position:fixed;pointer-events:none;background:var(--void);border:1px solid var(--ink-faint);
     color:var(--ink);font:0.8rem/1.5 var(--serif);padding:0.5rem 0.65rem;max-width:260px;z-index:50;display:none}
   .tooltip b{color:var(--ink);font-style:italic}
-  .tooltip .r{display:flex;justify-content:space-between;gap:14px;color:var(--ink-2)}
+  .tooltip .r{display:flex;justify-content:space-between;gap:14px}
+  .tooltip .r span:first-child{color:var(--ink-2)}
 
   .bar-chart{display:flex;flex-direction:column;gap:2px}
   .bar-row{display:grid;grid-template-columns:32px 1fr 62px;align-items:center;gap:8px;height:15px}
@@ -117,7 +121,7 @@ layout: null
 
   ul.notes{padding-left:1.2rem;margin:0.4rem 0 0}
   ul.notes li{margin-bottom:0.5rem}
-  .src{font-size:0.8rem;color:var(--ink-faint);margin-top:1.6rem}
+  .src{font-size:0.8rem;color:var(--ink-2);margin-top:1.6rem}
 </style>
 </head>
 <body>
@@ -165,14 +169,19 @@ layout: null
   </div>
 
   <h2>Spread by state and drug</h2>
-  <p>The 24 highest-reimbursement drugs nationally, cross-tabulated against every state. Hollow
-  cells were reimbursed <em>below</em> acquisition cost that year; filled cells above it, faint or
-  full by how far. Hover a cell for the dollar detail. Faded cells carried under $500K in
-  reimbursement &mdash; read their percentages cautiously.</p>
+  <p>The 24 highest-reimbursement drugs nationally, cross-tabulated against every state. Each cell
+  is colored by how far that state&rsquo;s spread sits from <em>that drug&rsquo;s own</em> average
+  across all states &mdash; a fixed percentage cutoff would compare a drug with a tight national
+  range against one with a wide one on the same scale, which isn&rsquo;t a fair comparison. White
+  marks a state reimbursing far below what&rsquo;s typical for that drug; red marks far above.
+  Hover a cell for the dollar detail and the drug&rsquo;s own average. Faded cells carried under
+  $500K in reimbursement &mdash; read their percentages cautiously.</p>
   <div class="legend">
-    <span><span class="sw neg"></span>at or below acquisition cost</span>
-    <span><span class="sw mod"></span>above, up to +75%</span>
-    <span><span class="sw high"></span>above, +75% or more</span>
+    <span><span class="sw far-low"></span>&le; &minus;2&sigma;</span>
+    <span><span class="sw low"></span>&minus;2&sigma; to &minus;1&sigma;</span>
+    <span><span class="sw mid"></span>within &plusmn;1&sigma; (typical for the drug)</span>
+    <span><span class="sw high"></span>+1&sigma; to +2&sigma;</span>
+    <span><span class="sw far-high"></span>&ge; +2&sigma;</span>
   </div>
   <div class="heatmap-scroll">
     <table class="heatmap" id="heatmap"></table>
@@ -236,7 +245,8 @@ layout: null
   const heat = JSON.parse(document.getElementById('heatmap-data').textContent);
   const states = JSON.parse(document.getElementById('state-summary-data').textContent);
 
-  const EMBER = '#e04a42', EMBER_MOD = 'rgba(224,74,66,0.38)';
+  const INK = '#e8e8e8', INK_MOD = 'rgba(203,184,169,0.45)';
+  const EMBER_MOD = 'rgba(224,74,66,0.42)', BLEED = '#b81419';
   const fmtPct = (v) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1) + '%';
   const fmtUsd = (v) => '$' + Math.round(v).toLocaleString('en-US');
   const fmtUsdCompact = (v) => {
@@ -248,10 +258,32 @@ layout: null
     return sign + '$' + abs.toFixed(0);
   };
 
-  function cellStyle(pct) {
-    if (pct <= 0) return { fill: 'none', border: 'var(--ink-2)' };
-    if (pct <= 75) return { fill: EMBER_MOD, border: 'var(--ink-faint)' };
-    return { fill: EMBER, border: 'var(--ink-faint)' };
+  // Each drug has its own reimbursement mix across states (biologics vs.
+  // generics, mandatory-fee states vs. not), so a fixed spread-percent cutoff
+  // would judge a drug with a tight range and one with a wide range on the
+  // same scale. Instead: per drug, take the mean and sample standard
+  // deviation of spread_pct across its states, and color each cell by how
+  // many standard deviations it sits from ITS OWN drug's mean.
+  const drugStats = new Map();
+  for (const drug of heat.drug_order) {
+    const vals = heat.cells.filter(c => c.drug === drug).map(c => c.spread_pct);
+    const n = vals.length;
+    const mean = vals.reduce((a, b) => a + b, 0) / n;
+    const variance = n > 1 ? vals.reduce((a, b) => a + (b - mean) ** 2, 0) / (n - 1) : 0;
+    drugStats.set(drug, { mean, sd: Math.sqrt(variance) });
+  }
+
+  function zScore(c) {
+    const { mean, sd } = drugStats.get(c.drug);
+    return sd > 0 ? (c.spread_pct - mean) / sd : 0;
+  }
+
+  function cellStyle(z) {
+    if (z <= -2) return { fill: INK, border: 'var(--ink-faint)' };
+    if (z <= -1) return { fill: INK_MOD, border: 'var(--ink-faint)' };
+    if (z < 1) return { fill: 'none', border: 'var(--ink-faint)' };
+    if (z < 2) return { fill: EMBER_MOD, border: 'var(--ink-faint)' };
+    return { fill: BLEED, border: 'var(--ink-faint)' };
   }
 
   // ---- headline stats ----
@@ -283,13 +315,17 @@ layout: null
 
   const tooltip = document.getElementById('tooltip');
   function showTooltip(evt, c) {
+    const { mean } = drugStats.get(c.drug);
+    const z = zScore(c);
     tooltip.style.display = 'block';
     tooltip.innerHTML = `<b>${c.drug} — ${c.state}</b><br>
       <div class="r"><span>Reimbursed</span><span>${fmtUsd(c.reimbursed)}</span></div>
       <div class="r"><span>Acquisition cost</span><span>${fmtUsd(c.acquisition)}</span></div>
       <div class="r"><span>Reimbursed / unit</span><span>$${c.reimbursed_per_unit.toFixed(2)}</span></div>
       <div class="r"><span>NADAC / unit</span><span>$${c.nadac_per_unit.toFixed(2)}</span></div>
-      <div class="r"><span>Spread</span><span>${fmtPct(c.spread_pct)}</span></div>`;
+      <div class="r"><span>This state&rsquo;s spread</span><span>${fmtPct(c.spread_pct)}</span></div>
+      <div class="r"><span>${c.drug}&rsquo;s average spread</span><span>${fmtPct(mean)}</span></div>
+      <div class="r"><span>Vs. that average</span><span>${z >= 0 ? '+' : '−'}${Math.abs(z).toFixed(1)}&sigma;</span></div>`;
     positionTooltip(evt);
   }
   function positionTooltip(evt) {
@@ -312,7 +348,7 @@ layout: null
       const td = document.createElement('td');
       td.className = 'cell';
       if (c) {
-        const s = cellStyle(c.spread_pct);
+        const s = cellStyle(zScore(c));
         td.style.background = s.fill;
         td.style.borderColor = s.border;
         if (c.reimbursed < 500000) td.classList.add('low-volume');
