@@ -81,15 +81,20 @@ layout: null
   .legend .sw.mid{background:none}
   .legend .sw.high{background:rgba(224,74,66,0.42)}
   .legend .sw.far-high{background:var(--bleed)}
+  .legend .sw.no-data{background-image:repeating-linear-gradient(45deg,var(--ink-faint) 0,var(--ink-faint) 1px,transparent 1px,transparent 4px)}
 
   .heatmap-scroll{overflow-x:auto;padding-bottom:6px;border:1px solid var(--ink-faint)}
   table.heatmap{border-collapse:collapse;font-size:0.68rem}
   table.heatmap th,table.heatmap td{padding:0}
   table.heatmap th.drug-label{text-align:right;padding:0 8px 0 6px;font-weight:400;color:var(--ink-2);
     white-space:nowrap;position:sticky;left:0;background:var(--void);font-size:0.7rem;font-style:italic}
-  table.heatmap th.state-label{font-weight:400;color:var(--ink-2);font-size:0.6rem;padding-bottom:4px;text-align:center}
+  table.heatmap th.state-label{font-weight:400;color:var(--ink-2);font-size:0.6rem;padding:0 2px 4px;text-align:center}
   td.cell{width:15px;height:15px;border:1px solid var(--void);cursor:pointer;position:relative}
   td.cell.low-volume{opacity:0.4}
+  td.cell.no-data{
+    background-image:repeating-linear-gradient(45deg,var(--ink-faint) 0,var(--ink-faint) 1px,transparent 1px,transparent 6px);
+    border-color:var(--ink-faint);
+  }
   td.cell:hover,td.cell:focus{outline:1px solid var(--ink);outline-offset:-1px;z-index:2}
 
   .tooltip{position:fixed;pointer-events:none;background:var(--void);border:1px solid var(--ink-faint);
@@ -175,13 +180,15 @@ layout: null
   range against one with a wide one on the same scale, which isn&rsquo;t a fair comparison. White
   marks a state reimbursing far below what&rsquo;s typical for that drug; red marks far above.
   Hover a cell for the dollar detail and the drug&rsquo;s own average. Faded cells carried under
-  $500K in reimbursement &mdash; read their percentages cautiously.</p>
+  $500K in reimbursement &mdash; read their percentages cautiously. Hatched cells have no matched
+  reimbursement at all &mdash; that&rsquo;s a gap in the data, not a value of zero.</p>
   <div class="legend">
     <span><span class="sw far-low"></span>&le; &minus;2&sigma;</span>
     <span><span class="sw low"></span>&minus;2&sigma; to &minus;1&sigma;</span>
     <span><span class="sw mid"></span>within &plusmn;1&sigma; (typical for the drug)</span>
     <span><span class="sw high"></span>+1&sigma; to +2&sigma;</span>
     <span><span class="sw far-high"></span>&ge; +2&sigma;</span>
+    <span><span class="sw no-data"></span>no data</span>
   </div>
   <div class="heatmap-scroll">
     <table class="heatmap" id="heatmap"></table>
@@ -358,8 +365,17 @@ layout: null
         td.addEventListener('focus', (e) => showTooltip(e, c));
         td.addEventListener('blur', hideTooltip);
       } else {
-        td.style.background = 'transparent';
-        td.style.borderColor = 'transparent';
+        td.classList.add('no-data');
+        td.tabIndex = 0;
+        const showNoData = (e) => {
+          tooltip.style.display = 'block';
+          tooltip.innerHTML = `<b>${drug} — ${st}</b><br><span style="color:var(--ink-2)">No matched reimbursement for this drug in this state in 2025.</span>`;
+          positionTooltip(e);
+        };
+        td.addEventListener('mousemove', showNoData);
+        td.addEventListener('mouseleave', hideTooltip);
+        td.addEventListener('focus', showNoData);
+        td.addEventListener('blur', hideTooltip);
       }
       tr.appendChild(td);
     }

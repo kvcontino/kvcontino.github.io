@@ -130,6 +130,7 @@ if mode == "glyph":      h = h.replace("</p>", " →</p>", 1)
 elif mode == "tag":      h = h.replace("</div>", "", 1)
 elif mode == "orphanfn": h = h.replace('<span class="fn-note"', '<span class="fn-NOTE"', 1)
 elif mode == "todo":     h = h.replace("</p>", "</p><!-- TODO(kevin): leaked -->", 1)
+elif mode == "inkfaint": h = h.replace("color:var(--ink-2)", "color:var(--ink-faint)", 1)
 elif mode == "ogdup":
     h = h.replace('<meta property="og:image"',
                   '<meta property="og:image" content="x"><meta property="og:image"', 1)
@@ -148,6 +149,7 @@ PY
   probe "orphan footnote marker"            orphanfn 'class="fn-note"'
   probe "duplicate og:image tag"            ogdup    'property="og:image"'
   probe "leaked draft TODO comment"         todo     '</p>'
+  probe "--ink-faint used as text color"    inkfaint 'ink-faint:#'
 
   # NO stale-share-card probe, deliberately. That check was demoted to
   # report-only on 2026-08-30 (see the "feed and share cards" section for the
@@ -233,6 +235,29 @@ for f in "${PAGES[@]}"; do
   n=$(grep -o '<img[^>]*>' "$f" | grep -cv 'alt=')
   if [ "$n" -gt 0 ]; then
     note "$n <img> without alt — ${f#_site/}"; fail=1
+  fi
+done
+
+# ------------------------------------------------------ rules-only token misuse
+# GATE. lite.css documents --ink-faint as "Rules only, never text" (2.08:1
+# against black — fails WCAG even for large text), but that constraint lives
+# only as a comment in a file the standalone dark pages never load. Each one
+# hand-copies the --void/--ink/--ink-2/--ink-faint block into its own <style>,
+# so the rule has to be re-remembered every time rather than inherited, and it
+# has now been forgotten twice: sdud-nadac's byline/labels/footer and
+# nova-walksheds/map's legend caption and attribution line all shipped
+# --ink-faint as actual body/caption text (caught 2026-09-08 by a human reading
+# the rendered page, not by any check). Scoped to pages that define the token
+# at all, so this says nothing about pages on a different palette (mcaid,
+# metro-relocation, the light-themed nny/vermont maps). The pattern excludes
+# border-color/text-decoration-color/etc by requiring the character before
+# "color" not be a letter — a plain grep for "color" would flag every border.
+section "rules-only token misuse (--ink-faint as text)"
+for f in "${PAGES[@]}"; do
+  grep -q -- '--ink-faint' "$f" || continue
+  n=$(grep -Po '(?<![-a-zA-Z])color\s*:\s*var\(--ink-faint\)' "$f" | wc -l)
+  if [ "$n" -gt 0 ]; then
+    note "$n use(s) of --ink-faint as text color (should be --ink or --ink-2) — ${f#_site/}"; fail=1
   fi
 done
 
