@@ -188,7 +188,7 @@ def main() -> None:
     tmp = OUT / "_card.html"
 
     with sync_playwright() as p:
-        exe = next(iter(pathlib.Path("/home/contino/.cache/ms-playwright").glob(
+        exe = next(iter((pathlib.Path.home() / ".cache/ms-playwright").glob(
             "chromium-*/chrome-linux64/chrome")), None)
         browser = p.chromium.launch(executable_path=str(exe) if exe else None)
         page = browser.new_page(viewport={"width": W, "height": H}, device_scale_factor=SCALE)
