@@ -12,6 +12,14 @@
 #
 # `blurb` is one sentence, plain text, no markup. Keep it to what the thing IS.
 
+- title: Medicaid Drug Payment Spread
+  url: /_resources/sdud-nadac/
+  date: 2026-09-08
+  mark: matrix
+  blurb: >-
+    What Medicaid paid pharmacies for a drug versus what pharmacies paid to
+    acquire it, by state and by drug.
+
 - title: NoVA Walksheds
   url: /_resources/nova-walksheds/
   date: 2026-08-29
