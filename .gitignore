@@ -35,3 +35,8 @@ _ideas/*
 # the canonical demonstration of the site's marks. It is a reference artifact,
 # not scratch.
 !_ideas/typography-specimen.html
+
+# Cache + intermediate for script/build-sdud-map.py; the result is embedded
+# in the page, so neither needs to be tracked.
+script/states-10m.json
+script/usmap.json
