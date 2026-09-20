@@ -466,8 +466,8 @@ answerable to `data/results_manifest.json`.
 
 ```fish
 # read a section as plain text, or count words section by section
-script/prose.py _resources/onecare/index.html
-script/prose.py _resources/onecare/index.html "four cents"
+~/2_projects/authoring-tools/prose.py _resources/onecare/index.html
+~/2_projects/authoring-tools/prose.py _resources/onecare/index.html "four cents"
 ```
 
 Read prose diffs by word, not by line — rewrapping a paragraph makes a line
@@ -479,9 +479,8 @@ git diff --word-diff=color -- _resources/onecare/index.html
 
 ### Rewriting prose: `prose-review`
 
-`script/prose.py` *reads* a page. **`prose-review` is how prose gets
-rewritten**, and it is the only sanctioned way to edit prose on these pages in
-bulk. It extracts every prose string — including the ones a `<p>`-only scan
+`prose.py` *reads* a page. **`prose-review` is how prose gets rewritten**, and
+it is the only sanctioned way to edit prose on these pages in bulk. It extracts every prose string — including the ones a `<p>`-only scan
 misses, like stat-tile notes, legend captions and the labels on the mark links
 — into one flat file, and writes the edits back into the markup with the
 inline spans, links and footnotes preserved.
@@ -493,10 +492,18 @@ prose-review --diff    _resources/onecare/index.html  # what would change
 prose-review --apply   _resources/onecare/index.html
 ```
 
-It is on PATH from `~/.agent-config/`, and the protocol — including how a model
-is expected to mark the claims in prose it drafts — is
-`~/.agent-config/commands/prose-review.md`. `check prose` proves its write-back
+Both live in **`~/2_projects/authoring-tools/`** (September 2026), not in this
+repo. None of those tools was ever about this site — each takes a path and does
+something to it — and keeping them here meant they could only be used here.
+`prose-review` is on PATH through a wrapper in `~/.agent-config/scripts/`, the
+same arrangement `library-search` uses. The protocol, including how a model is
+expected to mark the claims in prose it drafts, is
+`~/.agent-config/commands/prose-review.md`; `check prose` proves its write-back
 gates can each still fail.
+
+`render-check.py` and `figure-churn.sh` moved with them, and
+`build-sdud-map.py` moved into the new `sdud-nadac` repo, which now versions
+that pipeline.
 
 > **It fails closed and it means it.** Nothing is written unless the page still
 > matches the fingerprint taken at extract time, every block key still matches,
