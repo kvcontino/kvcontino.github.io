@@ -477,6 +477,44 @@ diff useless:
 git diff --word-diff=color -- _resources/onecare/index.html
 ```
 
+### Rewriting prose: `prose-review`
+
+`script/prose.py` *reads* a page. **`prose-review` is how prose gets
+rewritten**, and it is the only sanctioned way to edit prose on these pages in
+bulk. It extracts every prose string — including the ones a `<p>`-only scan
+misses, like stat-tile notes, legend captions and the labels on the mark links
+— into one flat file, and writes the edits back into the markup with the
+inline spans, links and footnotes preserved.
+
+```fish
+prose-review _resources/onecare/index.html            # extract, $EDITOR, apply
+prose-review --extract _resources/onecare/index.html  # edit in Obsidian instead
+prose-review --diff    _resources/onecare/index.html  # what would change
+prose-review --apply   _resources/onecare/index.html
+```
+
+It is on PATH from `~/.agent-config/`, and the protocol — including how a model
+is expected to mark the claims in prose it drafts — is
+`~/.agent-config/commands/prose-review.md`. `check prose` proves its write-back
+gates can each still fail.
+
+> **It fails closed and it means it.** Nothing is written unless the page still
+> matches the fingerprint taken at extract time, every block key still matches,
+> every footnote and link marker survives the edit, and the candidate page
+> re-reads as exactly what you wrote. A refusal has cost nothing; re-extract
+> and carry the edits across.
+>
+> **A dropped footnote marker is refused by default**, because a plain-text
+> editor silently drops them on paste and an absent marker is ambiguous between
+> an artifact and an intended cut. `--allow-drop b05:F1` to mean it.
+>
+> Do not hand-roll a chain of `str.replace` calls over a page instead. That is
+> what this replaces: each call matches against a buffer the previous ones
+> already rewrote, and three edits in a single `inject_page.py` run failed that
+> way — one claim that lived in three places where two passes caught two of
+> them, a range edit that rewrote the sentence a later edit then could not
+> match, and a footnote that had to be anchored on its rewritten ending.
+
 **`assets/css/style.scss` is deliberately empty.** It overrides the
 github-pages gem's injected default theme, which otherwise publishes 136 KB of
 unused CSS. Do not delete it.
