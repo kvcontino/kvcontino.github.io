@@ -56,11 +56,18 @@
   .tt-cat    { margin-top: 3px; font-size: 11px; }
   .tt-desc { font-size: 10px; color: rgba(245,242,236,0.75); margin-top: 3px; line-height: 1.5; }
   footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 11px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; line-height: 2; display: flex; flex-wrap: wrap; gap: 0 32px; }
+  .sitenav{display:flex;flex-wrap:wrap;gap:0.15rem 1.15rem;font-size:0.72rem;
+    letter-spacing:0.14em;text-transform:uppercase;padding:0.5rem 0 0.7rem;line-height:1.5}
+  .sitenav a{color:inherit;opacity:0.62;text-decoration:none;
+    border-bottom:1px solid transparent;padding-bottom:1px}
+  .sitenav a:hover{opacity:1;border-bottom-color:currentColor}
+
 </style>
 </head>
 <body>
 <div class="page">
-  <nav class="sitelink"><a href="/">Kevin V. Contino</a> &middot; <a href="/_pages/presentations.html">Projects</a></nav>
+  <nav class="sitelink"><a href="/">Kevin V. Contino</a></nav>
+  <nav class="sitenav" aria-label="Site"><a href="/index.html">About</a><a href="/posts/">Posts</a><a href="/_pages/presentations.html">Projects</a><a href="/feed.xml">Feed</a></nav>
   <header>
     <h1>North Country &amp;<br>Adirondack toponyms</h1>
     <div class="byline">
@@ -99,7 +106,15 @@
     D: { label: 'Disputed',          color: '#8a8880' },
     B: { label: 'Biblical',          color: '#6b3fa0' },
     E: { label: 'English transfer',  color: '#1e5faa' },
-    G: { label: 'Geographic',        color: '#4e7a28' },
+    /* Teal, not green. Against P (#b83030) the old green measured OKLab
+       delta-E 0.6 for a deuteranope -- two of nine categories were one
+       colour on a map where hue is the only at-a-glance encoding. This
+       lifts that pair to 12.5. It does NOT make the palette separable:
+       nine categorical hues cannot, and the remaining floor is set by
+       B/E (1.9 deutan), a pair G is not part of. Hue is carrying more
+       here than hue can carry; the striped fill used for multi-category
+       towns is the second channel if this ever needs solving properly. */
+    G: { label: 'Geographic',        color: '#0f8a8a' },
     P: { label: 'Political founder', color: '#b83030' },
     F: { label: 'French transfer',   color: '#1a6b8a' },
     C: { label: 'Classical',         color: '#7a4a00' },

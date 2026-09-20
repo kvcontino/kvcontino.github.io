@@ -113,6 +113,12 @@
        when expanded the legend floats bottom-right and the button is nowhere
        near it. */
     padding:46px 14px 12px;overflow-y:auto}
+  .sitenav{display:flex;flex-wrap:wrap;gap:0.15rem 1.15rem;font-size:0.72rem;
+    letter-spacing:0.14em;text-transform:uppercase;padding:0.5rem 0 0.7rem;line-height:1.5}
+  .sitenav a{color:inherit;opacity:0.62;text-decoration:none;
+    border-bottom:1px solid transparent;padding-bottom:1px}
+  .sitenav a:hover{opacity:1;border-bottom-color:currentColor}
+
 </style></head><body>
 <div id="map"></div>
 <div id="title" class="panel">
@@ -123,19 +129,15 @@
     <label id="mmlabel"><input type="radio" name="mode" value="mm"> Walk + Metro</label>
   </div>
   <p id="sel"></p>
+  <nav class="sitenav" aria-label="Site"><a href="/index.html">About</a><a href="/posts/">Posts</a><a href="/_pages/presentations.html">Projects</a><a href="/feed.xml">Feed</a></nav>
 </div>
-<div id="legend" class="panel"><b>Travel time</b><div class="lg-row"><span class="sw" style="background:rgb(68,1,84)"></span>0–5 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(72,33,114)"></span>5–10 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(66,61,132)"></span>10–15 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(56,87,140)"></span>15–20 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(45,111,142)"></span>20–25 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(36,133,141)"></span>25–30 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(30,154,137)"></span>30–35 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(42,176,126)"></span>35–40 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(81,196,104)"></span>40–45 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(134,212,73)"></span>45–50 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(194,223,34)"></span>50–55 min</div>
-<div class="lg-row"><span class="sw" style="background:rgb(253,231,36)"></span>55–60 min</div>
+<div id="legend" class="panel"><b>Travel time</b>
+<div class="lg-row"><span class="sw" style="background:rgb(47,21,74)"></span>0–10 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(36,56,91)"></span>10–20 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(23,86,91)"></span>20–30 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(27,114,82)"></span>30–40 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(87,137,47)"></span>40–50 min</div>
+<div class="lg-row"><span class="sw" style="background:rgb(164,149,23)"></span>50–60 min</div>
   <div class="lg-foot">lines = 15/30/45/60 min</div>
 </div>
 <script>
@@ -172,7 +174,9 @@ function draw(){
   if(!s) return;
   const m = s.modes[mode] || s.modes.walk;
   if(ovl) map.removeLayer(ovl);
-  ovl = L.imageOverlay(m.png, m.bounds, {opacity:0.65}).addTo(map);
+  // No opacity here: the overlays carry alpha 165/255 baked in. Setting it
+  // again multiplied to an effective 0.42, which put every band under 3:1.
+  ovl = L.imageOverlay(m.png, m.bounds).addTo(map);
   if(isoLayer) map.removeLayer(isoLayer);
   isoLayer = L.geoJSON((ISO[mode]||{})[s.station_id], {pane:'iso', renderer:isoRenderer,
     interactive:false, style:f => ({color:'#333', weight:f.properties.min<=30?1.4:1.0,

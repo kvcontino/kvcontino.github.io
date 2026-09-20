@@ -171,11 +171,18 @@
     flex-wrap: wrap;
     gap: 0 32px;
   }
+  .sitenav{display:flex;flex-wrap:wrap;gap:0.15rem 1.15rem;font-size:0.72rem;
+    letter-spacing:0.14em;text-transform:uppercase;padding:0.5rem 0 0.7rem;line-height:1.5}
+  .sitenav a{color:inherit;opacity:0.62;text-decoration:none;
+    border-bottom:1px solid transparent;padding-bottom:1px}
+  .sitenav a:hover{opacity:1;border-bottom-color:currentColor}
+
 </style>
 </head>
 <body>
 <div class="page">
-  <nav class="sitelink"><a href="/">Kevin V. Contino</a> &middot; <a href="/_pages/presentations.html">Projects</a></nav>
+  <nav class="sitelink"><a href="/">Kevin V. Contino</a></nav>
+  <nav class="sitenav" aria-label="Site"><a href="/index.html">About</a><a href="/posts/">Posts</a><a href="/_pages/presentations.html">Projects</a><a href="/feed.xml">Feed</a></nav>
   <header>
     <h1>North Country &amp; Adirondack<br>town population change</h1>
     <div class="byline">

@@ -529,3 +529,10 @@ select.select-sm { min-width: 110px; font-size: 11px; padding: 4px 24px 4px 8px;
   .site-header h1 { font-size: 13px; }
   .header-meta { display: none; }
 }
+
+/* Site navigation on a standalone page. */
+.sitenav{display:flex;flex-wrap:wrap;gap:0.15rem 1.15rem;font-size:0.72rem;
+    letter-spacing:0.14em;text-transform:uppercase;padding:0.5rem 0 0.7rem;line-height:1.5}
+  .sitenav a{color:inherit;opacity:0.62;text-decoration:none;
+    border-bottom:1px solid transparent;padding-bottom:1px}
+  .sitenav a:hover{opacity:1;border-bottom-color:currentColor}

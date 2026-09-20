@@ -9,7 +9,7 @@ description: "Full pipeline report: sources, reconciliation, typology, magnet in
 
 **Census Bureau Vintage 2025 population estimates · OMB July 2023 delineations**
 
-Generated 2026-08-16 by `make all`. Every number below is computed from a cached source file.
+Generated 2026-09-20 by `make all`. Every number below is computed from a cached source file.
 
 > **[Open the interactive metro map](interactive_map.html)** — all 387 metros, six switchable measures, and a sortable table of the same values.
 

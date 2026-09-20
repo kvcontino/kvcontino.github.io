@@ -75,6 +75,16 @@ exclude:
   # public by default. Check the built output, not the intent.
   - BACKLOG.md
 
+  # Same trap, one directory down. _resources/ is on the include list below so
+  # its published analysis pages are served -- which also renders any markdown
+  # sitting beside them. README.md was live at /_resources/ as a page with the
+  # site layout, publishing an internal note about what belongs in the
+  # directory; VISUALIZATION.md would have joined it. Both are documentation
+  # for whoever works on the site, not for a reader.
+  - _resources/README.md
+  - _resources/VISUALIZATION.md
+  - _resources/mcaid/README.md
+
 include:
 - _stylesheets
 - _pages

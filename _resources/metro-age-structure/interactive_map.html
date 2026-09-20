@@ -47,6 +47,14 @@
     --hairline: #383835; --no-data: #2e2e2c;
     --accent: #3987e5;
   }
+  /* Site navigation. This page uses no site layout, so without it a reader who
+     lands here has no route back. color:inherit/opacity rather than a token,
+     because the page renders on both a light and a dark surface. */
+  .sitenav { display: flex; flex-wrap: wrap; gap: .15rem 1.15rem; font-size: .68rem;
+    letter-spacing: .12em; text-transform: uppercase; padding: 0 0 .9rem; line-height: 1.5; }
+  .sitenav a { color: inherit; opacity: .6; text-decoration: none;
+    border-bottom: 1px solid transparent; padding-bottom: 1px; }
+  .sitenav a:hover { opacity: 1; border-bottom-color: currentColor; }
   .viz-root h1 { font-size: 1.22rem; margin: 0 0 .2rem; font-weight: 650; }
   .viz-root p.sub { margin: 0 0 1rem; color: var(--text-secondary);
                     font-size: .85rem; max-width: 62rem; }
@@ -115,6 +123,7 @@
 <body>
 
 <div class="viz-root">
+  <nav class="sitenav" aria-label="Site"><a href="/index.html">About</a><a href="/posts/">Posts</a><a href="/_pages/presentations.html">Projects</a><a href="/feed.xml">Feed</a></nav>
   <h1>Metropolitan age structure, Vintage 2025</h1>
   <p class="sub">Every US metropolitan statistical area on the July 2023 OMB
     delineations. Pick a measure, then hover or tab to a metro. All values are
@@ -161,11 +170,26 @@
   const SEQ = ['#cde2fb','#b7d3f6','#9ec5f4','#86b6ef','#6da7ec','#5598e7',
                '#3987e5','#2a78d6','#256abf','#1c5cab','#184f95','#104281',
                '#0d366b'];
-  // Orange/blue, matched lightness per arm. Kept byte-identical to
+  // Orange/blue, matched lightness AND matched chroma per arm. These mirror
+  // the two DIV_STEPS branches in figures.py.
+  //
+  // This comment used to claim the light list was "kept byte-identical to
   // DIV_STEPS in figures.py so the interactive map and the static figures
-  // cannot drift apart.
-  const DIV = ['#124f98','#1570d8','#5498f1','#9fbfe9','#dce4ef','#f2f1ee',
-               '#efdfd7','#eaad88','#dd7831','#ae5814','#7b3e12'];
+  // cannot drift apart." They drifted anyway, in the way the claim could not
+  // see: figures.py grew a DARK branch and this file did not, so colorFor()
+  // served the LIGHT diverging ramp on the dark surface. Measured against the
+  // 387 metros on this page, 34.4% landed in the two near-neutral intervals
+  // (L >= 0.91) and 57.4% at L >= 0.80, against a page ground of L ~ 0.20 --
+  // a majority of the map painted brighter than anything else on it, with
+  // "the cohort held steady" as the loudest value.
+  //
+  // Byte-identity is not enforceable across two languages, so the claim is
+  // dropped rather than restated. If these lists and figures.py disagree, the
+  // static figures and this map will disagree: check both when changing either.
+  const DIV_LIGHT = ['#124f98','#1570d8','#5498f1','#9fbfe9','#dce4ef','#f2f1ee',
+                     '#efdfd7','#eaad88','#dd7831','#ae5814','#7b3e12'];
+  const DIV_DARK  = ['#4c98fc','#3c7fd6','#2f66ae','#224f88','#163864','#232322',
+                     '#5a2801','#7b3a04','#9e4d07','#c2600d','#e5751b'];
   const CAUSE = {fertility:'#2a78d6', institution:'#eb6834',
                  immigration:'#1baf7a', attraction:'#eda100'};
 
@@ -218,7 +242,7 @@
     const kind = measure().kind;
     let t = (v - stats.lo) / (stats.hi - stats.lo || 1);
     t = Math.max(0, Math.min(1, t));
-    if (kind === 'div') return lerp(DIV, t);
+    if (kind === 'div') return lerp(isDark() ? DIV_DARK : DIV_LIGHT, t);
     if (kind === 'seq_rev') t = 1 - t;   // younger = stronger colour
     return lerp(SEQ, isDark() ? 1 - t : t);
   }

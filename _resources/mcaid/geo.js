@@ -340,13 +340,20 @@ function renderLegend(legendId, colorScale, values, format, isDivergent, scheme)
      .attr('fill', `url(#${gradId})`).attr('rx', 2);
 
   const vMin = d3.min(values), vMax = d3.max(values);
+  const _ext = Math.max(Math.abs(vMin), Math.abs(vMax));
+  const loLabel = isDivergent ? -_ext : vMin;
+  const hiLabel = isDivergent ?  _ext : vMax;
   svg.append('text').attr('x', 28).attr('y', H + 14).attr('fill', '#6e7681')
      .attr('font-size', 10).attr('font-family', "'IBM Plex Mono', monospace")
-     .text(format(vMin));
+     .text(format(loLabel));
   svg.append('text').attr('x', 28 + W).attr('y', H + 14).attr('fill', '#6e7681')
      .attr('font-size', 10).attr('font-family', "'IBM Plex Mono', monospace")
-     .attr('text-anchor', 'end').text(format(vMax));
+     .attr('text-anchor', 'end').text(format(hiLabel));
 
+  // The diverging scale spans [-ext, +ext], NOT [vMin, vMax]: buildColorScale
+  // symmetrises the domain. Labelling the ends with the data range printed a
+  // right-hand value the gradient never reaches -- on the managed-care map,
+  // "+24.9" against a gradient ending at +39.9, wrong by 15 points.
   if (isDivergent) {
     svg.append('text').attr('x', 28 + W / 2).attr('y', H + 14).attr('fill', '#6e7681')
        .attr('font-size', 10).attr('font-family', "'IBM Plex Mono', monospace")
