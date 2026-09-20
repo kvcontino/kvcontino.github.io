@@ -451,7 +451,11 @@ layout: null
       align per NDC by construction. Where they do not, the ratio of reimbursement to
       acquisition cost runs to absurd values. The worst case found was 2,402,312&times;. Drug
       codes whose national median ratio falls outside 0.1&ndash;50 are excluded: 750 of 48,232
-      codes, 0.09% of dollars.</li>
+      codes, 0.09% of dollars. A second screen catches a drug code that prices normally
+      nationally but is miscounted in one state. Where a state&rsquo;s median ratio for a code
+      sits more than tenfold from that code&rsquo;s national median, the pair is dropped: 15,111
+      state-code pairs, 1.7% of dollars. Most are IV solutions and injectables, where one state
+      reports bags and another millilitres.</li>
     <li><b>92.4% of reimbursed units matched a NADAC rate</b> by total volume. Unmatched NDCs
       (compounds, some brand-only products, discontinued drugs) are dropped from the analysis.</li>
     <li><b>Half of SDUD dollars are national-total rows.</b> CMS publishes rolled-up national
