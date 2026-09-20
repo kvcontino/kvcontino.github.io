@@ -326,9 +326,9 @@ layout: null
   </div>
 
   <h2 id="trend">State and national reimbursement trends</h2>
-  <p>The national spread increased slightly from <b id="tr-first">&mdash;</b> over cost in
-  2015 Q1 to <b id="tr-last">&mdash;</b> in 2025 Q4. NADAC&rsquo;s data coverage drops from 87%
-  of reimbursed dollars to 75% over the same period, so the basket of drugs priced within that
+  <p>The national spread increased slightly from <b id="tr-first">&mdash;</b> over cost in 2015
+  Q1 to <b id="tr-last">&mdash;</b> in 2025 Q4. NADAC&rsquo;s data coverage drops from 86% of
+  reimbursed dollars to 75% over the same period, so the basket of drugs priced within that
   total is somewhat diminished. Holding the drug set fixed removes the apparent decline
   entirely.</p>
   <div class="scale" style="margin-bottom:0.4rem">
@@ -356,7 +356,7 @@ layout: null
   <p>Includes all drugs a state reimbursed in 2025, not only the 24 charted below. High-cost
   specialty products such as GLP-1 agonists and injectable biologics carry most of the dollars
   and are reimbursed close to acquisition cost, and sometimes under it, which pulls these totals
-  well below the median claim line in the headline. Oregon at &minus;6% turns on a handful of
+  well below the median claim line in the headline. Oregon at &minus;7% turns on a handful of
   high-volume National Drug Codes (NDCs) paid far under cost, while its typical drug code is
   reimbursed at +26% of acquisition cost.</p>
   <div class="scale">
@@ -447,17 +447,17 @@ layout: null
   total.</p>
   <ul class="notes">
     <li><b>Unit basis checked, not assumed.</b> SDUD &ldquo;Units Reimbursed&rdquo; and NADAC
-      &ldquo;Pricing Unit&rdquo; are both NDC-billing-unit based (each / mL / gram) and should align
-      per NDC by construction. Where they do not, the ratio of reimbursement to acquisition cost
-      runs to absurd values. The worst case found was 263,510&times;. Drug codes whose
-      national median ratio falls outside 0.1&ndash;50 are excluded: 750 of 49,425 codes,
-      0.09% of dollars.</li>
+      &ldquo;Pricing Unit&rdquo; are both NDC-billing-unit based (each / mL / gram) and should
+      align per NDC by construction. Where they do not, the ratio of reimbursement to
+      acquisition cost runs to absurd values. The worst case found was 2,402,312&times;. Drug
+      codes whose national median ratio falls outside 0.1&ndash;50 are excluded: 750 of 48,232
+      codes, 0.09% of dollars.</li>
     <li><b>92.4% of reimbursed units matched a NADAC rate</b> by total volume. Unmatched NDCs
       (compounds, some brand-only products, discontinued drugs) are dropped from the analysis.</li>
-    <li><b>Half of SDUD dollars are national-total rows.</b> CMS publishes
-      rolled-up national totals coded <code>XX</code> in the same file. Because national totals
-      include figures suppressed at the state level, they are 7.7% higher than the sum of visible
-      state totals across the full file.</li>
+    <li><b>Half of SDUD dollars are national-total rows.</b> CMS publishes rolled-up national
+      totals coded <code>XX</code> in the same file. Because national totals include figures
+      suppressed at the state level, they are 7.7% higher than the sum of visible state totals
+      in 2025.</li>
     <li><b>A negative spread is not a finding about a state&rsquo;s fee schedule on its own.</b> The
       deepest cells here are single NDCs where reimbursement fell far under the national
       acquisition benchmark &mdash; a 340B-acquired product, a supplemental-rebate arrangement, or
@@ -498,9 +498,9 @@ layout: null
     </tbody>
   </table>
   <p class="src">Source: Medicaid.gov SDUD, NADAC, and MDRP Drug Products files, downloaded
-  2026-09-08. What each drug is prescribed for is condensed from the INDICATIONS AND USAGE section
-  of its FDA-approved label, read from the openFDA drug label API on 2026-09-10. State outlines
-  are the US Census cartographic boundaries as published in
+  2026-09-19. What each drug is prescribed for is condensed from the INDICATIONS AND USAGE
+  section of its FDA-approved label, read from the openFDA drug label API on 2026-09-10. State
+  outlines are the US Census cartographic boundaries as published in
   <a href="https://github.com/topojson/us-atlas" target="_blank" rel="noopener">us-atlas</a>,
   projected offline.</p>
 </div>
